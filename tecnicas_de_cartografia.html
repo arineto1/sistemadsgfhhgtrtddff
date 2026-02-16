@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Técnico: Cartografia para Docentes ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #1a202c;
+            background-color: #ffffff;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 0 2px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #475569;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        h1 { color: #0f172a; }
+        h2 { color: #1e293b; border-left: 5px solid #3b82f6; padding-left: 1rem; margin-top: 2rem; }
+        h3 { color: #334155; margin-top: 1.5rem; font-weight: 700; }
+        
+        .audio-player {
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+        }
+
+        .btn-questoes {
+            display: block;
+            background-color: #1e40af;
+            color: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-questoes:hover {
+            background-color: #1e3a8a;
+            transform: translateY(-2px);
+        }
+
+        .box-alerta {
+            border: 1px solid #cbd5e1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12 max-w-5xl mx-auto">
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold mb-4">Cartografia: Projeções, Escalas e Linguagem</h1>
+        <p class="text-xl text-slate-500 italic">Material de Apoio Técnico para Concurso de Docentes - ETEC/CEETEPS</p>
+    </header>
+
+    <!-- Reprodutor de Áudio -->
+    <div class="audio-player">
+        <div class="flex items-center mb-4">
+            <div class="bg-blue-600 p-2 rounded-full mr-4 text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+            </div>
+            <div>
+                <h3 class="m-0 text-lg">Resumo em Áudio: Memorização Ativa</h3>
+                <p class="text-sm text-slate-600">Ouça os pontos chave enquanto revisa o texto.</p>
+            </div>
+        </div>
+        <!-- ESPAÇO PARA O NOME DO ARQUIVO MP3 -->
+        <audio controls class="w-full">
+            <source src="tecnicas_de_cartografia.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+    </div>
+
+    <section id="definicao">
+        <h2 class="text-2xl font-bold mb-4">1. Definição e Diferenciações Técnicas</h2>
+        <p>A Cartografia é a ciência, arte e tecnologia de conceber e produzir mapas. Para o CEETEPS, é vital distinguir os produtos cartográficos conforme sua <span class="highlight">finalidade e escala</span>:</p>
+        <ul class="list-disc ml-6 mt-4 space-y-2">
+            <li><strong>Mapa:</strong> Representação genérica, escala pequena, baixo detalhamento (ex: Mapa-múndi).</li>
+            <li><strong>Carta:</strong> Representação sistemática de média/grande escala, com <span class="highlight">precisão matemática</span> para medição de distâncias e direções (ex: Cartas Topográficas do Exército).</li>
+            <li><strong>Planta:</strong> Escala muito grande (ex: 1:500), representação de áreas restritas com <span class="highlight">detalhamento máximo</span> (ex: planta de um campus da ETEC).</li>
+        </ul>
+    </section>
+
+    <section id="coordenadas">
+        <h2 class="text-2xl font-bold mb-4">2. Geodésia e Sistemas de Referência</h2>
+        <p>No dia da prova, lembre-se que a Terra não é uma esfera perfeita.</p>
+        <div class="box-alerta">
+            <p><strong>Conceito Fundamental:</strong> O <span class="highlight">SIRGAS2000</span> (Sistema de Referência Geocêntrico para as Américas) é o datum oficial do Brasil desde 2005. Ele utiliza o elipsoide GRS80 e é compatível com o GPS (WGS84).</p>
+        </div>
+        <ul class="list-disc ml-6 space-y-2">
+            <li><strong>Latitude:</strong> Distância em graus de 0° a 90° (N ou S) a partir do Equador. Define as Zonas Climáticas.</li>
+            <li><strong>Longitude:</strong> Distância em graus de 0° a 180° (L ou O) a partir de Greenwich. Define os Fusos Horários.</li>
+        </ul>
+    </section>
+
+    <section id="projecoes">
+        <h2 class="text-2xl font-bold mb-4">3. Projeções Cartográficas e Ideologia</h2>
+        <p>Toda projeção deforma. A escolha da projeção reflete a <span class="highlight">intencionalidade do autor</span>.</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Projeção</th>
+                        <th>Propriedade</th>
+                        <th>Características para a Prova</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mercator</strong></td>
+                        <td>Conforme</td>
+                        <td>Preserva formas, <span class="highlight">deforma áreas</span> (Eurocêntrica, visão de navegação/expansão).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Peters</strong></td>
+                        <td>Equivalente</td>
+                        <td>Preserva áreas, <span class="highlight">deforma formas</span> (Visão Terceiro-mundista, igualdade de proporção).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Robinson</strong></td>
+                        <td>Afilática</td>
+                        <td>Não preserva nada perfeitamente, mas minimiza todas as distorções visuais (Uso didático).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Azimutal</strong></td>
+                        <td>Equidistante</td>
+                        <td>O centro do mapa é o ponto de menor distorção. <span class="highlight">Geopolítica e rotas aéreas.</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="escala">
+        <h2 class="text-2xl font-bold mb-4">4. Escalas: O "Peguinha" Clássico</h2>
+        <p>Lembre-se da relação inversamente proporcional:</p>
+        <div class="grid md:grid-cols-2 gap-4 my-6">
+            <div class="p-6 border-l-4 border-blue-500 bg-blue-50">
+                <h4 class="font-bold">Escala GRANDE (ex: 1:2.000)</h4>
+                <p>O denominador é pequeno. <span class="highlight">Área pequena, muito detalhe.</span> Ideal para cidades e imóveis.</p>
+            </div>
+            <div class="p-6 border-l-4 border-red-500 bg-red-50">
+                <h4 class="font-bold">Escala PEQUENA (ex: 1:1.000.000)</h4>
+                <p>O denominador é grande. <span class="highlight">Área vasta, pouco detalhe.</span> Ideal para países e continentes.</p>
+            </div>
+        </div>
+        <p class="font-semibold italic">Cálculo Rápido: D (Real) = d (Mapa) x E (Escala). Sempre converta cm para km cortando 5 zeros.</p>
+    </section>
+
+    <section id="linguagem">
+        <h2 class="text-2xl font-bold mb-4">5. Linguagem dos Mapas e Semiologia</h2>
+        <p>Baseada em Jacques Bertin, a leitura visual segue variáveis específicas:</p>
+        <ul class="list-disc ml-6 space-y-3">
+            <li><strong>Variável Tamanho:</strong> Expressa <span class="highlight">Quantidade</span>. Ex: círculos proporcionais à população das cidades.</li>
+            <li><strong>Variável Valor/Tom:</strong> Expressa <span class="highlight">Ordenamento</span>. Tons mais escuros indicam maior intensidade (ex: densidade demográfica).</li>
+            <li><strong>Anamorfose:</strong> Técnica onde a geometria do mapa é distorcida para ser proporcional a um dado estatístico. Não possui escala constante.</li>
+            <li><strong>Isoípsas (Curvas de Nível):</strong> Linhas que unem pontos de mesma altitude. <span class="highlight">Quanto mais próximas, mais íngreme é o terreno.</span></li>
+        </ul>
+    </section>
+
+    <section id="etec-trends">
+        <h2 class="text-2xl font-bold mb-4">6. Tendências ETEC/CEETEPS (Foco Docência)</h2>
+        <div class="space-y-4">
+            <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+                <h4 class="font-bold text-blue-900">Geotecnologias no Ensino Médio</h4>
+                <p>As provas de professor da ETEC cobram muito a aplicação prática: <span class="highlight">Sensoriamento Remoto</span> (uso de imagens de satélite para monitoramento ambiental) e <span class="highlight">SIG (Sistemas de Informação Geográfica)</span>, que são softwares que tratam dados georreferenciados.</p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+                <h4 class="font-bold text-orange-900">Peguinhas Recorrentes</h4>
+                <ul class="list-disc ml-5 mt-2">
+                    <li>Confundir Projeção Cônica (ideal para latitudes médias) com Cilíndrica.</li>
+                    <li>Afirmar que o GPS funciona via rádio terrestre (Erro! É via <span class="highlight">constelação de satélites</span>).</li>
+                    <li>Dizer que a escala gráfica muda quando tiramos xerox do mapa (Ela é a <span class="highlight">única</span> que permanece correta).</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="resumo-final" class="border-none">
+        <h2 class="text-2xl font-bold mb-4">Checklist de Revisão Pré-Prova</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 border rounded shadow-sm">
+                <span class="block font-bold text-xs uppercase text-slate-400">Escala</span>
+                <p class="text-sm">Quanto maior o detalhe, maior a escala.</p>
+            </div>
+            <div class="p-4 border rounded shadow-sm">
+                <span class="block font-bold text-xs uppercase text-slate-400">Cartograma</span>
+                <p class="text-sm">Mapas que priorizam a comunicação visual rápida (ex: coropletas).</p>
+            </div>
+            <div class="p-4 border rounded shadow-sm">
+                <span class="block font-bold text-xs uppercase text-slate-400">Norte</span>
+                <p class="text-sm">Diferença entre Norte Geográfico e Norte Magnético (Declinação Magnética).</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-12 mb-24">
+        <a href="tecnicas_de_cartografiaquestoes.html" class="btn-questoes">
+            ESTOU PRONTO: IR PARA SIMULADO DE QUESTÕES
+        </a>
+        <p class="text-center text-xs text-slate-400 mt-6 italic">Material elaborado para fins didáticos - Proibida a reprodução para fins comerciais.</p>
+    </footer>
+
+</body>
+</html>

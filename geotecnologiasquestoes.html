@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Geotecnologias - Estilo ETEC/CEETEPS</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2d3748;
+            --accent-color: #2b6cb0;
+            --success-color: #38a169;
+            --error-color: #e53e3e;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --max-width: 850px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #718096;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-header {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .question-text {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .option-item:hover {
+            background-color: #f7fafc;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input[type="radio"] {
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Classes para o resultado */
+        .option-item.correct {
+            background-color: #f0fff4;
+            border-color: var(--success-color);
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .option-item.wrong {
+            background-color: #fff5f5;
+            border-color: var(--error-color);
+            color: var(--error-color);
+        }
+
+        .resolution {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .resolution h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        #submit-btn:hover {
+            background-color: #2c5282;
+        }
+
+        #results-summary {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        #results-summary h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem 0.5rem; }
+            .question-card { padding: 1.2rem; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado de Geografia: Geotecnologias</h1>
+        <p>Estilo Concurso Docente ETEC - Centro Paula Souza</p>
+    </header>
+
+    <div id="results-summary">
+        <h2>Resultado Final</h2>
+        <div class="score-display" id="score-text"></div>
+        <p>Confira as resoluções detalhadas abaixo de cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <div id="quiz-container">
+            <!-- As questões serão injetadas aqui via JS -->
+        </div>
+
+        <button type="button" id="submit-btn" onclick="calculateResults()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            text: "No âmbito da análise geográfica contemporânea, o Sensoriamento Remoto (SR) consolidou-se como um pilar fundamental para o monitoramento da superfície terrestre. O processo de aquisição de dados por sensores orbitais baseia-se na interação entre a radiação eletromagnética e os alvos geográficos. Considere o comportamento da reflectância da vegetação verde e sadia em relação ao espectro eletromagnético. Para um sensor multiespectral que opera nas faixas do visível e do infravermelho próximo, a identificação do vigor vegetativo é possibilitada por uma resposta física específica.",
+            question: "Com base nos princípios físicos do sensoriamento remoto, assinale a alternativa que descreve corretamente o comportamento espectral da vegetação sadia:",
+            options: [
+                "Apresenta uma alta absorção na faixa do infravermelho próximo devido à presença de clorofila e uma alta reflectância no visível (vermelho) causada pela estrutura celular do mesofilo foliar.",
+                "Manifesta baixa reflectância no azul e no vermelho devido à absorção pelos pigmentos fotossintetizantes e uma elevadíssima reflectância no infravermelho próximo decorrente do espalhamento da radiação nas estruturas internas das folhas.",
+                "Caracteriza-se por uma reflectância uniforme em todo o espectro visível, o que permite a sua distinção em relação a solos expostos, que possuem baixa reflectância em todas as bandas.",
+                "Opera exclusivamente através de sensores ativos que emitem radiação no infravermelho térmico para detectar a temperatura das copas das árvores, independentemente da presença de pigmentos.",
+                "Possui uma \"assinatura espectral\" idêntica à da água limpa na faixa do infravermelho próximo, o que exige o uso de radares de abertura sintética (SAR) para a diferenciação de biomas."
+            ],
+            answer: 1,
+            resolution: "O fundamento físico do Sensoriamento Remoto reside na capacidade de sensores detectarem a Radiação Eletromagnética (REM). A vegetação absorve intensamente a radiação na faixa do visível (azul e vermelho) para fotossíntese e reflete fortemente o Infravermelho Próximo devido à estrutura interna das folhas (mesofilo esponjoso). Isso permite o cálculo de índices como o NDVI."
+        },
+        {
+            id: 2,
+            text: "O Sistema de Posicionamento Global (GPS), componente do GNSS (Global Navigation Satellite System), é uma ferramenta essencial na coleta de dados georreferenciados para alimentar Sistemas de Informação Geográfica (SIG). O sistema é estruturado em três segmentos distintos: espacial, de controle e de usuário.",
+            question: "Sobre o funcionamento e a precisão do GPS, analise as proposições e assinale a correta:",
+            options: [
+                "A determinação da posição tridimensional de um receptor exige a visibilidade de, no mínimo, dois satélites, sendo que a precisão é garantida pela órbita geoestacionária da constelação NAVSTAR.",
+                "O erro de sincronização entre o relógio atômico do satélite e o relógio de quartzo do receptor é corrigido pela inclusão de um quarto satélite no cálculo de trilateração, permitindo a obtenção da altitude com maior rigor.",
+                "No Brasil, o referencial geodésico atualmente oficial para o processamento de dados GPS é o SAD-69, que utiliza um modelo de Terra plana para facilitar os cálculos de coordenadas UTM.",
+                "O sinal do GPS é imune a interferências atmosféricas, como a refração na ionosfera, uma vez que as micro-ondas viajam em velocidade constante e retilínea no vácuo e na atmosfera.",
+                "A técnica de Diferencial GPS (DGPS) consiste em utilizar satélites de baixa órbita (LEO) para substituir a constelação principal em áreas de sombra de relevo, garantindo a continuidade do sinal."
+            ],
+            answer: 1,
+            resolution: "Para determinar a posição (X, Y, Z) e o erro de tempo (t) do relógio do receptor (que é de quartzo e menos preciso que o atômico do satélite), são necessários no mínimo 4 satélites. Três para a posição tridimensional e o quarto para sincronizar os relógios."
+        },
+        {
+            id: 3,
+            text: "Os Sistemas de Informação Geográfica (SIG) permitem a integração de dados espaciais e alfanuméricos, possibilitando análises complexas através da manipulação de diferentes camadas de informação. Na modelagem de dados geográficos, utilizam-se predominantemente dois formatos: vetorial e matricial (raster).",
+            question: "A respeito da modelagem de dados em SIG, é correto afirmar que:",
+            options: [
+                "O modelo matricial representa o espaço através de pontos, linhas e polígonos, sendo o mais indicado para a representação de redes de infraestrutura.",
+                "O modelo vetorial organiza o espaço em uma grade de células (pixels), onde cada célula armazena um valor de atributo, sendo ideal para representar fenômenos contínuos.",
+                "A estrutura de dados vetorial permite a definição de topologia, o que possibilita a realização de análises de conectividade e adjacência entre diferentes objetos geográficos.",
+                "Imagens de satélite são armazenadas nativamente no formato vetorial para garantir que a resolução espacial não seja perdida durante processos de reamostragem.",
+                "O Banco de Dados Geográfico (BDG) em um SIG armazena apenas as coordenadas espaciais, sendo que as informações sobre os atributos devem ser consultadas em arquivos independentes."
+            ],
+            answer: 2,
+            resolution: "O modelo vetorial é excelente para armazenar feições com limites claros e permite definir topologia (regras de conectividade e adjacência). O modelo matricial (raster) usa pixels e é ideal para fenômenos contínuos como imagens e altimetria."
+        },
+        {
+            id: 4,
+            text: "No contexto do Currículo Paulista e das diretrizes do Centro Paula Souza, o ensino de Geotecnologias deve promover a leitura crítica do território. A análise de imagens de satélite para o monitoramento da Amazônia (PRODES e DETER) é um exemplo prático.",
+            question: "Sobre o monitoramento ambiental por sensoriamento remoto, assinale a alternativa correta:",
+            options: [
+                "O programa DETER utiliza sensores de altíssima resolução espacial (pixels menores que 1 metro) para gerar as taxas anuais definitivas de desmatamento.",
+                "A classificação supervisionada de imagens de satélite exige que o analista forneça \"amostras de treinamento\" ao software, permitindo que algoritmos identifiquem padrões de cobertura.",
+                "As nuvens não representam um obstáculo para os sensores ópticos passivos, como os das séries Landsat e Sentinel, permitindo o monitoramento contínuo.",
+                "O Índice de Vegetação por Diferença Normalizada (NDVI) é calculado através da razão aritmética simples entre as bandas do verde e do azul.",
+                "O sensoriamento remoto na análise geográfica serve exclusivamente para a produção de mapas estéticos, sem utilidade na fiscalização de crimes ambientais."
+            ],
+            answer: 1,
+            resolution: "Na classificação supervisionada, o geógrafo identifica áreas conhecidas (treinamento) para ensinar o software a classificar o restante da imagem com base em assinaturas espectrais semelhantes."
+        },
+        {
+            id: 5,
+            text: "Um dos conceitos centrais na análise de imagens digitais é a \"resolução\". O geógrafo deve selecionar o sensor com as resoluções adequadas para cada objetivo de estudo.",
+            question: "Assinale a alternativa que define corretamente os tipos de resolução em sensoriamento remoto:",
+            options: [
+                "Resolução espacial refere-se à frequência com que o satélite passa sobre a mesma área, sendo medida em dias ou horas.",
+                "Resolução espectral indica a capacidade do sensor em distinguir pequenas diferenças de intensidade de energia radiante, sendo medida em bits.",
+                "Resolução temporal é o tamanho do menor objeto que pode ser detectado pelo sensor, correspondendo ao tamanho do pixel no solo.",
+                "Resolução radiométrica define o número e a largura das faixas do espectro eletromagnético que o sensor é capaz de registrar.",
+                "Resolução espacial é a área de terreno correspondente a um pixel da imagem; quanto menor essa área, maior é o detalhamento da representação geográfica."
+            ],
+            answer: 4,
+            resolution: "A resolução espacial define o nível de detalhe da imagem (tamanho do pixel no chão). Temporal é o tempo de revisita, espectral é o número de bandas e radiométrica é a sensibilidade do sensor (bits)."
+        },
+        {
+            id: 6,
+            text: "O uso de ferramentas como o Google Earth e softwares de SIG livre permite que o estudante realize análises multiescalares e compreenda a complexidade das dinâmicas territoriais.",
+            question: "Considerando as competências previstas para o programa Novotec, analise a aplicação das geotecnologias no ambiente escolar:",
+            options: [
+                "As geotecnologias devem ser apresentadas como ferramentas neutras e puramente instrumentais.",
+                "O uso de SIG em sala de aula permite a superposição de camadas (overlays), facilitando a identificação de correlações espaciais entre indicadores socioeconômicos e ambientais.",
+                "A cartografia digital substitui integralmente a necessidade de ensinar os conceitos de escala, projeção e orientação.",
+                "O ensino de geotecnologias deve restringir-se à memorização de nomes de satélites e suas órbitas.",
+                "Imagens de satélite são recursos didáticos limitados, pois não permitem a visualização de mudanças temporais na paisagem."
+            ],
+            answer: 1,
+            resolution: "A sobreposição de camadas (overlay) é a base da análise em SIG, permitindo correlacionar diferentes variáveis espaciais para entender fenômenos complexos, como a vulnerabilidade urbana."
+        },
+        {
+            id: 7,
+            text: "O Geoprocessamento envolve operações para criação de zonas de influência ao redor de elementos geográficos, essencial para estudos de impacto ambiental ou planejamento.",
+            question: "O procedimento técnico utilizado para criar essas áreas de entorno com uma distância específica é denominado:",
+            options: [
+                "Interpolação de vizinho mais próximo.",
+                "Krigagem ordinária.",
+                "Buffer (ou zona de amortecimento).",
+                "Vetorização por fluxo.",
+                "Reclassificação radiométrica."
+            ],
+            answer: 2,
+            resolution: "O Buffer cria polígonos de entorno a uma distância definida (ex: 30m de um rio para APP), sendo fundamental para análise de vizinhança."
+        },
+        {
+            id: 8,
+            text: "O Brasil, através do INPE, desenvolve tecnologias próprias para garantir autonomia no monitoramento de seu território.",
+            question: "Sobre a infraestrutura brasileira de geotecnologias, assinale a alternativa correta:",
+            options: [
+                "O satélite CBERS é fruto de uma parceria exclusiva entre o Brasil e os Estados Unidos para GPS agrícola.",
+                "O programa CBERS (China-Brazil Earth Resources Satellite) permite ao Brasil o acesso a imagens multiespectrais para fins de monitoramento ambiental e agrícola.",
+                "O Brasil é o único país da América Latina a possuir uma constelação própria de satélites de navegação global.",
+                "O satélite Amazônia-1 é de baixa resolução e serve apenas para comunicações militares terrestres.",
+                "A política brasileira de dados espaciais restringe o acesso às imagens do INPE apenas a órgãos militares."
+            ],
+            answer: 1,
+            resolution: "O CBERS é uma parceria histórica Brasil-China que fornece dados fundamentais para o monitoramento ambiental e gestão do território nacional."
+        },
+        {
+            id: 9,
+            text: "Para mapear o risco de inundações em uma área urbana, o geógrafo deve integrar dados de declividade, permeabilidade e rede de drenagem.",
+            question: "Qual técnica de análise espacial em SIG é a mais adequada para identificar áreas de risco através da integração de múltiplos fatores?",
+            options: [
+                "Consulta por atributos em tabelas alfanuméricas simples, sem componente espacial.",
+                "Análise Multicritério (ou Apoio à Decisão Multicritério), que atribui pesos a diferentes planos de informação.",
+                "Geocodificação de endereços residenciais para identificar a densidade populacional absoluta.",
+                "Digitalização manual de fotografias aéreas oblíquas para modelos 3D.",
+                "Uso exclusivo de GPS de navegação para registrar pontos isolados sem processamento posterior."
+            ],
+            answer: 1,
+            resolution: "A análise multicritério permite combinar diversas camadas (declividade, solo, rios) atribuindo pesos a cada uma para gerar um mapa síntese de risco ou aptidão."
+        },
+        {
+            id: 10,
+            text: "A Cartografia Inclusiva busca garantir que estudantes com deficiência tenham acesso às representações espaciais.",
+            question: "As tecnologias digitais contribuem para a Cartografia Inclusiva ao:",
+            options: [
+                "Permitir a exportação de modelos digitais de elevação para impressoras 3D, facilitando a criação de mapas táteis para alunos cegos.",
+                "Tornar os mapas exclusivamente visuais, garantindo que as cores sejam o único critério de diferenciação.",
+                "Excluir a necessidade de escalas nos mapas táteis, pois a percepção é subjetiva.",
+                "Limitar o uso de SIG apenas a softwares que não possuem interface gráfica.",
+                "Substituir os mapas físicos por descrições puramente teóricas e orais das coordenadas."
+            ],
+            answer: 0,
+            resolution: "Converter Modelos Digitais de Elevação (MDE) para arquivos de impressão 3D permite criar mapas táteis reais, unindo geoprocessamento à inclusão de alunos com deficiência visual."
+        }
+    ];
+
+    function loadQuiz() {
+        const container = document.getElementById('quiz-container');
+        container.innerHTML = questionsData.map((q, qIndex) => `
+            <div class="question-card" id="q-card-${qIndex}">
+                <div class="question-header">Questão ${q.id}</div>
+                <div class="question-text">${q.text}</div>
+                <p><strong>${q.question}</strong></p>
+                <ul class="options-list">
+                    ${q.options.map((opt, oIndex) => `
+                        <li class="option-item" onclick="selectOption(${qIndex}, ${oIndex})">
+                            <input type="radio" name="question-${qIndex}" id="q${qIndex}o${oIndex}" value="${oIndex}">
+                            <label for="q${qIndex}o${oIndex}">${String.fromCharCode(65 + oIndex)}) ${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div class="resolution" id="res-${qIndex}">
+                    <h4>Resolução Comentada:</h4>
+                    <p>${q.resolution}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function selectOption(qIdx, oIdx) {
+        document.getElementById(`q${qIdx}o${oIdx}`).checked = true;
+    }
+
+    function calculateResults() {
+        let score = 0;
+        const total = questionsData.length;
+
+        questionsData.forEach((q, qIndex) => {
+            const selected = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+            const options = document.querySelectorAll(`#q-card-${qIndex} .option-item`);
+            const resolutionBox = document.getElementById(`res-${qIndex}`);
+            
+            // Mostrar resolução
+            resolutionBox.style.display = 'block';
+
+            if (selected) {
+                const selectedValue = parseInt(selected.value);
+                if (selectedValue === q.answer) {
+                    score++;
+                    options[selectedValue].classList.add('correct');
+                } else {
+                    options[selectedValue].classList.add('wrong');
+                    options[q.answer].classList.add('correct');
+                }
+            } else {
+                // Se não respondeu, destaca a correta
+                options[q.answer].classList.add('correct');
+            }
+        });
+
+        // Mostrar resumo
+        const summary = document.getElementById('results-summary');
+        const scoreText = document.getElementById('score-text');
+        summary.style.display = 'block';
+        scoreText.innerText = `Você acertou ${score} de ${total} questões (${(score/total*100).toFixed(0)}%)`;
+        
+        // Scroll para o topo para ver o resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Desabilitar botão e inputs
+        document.getElementById('submit-btn').disabled = true;
+        document.getElementById('submit-btn').innerText = "Quiz Concluído";
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>

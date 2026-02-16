@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Técnicas de Cartografia - Concurso ETEC</title>
+    <!-- MathJax para renderização de fórmulas matemáticas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --border-color: #e0e0e0;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --highlight-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            margin-bottom: 60px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 6px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 3px double var(--accent-color);
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 30px;
+            background: var(--highlight-bg);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-card {
+            margin-bottom: 40px;
+            padding: 25px;
+            background-color: #fff;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .resolution-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .status-correct { background-color: #d4edda; color: #155724; }
+        .status-incorrect { background-color: #f8d7da; color: #721c24; }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            .container { margin: 10px; padding: 15px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Desafio de Cartografia</h1>
+        <p class="description">Simulado para Professor de Geografia - Centro Paula Souza (CEETEPS)</p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- As questões serão inseridas via JavaScript -->
+        </div>
+
+        <button type="button" class="btn-submit" onclick="finishQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-box">
+            <h2>Resultado Final</h2>
+            <div class="score-value" id="final-score">0/10</div>
+            <p id="score-text"></p>
+        </div>
+
+        <div id="resolutions-container">
+            <!-- As resoluções aparecerão aqui -->
+        </div>
+
+        <button type="button" class="btn-submit" style="margin-top: 20px; background: #95a5a6;" onclick="window.location.reload()">Refazer Quiz</button>
+    </div>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            text: "No contexto do ensino médio técnico das Escolas Técnicas Estaduais (Etecs), a cartografia não é apenas um acessório ilustrativo, mas uma ferramenta de análise geopolítica e técnica. O docente deve ser capaz de articular a natureza matemática das projeções com suas implicações ideológicas. Considere o debate clássico entre as projeções cilíndricas de Gerhard Mercator (1569) e Arno Peters (1973), frequentemente explorado em exames da VUNESP e em processos seletivos do CEETEPS. Analise o cenário em que um professor de Geografia da Etec propõe uma atividade interdisciplinar entre Geografia e História, utilizando mapas-múndi para discutir a construção da hegemonia europeia e as reivindicações do chamado 'Sul Global'. Com base nas propriedades geométricas e no contexto histórico dessas projeções, assinale a alternativa que descreve corretamente a aplicação técnica e a crítica política envolvidas:",
+            options: [
+                "A projeção de Mercator, por ser do tipo equivalente, preserva a proporcionalidade das áreas continentais, sendo tecnicamente superior para a representação de fenômenos socioeconômicos globais, embora tenha sido criticada por Arno Peters por 'esticar' excessivamente as formas dos continentes equatoriais.",
+                "A projeção de Arno Peters é classificada como conforme, priorizando a manutenção da fidelidade dos ângulos e das formas em detrimento da área, o que a torna a escolha ideal para a navegação aérea moderna, apesar de sua conotação política eurocêntrica.",
+                "A projeção de Mercator é uma projeção cilíndrica conforme que, ao manter a fidelidade dos ângulos para favorecer a navegação loxodrômica, provoca uma distorção crescente das áreas em direção às altas latitudes; tal distorção foi historicamente utilizada como um instrumento de poder simbólico para reforçar a centralidade e a magnitude das potências coloniais europeias frente às regiões tropicais.",
+                "Ambas as projeções são do tipo afiláticas, o que significa que não preservam nem a forma nem a área, sendo recomendadas pela Base Nacional Comum Curricular (BNCC) para o Ensino Médio justamente por serem representações matemáticas neutras e isentas de viés ideológico ou político.",
+                "A projeção de Peters é uma projeção azimutal equidistante que, ao centralizar o Polo Sul no mapa, busca corrigir o erro matemático de Mercator, que utilizou uma projeção cônica para representar a esfericidade da Terra em um plano, favorecendo a visualização das rotas comerciais do Hemisfério Norte."
+            ],
+            answer: 2,
+            resolution: "A projeção de Mercator é conforme (preserva formas e ângulos) e cilíndrica. Sua principal característica visual é a distorção das áreas em altas latitudes, fazendo com que regiões como Europa e Groenlândia pareçam muito maiores que a realidade em comparação com regiões equatoriais. Isso foi interpretado geopoliticamente como um reforço do eurocentrismo."
+        },
+        {
+            id: 2,
+            text: "O domínio das escalas cartográficas é um requisito essencial para o egresso das Etecs, especialmente em cursos como Agrimensura, Edificações e Meio Ambiente. Considere a seguinte situação-problema típica de um planejamento técnico: Um aluno de uma Etec, realizando um levantamento para um projeto de urbanização, recebe uma planta em escala \\(1:2.000\\). No projeto, uma avenida que corta o terreno mede exatamente \\(35 \\text{ cm}\\) na representação. Simultaneamente, o aluno precisa transpor essa mesma avenida para um mapa regional cuja escala é \\(1:50.000\\). Com base nestes dados, assinale a alternativa que apresenta, respectivamente, o comprimento real da avenida e o seu comprimento correspondente no mapa regional:",
+            options: [
+                "700 metros e 1,4 cm.",
+                "7  quilômetros e 14  cm.",
+                "70  metros e 0,14  cm.",
+                "700  metros e 14  mm.",
+                "7.000  metros e 1,4  mm."
+            ],
+            answer: 0,
+            resolution: "Cálculo 1: Na escala 1:2.000, 35cm representam \\(35 \\times 2.000 = 70.000 \\text{ cm}\\), que equivalem a 700 metros. Cálculo 2: No mapa 1:50.000, os 70.000 cm reais serão representados por \\(70.000 / 50.000 = 1,4 \\text{ cm}\\)."
+        },
+        {
+            id: 3,
+            text: "De acordo com as propriedades perceptivas das variáveis visuais de Bertin (forma, tamanho, valor, cor, orientação e granulação), assinale a alternativa que correlaciona corretamente o tipo de dado geográfico com a variável visual mais adequada para sua representação:",
+            options: [
+                "Para representar dados quantitativos absolutos, como o volume de exportações de soja por estado, a variável mais indicada é o matiz da cor.",
+                "Fenômenos de natureza qualitativa ou nominal, como a distribuição de diferentes tipos de indústrias em um polo tecnológico, são melhor representados pela variável forma.",
+                "A densidade demográfica deve ser representada pela variável orientação, alterando a inclinação de hachuras.",
+                "A hierarquia da rede urbana deve ser representada pela variável valor (variação de luminosidade da cor), pois esta é a única capaz de transmitir a percepção de quantidade absoluta.",
+                "A variável tamanho possui propriedade seletiva e qualitativa, sendo a escolha ideal para representar a diversidade de religiões."
+            ],
+            answer: 1,
+            resolution: "Dados qualitativos (nominais) servem para diferenciar tipos sem ordem de grandeza. A variável 'forma' permite essa distinção visual imediata sem sugerir que um elemento seja 'maior' ou 'mais importante' que outro."
+        },
+        {
+            id: 4,
+            text: "Sobre a técnica da anamorfose e sua aplicação no ensino médio técnico, é correto afirmar:",
+            options: [
+                "A anamorfose é um tipo de mapa hipsométrico que utiliza a distorção das cores para representar a variação da altitude.",
+                "Trata-se de uma forma de representação em que as áreas das unidades territoriais são redimensionadas de forma proporcional a um valor estatístico específico (PIB, população), abandonando a precisão das formas originais.",
+                "É uma projeção azimutal equidistante que busca priorizar a representação das massas continentais do Hemisfério Sul.",
+                "A anamorfose fundamenta-se na manutenção da conformidade dos ângulos, essencial para engenharia civil.",
+                "Essa técnica é denominada 'mapa de fluxo' por utilizar linhas de espessuras variadas."
+            ],
+            answer: 1,
+            resolution: "A anamorfose distorce as formas geográficas para que o tamanho da área seja proporcional ao dado estatístico que se deseja destacar. É uma ferramenta de síntese visual poderosa para o ensino de geografia socioeconômica."
+        },
+        {
+            id: 5,
+            text: "Analise as afirmações sobre o comportamento das curvas de nível:\nI. Curvas próximas indicam terreno com declividade acentuada.\nII. A equidistância altimétrica é a diferença de altitude entre duas curvas sucessivas e deve ser constante.\nIII. Quando curvas formam círculos concêntricos cujos valores aumentam para o centro, representam uma depressão.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "I e II.",
+                "II e III.",
+                "I, II e III."
+            ],
+            answer: 2,
+            resolution: "I está correta (curvas próximas = íngreme). II está correta (a equidistância é o intervalo padrão). III está incorreta: se o valor aumenta para o centro, trata-se de um pico/elevação, não uma depressão."
+        },
+        {
+            id: 6,
+            text: "Sobre os princípios do sensoriamento remoto, assinale a alternativa correta:",
+            options: [
+                "Baseia-se exclusivamente na captura de luz visível por câmeras digitais.",
+                "Sensores passivos, como os da série Landsat, detectam a energia eletromagnética proveniente de fontes externas (sol) ou emitida pela superfície.",
+                "O radar é um exemplo de sensor passivo que depende da iluminação solar.",
+                "A resolução espacial refere-se à capacidade do sensor em distinguir comprimentos de onda.",
+                "As imagens de satélite são analógicas e exigem bússolas para serem integradas a um SIG."
+            ],
+            answer: 1,
+            resolution: "Sensores passivos não emitem radiação própria; eles captam a reflexão do Sol ou a emissão térmica da Terra. Sensores ativos (como o radar) emitem seu próprio sinal."
+        },
+        {
+            id: 7,
+            text: "O processo de generalização cartográfica consiste em:",
+            options: [
+                "Aumentar a densidade de detalhes conforme a escala diminui.",
+                "Manter a escala constante em diferentes níveis de representação.",
+                "Selecionar, simplificar, esquematizar e harmonizar os elementos do real, adaptando-os ao objetivo e escala do mapa.",
+                "Utilizar apenas dados primários obtidos via GPS, descartando bases como IBGE.",
+                "Aplicar o mesmo símbolo para todos os fenômenos (ponto, linha, área)."
+            ],
+            answer: 2,
+            resolution: "Generalizar é necessário para manter a clareza. Ao reduzir a escala, não se pode mostrar tudo; o cartógrafo escolhe os elementos essenciais para que o mapa continue legível."
+        },
+        {
+            id: 8,
+            text: "Sobre latitudes e longitudes, é correto afirmar:",
+            options: [
+                "A latitude é a distância medida a partir de Greenwich.",
+                "A longitude é a distância medida a partir da linha do Equador.",
+                "As latitudes são medidas a partir da linha do Equador (0° a 90° N/S); as longitudes a partir de Greenwich (0° a 180° L/O).",
+                "Os paralelos são linhas verticais que convergem nos polos.",
+                "O encontro da latitude 0° com longitude 0° ocorre no centro geográfico do Brasil."
+            ],
+            answer: 2,
+            resolution: "Latitude = paralelos (Equador como base). Longitude = meridianos (Greenwich como base). É a definição técnica fundamental das coordenadas geográficas."
+        },
+        {
+            id: 9,
+            text: "Assinale a alternativa que descreve corretamente as representações hipsométricas e batimétricas:",
+            options: [
+                "Hipsométricos representam temperatura; batimétricas mapeiam pressão atmosférica.",
+                "A hipsometria representa as altitudes da superfície emersa (cores verde para baixas e marrom para altas); a batimetria representa profundidades (tons de azul).",
+                "Ambas utilizam cores quentes para indicar grandes profundidades.",
+                "Hipsometria é exclusividade da meteorologia.",
+                "A batimetria estuda a curvatura da Terra nos polos."
+            ],
+            answer: 1,
+            resolution: "Hipsometria refere-se às altitudes continentais (do nível do mar para cima). Batimetria refere-se ao relevo submarino (do nível do mar para baixo)."
+        },
+        {
+            id: 10,
+            text: "Considerando os objetivos do ensino de Geografia no nível médio técnico, o uso de representações cartográficas deve visar:",
+            options: [
+                "A memorização exaustiva da localização de acidentes geográficos e capitais.",
+                "O desenvolvimento da capacidade de ler, interpretar e elaborar mapas, habilitando o aluno a analisar fenômenos socioespaciais.",
+                "O treinamento para ignorar as distorções inerentes às projeções, aceitando o mapa como cópia fiel.",
+                "A substituição definitiva dos mapas em papel por aplicativos, tornando o conhecimento teórico desnecessário.",
+                "O foco exclusivo no cálculo matemático de escalas, desvinculando o contexto social."
+            ],
+            answer: 1,
+            resolution: "O ensino moderno foca na literacia cartográfica: não apenas saber onde está, mas entender o porquê e as relações espaciais envolvidas no território."
+        }
+    ];
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        questionsData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">${index + 1}. ${q.text}</div>
+                <ul class="options-list">
+                    ${q.options.map((opt, i) => `
+                        <li class="option-item" onclick="selectOption(${index}, ${i})">
+                            <input type="radio" name="q${index}" id="q${index}o${i}" value="${i}">
+                            <label for="q${index}o${i}">${String.fromCharCode(65 + i)}) ${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIdx, oIdx) {
+        document.getElementById(`q${qIdx}o${oIdx}`).checked = true;
+    }
+
+    function finishQuiz() {
+        let score = 0;
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        resolutionsContainer.innerHTML = '';
+        
+        questionsData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const isCorrect = selected && parseInt(selected.value) === q.answer;
+            if (isCorrect) score++;
+
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            
+            const userChoiceLabel = selected ? String.fromCharCode(65 + parseInt(selected.value)) : "Não respondida";
+            const correctChoiceLabel = String.fromCharCode(65 + q.answer);
+
+            resCard.innerHTML = `
+                <span class="status-badge ${isCorrect ? 'status-correct' : 'status-incorrect'}">
+                    ${isCorrect ? 'Acertou' : 'Errou'}
+                </span>
+                <div class="resolution-header">Questão ${index + 1}</div>
+                <p><strong>Sua resposta:</strong> ${userChoiceLabel} | <strong>Gabarito:</strong> ${correctChoiceLabel}</p>
+                <p><strong>Resolução Técnica:</strong> ${q.resolution}</p>
+            `;
+            resolutionsContainer.appendChild(resCard);
+        });
+
+        // Mostrar resultados
+        document.getElementById('quiz-form').classList.add('hidden');
+        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('final-score').innerText = `${score}/10`;
+        
+        let feedback = "";
+        if(score === 10) feedback = "Excelente! Você domina as técnicas de cartografia.";
+        else if(score >= 7) feedback = "Bom desempenho! Revise as questões que errou para fixar o conteúdo.";
+        else feedback = "Atenção! Recomendamos uma leitura mais atenta do material de base do Centro Paula Souza.";
+        
+        document.getElementById('score-text').innerText = feedback;
+        
+        // Rolar para o topo do resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Re-processar MathJax para as resoluções
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+    }
+
+    // Inicializar
+    window.onload = renderQuestions;
+</script>
+
+</body>
+</html>

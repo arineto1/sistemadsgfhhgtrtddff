@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC - Geografia e Cartografia Temática</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --border-color: #dfe6e9;
+            --correct-bg: #d4edda;
+            --incorrect-bg: #f8d7da;
+            --resolution-bg: #f1f2f6;
+            --max-width: 850px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #fff;
+            border-bottom: 2px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        main {
+            max-width: var(--max-width);
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .intro-text {
+            color: #636e72;
+            font-style: italic;
+            margin-bottom: 3rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 1rem;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .option-label {
+            display: block;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f8f9fa;
+            border-color: var(--accent-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .selected-label {
+            background-color: #e3f2fd;
+            border-color: var(--accent-color);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        #submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        #submit-btn:hover {
+            background-color: #0773c5;
+            transform: translateY(-2px);
+        }
+
+        #result-summary {
+            display: none;
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: var(--resolution-bg);
+            border-radius: 6px;
+            border-left: 5px solid #b2bec3;
+            font-size: 0.95rem;
+        }
+
+        .correct-answer { background-color: var(--correct-bg) !important; border-color: #28a745 !important; }
+        .incorrect-answer { background-color: var(--incorrect-bg) !important; border-color: #dc3545 !important; }
+
+        .tag-correct { color: #28a745; font-weight: bold; }
+        .tag-incorrect { color: #dc3545; font-weight: bold; }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: #b2bec3;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            main { padding: 0 1rem; }
+            .question-card { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Leitura de Mapas Temáticos e Dados Socioeconômicos</h1>
+</header>
+
+<main>
+    <div class="intro-text">
+        Estilo de concurso: Professor de Ensino Médio de Geografia (CEETEPS/ETEC).
+    </div>
+
+    <div id="quiz-form">
+        <!-- As questões serão injetadas aqui via JS -->
+    </div>
+
+    <div id="result-summary">
+        <h2>Resultado do Simulado</h2>
+        <p id="score-text" style="font-size: 1.5rem; font-weight: bold;"></p>
+        <p>Role para baixo para conferir a resolução de cada questão.</p>
+    </div>
+
+    <div class="btn-container">
+        <button id="submit-btn" onclick="calculateResult()">Finalizar Simulado</button>
+    </div>
+</main>
+
+<footer>
+    &copy; 2024 - Preparatório Docente ETEC - Geografia Técnica
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "A semiologia gráfica, sistematizada por Jacques Bertin na obra Sémiologie Graphique (1967), estabeleceu as regras fundamentais para a eficácia visual da cartografia temática. Bertin defende que o mapa deve ser um sistema de comunicação monossêmico, onde a interpretação do leitor não deixe margem para ambiguidades quanto à natureza dos dados representados. Considere um professor que, ao preparar uma aula para o curso técnico em Administração, decide criar um mapa para representar o volume total de exportações (em dólares) de cada município paulista em 2023. De acordo com as propriedades perceptivas das variáveis visuais de Bertin, a escolha técnica que garante a transmissão imediata da hierarquia quantitativa entre os municípios é a utilização da variável:",
+            options: [
+                "(A) Cor (matiz), utilizando diferentes tonalidades para cada faixa de valor, garantindo uma distinção estética clara entre os polos exportadores.",
+                "(B) Forma, aplicando símbolos geométricos distintos (estrelas para grandes volumes e círculos para pequenos) a fim de facilitar a classificação qualitativa do território.",
+                "(C) Orientação, inclinando os símbolos conforme a variação do Produto Interno Bruto (PIB) municipal, visando representar a direção do crescimento econômico.",
+                "(D) Tamanho, utilizando símbolos proporcionais à magnitude do dado numérico, visto que esta é a única variável capaz de transmitir visualmente relações de proporção e ordem.",
+                "(E) Granulação, variando a densidade dos hachurados em áreas zonais para indicar a densidade de indústrias voltadas ao mercado externo."
+            ],
+            answer: 3, // Indice D
+            resolution: "<b>Resolução:</b> Jacques Bertin define que o tamanho é a única variável visual que possui a propriedade da proporcionalidade. Quando o olho humano observa símbolos de diferentes diâmetros, processa automaticamente uma relação de magnitude. Para dados quantitativos absolutos (volume de exportação), o uso de símbolos proporcionais é a única técnica correta para transmitir a hierarquia de valores."
+        },
+        {
+            id: 2,
+            text: "No artigo 'Orientação metodológica para construção e leitura de mapas temáticos', Rosely Sampaio Archela e Hervé Théry sistematizam os conceitos fundamentais do processo cartográfico voltados para a análise do espaço geográfico. Segundo os autores, o nível de organização dos dados (qualitativo, ordenado ou quantitativo) determina o método de mapeamento a ser empregado. Considere que um docente da ETEC necessite representar a variação do Índice de Desenvolvimento Humano Municipal (IDHM) no estado de São Paulo, organizando os municípios em classes de desenvolvimento (Baixo, Médio, Alto e Muito Alto). Assinale a alternativa que indica corretamente o método de mapeamento e a lógica de representação visual para essa finalidade:",
+            options: [
+                "(A) Método Isoplético, utilizando linhas de igual valor para conectar municípios com o mesmo índice de escolaridade, independentemente das divisões administrativas.",
+                "(B) Método Coroplético, utilizando a variável visual valor (variação de tons de uma mesma cor) para representar as classes ordenadas de desenvolvimento em cada unidade municipal.",
+                "(C) Método de Figuras Geométricas Proporcionais, focando no centroide de cada município para destacar a população absoluta residente em áreas de alto IDHM.",
+                "(D) Método Corocromático, priorizando a distinção qualitativa através de cores contrastantes para identificar cada região administrativa, sem estabelecer hierarquia entre os dados.",
+                "(E) Método de Fluxos, representando os deslocamentos pendulares de trabalhadores entre municípios de diferentes níveis de desenvolvimento socioeconômico."
+            ],
+            answer: 1, // Indice B
+            resolution: "<b>Resolução:</b> O IDHM é um dado ordenado (índice por classes). Para representar intensidades em unidades administrativas (áreas), a técnica correta é o mapa coroplético, que utiliza a variável visual 'valor' (gradação de tons da mesma cor) para comunicar a hierarquia do fenômeno."
+        },
+        {
+            id: 3,
+            text: "As anamorfoses geográficas constituem uma técnica de representação onde a geometria do território é distorcida para tornar-se proporcional a uma variável estatística específica. Na análise de temas socioeconômicos contemporâneos, as anamorfoses são ferramentas poderosas para revelar as desigualdades globais de poder e riqueza. Analise as seguintes afirmações:<br><br>I. A anamorfose opera com uma métrica não territorial, substituindo a área física pela magnitude de um fenômeno (como o PIB ou a população absoluta).<br>II. Por manter a fidelidade aos contornos litorâneos e às coordenadas geográficas precisas, a anamorfose é recomendada para navegação.<br>III. Ao representar o PIB mundial, países como a Índia e a China apresentam uma hipertrofia visual que revela o peso dessas economias.<br>IV. O uso de anamorfoses é limitado a fenômenos qualitativos.<br><br>É correto o que se afirma em:",
+            options: [
+                "(A) I e II, apenas.",
+                "(B) I e III, apenas.",
+                "(C) II e IV, apenas.",
+                "(D) I, III e IV, apenas.",
+                "(E) II, III e IV, apenas."
+            ],
+            answer: 1, // Indice B
+            resolution: "<b>Resolução:</b> As afirmações I e III estão corretas. A anamorfose distorce a geometria para representar magnitudes estatísticas. A II está incorreta porque ela perde a precisão cartográfica de contornos e coordenadas. A IV está incorreta pois ela foca justamente em variáveis quantitativas estatísticas."
+        },
+        {
+            id: 4,
+            text: "A interpretação da estrutura etária de uma população é um dos eixos fundamentais para a compreensão da dinâmica socioeconômica de um território. Os dados parciais do Censo Demográfico 2022 do IBGE indicam que o Brasil está atravessando uma fase crítica de sua transição demográfica. Ao analisar a pirâmide etária brasileira resultante do Censo 2022, identificat-se:",
+            options: [
+                "(A) O alargamento expressivo da base da pirâmide, comprovando o aumento das taxas de natalidade nas regiões Norte e Nordeste.",
+                "(B) O estreitamento do ápice da pirâmide, evidenciando uma redução da expectativa de vida média.",
+                "(C) O estreitamento da base e o alargamento do corpo e do topo, sinalizando o envelhecimento populacional acelerado e a redução gradual do bônus demográfico.",
+                "(D) Uma estrutura perfeitamente triangular com base larga, característica de uma população em fase inicial de explosão demográfica.",
+                "(E) A manutenção do perfil demográfico da década de 1970, demonstrando que as transformações não alteraram a composição."
+            ],
+            answer: 2, // Indice C
+            resolution: "<b>Resolução:</b> O Censo 2022 confirmou a queda da fecundidade (estreitamento da base) e o aumento da longevidade (alargamento do topo), caracterizando o envelhecimento populacional e o fim iminente do bônus demográfico."
+        },
+        {
+            id: 5,
+            text: "O Índice de Gini é um dos principais indicadores utilizados em cartografia econômica para representar o grau de desigualdade na distribuição de renda. Sobre a representação territorial da desigualdade de renda no Brasil em 2023, assinale a alternativa correta:",
+            options: [
+                "(A) As unidades da federação com os menores índices de Gini encontram-se predominantemente na região Norte.",
+                "(B) Santa Catarina destaca-se como o estado com o menor índice de desigualdade de renda do país, contrastando com o Distrito Federal, que apresenta rendas médias elevadas, mas com forte concentração.",
+                "(C) O índice de Gini nacional atingiu o valor de 0,850 em 2023, indicando que o país superou a desigualdade histórica.",
+                "(D) A desigualdade de renda captada pela PNAD Contínua tende a ser maior do que a observada quando se integra os dados do Imposto de Renda (IRPF).",
+                "(E) O Coeficiente de Gini é um indicador exclusivamente qualitativo que deve ser representado por cores contrastantes."
+            ],
+            answer: 1, // Indice B
+            resolution: "<b>Resolução:</b> Santa Catarina possui historicamente o menor Gini (menor desigualdade). O DF possui alta renda, mas altíssima concentração. A alternativa D é falsa pois o Gini aumenta quando se usa dados do IRPF (pois capta melhor as rendas do topo)."
+        },
+        {
+            id: 6,
+            text: "Cartogramas de fluxos, ou fluxogramas, são representações gráficas essenciais para a compreensão da geografia das redes e dos movimentos espaciais. Em um fluxograma que represente as rotas de escoamento da produção agrícola brasileira para o Porto de Santos, a largura das setas ou linhas deve ser:",
+            options: [
+                "(A) Inversamente proporcional à distância percorrida.",
+                "(B) Padronizada e uniforme, uma vez que o objetivo principal é apenas a indicação da direção geográfica.",
+                "(C) Diretamente proporcional à intensidade ou volume do fenômeno (ex: tonelagem de grãos), permitindo a comparação visual imediata.",
+                "(D) Utilizada como variável qualitativa de cor para diferenciar os tipos de cultura, sem relação com a quantidade.",
+                "(E) Restrita a mapas de pequena escala (como mapas-múndi), sendo vedado seu uso em mapas regionais."
+            ],
+            answer: 2, // Indice C
+            resolution: "<b>Resolução:</b> No fluxograma temático, a largura da linha (variável tamanho) deve representar a magnitude do fluxo. Quanto mais grossa a linha, maior o volume transportado."
+        },
+        {
+            id: 7,
+            text: "A análise cartográfica do IDHM no Brasil, com base nos censos mais recentes, permite afirmar que:",
+            options: [
+                "(A) Houve uma convergência completa dos índices entre as regiões Norte e Sul.",
+                "(B) Os municípios com os maiores valores de IDHM concentram-se majoritariamente nos estados das regiões Sul e Sudeste, além do Distrito Federal e polos do agronegócio no Centro-Oeste.",
+                "(C) O componente 'Educação' é o que apresenta os melhores resultados absolutos em todos os municípios.",
+                "(D) O IDHM é um indicador que varia de 1 a 100, onde valores próximos a 50 indicam desenvolvimento muito alto.",
+                "(E) A representação do IDHM deve ser feita por meio de pontos proporcionais, pois o dado refere-se à renda absoluta total."
+            ],
+            answer: 1, // Indice B
+            resolution: "<b>Resolução:</b> O mapa do IDHM revela a manutenção do 'centro' desenvolvido no Sul e Sudeste, além da ascensão de polos produtivos no Centro-Oeste."
+        },
+        {
+            id: 8,
+            text: "Considere um mapa temático que utilize a variável visual de Jacques Bertin para representar a influência das cidades na Região Metropolitana de São Paulo. Para representar essa hierarquia em um mapa de implantação pontual, o professor deve recomendar o uso da variável:",
+            options: [
+                "(A) Valor (tonalidade), pois é a forma mais eficaz de representar magnitudes numéricas absolutas em pontos.",
+                "(B) Cor (matiz), pois permite identificar a origem geológica de cada sítio urbano.",
+                "(C) Forma, utilizando triângulos para metrópoles e círculos para cidades pequenas.",
+                "(D) Tamanho, visto que o diâmetro dos símbolos deve ser proporcional à influência ou população da cidade, transmitindo a relação de hierarquia.",
+                "(E) Orientação, inclinando os símbolos conforme a rede de transportes predominante."
+            ],
+            answer: 3, // Indice D
+            resolution: "<b>Resolução:</b> Para representar hierarquia (mais/menos) em pontos, o tamanho é a variável correta. A forma é qualitativa, não comunica ordem de grandeza."
+        },
+        {
+            id: 9,
+            text: "O uso de Sistemas de Informação Geográfica (SIG) na educação geográfica permite a manipulação de múltiplas camadas de dados espaciais (overlayers). A principal característica técnica do SIG que possibilita a identificação de áreas de vulnerabilidade socioambiental é:",
+            options: [
+                "(A) A capacidade de criar mapas artísticos com desenhos livres (croquis), dispensando escalas.",
+                "(B) A automatização da coleta de dados primários através de questionários impressos.",
+                "(C) A integração e sobreposição de bancos de dados georreferenciados (como densidade populacional e áreas de risco) para gerar diagnósticos precisos.",
+                "(D) A restrição do seu uso apenas a órgãos governamentais de defesa militar.",
+                "(E) A impossibilidade de representar dados econômicos, focando apenas em vegetação e relevo."
+            ],
+            answer: 2, // Indice C
+            resolution: "<b>Resolução:</b> A força do SIG reside na sobreposição (overlay) de camadas de dados distintos para encontrar correlações espaciais, como cruzar áreas de encosta com densidade habitacional."
+        },
+        {
+            id: 10,
+            text: "Dois tipos de mapas foram frequentemente utilizados na pandemia: o de 'número de casos confirmados' e o de 'taxa de incidência por 100 mil habitantes'. Sobre a escolha metodológica correta:",
+            options: [
+                "(A) O mapa de 'número de casos' (absoluto) deve ser representado por símbolos proporcionais (pontos), enquanto a 'taxa de incidência' (relativo) deve ser representada por mapas coropléticos (áreas).",
+                "(B) Ambos os mapas devem utilizar obrigatoriamente o método das isóbaras.",
+                "(C) O mapa de 'taxa de incidência' é qualitativo e deve utilizar a variável orientação.",
+                "(D) O uso de símbolos proporcionais em mapas de taxas relativas é a recomendação técnica de Bertin.",
+                "(E) Dados absolutos e relativos possuem a mesma natureza estatística e devem ser representados pela mesma variável."
+            ],
+            answer: 0, // Indice A
+            resolution: "<b>Resolução:</b> Dados absolutos (estoque) pedem símbolos proporcionais. Dados relativos (taxas/intensidades) pedem mapas coropléticos (manchas de cor) para evitar o erro de peso visual exagerado em áreas grandes pouco povoadas."
+        }
+    ];
+
+    function initQuiz() {
+        const form = document.getElementById('quiz-form');
+        questions.forEach((q, qIndex) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${qIndex}`;
+
+            let optionsHtml = '';
+            q.options.forEach((opt, oIndex) => {
+                optionsHtml += `
+                    <li class="option-item">
+                        <label class="option-label" id="label-${qIndex}-${oIndex}">
+                            <input type="radio" name="q${qIndex}" value="${oIndex}" onchange="highlightSelection(${qIndex}, ${oIndex})">
+                            ${opt}
+                        </label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-number">Questão ${q.id}</span>
+                <div class="question-text">${q.text}</div>
+                <ul class="options-list">${optionsHtml}</ul>
+                <div class="resolution-box" id="res-${qIndex}">
+                    ${q.resolution}
+                </div>
+            `;
+            form.appendChild(card);
+        });
+    }
+
+    function highlightSelection(qIndex, oIndex) {
+        // Remove seleção prévia
+        for (let i = 0; i < 5; i++) {
+            document.getElementById(`label-${qIndex}-${i}`).classList.remove('selected-label');
+        }
+        // Adiciona nova seleção
+        document.getElementById(`label-${qIndex}-${oIndex}`).classList.add('selected-label');
+    }
+
+    function calculateResult() {
+        let score = 0;
+        let answeredAll = true;
+
+        questions.forEach((q, qIndex) => {
+            const selected = document.querySelector(`input[name="q${qIndex}"]:checked`);
+            
+            if (!selected) {
+                answeredAll = false;
+                document.getElementById(`q-card-${qIndex}`).style.borderColor = "#ff7675";
+            } else {
+                const userVal = parseInt(selected.value);
+                const label = document.getElementById(`label-${qIndex}-${userVal}`);
+                const resolution = document.getElementById(`res-${qIndex}`);
+                
+                resolution.style.display = "block";
+                
+                if (userVal === q.answer) {
+                    score++;
+                    label.classList.add('correct-answer');
+                    label.innerHTML += " <span class='tag-correct'>✓ Correta</span>";
+                } else {
+                    label.classList.add('incorrect-answer');
+                    label.innerHTML += " <span class='tag-incorrect'>✗ Sua resposta</span>";
+                    
+                    // Mostrar a correta também
+                    const correctLabel = document.getElementById(`label-${qIndex}-${q.answer}`);
+                    correctLabel.classList.add('correct-answer');
+                    correctLabel.innerHTML += " <span class='tag-correct'>← Resposta Correta</span>";
+                }
+            }
+        });
+
+        if (!answeredAll) {
+            // Se quiser forçar responder todas, descomente abaixo. 
+            // Por enquanto só avisa.
+        }
+
+        const summary = document.getElementById('result-summary');
+        const scoreText = document.getElementById('score-text');
+        
+        summary.style.display = "block";
+        scoreText.innerText = `Você acertou ${score} de ${questions.length} questões! (${(score/questions.length)*100}%)`;
+        
+        // Desabilitar botões após envio
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+        document.getElementById('submit-btn').disabled = true;
+        document.getElementById('submit-btn').style.opacity = "0.5";
+        document.getElementById('submit-btn').innerText = "Simulado Finalizado";
+
+        // Scroll para o topo do resultado
+        summary.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

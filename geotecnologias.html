@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Geotecnologias - Concurso ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a; /* Amarelo suave */
+            padding: 2px 4px;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 2rem 0;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px; /* Garante que a tabela não esmague em telas muito pequenas */
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9fafb;
+            color: #111827;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .audio-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid #f3f4f6;
+            padding: 1rem 0;
+            z-index: 100;
+        }
+
+        .content-card {
+            background: #ffffff;
+            border: 1px solid #f3f4f6;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #111827;
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        h3 {
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #374151;
+        }
+
+        .formula-box {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            padding: 1.5rem;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Reprodutor de Áudio -->
+    <header class="audio-header">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xs font-bold text-blue-600 uppercase tracking-widest">Recurso de Áudio</h2>
+                    <p class="text-sm text-gray-500 font-medium">Resumo Técnico Geotecnologias v1.0</p>
+                </div>
+                <div class="flex-grow max-w-md">
+                    <audio controls class="w-full">
+                        <source src="geotecnologias.mp3" type="audio/mpeg">
+                        Seu navegador não suporta áudio.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        
+        <!-- Cabeçalho Principal -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-900 leading-tight">Geotecnologias: O Guia de Aprovação ETEC</h1>
+            <p class="text-xl text-gray-600 mt-4">Uso de GPS, SIG e Sensoriamento Remoto na análise geográfica aplicada ao Ensino Médio.</p>
+        </div>
+
+        <!-- Seção 1: Definição e Geoprocessamento -->
+        <section class="content-card">
+            <h2 class="text-2xl section-title">1. Geoprocessamento e Conceitos de Base</h2>
+            <p>O geoprocessamento é o conjunto de tecnologias destinadas à coleta e ao tratamento de informações espaciais. Para a prova da ETEC, lembre-se que ele não é um fim, mas um meio para a <mark class="highlight">análise geográfica complexa</mark>.</p>
+            
+            <h3>Definições "Salva-Vidas" para a Prova:</h3>
+            <ul class="list-disc ml-6 space-y-2">
+                <li><strong>Geodésia:</strong> Ciência que estuda a forma e dimensões da Terra. Essencial para entender o <mark class="highlight">Datum</mark>.</li>
+                <li><strong>Datum Oficial (Brasil):</strong> <mark class="highlight">SIRGAS 2000</mark> (Sistema de Referência Geocêntrico para as Américas). Substituiu o SAD-69. É geocêntrico e compatível com o GPS.</li>
+                <li><strong>Geoid:</strong> A forma física real da Terra (nível médio dos mares em repouso).</li>
+                <li><strong>Elipsoide:</strong> A forma matemática simplificada para cálculos cartográficos.</li>
+            </ul>
+        </section>
+
+        <!-- Seção 2: GNSS (GPS) -->
+        <section class="content-card">
+            <h2 class="text-2xl section-title">2. Sistemas de Navegação Global (GNSS)</h2>
+            <p>O GPS (norte-americano) é apenas um dos sistemas GNSS. Outros incluem GLONASS (Rússia), Galileo (Europa) e BeiDou (China).</p>
+            
+            <h3>A Estrutura do Sistema (Os 3 Segmentos):</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Segmento</th>
+                            <th>Função Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Espacial</strong></td>
+                            <td>Constelação de pelo menos <mark class="highlight">24 satélites</mark> ativos em órbita média.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Controle</strong></td>
+                            <td>Estações terrestres que monitoram a saúde e a órbita dos satélites.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Usuário</strong></td>
+                            <td>Nossos receptores (celulares, GPS de mão) que recebem os sinais.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p><strong>Ponto de Acerto:</strong> A posição é determinada por <mark class="highlight">trilateração</mark> (cálculo da distância baseada no tempo de viagem do sinal). São necessários 3 satélites para latitude/longitude e um <mark class="highlight">4º satélite para altitude</mark> e sincronização de tempo.</p>
+        </section>
+
+        <!-- Seção 3: Sensoriamento Remoto -->
+        <section class="content-card">
+            <h2 class="text-2xl section-title">3. Sensoriamento Remoto (SR)</h2>
+            <p>Obtenção de dados sem contato físico, baseada na detecção da <mark class="highlight">Radiação Eletromagnética (REM)</mark>.</p>
+            
+            <h3>As 4 Resoluções Cruciais:</h3>
+            <div class="grid md:grid-cols-2 gap-4 my-6">
+                <div class="p-4 border rounded-lg">
+                    <p><strong>1. Espacial:</strong> Tamanho do <mark class="highlight">pixel</mark> no terreno (ex: 30m vs 1m). Quanto menor o pixel, maior o detalhe.</p>
+                </div>
+                <div class="p-4 border rounded-lg">
+                    <p><strong>2. Espectral:</strong> Quantidade e largura das <mark class="highlight">bandas</mark> (cores/faixas) que o sensor capta.</p>
+                </div>
+                <div class="p-4 border rounded-lg">
+                    <p><strong>3. Radiométrica:</strong> Capacidade de distinguir níveis de energia (sensibilidade em <mark class="highlight">bits</mark>).</p>
+                </div>
+                <div class="p-4 border rounded-lg">
+                    <p><strong>4. Temporal:</strong> Tempo de <mark class="highlight">revisita</mark> (frequência com que o satélite passa no mesmo local).</p>
+                </div>
+            </div>
+
+            <p><strong>Assinatura Espectral:</strong> Cada objeto reflete energia de forma diferente. A vegetação densa reflete pouco o Vermelho (absorção pela clorofila) e <mark class="highlight">reflete muito o Infravermelho Próximo</mark> (estrutura celular da folha).</p>
+        </section>
+
+        <!-- Seção 4: SIG -->
+        <section class="content-card">
+            <h2 class="text-2xl section-title">4. Sistemas de Informação Geográfica (SIG)</h2>
+            <p>Um SIG não é apenas um mapa digital. É um sistema que une a <mark class="highlight">geometria</mark> (onde está) com o <mark class="highlight">banco de dados alfanumérico</mark> (o que é).</p>
+            
+            <h3>Modelagem de Dados:</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Vetorial (Vector)</th>
+                            <th>Matricial (Raster/Pixel)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Elementos</strong></td>
+                            <td>Pontos, Linhas e Polígonos.</td>
+                            <td>Grade de células (pixels).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Uso Ideal</strong></td>
+                            <td>Limites precisos (lotes, estradas, cidades).</td>
+                            <td>Fenômenos contínuos (chuva, altitude).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Peso do Arquivo</strong></td>
+                            <td>Geralmente mais leve.</td>
+                            <td>Geralmente mais pesado (depende da resolução).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 5: Escala e Acuidade -->
+        <section class="content-card">
+            <h2 class="text-2xl section-title">5. Escala Cartográfica Digital</h2>
+            <p>Muitas questões da ETEC misturam geotecnologia com cálculos de escala. Lembre-se: em telas digitais, a escala é <mark class="highlight">dinâmica</mark>, mas a resolução da imagem fonte limita o detalhamento.</p>
+            
+            <div class="formula-box">
+                Escala (E) = d (distância no mapa) / D (distância real)
+            </div>
+
+            <p><strong>Regra de Ouro:</strong> <br>
+                Escala 1:500 é <mark class="highlight">GRANDE</mark> (muito detalhe, denominador pequeno). <br>
+                Escala 1:1.000.000 é <mark class="highlight">PEQUENA</mark> (pouco detalhe, denominador grande).
+            </p>
+        </section>
+
+        <!-- Seção 6: Tendências de Prova CEETEPS -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-black text-red-600 mb-6 uppercase">🚩 Análise de Tendências e 'Peguinhas'</h2>
+            <div class="space-y-4">
+                <div class="p-6 border-l-8 border-red-500 bg-gray-50 rounded-r-lg">
+                    <p class="font-bold">O Peguinha do "Google Maps":</p>
+                    <p class="text-sm">A banca pode sugerir que o Google Maps substitui o SIG. <strong>Mentira.</strong> O Google Maps é um visualizador. Um SIG permite cruzamento de dados (Ex: áreas de risco x densidade demográfica).</p>
+                </div>
+                <div class="p-6 border-l-8 border-yellow-500 bg-gray-50 rounded-r-lg">
+                    <p class="font-bold">Abordagem Pedagógica (Para o Professor):</p>
+                    <p class="text-sm">As questões de conhecimentos específicos da ETEC focam em como usar isso para ensinar o aluno a <mark class="highlight">identificar problemas socioambientais</mark>. Não foque só no botão do software, foque na interpretação da imagem.</p>
+                </div>
+                <div class="p-6 border-l-8 border-blue-500 bg-gray-50 rounded-r-lg">
+                    <p class="font-bold">Atualidades Técnicas:</p>
+                    <p class="text-sm">Fique atento ao uso de <mark class="highlight">Drones (VANTs)</mark>. Eles são sensores remotos de baixa altitude e altíssima resolução espacial, muito usados na agricultura de precisão e gestão urbana.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botão Final -->
+        <div class="flex flex-col items-center py-10 border-t">
+            <p class="text-gray-500 mb-6 font-medium">Fim do resumo estratégico. Pronto para testar seus conhecimentos?</p>
+            <a href="geotecnologiasquestoes.html" class="bg-gray-900 text-white px-12 py-5 rounded-full font-bold text-lg hover:bg-blue-600 transition-colors shadow-2xl">
+                ACESSAR SIMULADO DE QUESTÕES →
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-100 py-12 text-center text-gray-400 text-xs">
+        <p>Material de Apoio Didático - Preparatório Concurso Professor Geografia ETEC/CEETEPS</p>
+        <p class="mt-2">O conteúdo segue rigorosamente as diretrizes bibliográficas comuns do Centro Paula Souza.</p>
+    </footer>
+
+</body>
+</html>

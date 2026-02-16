@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Integrado: Geografia ETEC/CEETEPS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #1a202c;
+            background-color: #ffffff;
+        }
+        .highlight {
+            background-color: #fef08a;
+            color: #000;
+            padding: 0 2px;
+            font-weight: 600;
+        }
+        .section-card {
+            border: 1px solid #edf2f7;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            color: #2d3748;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: hidden; /* Garantindo que não haja scroll se o conteúdo couber */
+        }
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto; /* Permitir scroll apenas em telas muito pequenas para não quebrar o layout */
+            }
+            .section-card {
+                padding: 1rem;
+            }
+        }
+        .trap-box {
+            background-color: #fff5f5;
+            border-left: 4px solid #f56565;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-5xl mx-auto px-4 py-12">
+        <!-- Cabeçalho -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Leitura de Mapas Temáticos e Dados Territoriais</h1>
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto">Guia Definitivo para o Concurso de Professor de Geografia - CEETEPS</p>
+            
+            <div class="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200 inline-block w-full max-w-2xl">
+                <p class="text-sm font-bold text-slate-500 uppercase mb-3 flex items-center justify-center">
+                    <span class="mr-2">🎧</span> Reprodutor de Áudio do Resumo
+                </p>
+                <audio controls class="w-full">
+                    <source src="leitura_de_mapas.mp3" type="audio/mpeg">
+                    Seu navegador não suporta áudio.
+                </audio>
+            </div>
+        </header>
+
+        <!-- Introdução -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4 border-b-2 border-slate-100 pb-2">1. Definição e Essência</h2>
+            <p class="mb-4">
+                Mapas temáticos são ferramentas de <span class="highlight">comunicação visual</span> que espacializam fenômenos específicos (sociais, econômicos, ambientais) sobre uma base cartográfica. Para a ETEC, o foco não é apenas a localização, mas a <span class="highlight">correlação entre dados estatísticos e o espaço geográfico</span>.
+            </p>
+        </section>
+
+        <!-- Semiologia -->
+        <div class="section-card">
+            <h2 class="text-2xl font-bold text-blue-900 mb-6">2. Semiologia Gráfica (Sistema de Bertin)</h2>
+            <p class="mb-4">Base para qualquer questão sobre legendas. O examinador troca "tamanho" por "cor" para confundir dados absolutos com relativos.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Natureza do Dado</th>
+                            <th>Variável Visual Primária</th>
+                            <th>Aplicação Prática</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Qualitativa</strong></td>
+                            <td>Forma / Cor (Matiz)</td>
+                            <td>Tipos de solos, uso da terra, redes de transporte.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ordenada</strong></td>
+                            <td>Valor (Brilho/Saturação)</td>
+                            <td>Hierarquia urbana, níveis de poluição, IDH.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quantitativa</strong></td>
+                            <td><strong>Tamanho</strong></td>
+                            <td>PIB por município, população total, produção de soja.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-sm italic text-slate-500 mt-2">*Lembre-se: Cor (tonalidade) indica categoria; Intensidade da cor indica ordem; Tamanho indica quantidade.</p>
+        </div>
+
+        <!-- Métodos de Representação -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">3. Métodos de Representação Cartográfica</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold text-blue-700">Coroplético</h3>
+                    <p class="text-sm">Uso de cores/tramas em áreas administrativas. Ideal para <span class="highlight">densidade demográfica</span> e taxas percentuais.</p>
+                </div>
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold text-blue-700">Isarítmico (Isopletas)</h3>
+                    <p class="text-sm">Linhas que unem pontos de igual valor. Ex: <span class="highlight">Isotermas (temperatura)</span> ou Isoietas (chuva).</p>
+                </div>
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold text-blue-700">Anamorfose</h3>
+                    <p class="text-sm">Distorção geométrica proporcional ao valor do dado. <span class="highlight">Frequente em provas de economia política</span>.</p>
+                </div>
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold text-blue-700">Símbolos Proporcionais</h3>
+                    <p class="text-sm">Círculos ou quadrados de tamanhos diferentes sobre o centro geográfico do dado.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Escala e Projeções -->
+        <div class="section-card bg-slate-50 border-none">
+            <h2 class="text-2xl font-bold mb-6">4. Matemática e Projeções (Obrigatório)</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="font-semibold text-lg mb-2 underline">Escala: A Razão da Prova</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Escala Grande (Ex: 1:500):</strong> Muita riqueza de detalhes. Áreas pequenas (Bairros, ETECs).</li>
+                        <li><strong>Escala Pequena (Ex: 1:20.000.000):</strong> Pouco detalhe. Grandes áreas (Países, Continentes).</li>
+                        <li><span class="highlight">Conversão Rápida:</span> Para passar de cm para km, corte 5 zeros. (Ex: 500.000 cm = 5 km).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-2 underline">Projeções Ideológicas</h3>
+                    <p><strong>Mercator:</strong> Cilíndrica conforme (preserva ângulos). Visão <span class="highlight">Eurocêntrica</span>. Deforma áreas polares.</p>
+                    <p><strong>Peters:</strong> Cilíndrica equivalente (preserva áreas). Visão <span class="highlight">Terceiro-mundista</span>. Deforma formas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Regionalização -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">5. Regionalização e Dados do Brasil</h2>
+            <p class="mb-6">A ETEC costuma cobrar a diferenciação entre as três formas de dividir o território brasileiro:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th>Autor/Instituição</th>
+                            <th>Diferencial para a Prova</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Macrorregiões</strong></td>
+                            <td>IBGE (1970)</td>
+                            <td>Respeita limites estaduais. Critério físico e humano.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Geoeconômicas</strong></td>
+                            <td>Pedro Geiger</td>
+                            <td><span class="highlight">NÃO respeita limites estaduais</span>. Base socioeconômica.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quatro Brasis</strong></td>
+                            <td>Milton Santos</td>
+                            <td>Baseada no <span class="highlight">Meio Técnico-Científico-Informacional</span>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Indicadores -->
+        <div class="section-card">
+            <h2 class="text-2xl font-bold mb-4">6. Interpretação de Dados Sociais</h2>
+            <div class="space-y-4">
+                <div class="p-4 bg-white border rounded">
+                    <p><strong>Índice de Gini:</strong> Varia de 0 a 1. Quanto mais próximo de 1, maior a <span class="highlight">concentração de renda</span>. Se o gráfico mostrar o Brasil caindo, significa redução da desigualdade (não necessariamente da pobreza).</p>
+                </div>
+                <div class="p-4 bg-white border rounded">
+                    <p><strong>IDH:</strong> Composto por Longevidade (Saúde), Educação (Anos de estudo) e Renda (PIB per capita). <span class="highlight">Não mede felicidade ou segurança</span>.</p>
+                </div>
+                <div class="p-4 bg-white border rounded">
+                    <p><strong>Transição Demográfica:</strong> Mapas de pirâmides etárias. O Brasil está no estágio de <span class="highlight">envelhecimento populacional</span> (estreitamento da base e alargamento do topo).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Peguinhas Finais -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-red-600 mb-6 uppercase tracking-wider">🚨 Radar de Peguinhas (Banca FAT/ETEC)</h2>
+            <div class="trap-box">
+                <p class="font-bold mb-2">Peguinha 1: Amazônia Legal vs. Bioma Amazônia</p>
+                <p class="text-sm">A Amazônia Legal é um conceito político que inclui o Mato Grosso e partes do Maranhão para fins de subsídios econômicos. O mapa do bioma é menor.</p>
+            </div>
+            <div class="trap-box">
+                <p class="font-bold mb-2">Peguinha 2: Fusos Horários</p>
+                <p class="text-sm">O Brasil possui <span class="highlight">4 fusos</span>. O horário de Fernando de Noronha é UTC-2 (está à frente de Brasília). O Acre é UTC-5 (está 2h atrás de Brasília).</p>
+            </div>
+            <div class="trap-box">
+                <p class="font-bold mb-2">Peguinha 3: Norte de Minas</p>
+                <p class="text-sm">No mapa de Pedro Geiger, o norte de Minas Gerais integra o complexo do <span class="highlight">Nordeste</span>, devido às características climáticas e sociais.</p>
+            </div>
+            <div class="trap-box">
+                <p class="font-bold mb-2">Peguinha 4: Curvas de Nível</p>
+                <p class="text-sm">Linhas muito juntas = Terreno íngreme (escarpa). Linhas afastadas = Terreno plano (planície).</p>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <footer class="flex flex-col items-center border-t pt-10 pb-20">
+            <p class="text-slate-500 mb-8 text-center max-w-md">O conteúdo acima cobre 90% das incidências sobre Cartografia Temática nas provas de Geografia do CEETEPS.</p>
+            <a href="leitura_de_mapasquestoes.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 px-12 rounded-2xl shadow-2xl transform transition hover:scale-105">
+                Acessar Banco de Questões ETEC
+            </a>
+            <p class="mt-8 text-xs text-slate-400">Desenvolvido para Preparação Técnica - Geografia 2024</p>
+        </footer>
+    </div>
+
+</body>
+</html>
