@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Dinâmicas Migratórias Contemporâneas</title>
+    <style>
+        :root {
+            --bg-color: #f9f9fb;
+            --text-color: #1a1a1a;
+            --primary-color: #2563eb;
+            --secondary-color: #4b5563;
+            --border-color: #e5e7eb;
+            --correct-color: #059669;
+            --wrong-color: #dc2626;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        table, th, td {
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f3f4f6;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            display: block;
+            padding: 15px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f0f7ff;
+            border-color: var(--primary-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        input[type="radio"]:checked + span {
+            font-weight: bold;
+        }
+
+        .checked-label {
+            background-color: #eff6ff;
+            border-color: var(--primary-color);
+        }
+
+        .resolution-box {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            display: none; /* Hidden by default */
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .correct-answer-indicator {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 80px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        #result-summary {
+            display: none;
+            text-align: center;
+            background: #ffffff;
+            border: 2px solid var(--primary-color);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .score-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .score-percentage {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        .status-correct { color: var(--correct-color); }
+        .status-wrong { color: var(--wrong-color); }
+
+        .feedback-correct { border-color: var(--correct-color) !important; background-color: #ecfdf5 !important; }
+        .feedback-wrong { border-color: var(--wrong-color) !important; background-color: #fef2f2 !important; }
+
+        @media (max-width: 600px) {
+            .container { width: 95%; padding: 20px 10px; }
+            h1 { font-size: 1.5rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Dinâmicas Migratórias Contemporâneas</h1>
+            <p class="subtitle">Simulado Geopolítico - Estilo Concurso CEETEPS/ETEC</p>
+        </header>
+
+        <div id="result-summary">
+            <div class="score-text" id="score-display"></div>
+            <div class="score-percentage" id="percentage-display"></div>
+            <p>Confira as resoluções detalhadas abaixo de cada questão.</p>
+        </div>
+
+        <form id="quiz-form">
+            <div id="questions-list">
+                <!-- Questions will be injected here by JS -->
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn-submit" id="submit-btn" onclick="submitQuiz()">Finalizar Quiz e Ver Resoluções</button>
+                <button type="button" class="btn-submit" id="restart-btn" style="display:none; background-color: var(--secondary-color);" onclick="location.reload()">Refazer Simulado</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                id: 1,
+                text: "Considere o seguinte excerto analítico baseado nos dados recentes da Organização Internacional para as Migrações (OIM) e as discussões sobre a globalização financeira:\n\nO Relatório Mundial sobre Migração de 2024 aponta uma transformação estrutural na composição financeira dos fluxos globais. Entre 2000 e 2022, as remessas internacionais enviadas por migrantes aos seus países de origem saltaram de US$ 128 bilhões para US$ 831 bilhões, representando um incremento superior a 650%. Desse montante, aproximadamente US$ 647 bilhões foram direcionados a países de baixa e média renda. Este volume de capital agora supera consistentemente o Investimento Estrangeiro Direto (IED) nessas nações, alterando a percepção da migração de um \"problema social\" para um motor de resiliência macroeconômica.\n\nCom base no texto e nos conhecimentos sobre a economia política das migrações, analise as proposições abaixo:\n\nI. O crescimento das remessas indica que a migração internacional atua como um mecanismo contracíclico de estabilização econômica, uma vez que o envio de capital por migrantes costuma ser mais resiliente a crises financeiras do que os investimentos especulativos ou o IED.\nII. A dependência excessiva das remessas pode gerar a chamada \"doença holandesa\" em países de pequena escala econômica, onde a entrada massiva de divisas estrangeiras valoriza a moeda local e desestimula a competitividade das exportações nacionais.\nIII. O aumento das remessas é um indicador direto de que as políticas neoliberais de austeridade nos países desenvolvidos têm facilitado a integração plena do migrante no mercado de trabalho formal, reduzindo os custos de transação financeira.\nIV. A maior parte desse capital é destinada ao consumo imediato e à subsistência familiar, o que, embora reduza a pobreza extrema, possui um efeito multiplicador limitado no desenvolvimento de infraestruturas produtivas de longo prazo.\n\nÉ correto o que se afirma em:",
+                options: [
+                    "I e II, apenas.",
+                    "I, II e IV, apenas.",
+                    "II e III, apenas.",
+                    "I, III e IV, apenas.",
+                    "I, II, III e IV."
+                ],
+                answer: 1, // B
+                resolution: "A resolução desta questão exige uma análise profunda da economia política da migração contemporânea. O crescimento de mais de 650% nas remessas sugere uma \"financeirização\" da mobilidade humana. O item I está correto porque os dados da OIM demonstram que as remessas são mais estáveis que o IED. O item II apresenta a \"doença holandesa\", onde a entrada massiva de divisas valoriza a moeda local e prejudica a indústria. O item III está incorreto pois a austeridade precariza o trabalho migrante. O item IV é correto pois o capital foca em consumo imediato/subsistência."
+            },
+            {
+                id: 2,
+                text: "Analise a tabela abaixo, que apresenta projeções demográficas para o continente europeu em um cenário de baixa fecundidade e envelhecimento populacional acelerado:\n\n| Indicador Demográfico (Portugal como amostra) | Ano 2024 | Projeção 2100 | Variação (%) |\n| :--- | :--- | :--- | :--- |\n| População Residente (milhões) | 10,7 | 8,3 | - 22,4% |\n| População em Idade Ativa (15-64 anos) | 6,8 | 4,2 | - 38,2% |\n| Índice de Dependência de Idosos (Idosos/100 Ativos) | 39 | 73 | + 87,2% |\n| Índice de Dependência de Jovens (Jovens/100 Ativos) | 20 | 23 | + 15,0% |\n\nConsiderando o conceito de \"Migração Repositória\" e os desafios das políticas públicas na União Europeia em 2024 e 2025, assinale a alternativa que descreve corretamente a relação entre demografia e fluxos migratórios:",
+                options: [
+                    "O aumento do índice de dependência de idosos para 73 em cada 100 ativos torna a migração repositória uma necessidade estrutural para a manutenção dos sistemas de segurança social, apesar da resistência política de movimentos nacionalistas.",
+                    "A estabilidade do índice de dependência de jovens demonstra que as políticas de incentivo à natalidade na Europa foram eficazes, eliminando a necessidade de novos fluxos migratórios a partir de 2060.",
+                    "O declínio da população ativa é compensado integralmente pela automação industrial, o que permite aos países europeus adotarem políticas de \"fronteira zero\" sem prejuízo ao Produto Interno Bruto (PIB).",
+                    "A migração repositória é uma estratégia de curto prazo que visa exclusivamente suprir a carência de mão de obra qualificada no setor de tecnologia, não tendo impacto sobre a estrutura etária geral da população.",
+                    "O decréscimo populacional projetado é um fenômeno exclusivo dos países da Europa do Sul, não afetando a dinâmica de poder geopolítico do eixo franco-alemão dentro do bloco."
+                ],
+                answer: 0, // A
+                resolution: "A análise da tabela revela um cenário de \"Inverno Demográfico\". Em Portugal, a projeção de um índice de dependência de idosos de 73 indica uma pressão insustentável sobre a PEA. O conceito de migração repositória sugere que os países desenvolvidos precisarão de fluxos migrantes constantes para compensar a baixa natalidade e o envelhecimento. A alternativa A integra a necessidade econômica com a barreira política atual."
+            },
+            {
+                id: 3,
+                text: "Sobre a \"terceirização\" ou externalização do controle migratório, um fenômeno crescente na geopolítica contemporânea de 2024 e 2025, analise o seguinte cenário:\n\nDiversos países desenvolvidos têm firmado acordos bilaterais e multilaterais com nações periféricas ou de trânsito (como Turquia, Líbia, Marrocos e México) para que estas realizem a contenção, o processamento de pedidos de asilo e o repatriamento de migrantes antes que estes alcancem as fronteiras soberanas do Norte Global.\n\nEsse processo resulta em impactos geográficos e humanitários específicos, tais como:",
+                options: [
+                    "A criação de \"zonas de amortecimento\" onde os direitos humanos dos migrantes são frequentemente suspensos em prol da segurança nacional dos países receptores finais.",
+                    "O fortalecimento da soberania dos países de trânsito, que passam a ditar as regras do Direito Internacional sobre Refúgio sem interferência das potências ocidentais.",
+                    "A redução drástica da mortalidade em rotas migratórias perigosas, como o Mediterrâneo e o Estreito de Darien, devido ao policiamento ostensivo das nações de trânsito.",
+                    "A eliminação das redes de tráfico de pessoas, uma vez que a externalização formaliza todos os canais de deslocamento humano entre o Sul e o Norte.",
+                    "Um aumento na transparência dos processos de asilo, garantindo que todos os migrantes tenham acesso imediato a advogados e tradutores nos centros de detenção terceirizados."
+                ],
+                answer: 0, // A
+                resolution: "A externalização do controle é crítica. Acordos com países como Líbia e Turquia criam espaços liminares — campos de detenção — onde a supervisão internacional é escassa. Isso gera \"zonas de amortecimento\" onde os direitos humanos são secundarizados em nome da contenção, empurrando migrantes para rotas ainda mais perigosas controladas por milícias."
+            },
+            {
+                id: 4,
+                text: "No contexto brasileiro, a Lei de Migração (Lei nº 13.445/2017) consolidou uma mudança de paradigma em relação ao antigo Estatuto do Estrangeiro de 1980. Analise as diretrizes da atual política migratória brasileira à luz dos princípios de Direitos Humanos:\n\nI. Universalidade, indivisibilidade e interdependência dos direitos humanos como eixo central da acolhida.\nII. Não criminalização da migração e repúdio à xenofobia e ao racismo.\nIII. Exigência de visto de trabalho como condição sine qua non para o ingresso e permanência de qualquer estrangeiro no território nacional.\nIV. Acesso igualitário e livre do migrante a serviços, programas e benefícios sociais, bens públicos, educação e assistência jurídica.\n\nEstão corretas as diretrizes:",
+                options: [
+                    "I e II, apenas.",
+                    "I, II e III, apenas.",
+                    "I, II e IV, apenas.",
+                    "II, III e IV, apenas.",
+                    "I, II, III e IV."
+                ],
+                answer: 2, // C
+                resolution: "A Lei 13.445/2017 substitui a visão policialesca pela de cidadania universal. Os itens I, II e IV são princípios diretos da lei. O item III está incorreto porque a nova lei brasileira não criminaliza a migração irregular e permite a regularização documental facilitada, inclusive permitindo procurar trabalho após o ingresso, eliminando o visto prévio como barreira absoluta."
+            },
+            {
+                id: 5,
+                text: "O Censo Demográfico de 2022 trouxe dados reveladores sobre a mobilidade interna no Brasil, apontando para o que geógrafos chamam de \"nova configuração do mapa migratório nacional\". Sobre o estado de São Paulo e as novas tendências de deslocamento, assinale a alternativa correta:",
+                options: [
+                    "São Paulo registrou, pela primeira vez desde 1991, um saldo migratório negativo entre 2017 e 2022, perdendo cerca de 89,5 mil moradores para outros estados, indicando um processo de desmetropolização e busca por melhor qualidade de vida.",
+                    "O estado de São Paulo consolidou sua posição como o principal destino da migração interna, recebendo mais de 500 mil novos moradores no período intercensitário, superando Santa Catarina.",
+                    "A migração pendular entre a capital paulista e o interior cessou devido à adoção universal do trabalho remoto, reduzindo a pressão sobre o sistema de transportes da CPTM e do Metrô.",
+                    "O fluxo migratório em direção a São Paulo é composto majoritariamente por populações rurais do Nordeste, repetindo o padrão observado nas décadas de 1950 a 1970.",
+                    "A saída de moradores de São Paulo é um fenômeno restrito às classes de alta renda, não afetando a dinâmica demográfica das periferias da Região Metropolitana."
+                ],
+                answer: 0, // A
+                resolution: "Os dados do Censo 2022 mostram que São Paulo tornou-se, em saldo líquido, um estado emissor (-89,5 mil moradores). Isso reflete a \"deseconomia de aglomeração\": alto custo de vida, colapso da mobilidade e poluição expulsam moradores para cidades médias ou outros estados, como Santa Catarina."
+            },
+            {
+                id: 6,
+                text: "A \"Operação Acolhida\", resposta brasileira ao fluxo migratório venezuelano, baseia-se em três pilares: ordenamento de fronteira, acolhimento e interiorização. Sobre a estratégia de interiorização executada entre 2018 e 2025, é correto afirmar:",
+                options: [
+                    "Trata-se de um deslocamento assistido e voluntário que visa redistribuir migrantes e refugiados da fronteira norte para municípios brasileiros com melhores oportunidades de integração socioeconômica.",
+                    "A estratégia prioriza o envio de migrantes para zonas de fronteira agrícola no Centro-Oeste para suprir exclusivamente a carência de mão de obra no setor de grãos.",
+                    "O processo de interiorização é obrigatório para todos os venezuelanos que solicitam visto humanitário, sob pena de deportação imediata em caso de recusa.",
+                    "Mais de 80% dos interiorizados foram alocados na região Norte do país, visando manter a proximidade geográfica com o país de origem para uma futura repatriação.",
+                    "A interiorização é financiada integralmente por fundos privados de ONGs internacionais, sem a participação direta de órgãos do governo federal brasileiro."
+                ],
+                answer: 0, // A
+                resolution: "O pilar da interiorização visa deslocar venezuelanos de Roraima (saturado) para cidades com mercado de trabalho dinâmico. É um processo voluntário e assistido pelo Governo Federal e agências da ONU, tendo levado mais de 156 mil pessoas principalmente para o Sul e Sudeste."
+            },
+            {
+                id: 7,
+                text: "O Relatório Mundial sobre Migração de 2024 destaca a correlação entre desastres ambientais e deslocamentos humanos. Em 2022, o número de pessoas deslocadas internamente por conflitos e desastres atingiu o recorde de 117 milhões. No contexto da África Oriental (Etiópia e Somália), o impacto das mudanças climáticas manifesta-se principalmente através de:",
+                options: [
+                    "Secas severas que destroem os meios de subsistência agropastoris, forçando populações jovens e vulneráveis a migrarem para centros urbanos ou rotas transnacionais em condições de extrema precariedade.",
+                    "Inundações costeiras decorrentes da elevação do nível do mar, que submergiram as principais capitais econômicas da região, como Mogadíscio.",
+                    "Terremotos de grande magnitude que desestruturaram a rede de transportes, impedindo o escoamento da produção agrícola e gerando fomes localizadas.",
+                    "Nevascas atípicas que comprometeram a segurança alimentar em áreas de planalto, fenômeno recorrente desde 2020 devido ao resfriamento global.",
+                    "Pragas de gafanhotos incentivadas pelo uso excessivo de agrotóxicos em plantações transgenicamente modificadas por corporações europeias."
+                ],
+                answer: 0, // A
+                resolution: "Na África Oriental (Chifre da África), a seca é o principal vetor. A perda de gado e colheitas inviabiliza a vida rural, gerando \"refugiados ambientais\" que migram para cidades ou rotas internacionais precárias devido à fome e perda de subsistência."
+            },
+            {
+                id: 8,
+                text: "Considere o conceito de \"Espaço de Fluxos\" de Manuel Castells aplicado às migrações contemporâneas. Em um mundo interconectado, a migração não se limita ao deslocamento físico, mas envolve redes de informação e tecnologias de comunicação. Sobre este tema, analise a influência das tecnologias digitais nos fluxos migratórios atuais:",
+                options: [
+                    "As ferramentas digitais e as redes sociais facilitam a migração ao fornecerem informações em tempo real sobre rotas, oportunidades de emprego e direitos legais, mas também são utilizadas por redes de tráfico para explorar vulnerabilidades.",
+                    "O uso de smartphones tornou os migrantes imunes às políticas de controle de fronteiras, pois permite o desvio constante de radares e sensores térmicos.",
+                    "A exclusão digital nos países do Sul Global impede que a maior parte dos migrantes utilize tecnologias para comunicação com as famílias, tornando as remessas exclusivamente físicas (dinheiro em espécie).",
+                    "As redes digitais provocaram a extinção da migração física, sendo substituída pelo \"trabalho remoto internacional\", onde o migrante permanece em seu país de origem vendendo serviços digitais.",
+                    "As tecnologias digitais são neutras e não interferem na tomada de decisão do migrante, que se baseia exclusivamente em fatores macroeconômicos clássicos (diferencial salarial)."
+                ],
+                answer: 0, // A
+                resolution: "O smartphone é o item mais valioso do migrante atual. Permite o uso do \"capital social digital\" (contatos, mapas, direitos), mas também facilita a exploração por redes criminosas que monitoram as vulnerabilidades dos migrantes via redes sociais."
+            },
+            {
+                id: 9,
+                text: "A respeito das dinâmicas migratórias Sul-Sul, que ganharam proeminência no século XXI, assinale a alternativa que reflete corretamente essa tendência:",
+                options: [
+                    "A migração entre países em desenvolvimento já representa uma parcela significativa dos fluxos globais, sendo muitas vezes motivada por proximidade geográfica, facilidade de visto e menores custos de deslocamento em comparação às rotas para o Norte Global.",
+                    "O fluxo Sul-Sul é composto exclusivamente por trabalhadores de baixa qualificação, uma vez que os profissionais qualificados (fuga de cérebros) migram apenas para o Norte Global.",
+                    "Países como China e Índia deixaram de ser emissores de migrantes e passaram a ser receptores exclusivos de fluxos vindos da América Latina e África.",
+                    "A migração Sul-Sul é caracterizada pela ausência total de conflitos xenófobos, devido à solidariedade intrínseca entre os povos das nações em desenvolvimento.",
+                    "Os fluxos Sul-Sul são monitorados por uma agência única e centralizada da ONU que impede a ocorrência de migração irregular nessas rotas."
+                ],
+                answer: 0, // A
+                resolution: "A migração Sul-Sul é uma \"globalização a partir de baixo\". Fluxos entre vizinhos no Sul Global são impulsionados por afinidades e custos menores. Embora haja xenofobia nessas rotas também, o volume de deslocamento entre países em desenvolvimento hoje é massivo e estratégico."
+            },
+            {
+                id: 10,
+                text: "Em uma aula de Geografia para o Ensino Médio Técnico (ETEC), o professor deve abordar as \"Dinâmicas Populacionais\" integrando as competências da Base Nacional Comum Curricular (BNCC). Para discutir de forma crítica as causas das migrações, a metodologia mais adequada seria:",
+                options: [
+                    "Analisar estudos de caso que correlacionem as assimetrias do sistema capitalista global, os conflitos geopolíticos e as mudanças climáticas com os deslocamentos forçados e voluntários.",
+                    "Priorizar a memorização de taxas de natalidade e mortalidade dos 10 países que mais enviam migrantes para os Estados Unidos.",
+                    "Focar exclusivamente no desenho de pirâmides etárias, ignorando os contextos políticos e sociais que motivam os fluxos migratórios transnacionais.",
+                    "Utilizar livros didáticos da década de 1990 para garantir que o aluno aprenda os conceitos \"puros\" de migração, antes da interferência das tecnologias digitais.",
+                    "Realizar um debate onde os alunos devem defender apenas o fechamento de fronteiras, visando preparar os estudantes para as tendências políticas conservadoras da atualidade."
+                ],
+                answer: 0, // A
+                resolution: "Conforme o CEETEPS e a BNCC, o ensino de Geografia deve ser crítico. Analisar causas das migrações exige entender assimetrias capitalistas, geopolítica e crises climáticas, tratando o espaço como campo de forças sociais e políticas."
+            }
+        ];
+
+        const container = document.getElementById('questions-list');
+        const labels = ["A", "B", "C", "D", "E"];
+
+        // Format questions with tables if markdown table present
+        function formatText(text) {
+            if (text.includes('|')) {
+                const lines = text.split('\n');
+                let inTable = false;
+                let html = "";
+                
+                lines.forEach(line => {
+                    if (line.trim().startsWith('|')) {
+                        if (!inTable) {
+                            html += "<table>";
+                            inTable = true;
+                        }
+                        const cells = line.split('|').filter(c => c.trim() !== "");
+                        html += "<tr>" + cells.map(c => `<td>${c.trim()}</td>`).join('') + "</tr>";
+                    } else {
+                        if (inTable) {
+                            html += "</table>";
+                            inTable = false;
+                        }
+                        html += line + "\n";
+                    }
+                });
+                if (inTable) html += "</table>";
+                return html;
+            }
+            return text;
+        }
+
+        // Render questions
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+
+            let optionsHtml = q.options.map((opt, optIdx) => `
+                <li class="option-item">
+                    <label class="option-label" for="q${index}_opt${optIdx}" id="label_${index}_${optIdx}">
+                        <input type="radio" name="question${index}" value="${optIdx}" id="q${index}_opt${optIdx}" onchange="highlightOption(${index}, ${optIdx})">
+                        <span><strong>${labels[optIdx]})</strong> ${opt}</span>
+                    </label>
+                </li>
+            `).join('');
+
+            card.innerHTML = `
+                <span class="question-number">Questão ${q.id.toString().padStart(2, '0')}</span>
+                <div class="question-text">${formatText(q.text)}</div>
+                <ul class="options-list">
+                    ${optionsHtml}
+                </ul>
+                <div class="resolution-box" id="res-${index}">
+                    <span class="correct-answer-indicator" id="correct-indicator-${index}"></span>
+                    <span class="resolution-title">Resolução Analítica:</span>
+                    <p>${q.resolution}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        function highlightOption(qIdx, optIdx) {
+            // Remove highlighting from all options in this question
+            const qOptions = quizData[qIdx].options;
+            qOptions.forEach((_, i) => {
+                document.getElementById(`label_${qIdx}_${i}`).classList.remove('checked-label');
+            });
+            // Add highlighting to selected
+            document.getElementById(`label_${qIdx}_${optIdx}`).classList.add('checked-label');
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            const form = document.getElementById('quiz-form');
+            const formData = new FormData(form);
+
+            quizData.forEach((q, index) => {
+                const selected = formData.get(`question${index}`);
+                const card = document.getElementById(`q-card-${index}`);
+                const resBox = document.getElementById(`res-${index}`);
+                const indicator = document.getElementById(`correct-indicator-${index}`);
+                
+                // Show resolution
+                resBox.style.display = 'block';
+
+                if (selected !== null) {
+                    const selectedIdx = parseInt(selected);
+                    const selectedLabel = document.getElementById(`label_${index}_${selectedIdx}`);
+
+                    if (selectedIdx === q.answer) {
+                        score++;
+                        selectedLabel.classList.add('feedback-correct');
+                        indicator.innerHTML = `<span class="status-correct">✓ Você acertou!</span> A alternativa correta é a <strong>${labels[q.answer]}</strong>.`;
+                    } else {
+                        selectedLabel.classList.add('feedback-wrong');
+                        indicator.innerHTML = `<span class="status-wrong">✗ Você errou.</span> A alternativa correta é a <strong>${labels[q.answer]}</strong>.`;
+                    }
+                } else {
+                    indicator.innerHTML = `<span class="status-wrong">! Não respondida.</span> A alternativa correta é a <strong>${labels[q.answer]}</strong>.`;
+                }
+
+                // Highlight correct answer in list anyway
+                document.getElementById(`label_${index}_${q.answer}`).style.borderColor = 'var(--correct-color)';
+                document.getElementById(`label_${index}_${q.answer}`).style.borderWidth = '2px';
+            });
+
+            // Show results summary
+            const summary = document.getElementById('result-summary');
+            summary.style.display = 'block';
+            document.getElementById('score-display').innerText = `Resultado: ${score} de ${quizData.length} acertos`;
+            const percentage = (score / quizData.length) * 100;
+            document.getElementById('percentage-display').innerText = `Desempenho: ${percentage}%`;
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Disable all inputs
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => input.disabled = true);
+
+            // Toggle buttons
+            document.getElementById('submit-btn').style.display = 'none';
+            document.getElementById('restart-btn').style.display = 'inline-block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mestria ETEC: Globalização e Redes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef3c7;
+            padding: 0 3px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        .section-title {
+            border-left: 5px solid #1a202c;
+            padding-left: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+        }
+
+        /* Tabela responsiva sem scroll */
+        .responsive-table-container {
+            width: 100%;
+            overflow-x: hidden; /* Garantindo que não haja scroll horizontal */
+        }
+
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+            thead tr {
+                display: none;
+            }
+            tr {
+                margin-bottom: 1.5rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 10px;
+            }
+            td {
+                display: flex;
+                flex-direction: column;
+                padding: 8px 0;
+                border-bottom: 1px solid #edf2f7;
+            }
+            td::before {
+                content: attr(data-label);
+                font-weight: 700;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                color: #64748b;
+                margin-bottom: 2px;
+            }
+        }
+
+        .exam-tip {
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body class="p-5 md:p-12 max-w-5xl mx-auto">
+
+    <!-- Áudio Player -->
+    <header class="mb-12 text-center">
+        <h1 class="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight">Globalização e Redes</h1>
+        <p class="text-lg text-gray-500 mb-8 font-medium">Circulação de Mercadorias, Capitais e Informações • Material de Preparação CEETEPS</p>
+        
+        <div class="bg-gray-100 p-6 rounded-2xl inline-block w-full max-w-xl shadow-sm">
+            <label class="block text-sm font-bold text-gray-700 mb-3">▶️ OUÇA O RESUMO DA AULA (AUDIOESTUDO)</label>
+            <audio controls class="w-full">
+                <source src="globalizacao_e_redes.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-3">Arquivo sugerido: <code class="bg-gray-200 px-1 rounded">resumo-globalizacao-etec.mp3</code></p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Introdução -->
+        <section>
+            <h2 class="section-title text-2xl font-bold">1. Definição e Compressão Espaço-Tempo</h2>
+            <p class="mb-4">A globalização é a fase atual do capitalismo (Geopolítica do Pós-Guerra), caracterizada pela <span class="highlight">integração econômica, cultural e política</span> em escala mundial. Segundo o geógrafo <strong>David Harvey</strong>, vivemos uma <span class="highlight">Aniquilação do Espaço pelo Tempo</span>: as distâncias não diminuíram em quilômetros, mas o tempo necessário para percorrê-las (ou enviar dados) reduziu-se drasticamente.</p>
+        </section>
+
+        <!-- Meio Técnico-Científico-Informacional -->
+        <section>
+            <h2 class="section-title text-2xl font-bold">2. Meio Técnico-Científico-Informacional (MTCI)</h2>
+            <p class="mb-4">Conceito central de <strong>Milton Santos</strong> para provas de concurso. O espaço geográfico atual não é apenas "objetos", mas um <span class="highlight">sistema de objetos e sistema de ações</span> cada vez mais artificiais.</p>
+            <ul class="space-y-3 mb-6">
+                <li>📍 <strong>A Técnica:</strong> Não é mais apenas a máquina, mas a ciência aplicada à produção.</li>
+                <li>📍 <strong>A Informação:</strong> É o "quarto fator de produção". Quem detém a informação, controla o fluxo.</li>
+                <li>📍 <strong>Consequência:</strong> Surgimento das <span class="highlight">Verticalidades</span> (pontos conectados globalmente por interesses corporativos) e <span class="highlight">Horizontalidades</span> (o cotidiano das populações locais).</li>
+            </ul>
+        </section>
+
+        <!-- Divisão Internacional do Trabalho -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">3. Evolução da DIT (Ponto Chave de Prova)</h2>
+            <div class="responsive-table-container border rounded-xl">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="p-4 border">Fase da DIT</th>
+                            <th class="p-4 border">Países Desenvolvidos</th>
+                            <th class="p-4 border">Países Periféricos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-4 border font-bold" data-label="Fase da DIT">DIT Clássica (Século XIX)</td>
+                            <td class="p-4 border" data-label="Países Desenvolvidos">Produtos Industrializados</td>
+                            <td class="p-4 border" data-label="Países Periféricos">Matérias-Primas (Agrário-Exportador)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border font-bold" data-label="Fase da DIT">DIT Moderna (Pós-1950)</td>
+                            <td class="p-4 border" data-label="Países Desenvolvidos">Alta Tecnologia / Investimentos</td>
+                            <td class="p-4 border" data-label="Países Periféricos">Produtos Industrializados Simples / Commodities</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border font-bold" data-label="Fase da DIT">DIT Contemporânea</td>
+                            <td class="p-4 border" data-label="Países Desenvolvidos"><span class="highlight">Inovação, Patentes e Gestão</span></td>
+                            <td class="p-4 border" data-label="Países Periféricos">Montagem, Mão de obra e Impacto Ambiental</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Redes e Fluxos -->
+        <section>
+            <h2 class="section-title text-2xl font-bold">4. A Lógica das Redes</h2>
+            <p class="mb-4">A rede é composta por <span class="highlight">nós (pontos fixos)</span> e <span class="highlight">conexões (fluxos)</span>. Na prova da ETEC, lembre-se:</p>
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="p-5 border rounded-lg hover:border-black transition">
+                    <h3 class="font-bold mb-2">Mercadorias</h3>
+                    <p class="text-sm">Logística <span class="highlight">Multimodal</span> (uso de vários meios: trem + navio + caminhão). O contêiner é a unidade básica que acelerou este fluxo.</p>
+                </div>
+                <div class="p-5 border rounded-lg hover:border-black transition">
+                    <h3 class="font-bold mb-2">Capitais</h3>
+                    <p class="text-sm">Divisão entre capital produtivo (lento) e <span class="highlight">capital especulativo</span> (instantâneo). Foco nos Paraísos Fiscais.</p>
+                </div>
+                <div class="p-5 border rounded-lg hover:border-black transition">
+                    <h3 class="font-bold mb-2">Informações</h3>
+                    <p class="text-sm">Fibra óptica e satélites. A informação é seletiva: cria <span class="highlight">regiões luminosas</span> (conectadas) e regiões opacas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tendências CEETEPS -->
+        <section class="exam-tip">
+            <h2 class="text-xl font-bold mb-4 text-blue-900">🎯 Tendências de Cobrança CEETEPS</h2>
+            <p class="mb-4">A banca costuma cobrar a aplicação prática desses conceitos no **Estado de São Paulo**:</p>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><strong>Logística Paulista:</strong> A importância do <span class="highlight">Porto de Santos</span>, o Rodoanel e a Hidrovia Tietê-Paraná como artérias da globalização no Brasil.</li>
+                <li><strong>Tecnopolos:</strong> São José dos Campos (Aeroespacial) e Campinas (TI) como "nós" de alta hierarquia na rede global.</li>
+                <li><strong>Toyotismo e Trabalho:</strong> A transição do emprego industrial para o setor de serviços e a <span class="highlight">Uberização</span> (precarização do trabalho via plataformas digitais).</li>
+            </ul>
+        </section>
+
+        <!-- Glossário de Sobrevivência -->
+        <section>
+            <h2 class="section-title text-2xl font-bold">5. Glossário de Sobrevivência (Memorizar!)</h2>
+            <dl class="space-y-4">
+                <dt class="font-bold text-lg">Just-in-Time:</dt>
+                <dd class="text-gray-700">Produção sob demanda. Eliminação de estoques para reduzir custos. Exige logística perfeita.</dd>
+                
+                <dt class="font-bold text-lg">Cidades Globais:</dt>
+                <dd class="text-gray-700">Centros de decisão mundial (NY, Londres, São Paulo). Diferente de Megacidade (que é apenas tamanho populacional).</dd>
+                
+                <dt class="font-bold text-lg">Desconcentração Industrial:</dt>
+                <dd class="text-gray-700">Saída das indústrias dos grandes centros (como o ABC Paulista) em busca de incentivos fiscais e mão de obra barata no interior ou outros estados.</dd>
+
+                <dt class="font-bold text-lg">Neoliberalismo:</dt>
+                <dd class="text-gray-700">Doutrina econômica da globalização: <span class="highlight">Estado Mínimo</span>, privatizações e livre circulação de capitais.</dd>
+            </dl>
+        </section>
+
+        <!-- Peguinhas Recorrentes -->
+        <section class="mt-12 p-6 bg-red-50 rounded-xl border border-red-100">
+            <h2 class="text-xl font-bold text-red-800 mb-4">⚠️ Cuidado com os "Peguinhas"!</h2>
+            <ul class="space-y-3 text-red-900">
+                <li><strong>1. "O fim do Estado-Nação":</strong> A globalização não acabou com os países. O Estado continua forte, mas agora ele trabalha para facilitar o fluxo das empresas (Estado Gerencial).</li>
+                <li><strong>2. "Aldeia Global":</strong> Cuidado com o tom otimista. Provas da ETEC/Milton Santos focam na <span class="highlight">Globalização como Perversidade</span> (aumento da fome e desigualdade).</li>
+                <li><strong>3. "Conurbação":</strong> Frequentemente confundem com globalização. Conurbação é o encontro físico de cidades; Redes é o encontro funcional.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Botão de Ação -->
+    <footer class="mt-16 text-center border-t pt-10 pb-20">
+        <p class="mb-6 text-gray-500 font-medium">Pronto para testar seus conhecimentos?</p>
+        <a href="globalizacao_e_redesquestoes.html" class="inline-block bg-black text-white px-12 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transition-all shadow-xl hover:shadow-2xl">
+            Simulado de Questões →
+        </a>
+    </footer>
+
+</body>
+</html>

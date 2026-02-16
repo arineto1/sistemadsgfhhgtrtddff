@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Globalização e Redes - ETEC</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #dcdde1;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 6px;
+            cursor: pointer;
+        }
+
+        .option-label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        table, th, td {
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #2c3e50;
+        }
+
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .result-section {
+            display: none;
+            background: #f1f2f6;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            text-align: center;
+            border: 2px solid var(--accent-color);
+        }
+
+        .resolution {
+            display: none;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
+            background-color: #f9fdf9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .resolution h4 {
+            margin-top: 0;
+            color: var(--correct-color);
+        }
+
+        .correct {
+            background-color: #e6ffed !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .wrong {
+            background-color: #ffeef0 !important;
+            border-color: var(--wrong-color) !important;
+        }
+
+        .feedback-icon {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Globalização e Redes</h1>
+        <p class="description">Simulado: A circulação de mercadorias, capitais e informações (Padrão ETEC/CEETEPS)</p>
+    </header>
+
+    <div id="result-summary" class="result-section">
+        <h2>Resultado Final</h2>
+        <p id="score-text" style="font-size: 1.5rem; font-weight: bold;"></p>
+        <p>Veja abaixo a resolução detalhada de cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- As questões serão inseridas aqui pelo JavaScript -->
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-btn" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            text: `Considere a seguinte reflexão teórica sobre a reorganização do espaço geográfico no período contemporâneo: "O meio técnico-científico-informacional é marcado pela presença da ciência e da técnica nos processos de remodelação do território essenciais às produções hegemônicas que necessitam desse novo meio geográfico para sua realização". No contexto do estado de São Paulo, a circulação de informações e capitais molda o que Milton Santos denominou como "espaços luminosos". <br><br> A partir dessa premissa e da análise da dinâmica territorial paulista, assinale a alternativa que descreve corretamente a relação entre o avanço desse meio e a infraestrutura regional:`,
+            options: [
+                "O desenvolvimento do meio técnico-científico-informacional é distribuído de forma homogênea por todo o território paulista, eliminando as disparidades entre as regiões administrativas.",
+                "A fluidez territorial exigida pelo capital contemporâneo concentra-se em eixos específicos, como as rodovias Anhanguera, Bandeirantes e Dutra, onde a densidade de instituições de ensino superior e logística avançada viabiliza a circulação hegemônica.",
+                "A circulação de informações no meio técnico-científico-informacional prescinde totalmente de fixos geográficos, tornando a localização das sedes corporativas irrelevante.",
+                "O avanço do meio técnico-científico-informacional no estado de São Paulo limitou-se à capital, gerando um processo de 'deserto tecnológico' em Campinas e Vale do Paraíba.",
+                "A racionalidade das redes geográficas e dos fluxos globais promoveu uma mudança no modo de vida das pessoas, estabelecendo um padrão cultural global que ignora as especificidades materiais locais."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** A questão explora o conceito de 'meio técnico-científico-informacional' (MTCI). No estado de São Paulo, a fluidez do capital depende de fixos modernos concentrados em eixos específicos (Anhanguera, Bandeirantes, Dutra), que reúnem infraestrutura de dados e conhecimento técnico. As outras opções erram ao sugerir homogeneidade espacial ou irrelevância dos fixos geográficos."
+        },
+        {
+            id: 2,
+            text: `A circulação de mercadorias é um componente vital da economia globalizada. Observe a tabela abaixo, que apresenta o desempenho comparativo dos modais de transporte no contexto brasileiro:<br>
+            <table>
+                <tr><th>Modal</th><th>Custo Energético</th><th>Capacidade</th><th>Alcance</th><th>Eficiência Longa Dist.</th></tr>
+                <tr><td>Rodoviário</td><td>Elevado</td><td>Baixa/Média</td><td>Capilar</td><td>Baixa</td></tr>
+                <tr><td>Ferroviário</td><td>Médio/Baixo</td><td>Alta</td><td>Rígido</td><td>Alta</td></tr>
+                <tr><td>Hidroviário</td><td>Muito Baixo</td><td>Muito Alta</td><td>Limitado</td><td>Muito Alta</td></tr>
+                <tr><td>Dutoviário</td><td>Mínimo</td><td>Constante</td><td>Fixo</td><td>Altíssima</td></tr>
+            </table>
+            Com base na tabela e nas estratégias de transporte no território brasileiro, assinale a justificativa que caracteriza adequadamente os benefícios da integração multimodal:`,
+            options: [
+                "A integração multimodal permite que o rodoviarismo integral supra todas as necessidades de corredor logístico.",
+                "A integração de ferrovias de grãos com terminais portuários otimiza a circulação de commodities, reduzindo os custos logísticos ao combinar alta capacidade ferroviária com a saída estratégica.",
+                "O sistema de transporte dutoviário é a solução multimodal definitiva para a circulação de mercadorias manufaturadas de alto valor agregado, como eletrônicos.",
+                "O predomínio do modal rodoviário no Brasil justifica-se pela sua superioridade absoluta em capacidade de carga para o transporte de minérios de ferro.",
+                "A circulação de informações em tempo real nos sistemas logísticos nacionais tornou o uso de portos e ferrovias obsoletos."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** A eficiência na circulação de grandes volumes (commodities) depende da integração multimodal. O uso de ferrovias para longas distâncias conectado a portos reduz o 'Custo Brasil'. Dutos não transportam eletrônicos e o rodoviarismo é ineficiente para minérios em larga escala."
+        },
+        {
+            id: 3,
+            text: `Sobre as redes técnicas e a sua importância para a atual configuração dos fluxos globais, a geografia contemporânea destaca que essas redes não são neutras. Nesse cenário, é correto afirmar sobre a natureza das redes geográficas e seus fluxos:`,
+            options: [
+                "As redes geográficas e os fluxos por elas viabilizados geram uma racionalidade de consumo global, mas encontram resistências e diferenciações nos lugares conforme a cultura e materialidade urbana.",
+                "A fluidez das informações na globalização financeira garantiu que os fluxos de capitais fossem direcionados prioritariamente para a redução das desigualdades socioespaciais.",
+                "As redes técnicas de transporte e comunicação operam de forma autônoma em relação ao território, não necessitando de investimentos estatais.",
+                "O fluxo de mercadorias nas redes globais é determinado exclusivamente pela distância física entre os pontos de produção e consumo.",
+                "A formação de redes de fluxos de capitais eliminou a existência de paraísos fiscais devido à transparência informacional."
+            ],
+            answer: 0,
+            resolution: "**Alternativa Correta: A.** As redes globais tentam impor uma lógica universal, mas sempre interagem com as 'rugosidades' do território (o lugar). A cultura local e os níveis de renda moldam como a rede é utilizada. A globalização financeira não reduziu desigualdades e o Estado continua sendo peça chave na regulação e infraestrutura."
+        },
+        {
+            id: 4,
+            text: `O Currículo Paulista define habilidades relacionadas ao estudo dos impactos nas redes digitais e de informação. No que se refere à exclusão digital e às redes no Brasil, assinale a alternativa correta:`,
+            options: [
+                "A universalização do acesso às redes de fibra óptica em todos os municípios brasileiros eliminou o conceito de 'exclusão digital'.",
+                "A falta de acesso a dispositivos e à conexão de alta velocidade limita a capacidade de determinados grupos sociais de processar dados, gerando desigualdade na inserção produtiva.",
+                "As redes sociais operam como espaços neutros de circulação de informações, priorizando a veracidade dos fatos.",
+                "A circulação de informações é um fenômeno puramente técnico, sem repercussões nas dinâmicas de poder político.",
+                "O uso de aplicativos digitais é desaconselhado pelo Currículo Paulista por distorcer a compreensão da materialidade do território."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** A exclusão digital é um fator de estratificação social. Quem não acessa dados de alta velocidade fica à margem da economia informacional. O Brasil ainda possui vastas áreas com baixa conectividade e as redes sociais são mediadas por algoritmos comerciais, não sendo neutras."
+        },
+        {
+            id: 5,
+            text: `A fragmentação dos processos produtivos em escala global permite que uma empresa transnacional disperse suas etapas de fabricação por diferentes países. Sobre esse processo, assinale a alternativa correta:`,
+            options: [
+                "A fragmentação produtiva reduziu a importância dos fluxos de capitais regionais.",
+                "As redes geográficas permitem a integração de diferentes lugares em uma 'fábrica global', onde a circulação ocorre com precisão temporal (just-in-time).",
+                "A circulação de mercadorias no contexto global baseia-se exclusivamente no uso de mão de obra barata e desqualificada em todos os setores.",
+                "A formação de blocos econômicos impediu a circulação de informações entre diferentes regiões do globo.",
+                "O fluxo de mercadorias contemporâneo é caracterizado pela durabilidade dos produtos e pela lentidão das redes."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** A 'fábrica global' só é possível graças às redes de transporte e comunicação que coordenam o fluxo de peças. O sistema *just-in-time* exemplifica essa circulação acelerada que minimiza estoques e integra continentes."
+        },
+        {
+            id: 6,
+            text: `No contexto da logística e da circulação de mercadorias no Brasil, o papel dos portos é estratégico. Considerando a modernização do sistema portuário nacional, é correto afirmar:`,
+            options: [
+                "A modernização portuária visa exclusivamente o aumento da arrecadação tributária estadual.",
+                "A eficiência portuária depende da sincronização entre a rede material (berços, guindastes) e a rede de informações (sistemas de rastreamento), reduzindo o tempo de espera.",
+                "Os portos brasileiros operam isolados do território nacional, sem conexões com rodovias devido à topografia.",
+                "A circulação de informações nos portos brasileiros é realizada manualmente para evitar ataques cibernéticos.",
+                "O aumento da capacidade de carga dos portos levou à extinção do transporte de cabotagem."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** A eficiência de um porto moderno não é apenas física, mas informacional. Sistemas como o 'Porto Sem Papel' e o rastreamento em tempo real são fundamentais para a fluidez das mercadorias na rede global."
+        },
+        {
+            id: 7,
+            text: `A "compressão espaço-tempo" descreve a sensação de aceleração dos processos sociais devido às inovações técnicas. Sobre o impacto dessa compressão na circulação de fluxos, assinale a alternativa correta:`,
+            options: [
+                "A distância física tornou-se o fator determinante e intransponível para a circulação de informações.",
+                "As inovações nos transportes e comunicações 'encurtaram' as distâncias relativas, permitindo que a circulação de capitais ocorra de forma quase instantânea.",
+                "A compressão espaço-tempo afetou apenas os países desenvolvidos, sem efeitos nos países em desenvolvimento.",
+                "O aumento da velocidade dos fluxos imateriais provocou um retardamento na circulação física de mercadorias.",
+                "A percepção da compressão espaço-tempo é uniforme em todo o globo, independentemente do acesso às redes."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** David Harvey define a compressão espaço-tempo como a aceleração que faz o mundo 'parecer menor'. Embora os quilômetros permaneçam, o tempo de viagem e de transmissão de dados caiu drasticamente, alterando a geografia dos fluxos."
+        },
+        {
+            id: 8,
+            text: `O agronegócio brasileiro exemplifica a aplicação do meio técnico-científico-informacional no campo. Sobre a circulação no agronegócio, assinale a alternativa correta:`,
+            options: [
+                "A produção agrícola moderna no Brasil é independente do mercado financeiro global.",
+                "A circulação de mercadorias agrícolas utiliza redes logísticas de alta performance, onde a informação sobre clima e cotação de preços em bolsas internacionais é fundamental.",
+                "O uso de satélites na agricultura brasileira é restrito ao monitoramento ambiental, sem influência na produtividade.",
+                "A infraestrutura de escoamento da produção agrícola brasileira é exclusivamente rodoviária.",
+                "A circulação de mercadorias no campo brasileiro ocorre de forma aleatória, sem planejamento logístico."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** O agronegócio é o setor mais 'informacional' do campo brasileiro. O produtor depende de dados em tempo real sobre o mercado (Chicago) e logística para garantir a rentabilidade da circulação de suas safras."
+        },
+        {
+            id: 9,
+            text: `Cidades globais funcionam como nós estratégicos onde os fluxos de capitais são geridos. Sobre a hierarquia urbana na rede de fluxos financeiros, é correto afirmar:`,
+            options: [
+                "Todas as cidades do mundo possuem o mesmo grau de influência na gestão dos capitais globais.",
+                "Cidades globais concentram sedes de bancos e bolsas de valores que utilizam redes de alta velocidade para comandar fluxos de capital em escala planetária.",
+                "A circulação de capitais financeiros é restrita às cidades litorâneas devido aos cabos submarinos.",
+                "O papel de São Paulo na rede financeira global é de total isolamento.",
+                "A gestão dos capitais globais ocorre prioritariamente em áreas rurais para evitar saturação."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** As cidades globais (como SP, NY, Londres) são os centros de comando da economia. Elas detêm a infraestrutura técnica e o capital humano necessário para gerir as redes de informações e finanças mundiais."
+        },
+        {
+            id: 10,
+            text: `O transporte dutoviário é especializado na circulação de tipos específicos de mercadorias. Sobre esse modal na economia brasileira, assinale a alternativa correta:`,
+            options: [
+                "Os dutos são utilizados apenas para a circulação de informações digitais.",
+                "O transporte por minerodutos permite o escoamento contínuo da produção mineradora (sólidos em suspensão) até os terminais de exportação.",
+                "A construção de oleodutos no Brasil foi abandonada em favor do transporte por caminhões-tanque.",
+                "Os gasodutos operam de forma isolada do mercado internacional.",
+                "A circulação por dutos é o modal de maior impacto ambiental direto, superando o rodoviário."
+            ],
+            answer: 1,
+            resolution: "**Alternativa Correta: B.** Minerodutos são infraestruturas de rede essenciais para a eficiência na exportação de ferro. Eles garantem fluxo contínuo, baixo custo operacional e segurança para volumes massivos de minério."
+        }
+    ];
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                        <input type="radio" name="q${index}" id="q${index}o${optIndex}" value="${optIndex}">
+                        <label class="option-label" for="q${index}o${optIndex}">
+                            <strong>${String.fromCharCode(65 + optIndex)})</strong> ${opt}
+                        </label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-text">Questão ${index + 1}:</span>
+                <div>${q.text}</div>
+                <ul class="options-list">
+                    ${optionsHtml}
+                </ul>
+                <div class="resolution" id="res-${index}">
+                    <h4>Resolução e Comentário:</h4>
+                    <p>${q.resolution}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIndex, optIndex) {
+        document.getElementById(`q${qIndex}o${optIndex}`).checked = true;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        quizData.forEach((q, index) => {
+            const selected = form.elements[`q${index}`].value;
+            const card = document.getElementById(`q-card-${index}`);
+            const resolution = document.getElementById(`res-${index}`);
+            const options = card.querySelectorAll('.option-item');
+
+            // Mostrar resolução
+            resolution.style.display = 'block';
+
+            if (selected == q.answer) {
+                score++;
+                options[q.answer].classList.add('correct');
+                options[q.answer].innerHTML += '<span class="feedback-icon">✓ (Correta)</span>';
+            } else {
+                if (selected !== "") {
+                    options[selected].classList.add('wrong');
+                    options[selected].innerHTML += '<span class="feedback-icon">✗ (Sua escolha)</span>';
+                }
+                options[q.answer].classList.add('correct');
+                options[q.answer].innerHTML += '<span class="feedback-icon">✓ (Resposta Correta)</span>';
+            }
+            
+            // Desabilitar inputs
+            const inputs = card.querySelectorAll('input');
+            inputs.forEach(input => input.disabled = true);
+        });
+
+        // Mostrar resumo
+        const summary = document.getElementById('result-summary');
+        const scoreText = document.getElementById('score-text');
+        summary.style.display = 'block';
+        scoreText.innerText = `Você acertou ${score} de ${quizData.length} questões! (${(score/quizData.length*100)}%)`;
+        
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Avaliação Concluída";
+        
+        // Rolar para o topo
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Inicializar
+    window.onload = renderQuestions;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Técnica: Dinâmicas Migratórias - ETEC/CEETEPS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+            padding-bottom: 50px;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 1px 3px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .section-header {
+            border-left: 4px solid #1a1a1a;
+            padding-left: 1rem;
+            margin: 2.5rem 0 1.5rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        /* Tabela Responsiva sem Scroll Horizontal */
+        .table-wrapper {
+            width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9fafb;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: #4b5563;
+        }
+
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr { display: block; }
+            thead { display: none; }
+            tr { margin-bottom: 15px; border-bottom: 2px solid #eee; }
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                border-bottom: 1px solid #f3f4f6;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: 45%;
+                text-align: left;
+                font-weight: 700;
+                color: #374151;
+            }
+        }
+
+        .audio-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0 40px 0;
+        }
+
+        .strategy-box {
+            background-color: #fffbeb;
+            border: 1px solid #fde68a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .btn-link {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .btn-link:hover {
+            background: #374151;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="max-w-4xl mx-auto px-5 py-10">
+
+    <header class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold text-gray-900 leading-tight">Dinâmicas Migratórias Contemporâneas</h1>
+        <p class="text-lg text-gray-600 mt-2 font-medium">Guia Técnico para Concurso Docente ETEC / Paula Souza</p>
+    </header>
+
+    <!-- Reprodutor de Áudio -->
+    <div class="audio-box">
+        <div class="flex items-center mb-4">
+            <span class="text-2xl mr-3">🎧</span>
+            <div>
+                <h3 class="font-bold text-gray-800">Resumo Estratégico em Áudio</h3>
+                <p class="text-sm text-gray-500 italic">Ouça os pontos-chave para memorização rápida</p>
+            </div>
+        </div>
+        <audio controls class="w-full">
+            <source src="dinamicas_migratorias.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+        <p class="text-xs text-gray-400 mt-2">Arquivo esperado: <span class="font-mono">aula_migracoes_resumo.mp3</span></p>
+    </div>
+
+    <!-- Seção 1: Definição e Teoria -->
+    <section>
+        <h2 class="section-header">1. Definição e Fundamentos Geográficos</h2>
+        <p>A migração é o deslocamento espacial da população, podendo ser definitivo ou temporário. No contexto do CEETEPS, é vital conectar o tema à <span class="highlight">Globalização</span> e ao <span class="highlight">Meio Técnico-Científico-Informacional</span> (Milton Santos).</p>
+        <ul class="mt-4 space-y-3">
+            <li><strong>Espaço de Fluxos:</strong> Enquanto o capital e a informação circulam livremente, o <span class="highlight">corpo humano encontra barreiras</span> (seletividade migratória).</li>
+            <li><strong>Morfologia dos Conflitos:</strong> As migrações atuais não são apenas econômicas, são geopolíticas e <span class="highlight">bio-políticas</span>.</li>
+            <li><strong>Fatores de Expulsão (Push):</strong> Miséria, guerras, perseguições e desastres ambientais.</li>
+            <li><strong>Fatores de Atração (Pull):</strong> Oferta de emprego, estabilidade política e reunificação familiar.</li>
+        </ul>
+    </section>
+
+    <!-- Seção 2: Glossário Pró-Prova -->
+    <section>
+        <h2 class="section-header">2. Tipologias e Conceitos (Glossário de Acerto)</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Fluxo</th>
+                        <th>Característica Técnica</th>
+                        <th>Exemplo Prático</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Tipo"><strong>Pendular</strong></td>
+                        <td data-label="Característica">Diária, curta duração, <span class="highlight">não altera residência</span>.</td>
+                        <td>Trabalhador de Jundiaí que trabalha em São Paulo.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tipo"><strong>Transumância</strong></td>
+                        <td data-label="Característica">Sazonal, ligada a ciclos climáticos ou econômicos.</td>
+                        <td>Pastoreio em montanhas ou "boias-frias" na colheita.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tipo"><strong>Êxodo Rural</strong></td>
+                        <td data-label="Característica">Campo para cidade. Causa <span class="highlight">macrocefalia urbana</span>.</td>
+                        <td>Urbanização acelerada do Brasil (1950-1980).</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tipo"><strong>Fuga de Cérebros</strong></td>
+                        <td data-label="Característica">Migração de mão de obra altamente qualificada.</td>
+                        <td>Cientistas brasileiros emigrando para o Vale do Silício.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tipo"><strong>Refugiado</strong></td>
+                        <td data-label="Característica">Temor de perseguição (Convenção de Genebra 1951).</td>
+                        <td>Sírios fugindo da guerra civil.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tipo"><strong>Deslocado Interno</strong></td>
+                        <td data-label="Característica">Migração forçada, mas <span class="highlight">dentro do país</span>.</td>
+                        <td>Populações fugindo da seca ou barragens.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Seção 3: Tendências Contemporâneas -->
+    <section>
+        <h2 class="section-header">3. Dinâmicas do Século XXI</h2>
+        <p>As provas da ETEC cobram a visão crítica da atualidade. Foque nestes 4 eixos:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="p-4 border border-gray-100 rounded shadow-sm">
+                <h4 class="font-bold border-b mb-2">Sul-Sul vs. Sul-Norte</h4>
+                <p class="text-sm">Crescimento dos fluxos entre países em desenvolvimento devido ao fechamento das fronteiras no Norte Global (Fortaleza Europa).</p>
+            </div>
+            <div class="p-4 border border-gray-100 rounded shadow-sm">
+                <h4 class="font-bold border-b mb-2">Feminização</h4>
+                <p class="text-sm">Aumento de mulheres migrando sozinhas como chefes de família, rompendo a lógica de "acompanhante" do marido.</p>
+            </div>
+            <div class="p-4 border border-gray-100 rounded shadow-sm">
+                <h4 class="font-bold border-b mb-2">Refugiados Ambientais</h4>
+                <p class="text-sm">O termo ainda não tem status jurídico pleno, mas é tendência em prova: pessoas forçadas pela elevação do nível do mar ou desertificação.</p>
+            </div>
+            <div class="p-4 border border-gray-100 rounded shadow-sm">
+                <h4 class="font-bold border-b mb-2">Remessas</h4>
+                <p class="text-sm">O envio de dinheiro para os países de origem é vital para o PIB de nações como Haiti, Filipinas e El Salvador.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 4: Brasil -->
+    <section>
+        <h2 class="section-header">4. O Cenário Brasileiro Atual</h2>
+        <p>O Brasil deixou de ser apenas país de trânsito para ser país de destino e residência.</p>
+        <ul class="mt-4 space-y-3">
+            <li><strong>Nova Lei de Migração (Lei 13.445/2017):</strong> Marco histórico. Substitui a visão de "segurança nacional" pela de <span class="highlight">Direitos Humanos</span>. Garante acesso à educação e saúde ao estrangeiro, independente da situação documental.</li>
+            <li><strong>Interiorização:</strong> O fluxo não é mais apenas para as metrópoles (SP/RJ), mas para <span class="highlight">Cidades Médias</span> do agronegócio e interior paulista.</li>
+            <li><strong>Fluxos Recentes:</strong> Venezuelanos (Operação Acolhida), Haitianos e populações de países africanos de língua portuguesa.</li>
+        </ul>
+    </section>
+
+    <!-- Seção 5: Estratégia de Prova (Peguinhas) -->
+    <section class="strategy-box">
+        <h2 class="text-xl font-bold mb-4 text-amber-900">🚨 Peguinhas Recorrentes (Banca FAT/ETEC)</h2>
+        <ul class="space-y-4 text-amber-950">
+            <li><strong>Xenofobia vs. Aporofobia:</strong> A prova pode cobrar a distinção. Xenofobia é ódio ao estrangeiro; <span class="highlight">Aporofobia</span> é o ódio ao pobre (comum na rejeição seletiva de imigrantes).</li>
+            <li><strong>Migração e Trabalho:</strong> Cuidado com questões que tratam o imigrante apenas como "problema social". A banca prefere a visão do imigrante como <span class="highlight">sujeito econômico</span> que contribui para a previdência e consumo.</li>
+            <li><strong>Muros Geopolíticos:</strong> Não caia na ideia de que os muros acabaram com a Guerra Fria. Vivemos a era da "Muralização" (EUA-México, Espanha-Marrocos, Israel-Palestina).</li>
+        </ul>
+    </section>
+
+    <!-- Impactos Adicionais -->
+    <section>
+        <h2 class="section-header">5. Impactos Socioespaciais</h2>
+        <div class="bg-gray-50 p-6 rounded-lg">
+            <p><strong>Demografia:</strong> Em países europeus, a migração é vista como solução para o <span class="highlight">envelhecimento populacional</span> (bônus demográfico externo).</p>
+            <p class="mt-2"><strong>Cultura:</strong> Hibridismo cultural e a formação de bairros étnicos (Ex: Liberdade em SP, Brás).</p>
+            <p class="mt-2"><strong>Espaço Urbano:</strong> Segregação socioespacial e precarização habitacional (cortiços) de novos fluxos vulneráveis.</p>
+        </div>
+    </section>
+
+    <footer class="mt-10 border-t pt-10">
+        <p class="text-sm text-center text-gray-500">
+            <strong>Dica Pedagógica:</strong> Para a aula teste, relacione este tema com a competência <strong>EM13CHS205</strong> da BNCC: 
+            <em>"Analisar a atuação dos indivíduos e dos grupos sociais no que se refere aos movimentos de populações..."</em>
+        </p>
+        
+        <a href="dinamicas_migratoriasquestoes.html" class="btn-link">
+            ACESSAR BANCO DE QUESTÕES
+        </a>
+        
+        <p class="text-center text-xs text-gray-400">© 2024 Preparatório Docente ETEC - Geografia Contemporânea</p>
+    </footer>
+
+</body>
+</html>
