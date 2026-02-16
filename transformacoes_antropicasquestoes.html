@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Geografia ETEC - Transformações Antrópicas</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1a;
+            --accent-color: #2563eb;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
+            --border-color: #e5e7eb;
+            --card-bg: #ffffff;
+            --max-width: 800px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            max-width: var(--max-width);
+            width: 100%;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #4b5563;
+        }
+
+        #quiz-container {
+            max-width: var(--max-width);
+            width: 100%;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .option input {
+            margin-right: 12px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .option-label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* Classes para feedback pós-resultado */
+        .option.correct {
+            background-color: #dcfce7;
+            border-color: var(--success-color);
+        }
+
+        .option.wrong {
+            background-color: #fee2e2;
+            border-color: var(--error-color);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #eff6ff;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        #results-summary {
+            display: none;
+            max-width: var(--max-width);
+            width: 100%;
+            text-align: center;
+            background: var(--accent-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        #results-summary h2 {
+            margin-top: 0;
+        }
+
+        .score-box {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 15px; }
+            .question-card { padding: 15px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Exame de Seleção Docente: Geografia</h1>
+        <p class="description">Tema: Transformações Antrópicas no Espaço Contemporâneo (ETEC/CEETEPS)</p>
+    </header>
+
+    <div id="results-summary">
+        <h2>Resultado Final</h2>
+        <div class="score-box" id="score-display">0/10</div>
+        <p id="feedback-message">Clique no botão abaixo para ver as resoluções.</p>
+    </div>
+
+    <div id="quiz-container">
+        <!-- Perguntas serão inseridas via JavaScript -->
+    </div>
+
+    <button id="finish-btn" class="submit-btn" onclick="checkAnswers()">Finalizar Simulado</button>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                q: "A análise do espaço geográfico contemporâneo exige a compreensão de que a paisagem é um acúmulo de tempos e técnicas. Milton Santos define o espaço geográfico como um 'conjunto indissociável de sistemas de objetos e sistemas de ações'. Assinale a alternativa que caracteriza corretamente a natureza das transformações antrópicas no período atual:",
+                options: {
+                    A: "As transformações antrópicas contemporâneas restringem-se à escala local, mantendo a autonomia dos ecossistemas.",
+                    B: "O meio técnico-científico-informacional caracteriza-se por objetos geográficos com intencionalidade científica, resultando em uma natureza 'artificializada'.",
+                    C: "A dinâmica da natureza recupera sua hegemonia sobre as ações sociais devido ao desenvolvimento de tecnologias sustentáveis.",
+                    D: "O espaço geográfico atual é um cenário passivo, onde as alterações físicas ocorrem de forma independente das decisões políticas.",
+                    E: "A transição para o meio técnico eliminou a necessidade de sistemas de objetos fixos, transformando o meio apenas através de fluxos virtuais."
+                },
+                correct: "B",
+                resolution: "A análise das transformações antrópicas sob a ótica de Milton Santos exige reconhecer que, no período técnico-científico-informacional, o meio físico deixa de ser um suporte puramente 'natural' para se tornar um 'meio geográfico' altamente artificializado. Os objetos criados são projetados com base em dados científicos para maximizar a eficiência global."
+            },
+            {
+                id: 2,
+                q: "Sobre o impacto das diferentes sociedades no meio físico ao longo do tempo (sociedades tradicionais vs. expansão urbano-industrial/agronegócio), analise as proposições:\nI. Sociedades tradicionais promovem alterações que tendem a manter o metabolismo ecossistêmico em equilíbrio relativo.\nII. A expansão da fronteira agrícola moderna exemplifica uma transformação guiada pela lógica da mercadoria, impactando aquíferos e solos.\nIII. O processo de industrialização promoveu uma ruptura definitiva entre o tempo do homem e o tempo da natureza.\nEstá correto o que se afirma em:",
+                options: {
+                    A: "I, apenas.",
+                    B: "II, apenas.",
+                    C: "I e III, apenas.",
+                    D: "II e III, apenas.",
+                    E: "I, II e III."
+                },
+                correct: "E",
+                resolution: "Todas as afirmações estão corretas. Sociedades tradicionais operam em um metabolismo social equilibrado voltado à subsistência. O agronegócio moderno (como no MATOPIBA) altera estruturas físicas profundas. A industrialização acelerou o tempo humano sobre o tempo geológico, consumindo recursos em velocidade superior à regeneração natural."
+            },
+            {
+                id: 3,
+                q: "Assinale a alternativa que explica corretamente a correlação entre a transformação física do sítio urbano e os fenômenos socioambientais contemporâneos:",
+                options: {
+                    A: "As 'ilhas de calor' decorrem do aumento do albedo urbano, resfriando as camadas baixas da atmosfera.",
+                    B: "A verticalização urbana melhora a rugosidade do terreno, facilitando a dispersão de poluentes de forma absoluta.",
+                    C: "As inundações urbanas são consequências diretas da impermeabilização do solo e canalização de rios, aumentando o escoamento superficial.",
+                    D: "O descarte de resíduos sólidos não possui relação direta com a alteração do meio físico superficial.",
+                    E: "A ocupação de áreas de encostas por populações vulneráveis é um exemplo de adaptação sustentável ao meio físico."
+                },
+                correct: "C",
+                resolution: "A urbanização altera o ciclo hidrológico: a pavimentação reduz a infiltração e aumenta o escoamento superficial, enquanto a canalização de rios diminui o tempo de concentração da água, resultando em enchentes rápidas e violentas. A alternativa A erra pois cidades têm baixo albedo (absorvem calor)."
+            },
+            {
+                id: 4,
+                q: "Considerando as evidências científicas das transformações antrópicas em escala planetária (Antropoceno), identifique a afirmação correta:",
+                options: {
+                    A: "O registro estratigráfico é marcado por 'tecnofósseis' e isótopos radioativos, evidenciando alteração física persistente no tempo geológico.",
+                    B: "As mudanças climáticas antropogênicas são fenômenos superficiais que não alteram a dinâmica física dos oceanos.",
+                    C: "A escala dos impactos é determinada exclusivamente por fatores demográficos, independentemente do modelo técnico.",
+                    D: "A 'Grande Aceleração' pós-1945 caracteriza-se pela estabilização das taxas de consumo de recursos naturais.",
+                    E: "As transformações globais são mitigadas pela total autonomia dos sistemas biofísicos terrestres em neutralizar poluentes químicos."
+                },
+                correct: "A",
+                resolution: "O Antropoceno propõe que a atividade humana deixou marcas indeléveis na crosta: radionuclídeos de testes atômicos, microplásticos (tecnofósseis) e alteração química da atmosfera capturada em gelo polar. A movimentação de sedimentos por humanos hoje supera a erosão natural de todos os rios do mundo somados."
+            },
+            {
+                id: 5,
+                q: "Sobre a transformação de áreas de Cerrado em sistemas de agricultura intensiva e o uso de modelos sustentáveis, assinale a correta:",
+                options: {
+                    A: "Sistemas agroflorestais causam maior compactação do solo que as monoculturas mecanizadas.",
+                    B: "A agrobiodiversidade de comunidades tradicionais não contribui para a regulação do ciclo hidrológico.",
+                    C: "O modelo industrial de agricultura promove uma simplificação da paisagem que altera o balanço térmico regional e a infiltração de água.",
+                    D: "Fertilizantes químicos são a única forma de garantir a preservação da estrutura física do solo.",
+                    E: "A mecanização pesada é fundamental para aumentar a rugosidade superficial e favorecer a infiltração."
+                },
+                correct: "C",
+                resolution: "A agricultura industrial altera o meio físico via simplificação biológica. O uso de máquinas pesadas compacta o solo, enquanto a substituição de vegetação nativa por monoculturas altera o albedo e o balanço térmico regional, além de comprometer a recarga de aquíferos por irrigação intensiva."
+            },
+            {
+                id: 6,
+                q: "A respeito dos impactos ambientais e sociais decorrentes da construção de grandes reservatórios hidrelétricos, é correto afirmar:",
+                options: {
+                    A: "A transformação de ecossistemas lóticos em lênticos elimina processos erosivos a jusante.",
+                    B: "A inundação de vegetação nativa pode levar à emissão de metano ($CH_4$) devido à decomposição anaeróbica no fundo do reservatório.",
+                    C: "Os reservatórios funcionam como filtros biológicos que eliminam completamente metais pesados da água.",
+                    D: "A construção de barragens não interfere na migração de espécies ictiológicas.",
+                    E: "O impacto físico restringe-se à área de inundação, sem afetar o microclima local."
+                },
+                correct: "B",
+                resolution: "Reservatórios hidrelétricos em áreas tropicais podem emitir metano ($CH_4$) se a biomassa inundada se decompor sem oxigênio. Além disso, causam sedimentação no reservatório (retendo nutrientes) e alteram o microclima local devido à grande massa de água exposta."
+            },
+            {
+                id: 7,
+                q: "Sobre a aplicação de Geotecnologias e Cartografia na análise ambiental e monitoramento de alterações espaciais, assinale a correta:",
+                options: {
+                    A: "O SIG é uma ferramenta meramente descritiva incapaz de correlacionar dados socioeconômicos.",
+                    B: "O Sensoriamento Remoto por satélites permite o monitoramento multitemporal de processos como o desmatamento e expansão urbana.",
+                    C: "Imagens de radar são ineficazes para monitorar áreas com cobertura de nuvens constante, como a Amazônia.",
+                    D: "O uso de GPS técnico-agrícola serve apenas para localização, sem reduzir impacto ambiental.",
+                    E: "A cartografia digital substitui a necessidade de compreensão crítica, gerando diagnósticos isentos de viés."
+                },
+                correct: "B",
+                resolution: "O sensoriamento remoto é fundamental para a gestão territorial pois fornece dados objetivos sobre a evolução temporal (multitemporal) das transformações físicas. Diferente do sensor óptico, o radar (citado na C) atravessa nuvens, sendo ideal para a Amazônia."
+            },
+            {
+                id: 8,
+                q: "Considerando os desastres socioambientais ocorridos em Mariana e Brumadinho, a análise geográfica correta sobre a transformação antrópica envolvida é:",
+                options: {
+                    A: "O rompimento de barragens é um fenômeno natural causado por ciclos de sismicidade independente da gestão técnica.",
+                    B: "A transformação do relevo pela mineração resulta em uma paisagem tecnogênica, onde a fragilidade do meio artificializado representa risco latente.",
+                    C: "O impacto da mineração limita-se à estética, não afetando a qualidade química dos rios.",
+                    D: "A lama de rejeitos favorece a rápida regeneração da biota por ser composta de minerais naturais.",
+                    E: "A legislação ambiental brasileira é o único fator que determina a transformação antrópica na mineração."
+                },
+                correct: "B",
+                resolution: "A mineração cria 'paisagens tecnogênicas' (antropogeomorfologia), como as barragens de rejeitos que são montanhas artificiais instáveis. O rompimento enterra o solo fértil sob lama estéril e altera quimicamente as bacias hidrográficas por gerações."
+            },
+            {
+                id: 9,
+                q: "Sobre a problemática do lixo nas metrópoles e as transformações antrópicas associadas, assinale a alternativa correta:",
+                options: {
+                    A: "Lixões a céu aberto são eficientes pois a exposição solar neutraliza o chorume.",
+                    B: "O aterro sanitário é uma obra de engenharia que altera o meio físico para confinar resíduos com sistemas de impermeabilização.",
+                    C: "A incineração elimina completamente as transformações antrópicas negativas sem gerar emissões.",
+                    D: "A obsolescência programada reduz a necessidade de novas transformações antrópicas extrativas.",
+                    E: "O descarte em áreas urbanas é mitigado pela ausência de conexão entre drenagem pluvial e rios."
+                },
+                correct: "B",
+                resolution: "Um aterro sanitário é uma intervenção técnica que usa mantas de impermeabilização (PEAD) para proteger o solo e o lençol freático do chorume, além de captar biogás. Diferencia-se do lixão por ser uma obra de engenharia planejada para mitigar o impacto físico."
+            },
+            {
+                id: 10,
+                q: "Qual das práticas pedagógicas abaixo é mais coerente com uma visão integrada das transformações antrópicas conforme as orientações do CEETEPS?",
+                options: {
+                    A: "Enfatizar a memorização de nomes de tipos de solo sem relacioná-los com atividades produtivas.",
+                    B: "Estudar as transformações físicas do bairro da Etec com mapas históricos para identificar como ações locais alteraram o relevo e vegetação.",
+                    C: "Priorizar o ensino dos modelos dos EUA e Europa como exemplos de sucesso sem impactos ambientais.",
+                    D: "Evitar discussões sobre conflitos de terra, focando na descrição geomorfológica neutra.",
+                    E: "Apresentar o meio natural como cenário intocado onde a ação humana é apenas uma agressão externa."
+                },
+                correct: "B",
+                resolution: "O currículo atual (BNCC/MTEC) preconiza o estudo do 'Lugar'. Analisar o bairro da escola permite ao aluno aplicar o raciocínio geográfico em uma escala vivida, reconhecendo a historicidade da produção do espaço e as marcas das transformações antrópicas locais."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${q.id}`;
+
+                let optionsHtml = '';
+                for (const [key, value] of Object.entries(q.options)) {
+                    optionsHtml += `
+                        <label class="option" for="q${q.id}${key}" id="label-${q.id}${key}">
+                            <input type="radio" name="question${q.id}" value="${key}" id="q${q.id}${key}">
+                            <span class="option-label"><strong>${key})</strong> ${value}</span>
+                        </label>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.q}</div>
+                    <div class="options-container">
+                        ${optionsHtml}
+                    </div>
+                    <div class="resolution-box" id="res-${q.id}">
+                        <strong>Gabarito: ${q.correct}</strong><br><br>
+                        ${q.resolution}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            const total = questions.length;
+
+            questions.forEach(q => {
+                const selected = document.querySelector(`input[name="question${q.id}"]:checked`);
+                const resolutionBox = document.getElementById(`res-${q.id}`);
+                
+                // Mostrar resolução
+                resolutionBox.style.display = 'block';
+
+                // Destacar correta
+                const correctLabel = document.getElementById(`label-${q.id}${q.correct}`);
+                correctLabel.classList.add('correct');
+
+                if (selected) {
+                    if (selected.value === q.correct) {
+                        score++;
+                    } else {
+                        // Se errou, destacar a escolhida como errada
+                        const wrongLabel = document.getElementById(`label-${q.id}${selected.value}`);
+                        wrongLabel.classList.add('wrong');
+                    }
+                }
+                
+                // Desabilitar inputs após finalizar
+                const allInputs = document.querySelectorAll(`input[name="question${q.id}"]`);
+                allInputs.forEach(input => input.disabled = true);
+            });
+
+            // Exibir resumo
+            const resultsSummary = document.getElementById('results-summary');
+            const scoreDisplay = document.getElementById('score-display');
+            resultsSummary.style.display = 'block';
+            scoreDisplay.innerText = `${score} / ${total}`;
+            
+            // Alterar botão
+            const btn = document.getElementById('finish-btn');
+            btn.innerText = "Simulado Finalizado";
+            btn.disabled = true;
+            btn.style.opacity = "0.6";
+
+            // Scroll suave para o resultado
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Inicializar o quiz ao carregar
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>

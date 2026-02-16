@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Estudos - Estilo Gamificado</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        
+        /* Animação de clique estilo botão físico */
+        .btn-push:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 0; 
+        }
+        .btn-push {
+            transition: all 0.1s;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Cabeçalho -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-green-500 text-white p-2 rounded-xl">
+                    <i data-lucide="map" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight text-gray-700">Trilha de Estudos</h1>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-wide">Progresso Salvo</p>
+                </div>
+            </div>
+            <button onclick="limparProgresso()" class="text-xs font-bold text-red-400 hover:text-red-600 border border-red-200 px-3 py-2 rounded-lg hover:bg-red-50 transition">
+                Resetar Progresso
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
+        <div id="content-area" class="space-y-12">
+            <!-- As áreas serão inseridas aqui -->
+        </div>
+    </main>
+
+    <script>
+        // --- Lógica de Armazenamento (LocalStorage) ---
+
+        // Salva a data de acesso
+        function registrarAcesso(slug) {
+            const dataAtual = new Date().toISOString();
+            localStorage.setItem(`acesso_${slug}`, dataAtual);
+        }
+
+        // Recupera quantos dias faz que foi acessado
+        function getStatusAcesso(slug) {
+            const lastAccess = localStorage.getItem(`acesso_${slug}`);
+            if (!lastAccess) return null;
+
+            const agora = new Date();
+            const dataSalva = new Date(lastAccess);
+            const diffTime = Math.abs(agora - dataSalva);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffMinutes = Math.floor(diffTime / (1000 * 60));
+
+            if (diffMinutes < 60) return "Acessado hoje";
+            if (diffDays === 0) return "Acessado hoje";
+            if (diffDays === 1) return "Acessado ontem";
+            return `Acessado há ${diffDays} dias`;
+        }
+
+        function limparProgresso() {
+            if(confirm("Deseja apagar todo o histórico de acesso?")) {
+                localStorage.clear();
+                window.location.reload();
+            }
+        }
+
+        // --- Dados e Renderização ---
+
+        function createSlug(text) {
+            return text.toString().toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+                .replace(/\s+/g, '_')
+                .replace(/[^\w\-]+/g, '')
+                .replace(/\_\_+/g, '_')
+                .replace(/^_+/, '')
+                .replace(/_+$/, '') + '.html';
+        }
+
+        const areas = [
+            {
+                id: 1,
+                title: "Geografia",
+                color: "green", // Cores estilo Duolingo
+                shadow: "border-green-600",
+                topics: [
+                    "Conceitos Fundamentais", "Transformações Antrópicas", "Sociedades Tradicionais", 
+                    "Técnicas de Cartografia", "Geotecnologias", "Leitura de Mapas", 
+                    "Dinâmicas Migratórias", "Globalização e Redes", "Consumo e Meio Ambiente", 
+                    "Riscos e Desastres", "Mudanças Climáticas", "Segregação Socioespacial", 
+                    "Impactos Ambientais", "Gestão de Resíduos", "Geografia da Energia"
+                ]
+            },
+            {
+                id: 2,
+                title: "Legislação",
+                color: "blue",
+                shadow: "border-blue-600",
+                topics: [
+                    "LDB (Lei 9.394/96)", "O Ensino Médio na LDB", "Educação Profissional", 
+                    "Reforma do Ensino Médio", "DCNs Educação Profissional", "DCNs Ensino Médio", 
+                    "Articulação Médio/Técnico", "BNCC Ciências Humanas", "Itinerários Formativos", 
+                    "Ensino Médio com Ênfases"
+                ]
+            },
+            {
+                id: 3,
+                title: "Adm. Pública",
+                color: "orange",
+                shadow: "border-orange-600",
+                topics: [
+                    "Lei de Acesso à Informação", "Decreto Estadual 58.052", "Processo Administrativo", 
+                    "Plano de Carreira Ceeteps", "Atribuição de Aulas", "Regulamento Disciplinar", 
+                    "Regimento Comum Etecs", "Atribuições Docentes", "Princípios da Adm. Pública", 
+                    "Acumulação de Cargos"
+                ]
+            },
+            {
+                id: 4,
+                title: "Informática",
+                color: "purple",
+                shadow: "border-purple-600",
+                topics: [
+                    "Sistema Windows", "Microsoft Word", "Microsoft Excel", "Microsoft PowerPoint", 
+                    "Internet e Pesquisa", "Segurança da Informação", "Correio Eletrônico", 
+                    "Armazenamento em Nuvem", "Videoconferência", "Edição de Tabelas"
+                ]
+            }
+        ];
+
+        const container = document.getElementById('content-area');
+
+        areas.forEach(area => {
+            // Mapeamento de cores (Fundo e Sombra "3D")
+            const styles = {
+                green:  { bg: 'bg-green-500',  hover: 'hover:bg-green-400',  text: 'text-green-600',  border: 'border-b-4 border-green-700' },
+                blue:   { bg: 'bg-blue-500',   hover: 'hover:bg-blue-400',   text: 'text-blue-600',   border: 'border-b-4 border-blue-700' },
+                orange: { bg: 'bg-orange-500', hover: 'hover:bg-orange-400', text: 'text-orange-600', border: 'border-b-4 border-orange-700' },
+                purple: { bg: 'bg-purple-500', hover: 'hover:bg-purple-400', text: 'text-purple-600', border: 'border-b-4 border-purple-700' },
+            };
+            const s = styles[area.color];
+
+            // Renderizar Sessão
+            const section = document.createElement('div');
+            section.className = "bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-200";
+            
+            let gridHTML = `<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-6">`;
+            
+            area.topics.forEach((topic, index) => {
+                const slug = createSlug(topic);
+                const status = getStatusAcesso(slug);
+                
+                // Define visual do status
+                let statusHTML = `<span class="text-xs font-bold text-gray-300 mt-2 uppercase">Não iniciado</span>`;
+                let iconColor = "text-white";
+                let btnOpacity = "opacity-100";
+                
+                if (status) {
+                    statusHTML = `<span class="text-xs font-bold text-amber-500 mt-2 flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> ${status}</span>`;
+                }
+
+                gridHTML += `
+                    <div class="flex flex-col items-center text-center group">
+                        <a href="${slug}" 
+                           onclick="registrarAcesso('${slug}')"
+                           class="btn-push w-20 h-20 md:w-24 md:h-24 rounded-full ${s.bg} ${s.hover} ${s.border} flex items-center justify-center mb-3 transition-colors cursor-pointer relative">
+                           
+                           <!-- Brilho no topo do botão para efeito 3D -->
+                           <div class="absolute top-2 left-4 right-4 h-3 bg-white opacity-20 rounded-full"></div>
+                           
+                           <span class="text-3xl font-black ${iconColor} drop-shadow-md">${index + 1}</span>
+                           
+                           ${status ? '<div class="absolute -top-1 -right-1 bg-amber-400 border-2 border-white w-6 h-6 rounded-full flex items-center justify-center"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>' : ''}
+                        </a>
+                        
+                        <span class="text-sm font-bold text-gray-700 leading-tight px-2 h-10 flex items-start justify-center overflow-hidden">
+                            ${topic}
+                        </span>
+                        ${statusHTML}
+                    </div>
+                `;
+            });
+            gridHTML += `</div>`;
+
+            section.innerHTML = `
+                <div class="mb-8 border-b border-gray-100 pb-4">
+                    <h2 class="text-2xl font-extrabold ${s.text}">${area.title}</h2>
+                </div>
+                ${gridHTML}
+            `;
+            
+            container.appendChild(section);
+        });
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>

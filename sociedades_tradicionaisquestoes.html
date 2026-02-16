@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Geografia - Sociedades Tradicionais e Urbano-Industriais</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --max-width: 850px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            font-size: 1.8rem;
+            color: #000;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem 1.5rem;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .quote-box {
+            background: #f8f9fa;
+            border-left: 4px solid var(--border-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f2f6;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input {
+            margin-top: 6px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        /* Feedback Styles */
+        .option-item.correct {
+            border-color: var(--success-color);
+            background-color: #e8f8f0;
+        }
+
+        .option-item.incorrect {
+            border-color: var(--error-color);
+            background-color: #fdf2f2;
+        }
+
+        .resolution-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            display: none;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3);
+        }
+
+        button:hover {
+            background-color: #0773c5;
+            transform: translateY(-2px);
+        }
+
+        #score-panel {
+            display: none;
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        #score-panel h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 0 1rem; }
+            .question-card { padding: 1.5rem; }
+            header h1 { font-size: 1.4rem; }
+            table { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Concurso Professor ETEC: Sociedades Tradicionais vs. Urbano-Industriais</h1>
+</header>
+
+<div class="container">
+    <div id="score-panel">
+        <h2>Seu Resultado: <span id="final-score">0</span>/10</h2>
+        <p>Confira abaixo o gabarito e as resoluções detalhadas.</p>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-card" id="q1">
+            <span class="question-number">Questão 1</span>
+            <div class="question-text">
+                A análise da transição entre as sociedades tradicionais e o modelo urbano-industrial exige a compreensão profunda das transformações no "meio" geográfico. Com base na perspectiva de Milton Santos e nos referenciais curriculares do CEETEPS, assinale a alternativa que descreve corretamente a dinâmica das sociedades urbano-industriais em contraposição às tradicionais:
+                <div class="quote-box">
+                    "O meio natural foi substituído pelo meio técnico, e este, por sua vez, dá lugar ao meio técnico-científico-informacional. Nas sociedades tradicionais, o território é a base da reprodução da vida em simbiose com os ciclos biológicos. Já na sociedade urbano-industrial, o território torna-se um 'recurso' a ser explorado por redes técnicas que servem aos fluxos globais de capital."
+                </div>
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"><span class="option-text">A) As sociedades urbano-industriais eliminam a dependência de recursos naturais, tornando o território um espaço puramente virtual.</span></label>
+                <label class="option-item"><input type="radio" name="q1" value="B"><span class="option-text">B) Nas sociedades tradicionais, a ocupação do espaço é regida pelo valor de troca e pela especulação imobiliária.</span></label>
+                <label class="option-item"><input type="radio" name="q1" value="C"><span class="option-text">C) A sociedade urbano-industrial caracteriza-se pela densidade de objetos técnicos e informacionais que permitem a aceleração do tempo social e a fragmentação do território, subordinando o campo à lógica da cidade.</span></label>
+                <label class="option-item"><input type="radio" name="q1" value="D"><span class="option-text">D) As comunidades tradicionais organizam seu espaço geográfico de forma a replicar a lógica industrial de produção em massa.</span></label>
+                <label class="option-item"><input type="radio" name="q1" value="E"><span class="option-text">E) A transição para o modelo urbano-industrial no Brasil promoveu uma ocupação homogênea do território, extinguindo desigualdades regionais.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q1">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: C</strong></p>
+                <p>A transição para o Meio Técnico-Científico-Informacional (MTCI) define a sociedade urbano-industrial. Ela introduz a densidade de objetos (infraestrutura), a aceleração do tempo social (subordinado ao lucro e fluxos digitais) e a subordinação do campo à lógica industrial da cidade.</p>
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q2">
+            <span class="question-number">Questão 2</span>
+            <div class="question-text">
+                Considerando as transformações espaciais descritas na tabela comparativa de modelos territoriais e a atuação do professor de Geografia no Ensino Técnico, é correto afirmar que:
+                <table>
+                    <tr><th>Dimensão</th><th>Tradicional</th><th>Urbano-Industrial</th></tr>
+                    <tr><td>Relação Tempo-Espaço</td><td>Ritmos biológicos.</td><td>Ritmos da máquina e do capital.</td></tr>
+                    <tr><td>Produção e Consumo</td><td>Subsistência e trocas.</td><td>Produção em larga escala.</td></tr>
+                    <tr><td>Organização Social</td><td>Laços de parentesco.</td><td>Relações contratuais.</td></tr>
+                    <tr><td>Solo</td><td>Lugar de memória/identidade.</td><td>Mercadoria e recurso produtivo.</td></tr>
+                </table>
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"><span class="option-text">A) A integração das comunidades tradicionais ao modo de vida urbano-industrial é um processo linear e benéfico.</span></label>
+                <label class="option-item"><input type="radio" name="q2" value="B"><span class="option-text">B) O avanço da fronteira técnico-industrial sobre territórios tradicionais gera conflitos pela terra, uma vez que a lógica de "vazio demográfico" utilizada pelo Estado ignora a presença e a territorialidade desses grupos.</span></label>
+                <label class="option-item"><input type="radio" name="q2" value="C"><span class="option-text">C) As práticas agroextrativistas das populações tradicionais são consideradas obsoletas para o desenvolvimento sustentável.</span></label>
+                <label class="option-item"><input type="radio" name="q2" value="D"><span class="option-text">D) A sociedade urbano-industrial brasileira superou a fase de dependência das fontes de energia não renováveis.</span></label>
+                <label class="option-item"><input type="radio" name="q2" value="E"><span class="option-text">E) O planejamento territorial nas ETECs deve focar exclusivamente na produtividade técnica, omitindo diversidade cultural.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q2">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: B</strong></p>
+                <p>O avanço da lógica industrial trata territórios vividos como "vazios demográficos" ou meros recursos, gerando conflitos com as populações tradicionais que possuem um vínculo identitário e sustentável com a terra (território-abrigo vs. território-recurso).</p>
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q3">
+            <span class="question-number">Questão 3</span>
+            <div class="question-text">
+                Sobre a dinâmica das redes urbanas e a hierarquia das cidades no contexto contemporâneo da sociedade urbano-industrial brasileira, analise as afirmações:
+                <p>I. As cidades globais funcionam como nós de comando da economia mundial.</p>
+                <p>II. A metropolização no Brasil impediu a formação de periferias desassistidas.</p>
+                <p>III. A hierarquia urbana tem sido redefinida por redes de influência que permitem a cidades médias atuar como polos do agronegócio.</p>
+                <p>IV. A verticalização é uma resposta à valorização do solo e concentração de infraestrutura.</p>
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"><span class="option-text">A) I e II, apenas.</span></label>
+                <label class="option-item"><input type="radio" name="q3" value="B"><span class="option-text">B) III e IV, apenas.</span></label>
+                <label class="option-item"><input type="radio" name="q3" value="C"><span class="option-text">C) I, III e IV, apenas.</span></label>
+                <label class="option-item"><input type="radio" name="q3" value="D"><span class="option-text">D) II, III e IV, apenas.</span></label>
+                <label class="option-item"><input type="radio" name="q3" value="E"><span class="option-text">E) I, II, III e IV.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q3">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: C</strong></p>
+                <p>A afirmação II está incorreta porque a urbanização brasileira foi rápida e desordenada, resultando em segregação socioespacial e periferias precárias. As outras (I, III e IV) descrevem corretamente as cidades globais, a nova hierarquia do agronegócio e a lógica da verticalização.</p>
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q4">
+            <span class="question-number">Questão 4</span>
+            <div class="question-text">
+                Assinale a alternativa que reflete corretamente a visão geográfica sobre a produção social do risco ambiental em áreas urbanas industriais:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"><span class="option-text">A) Os desastres naturais afetam todas as classes sociais de forma idêntica.</span></label>
+                <label class="option-item"><input type="radio" name="q4" value="B"><span class="option-text">B) A vulnerabilidade socioambiental é o resultado da ocupação de áreas ambientalmente frágeis por populações sem acesso ao mercado formal de terras, evidenciando a segregação socioespacial.</span></label>
+                <label class="option-item"><input type="radio" name="q4" value="C"><span class="option-text">C) O planejamento territorial urbano no Brasil prioriza a preservação integral de manguezais e várzeas.</span></label>
+                <label class="option-item"><input type="radio" name="q4" value="D"><span class="option-text">D) O risco ambiental é um fenômeno puramente geológico, sem correlação com políticas públicas.</span></label>
+                <label class="option-item"><input type="radio" name="q4" value="E"><span class="option-text">E) A modernização técnica das cidades brasileiras eliminou a necessidade de gestão de riscos.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q4">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: B</strong></p>
+                <p>O risco não é meramente natural, mas socialmente produzido. A segregação socioespacial empurra as populações mais pobres para encostas e várzeas, criando uma exposição desigual aos perigos ambientais.</p>
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q5">
+            <span class="question-number">Questão 5</span>
+            <div class="question-text">
+                Sobre a modernização da agricultura ("industrialização do campo") e sua relação com o espaço urbano-industrial, é correto afirmar:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"><span class="option-text">A) A modernização agrícola promoveu a fixação do homem no campo, extinguindo o êxodo rural.</span></label>
+                <label class="option-item"><input type="radio" name="q5" value="B"><span class="option-text">B) O campo modernizado torna-se um espaço de consumo de tecnologias industriais (maquinário, insumos, biotecnologia) e um elo subordinado a cadeias logísticas globais.</span></label>
+                <label class="option-item"><input type="radio" name="q5" value="C"><span class="option-text">C) As cidades do interior que servem ao agronegócio mantêm um modo de vida tradicional e isolado.</span></label>
+                <label class="option-item"><input type="radio" name="q5" value="D"><span class="option-text">D) A "Revolução Verde" focou no fortalecimento das sementes crioulas e agricultura familiar.</span></label>
+                <label class="option-item"><input type="radio" name="q5" value="E"><span class="option-text">E) A industrialização do campo reduziu a concentração fundiária no Brasil.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q5">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: B</strong></p>
+                <p>A "industrialização do campo" subordina o rural à lógica industrial. O produtor depende de pacotes tecnológicos (insumos, máquinas) produzidos nas cidades ou multinacionais, integrando o campo a fluxos globais.</p>
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q6">
+            <span class="question-number">Questão 6</span>
+            <div class="question-text">
+                Ao analisar o papel do turismo em territórios de comunidades tradicionais sob a ótica da Geografia escolar, o professor deve considerar que:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"><span class="option-text">A) O turismo de massa é a única via para a preservação cultural dessas comunidades.</span></label>
+                <label class="option-item"><input type="radio" name="q6" value="B"><span class="option-text">B) O turismo sustentável deve buscar o equilíbrio entre a valorização dos saberes locais e a conservação ambiental, evitando a transformação da cultura em mercadoria descartável.</span></label>
+                <label class="option-item"><input type="radio" name="q6" value="C"><span class="option-text">C) A criação de áreas de preservação exige a expulsão imediata de populações como caiçaras e ribeirinhos.</span></label>
+                <label class="option-item"><input type="radio" name="q6" value="D"><span class="option-text">D) O patrimônio natural é um recurso inesgotável para exploração sem restrições.</span></label>
+                <label class="option-item"><input type="radio" name="q6" value="E"><span class="option-text">E) As comunidades tradicionais não possuem conhecimentos relevantes para a gestão de áreas protegidas.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q6">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: B</strong></p>
+                <p>O turismo deve ser planejado de forma sustentável para não descaracterizar a cultura local nem degradar o meio ambiente, respeitando o tripé da sustentabilidade (econômico, ambiental e social).</p>
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q7">
+            <span class="question-number">Questão 7</span>
+            <div class="question-text">
+                Uma característica marcante da organização espacial na Terceira Revolução Industrial (Científico-Tecnológica-Informacional) é:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"><span class="option-text">A) A concentração de todas as etapas produtivas em uma única fábrica gigante (modelo fordista).</span></label>
+                <label class="option-item"><input type="radio" name="q7" value="B"><span class="option-text">B) A desconcentração industrial, permitida pelas tecnologias de informação, que permite que centros de decisão fiquem em cidades globais enquanto a produção ocorre em regiões com menores custos.</span></label>
+                <label class="option-item"><input type="radio" name="q7" value="C"><span class="option-text">C) A dependência crescente de mão de obra braçal sem qualificação.</span></label>
+                <label class="option-item"><input type="radio" name="q7" value="D"><span class="option-text">D) O fortalecimento dos sindicatos operários locais como controladores de fluxos globais.</span></label>
+                <label class="option-item"><input type="radio" name="q7" value="E"><span class="option-text">E) A redução absoluta do comércio internacional devido à autossuficiência.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q7">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: B</strong></p>
+                <p>Diferente do Fordismo, o modelo Informacional permite a fragmentação da produção. O controle permanece concentrado nas sedes das empresas (Cidades Globais), mas a fabricação é espalhada pelo mundo em busca de vantagens comparativas.</p>
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q8">
+            <span class="question-number">Questão 8</span>
+            <div class="question-text">
+                No estudo das sociedades tradicionais vs. urbano-industriais, ao utilizar mapas para ensinar a ocupação do espaço, o docente deve destacar que:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"><span class="option-text">A) Os mapas são representações neutras e puramente técnicas da realidade.</span></label>
+                <label class="option-item"><input type="radio" name="q8" value="B"><span class="option-text">B) A cartografia das redes revela como o espaço urbano-industrial é estruturado por fluxos de energia, matéria e informação que conectam lugares distantes.</span></label>
+                <label class="option-item"><input type="radio" name="q8" value="C"><span class="option-text">C) O uso de croquis no estudo do território tem função meramente decorativa.</span></label>
+                <label class="option-item"><input type="radio" name="q8" value="D"><span class="option-text">D) Os mapas de comunidades tradicionais devem ignorar as dimensões culturais.</span></label>
+                <label class="option-item"><input type="radio" name="q8" value="E"><span class="option-text">E) O Google Maps substitui a necessidade de análise crítica de outras escalas.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q8">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: B</strong></p>
+                <p>A cartografia moderna foca no "espaço de fluxos". Mapas de redes revelam a estrutura de poder e conexão da sociedade industrial, integrando territórios a redes globais.</p>
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q9">
+            <span class="question-number">Questão 9</span>
+            <div class="question-text">
+                Os problemas como o adoecimento mental e a falta de espaços de lazer nas metrópoles industriais devem ser discutidos na Geografia como:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"><span class="option-text">A) Uma consequência inevitável e biológica do crescimento populacional.</span></label>
+                <label class="option-item"><input type="radio" name="q9" value="B"><span class="option-text">B) Um reflexo da degradação ambiental e da carência de políticas públicas que promovam o direito à cidade e a espaços de convivência social.</span></label>
+                <label class="option-item"><input type="radio" name="q9" value="C"><span class="option-text">C) Um problema individual que deve ser resolvido exclusivamente pela medicina.</span></label>
+                <label class="option-item"><input type="radio" name="q9" value="D"><span class="option-text">D) Uma vantagem competitiva para aumentar a produtividade.</span></label>
+                <label class="option-item"><input type="radio" name="q9" value="E"><span class="option-text">E) Algo inexistente nas metrópoles brasileiras devido à alta qualidade de vida.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q9">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: B</strong></p>
+                <p>A saúde mental urbana está ligada ao planejamento das cidades. A carência de espaços públicos e a pressão da vida industrial comprometem o "Direito à Cidade", gerando espoliação urbana e adoecimento social.</p>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <span class="question-number">Questão 10</span>
+            <div class="question-text">
+                A bibliografia do Centro Paula Souza enfatiza a leitura da paisagem no ensino de Geografia escolar. Isso implica:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"><span class="option-text">A) Adoção de métodos tradicionais baseados na memorização de rios.</span></label>
+                <label class="option-item"><input type="radio" name="q10" value="B"><span class="option-text">B) O estímulo ao entendimento das abordagens complexas da realidade, incluindo a leitura da paisagem como expressão de processos históricos.</span></label>
+                <label class="option-item"><input type="radio" name="q10" value="C"><span class="option-text">C) A exclusão de temas sociais para focar na geografia física descritiva.</span></label>
+                <label class="option-item"><input type="radio" name="q10" value="D"><span class="option-text">D) O uso exclusivo de livros didáticos antigos.</span></label>
+                <label class="option-item"><input type="radio" name="q10" value="E"><span class="option-text">E) A desconsideração dos saberes prévios dos alunos e comunidades.</span></label>
+            </div>
+            <div class="resolution-box" id="res-q10">
+                <h4>Resolução</h4>
+                <p><strong>Alternativa Correta: B</strong></p>
+                <p>A paisagem é um "documento" que revela camadas de tempo e conflitos sociais. O docente atua como mediador para que o aluno decodifique esses processos históricos e territoriais.</p>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="button" id="submit-quiz">Finalizar Quiz e Ver Resoluções</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'C',
+        q2: 'B',
+        q3: 'C',
+        q4: 'B',
+        q5: 'B',
+        q6: 'B',
+        q7: 'B',
+        q8: 'B',
+        q9: 'B',
+        q10: 'B'
+    };
+
+    document.getElementById('submit-quiz').addEventListener('click', function() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+
+        // Resetar estilos prévios
+        document.querySelectorAll('.option-item').forEach(el => {
+            el.classList.remove('correct', 'incorrect');
+        });
+
+        // Verificar cada questão
+        for (let q in correctAnswers) {
+            const userAnswer = formData.get(q);
+            const correctAnswer = correctAnswers[q];
+            
+            // Mostrar resolução
+            document.getElementById('res-' + q).style.display = 'block';
+
+            // Selecionar todos os inputs da questão atual
+            const options = document.getElementsByName(q);
+            
+            options.forEach(opt => {
+                const parentLabel = opt.parentElement;
+                
+                // Marcar a correta em verde
+                if (opt.value === correctAnswer) {
+                    parentLabel.classList.add('correct');
+                }
+                
+                // Se o usuário errou, marcar a dele em vermelho
+                if (userAnswer === opt.value && userAnswer !== correctAnswer) {
+                    parentLabel.classList.add('incorrect');
+                }
+            });
+
+            if (userAnswer === correctAnswer) {
+                score++;
+            }
+        }
+
+        // Mostrar placar
+        document.getElementById('final-score').innerText = score;
+        document.getElementById('score-panel').style.display = 'block';
+        
+        // Scroll para o topo para ver o resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Desabilitar inputs após envio
+        document.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.disabled = true;
+        });
+        
+        // Esconder botão de submit
+        this.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>

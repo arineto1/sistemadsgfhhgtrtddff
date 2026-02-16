@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor ETEC - Sociedades Tradicionais e Urbanas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            font-weight: 600;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .section-header {
+            border-left: 5px solid #1e40af;
+            padding-left: 1.25rem;
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Tabelas sem scroll horizontal */
+        .table-wrapper {
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed; /* Força a tabela a respeitar a largura do container */
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            word-wrap: break-word; /* Quebra o texto para não estourar a largura */
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #1e40af;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .audio-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: #ffffff;
+            border-bottom: 2px solid #f1f5f9;
+            padding: 1rem 0;
+        }
+
+        .exam-tip {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .btn-navigation {
+            background-color: #1e40af;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2);
+        }
+
+        .btn-navigation:hover {
+            background-color: #1e3a8a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Áudio Player -->
+    <div class="audio-bar shadow-sm">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-100 p-2 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                </div>
+                <span class="text-sm font-bold text-slate-800 uppercase tracking-tight">Audioaula de Revisão</span>
+            </div>
+            <audio controls class="w-full max-w-md h-9">
+                <!-- NOME DO ARQUIVO MP3 ABAIXO -->
+                <source src="sociedades_tradicionais.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 py-10">
+        
+        <!-- Título Principal -->
+        <header class="mb-12">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
+                Sociedades Tradicionais vs. Urbano-Industriais
+            </h1>
+            <p class="text-xl text-slate-500 font-medium">Mudanças no modo de vida e ocupação do espaço • Especial ETEC/CEETEPS</p>
+        </header>
+
+        <!-- Seção 1: Definição -->
+        <section>
+            <h2 class="section-header text-2xl font-bold text-blue-900">1. Definição do Tema e Características Essenciais</h2>
+            <p class="mb-6">
+                A transição entre o mundo tradicional e o urbano-industrial não é apenas uma mudança de endereço (do campo para a cidade), mas uma <span class="highlight">reestruturação completa das relações sociais</span>, do ritmo de tempo e da forma como a técnica intervém no espaço geográfico.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Dimensão</th>
+                            <th style="width: 37.5%;">Sociedade Tradicional</th>
+                            <th style="width: 37.5%;">Sociedade Urbano-Industrial</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Base Econômica</strong></td>
+                            <td>Subsistência, artesanato e <span class="highlight">ciclos naturais</span>.</td>
+                            <td>Produção em massa, consumo e <span class="highlight">mercado global</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modo de Vida</strong></td>
+                            <td>Ritmo biológico, laços de parentesco e <span class="highlight">solidariedade mecânica</span>.</td>
+                            <td>Ritmo do relógio, anonimato urbano e <span class="highlight">racionalidade instrumental</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Uso do Espaço</strong></td>
+                            <td>Espaço como <span class="highlight">abrigo e território sagrado</span>.</td>
+                            <td>Espaço como <span class="highlight">recurso, mercadoria e fluxo</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Técnica</strong></td>
+                            <td>Ferramentas que prolongam o corpo humano.</td>
+                            <td>Sistemas de objetos autônomos e <span class="highlight">redes digitais</span>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 2: Conceitos Chave -->
+        <section>
+            <h2 class="section-header text-2xl font-bold text-blue-900">2. Definições Básicas para a Prova</h2>
+            <p class="mb-4">Para garantir acertos na prova objetiva, memorize estes "pilares" conceituais:</p>
+            
+            <div class="space-y-6">
+                <div class="border-l-2 border-slate-200 pl-4">
+                    <p><span class="font-bold text-blue-700">Comunidade vs. Sociedade (Ferdinand Tönnies):</span> A <span class="highlight">Comunidade</span> é baseada no afeto e na tradição (vontade orgânica). A <span class="highlight">Sociedade</span> é baseada no contrato e no interesse (vontade refletida).</p>
+                </div>
+                <div class="border-l-2 border-slate-200 pl-4">
+                    <p><span class="font-bold text-blue-700">Meio Técnico-Científico-Informacional (Milton Santos):</span> É o estágio atual do espaço geográfico, onde a <span class="highlight">ciência e a informação</span> controlam a produção e os fluxos no território.</p>
+                </div>
+                <div class="border-l-2 border-slate-200 pl-4">
+                    <p><span class="font-bold text-blue-700">Macrocefalia Urbana:</span> Fenômeno comum no Brasil onde há um crescimento desproporcional das cidades em relação à infraestrutura, gerando <span class="highlight">hipertrofia do setor terciário</span> e favelização.</p>
+                </div>
+                <div class="border-l-2 border-slate-200 pl-4">
+                    <p><span class="font-bold text-blue-700">Simulacro Espacial:</span> Quando o modo de vida tradicional é mantido apenas como "fachada" para o turismo, perdendo sua função social original.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Tendências ETEC -->
+        <section>
+            <h2 class="section-header text-2xl font-bold text-blue-900">3. Análise de Tendências e "Peguinhas" da ETEC</h2>
+            <p class="mb-4">A banca CEETEPS possui um perfil muito específico que prioriza a <span class="font-bold">Geografia Crítica e Humanista</span>. Fique atento:</p>
+            
+            <div class="exam-tip">
+                <h3 class="text-green-800 font-bold mb-2 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                    Atenção ao Peguinha: "Urbanização vs. Crescimento Urbano"
+                </h3>
+                <p class="text-green-900 text-sm">
+                    A banca adora confundir os dois. <span class="font-bold underline">Urbanização</span> é quando a população urbana cresce em ritmo superior à rural. <span class="font-bold underline">Crescimento Urbano</span> é apenas a expansão física da cidade (obras, prédios). Uma cidade pode crescer sem que o país se urbanize.
+                </p>
+            </div>
+
+            <ul class="list-disc list-outside ml-5 space-y-4 text-slate-700">
+                <li><span class="font-bold">Foco em São Paulo:</span> A ETEC cobra muito a questão das <span class="highlight">comunidades caiçaras e quilombolas</span> no Vale do Ribeira e Litoral Norte. A questão geralmente gira em torno do conflito entre preservação ambiental (parques) e direito ao território tradicional.</li>
+                <li><span class="font-bold">O Campo no Brasil:</span> Não caia na armadilha de achar que o agronegócio moderno é sinônimo de "evolução social". A banca costuma focar na <span class="highlight">modernização conservadora</span> (muita máquina, mas a terra continua concentrada na mão de poucos).</li>
+                <li><span class="font-bold">Gentrificação:</span> Termo recorrente. É a expulsão das classes baixas de centros urbanos para a entrada de classes altas após reformas estéticas/comerciais.</li>
+            </ul>
+        </section>
+
+        <!-- Resumo para Memorização -->
+        <section class="mt-12 p-8 bg-slate-50 rounded-2xl border border-slate-100">
+            <h2 class="text-center text-2xl font-black text-slate-800 mb-8 uppercase tracking-widest">Checklist de Memorização</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-blue-800 mb-3 border-b border-blue-200 pb-1">Espaço Tradicional</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>✅ <span class="font-semibold">Horizontalidades:</span> Relações de vizinhança.</li>
+                        <li>✅ <span class="font-semibold">Tempo da Natureza:</span> Colheita e entressafra.</li>
+                        <li>✅ <span class="font-semibold">Identidade:</span> O lugar é parte de quem o habita.</li>
+                        <li>✅ <span class="font-semibold">Manejo:</span> Baixo impacto ambiental.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-800 mb-3 border-b border-blue-200 pb-1">Espaço Urbano-Industrial</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>✅ <span class="font-semibold">Verticalidades:</span> Ordens vindas de fora (redes).</li>
+                        <li>✅ <span class="font-semibold">Tempo do Capital:</span> 24h/7 dias de produção.</li>
+                        <li>✅ <span class="font-semibold">Segregação:</span> Centro rico vs. Periferia pobre.</li>
+                        <li>✅ <span class="font-semibold">Meio MTCI:</span> Ciência + Tecnologia + Info.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodapé e Ação -->
+        <footer class="mt-16 text-center">
+            <div class="inline-block p-1 bg-gradient-to-r from-blue-200 to-blue-400 rounded-xl mb-8">
+                <div class="bg-white px-8 py-6 rounded-lg">
+                    <p class="text-slate-600 font-medium mb-4">Você concluiu a teoria completa deste módulo!</p>
+                    <a href="sociedades_tradicionaisquestoes.html" class="btn-navigation">
+                        TESTAR CONHECIMENTOS AGORA
+                    </a>
+                </div>
+            </div>
+            <p class="text-slate-400 text-xs uppercase tracking-widest font-bold">Tutor Geográfico © 2024 - Foco ETEC/CEETEPS</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Geografia - ETEC/CEETEPS</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #636e72;
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+            color: var(--primary-color);
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: #b2bec3;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            border-color: var(--primary-color);
+            background-color: #f0f3f5;
+        }
+
+        .btn-finish {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-finish:hover {
+            background-color: #1a252f;
+        }
+
+        /* Results Section */
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .score-banner {
+            text-align: center;
+            padding: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .resolution-card {
+            margin-bottom: 30px;
+            padding: 25px;
+            border-left: 5px solid var(--primary-color);
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .res-correct {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .res-wrong {
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        .explanation-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .explanation-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Concurso Geografia ETEC</h1>
+        <p class="subtitle">Simulado: Espaço Geográfico, Paisagem, Território e Lugar</p>
+    </header>
+
+    <div id="quiz-wrapper">
+        <div id="quiz-content" class="quiz-container">
+            <!-- Questions will be injected here -->
+        </div>
+        <button class="btn-finish" onclick="calculateResults()">Finalizar Quiz</button>
+    </div>
+
+    <section id="results-section">
+        <div class="score-banner">
+            <span>Seu Resultado:</span>
+            <span class="score-value" id="score-display">0/10</span>
+            <p id="score-feedback"></p>
+        </div>
+        
+        <h2 style="color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 10px;">Resoluções Detalhadas</h2>
+        <div id="resolutions-list">
+            <!-- Resolutions will be injected here -->
+        </div>
+        
+        <button class="btn-finish" onclick="window.location.reload()">Refazer Simulado</button>
+    </section>
+
+    <footer>
+        Simulado Preparatório - Centro Estadual de Educação Tecnológica Paula Souza
+    </footer>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No contexto da renovação da Geografia brasileira, especialmente a partir da década de 1970, o conceito de Espaço Geográfico passou por uma profunda revisão epistemológica. Milton Santos propõe uma definição que rompe com a visão tradicional...\n\n\"O espaço é formado por um conjunto indissociável, solidário e também contraditório de sistemas de objetos e sistemas de ações...\"\n\nConsiderando essa definição, o espaço geográfico é:",
+            options: [
+                "Uma categoria puramente física e biológica, cujas transformações são regidas pelas leis da natureza...",
+                "O resultado da interação dialética entre sistemas de objetos (fixos) e sistemas de ações (fluxos), onde a técnica e a informação tornam-se variáveis fundamentais...",
+                "Um receptáculo estático e absoluto, que funciona como um palco onde os fenômenos sociais ocorrem de forma independente...",
+                "Uma construção exclusiva das relações de poder estatais, definida unicamente pelas fronteiras políticas...",
+                "A soma aritmética de paisagens naturais remanescentes e áreas urbanizadas..."
+            ],
+            correct: 1, // Index of Alternative B
+            resolution: "Sintetiza a visão dialética milton-santista. No atual período, o meio técnico-científico-informacional (MTCI) impõe que os objetos sejam carregados de informação e técnica, permitindo a fluidez necessária ao capitalismo global."
+        },
+        {
+            id: 2,
+            question: "A categoria de Paisagem é um dos conceitos mais polissêmicos da ciência geográfica. Segundo a teoria geográfica contemporânea e as orientações curriculares para o ensino técnico, a paisagem deve ser entendida como:",
+            options: [
+                "O domínio exclusivo do visível, uma imagem estática que captura apenas o momento presente...",
+                "Um conjunto de formas que, em um dado momento, exprimem as heranças das sucessivas relações entre a sociedade e a natureza...",
+                "Uma categoria subjetiva vinculada apenas ao sentimento estético do observador...",
+                "O sinônimo perfeito de Espaço Geográfico, uma vez que ambos tratam da totalidade das ações humanas...",
+                "Uma representação cartográfica abstrata, produzida por meio de sensores orbitais..."
+            ],
+            correct: 1,
+            resolution: "A paisagem é o domínio do visível, composta por objetos de idades diferentes (rugosidades). Funciona como um testemunho material porque nela lemos as escolhas econômicas e sociais de gerações passadas."
+        },
+        {
+            id: 3,
+            question: "Sobre o conceito de território e sua aplicação no ensino de Geografia para o Ensino Médio e Técnico, analise as afirmações:\n\nI. O território é o chão mais a identidade, incluindo as formas materiais, as normas e o uso.\nII. Na fase atual da globalização, o território torna-se obsoleto.\nIII. O 'território usado' manifesta-se através de verticalidades e horizontalidades.\nIV. A análise do território deve focar apenas na topografia e hidrografia.\n\nEstá correto o que se afirma em:",
+            options: ["I e II, apenas.", "II e IV, apenas.", "I e III, apenas.", "I, II e III, apenas.", "III e IV, apenas."],
+            correct: 2, // Alternative C
+            resolution: "O território é o 'território usado', onde se cruzam as verticalidades (forças globais) e as horizontalidades (vida cotidiana). A afirmação II está errada pois as redes precisam de base material fixa."
+        },
+        {
+            id: 4,
+            question: "Para a Geografia Humanista e Cultural, o conceito de Lugar é central. Assinale a alternativa que descreve corretamente a dimensão do Lugar:",
+            options: [
+                "É a escala da totalidade do cotidiano compartilhado, onde as relações afetivas transformam o espaço abstrato em espaço dotado de sentido.",
+                "Define-se exclusivamente por suas coordenadas geográficas de latitude e longitude.",
+                "Refere-se a espaços de passagem rápida e desprovidos de identidade, como aeroportos.",
+                "É uma categoria que se aplica apenas às áreas rurais e comunidades tradicionais.",
+                "Constitui-se como uma subdivisão administrativa estritamente utilizada para fins de recenseamento."
+            ],
+            correct: 0, // Alternative A
+            resolution: "O lugar é a escala da totalidade vivida no cotidiano. É onde as relações de vizinhança e memória criam identidade, sendo a unidade qualitativa da experiência humana."
+        },
+        {
+            id: 5,
+            question: "Um dos princípios do raciocínio geográfico é a 'Analogia'. No estudo das categorias de análise, o princípio da analogia é corretamente aplicado quando o estudante:",
+            options: [
+                "Consegue localizar o seu município no mapa utilizando a escala adequada.",
+                "Identifica as causas tectônicas de um terremoto sem relacionar com as consequências sociais.",
+                "Compara diferentes paisagens urbanas para identificar semelhanças e diferenças nos processos de segregação.",
+                "Mede a distância linear entre duas cidades utilizando a régua.",
+                "Descreve isoladamente os elementos naturais de uma bacia hidrográfica."
+            ],
+            correct: 2, // Alternative C
+            resolution: "Analogia é identificar regularidades e variações. Ao comparar fenômenos em lugares distintos, percebe-se como processos sociais semelhantes (como a segregação) produzem formas espaciais parecidas."
+        },
+        {
+            id: 6,
+            question: "Sobre as características do 'Meio Técnico-Científico-Informacional' e sua influência na organização geográfica atual, assinale a alternativa CORRETA:",
+            options: [
+                "Caracteriza-se pela separação total entre a ciência e a técnica.",
+                "Os objetos técnicos tendem a ser simultaneamente técnicos e informacionais, funcionando sob uma lógica de extrema intencionalidade.",
+                "Ocorre de forma homogênea em todo o globo, eliminando as desigualdades espaciais.",
+                "Representa um retorno à condição primitiva do ser humano.",
+                "Resultou na mecanização integral da natureza, extinguindo a necessidade de ações humanas."
+            ],
+            correct: 1, // Alternative B
+            resolution: "No MTCI, ciência e tecnologia trabalham juntas. Os objetos são criados com intencionalidade para servir ao mercado, movidos principalmente pela informação e fluidez técnica."
+        },
+        {
+            id: 7,
+            question: "Considere a relação entre o conceito de Redes e a categoria de Território. É correto afirmar que:",
+            options: [
+                "As redes são entidades imateriais que flutuam sobre o território sem necessidade de fixos.",
+                "O território é fragmentado pelas redes, que selecionam pontos de interesse (pontos de luz) enquanto outras áreas permanecem em 'regiões de sombra'.",
+                "As redes sociais digitais são as únicas redes existentes na geografia moderna.",
+                "O fortalecimento das redes globais tornou o conceito de território irrelevante para a geopolítica.",
+                "As redes operam de forma democrática e igualitária entre o centro e a periferia."
+            ],
+            correct: 1, // Alternative B
+            resolution: "As redes são seletivas. Elas buscam os pontos de maior lucro, criando desigualdades espaciais profundas entre os lugares conectados e os marginalizados."
+        },
+        {
+            id: 8,
+            question: "Segundo Roberto Lobato Corrêa, a regionalização:",
+            options: [
+                "É um processo natural da superfície terrestre dado pela geologia e clima.",
+                "Constitui uma ferramenta de análise que agrupa áreas com características comuns para fins de planejamento e gestão.",
+                "Trata-se de uma divisão imutável estabelecida no século XIX.",
+                "É uma categoria que substitui integralmente o conceito de Lugar.",
+                "Define-se unicamente pelo critério da língua e da religião."
+            ],
+            correct: 1, // Alternative B
+            resolution: "Regionalizar é um ato metodológico e político. É uma construção social e intelectual para organizar o entendimento do espaço e facilitar a gestão territorial."
+        },
+        {
+            id: 9,
+            question: "Ao planejar uma aula sobre 'Territórios em Conflito', o professor deve utilizar o conceito de território para explicar que os embates geopolíticos atuais:",
+            options: [
+                "São resultantes apenas de fatores psicológicos dos líderes mundiais.",
+                "Originam-se da disputa pelo controle, apropriação e gestão de parcelas do espaço geográfico por atores com projetos contraditórios.",
+                "Ocorrem exclusivamente em áreas de fronteiras naturais.",
+                "São fenômenos temporários que não alteram a configuração do espaço.",
+                "Podem ser resolvidos apenas com a utilização de mapas mais precisos."
+            ],
+            correct: 1, // Alternative B
+            resolution: "O conflito territorial é o choque entre diferentes projetos de uso do território. Quem domina o território dita as normas de uso, gerando tensões entre o Estado, empresas e sociedade."
+        },
+        {
+            id: 10,
+            question: "Assinale a alternativa que expressa corretamente a relação entre Espaço Geográfico e Paisagem, segundo Milton Santos:",
+            options: [
+                "O espaço é o conjunto de formas fixas e a paisagem é o movimento da sociedade.",
+                "A paisagem é a materialização de um instante (formas herdadas), enquanto o espaço é a sociedade em movimento que anima as formas.",
+                "Espaço e paisagem são categorias idênticas e intercambiáveis.",
+                "A paisagem refere-se apenas a elementos naturais, enquanto o espaço refere-se a elementos humanos.",
+                "O espaço geográfico é uma categoria da cartografia, enquanto a paisagem é das artes plásticas."
+            ],
+            correct: 1, // Alternative B
+            resolution: "A paisagem é o 'testemunho' material (visível). O espaço é o sistema vivo que inclui a paisagem mais as ações sociais (fluxos) que acontecem nela."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('quiz-content');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                const letter = String.fromCharCode(65 + optIndex);
+                optionsHtml += `
+                    <label class="option-item" id="label-q${index}-o${optIndex}">
+                        <input type="radio" name="question${index}" value="${optIndex}">
+                        <span><strong>${letter})</strong> ${opt}</span>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-header">Questão ${index + 1}</span>
+                <div class="question-text">${q.question}</div>
+                <div class="options-list">
+                    ${optionsHtml}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Add visual feedback on click
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const name = e.target.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.parentElement.classList.remove('selected');
+                });
+                if (e.target.checked) {
+                    e.target.parentElement.classList.add('selected');
+                }
+            });
+        });
+    }
+
+    function calculateResults() {
+        let score = 0;
+        const resContainer = document.getElementById('resolutions-list');
+        resContainer.innerHTML = '';
+        
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+            const selectedValue = selected ? parseInt(selected.value) : null;
+            const isCorrect = selectedValue === q.correct;
+            
+            if (isCorrect) score++;
+
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            
+            const userChoiceLetter = selectedValue !== null ? String.fromCharCode(65 + selectedValue) : "Não respondida";
+            const correctLetter = String.fromCharCode(65 + q.correct);
+
+            resCard.innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <strong>Questão ${index + 1}:</strong> 
+                    <span class="${isCorrect ? 'res-correct' : 'res-wrong'}">
+                        ${isCorrect ? 'Acertou!' : 'Errou.'}
+                    </span>
+                </div>
+                <div style="font-size: 0.9rem; margin-bottom: 5px;">
+                    Sua resposta: ${userChoiceLetter} | 
+                    Gabarito: <strong>${correctLetter}</strong>
+                </div>
+                <div class="explanation-box">
+                    <h4>Resolução e Fundamentação:</h4>
+                    ${q.resolution}
+                </div>
+            `;
+            resContainer.appendChild(resCard);
+        });
+
+        document.getElementById('score-display').innerText = `${score} / ${quizData.length}`;
+        document.getElementById('quiz-wrapper').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
+        
+        let feedback = "";
+        if (score === 10) feedback = "Excelente! Você domina as categorias geográficas.";
+        else if (score >= 7) feedback = "Muito bom! Ótimo desempenho para o CEETEPS.";
+        else if (score >= 5) feedback = "Bom, mas revise as rugosidades e o MTCI de Milton Santos.";
+        else feedback = "Recomendamos revisar os conceitos fundamentais da Geografia Crítica.";
+        
+        document.getElementById('score-feedback').innerText = feedback;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>
