@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Consumo e Meio Ambiente - Geografia ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .serif {
+            font-family: 'Lora', serif;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 2px solid #f3f4f6;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-label:hover {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        input[type="radio"]:checked + .option-content {
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        input[type="radio"]:checked ~ .option-label {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .resolution-box {
+            display: none;
+            border-left: 4px solid #3b82f6;
+            background-color: #f8fafc;
+        }
+
+        .correct { border-color: #10b981 !important; background-color: #ecfdf5 !important; }
+        .incorrect { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
+    </style>
+</head>
+<body class="py-10 px-4">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 serif">Consumo e Meio Ambiente</h1>
+            <p class="text-lg text-gray-600">Simulado para Concurso de Professor de Geografia - ETEC/CEETEPS</p>
+            <div class="h-1 w-20 bg-blue-600 mx-auto mt-6 rounded-full"></div>
+        </header>
+
+        <form id="quiz-form">
+            <div id="questions-container" class="space-y-8">
+                <!-- As questões serão inseridas via JS -->
+            </div>
+
+            <div class="mt-12 text-center">
+                <button type="submit" id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-xl shadow-lg transition duration-300 transform hover:scale-105">
+                    Finalizar Quiz e Ver Resultados
+                </button>
+            </div>
+        </form>
+
+        <!-- Resultados -->
+        <div id="results-section" class="hidden mt-12 p-8 bg-white border border-gray-200 rounded-2xl shadow-xl">
+            <h2 class="text-2xl font-bold mb-4 text-center">Resultado do Desempenho</h2>
+            <div class="flex justify-center items-center mb-6">
+                <div class="text-5xl font-extrabold text-blue-600" id="score-display">0/10</div>
+            </div>
+            <p id="feedback-text" class="text-center text-gray-700 mb-8 italic"></p>
+            
+            <button onclick="window.location.reload()" class="block mx-auto text-blue-600 font-medium hover:underline">
+                Tentar novamente
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const questionsData = [
+            {
+                id: 1,
+                q: "No contexto do pensamento geográfico contemporâneo, a análise dos padrões de consumo exige a compreensão do espaço como um conjunto indissociável de sistemas de objetos e sistemas de ações. Milton Santos, em sua obra \"A Natureza do Espaço\", argumenta que os objetos técnicos que compõem o meio técnico-científico-informacional são portadores de intencionalidades que moldam o comportamento social e as dinâmicas de consumo. Segundo dados das Nações Unidas (2023), o consumo global de recursos naturais triplicou desde o ano de 1970...",
+                options: [
+                    "A aceleração dos fluxos informacionais nas redes globais permitiu a desmaterialização da economia, resultando em uma redução absoluta na extração de recursos naturais.",
+                    "A tecnosfera contemporânea, ao integrar algoritmos de identificação de padrões de consumo e posicionamento político, cria uma psicosfera que estimula o consumo incessante.",
+                    "O consumo de recursos naturais tornou-se mais equitativo entre os países do Norte e do Sul Global, uma vez que a globalização técnica eliminou as hierarquias territoriais.",
+                    "O padrão de consumo atual é um reflexo direto da \"Geografia Tradicional\", que privilegia a localização e a memorização de recursos.",
+                    "A expansão das redes de transporte gerou uma homogeneização biológica que impede a ocorrência de problemas ambientais antropogênicos."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** A alternativa descreve com precisão como as redes digitais contemporâneas capturam dados (algoritmos) para moldar comportamentos de consumo, criando uma pressão sobre o meio ambiente que ignora limites locais. Este é um tema central na Geografia Crítica que busca entender a técnica não como algo neutro, mas como um instrumento de controle e indução de desejos."
+            },
+            {
+                id: 2,
+                q: "A obsolescência é um pilar estruturante do modelo de produção capitalista e um dos principais vetores da geração de resíduos sólidos. De acordo com a União Europeia, a produção de lixo tecnológico supera a marca de 2,5 bilhões de toneladas por ano... Sobre os conceitos de obsolescência programada e obsolescência perceptiva, assinale a alternativa correta.",
+                options: [
+                    "A obsolescência programada é uma falha natural decorrente do desgaste físico inevitável dos materiais.",
+                    "A obsolescência perceptiva ocorre quando o consumidor é levado, por meio do marketing, a sentir que seu produto funcional está ultrapassado, enquanto a programada envolve falhas prematuras deliberadas.",
+                    "Ambos os conceitos são sinônimos de \"economia circular\", modelo que visa aumentar o ciclo de vida dos produtos.",
+                    "A obsolescência programada atua exclusivamente no setor de serviços, enquanto a perceptiva é restrita à extração mineral.",
+                    "O fenômeno da obsolescência é neutralizado pela \"logística reversa\", que garante que 100% dos produtos retornem ao ciclo sem emissões."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** A distinção entre o projeto de falha (programada) e o desejo induzido por novidade estética (perceptiva) é fundamental para a educação ambiental. A obsolescência perceptiva é o que faz as pessoas trocarem de celular anualmente mesmo que o anterior funcione perfeitamente."
+            },
+            {
+                id: 3,
+                q: "A Base Nacional Comum Curricular (BNCC), aplicada ao currículo das ETECs, estabelece competências que visam a análise crítica dos impactos socioambientais. Ao abordar o tema do \"Consumo Consciente\", o professor deve orientar o aluno a:",
+                options: [
+                    "Aceitar o modelo de economia linear como a única via para o desenvolvimento econômico.",
+                    "Analisar e avaliar criticamente os impactos econômicos e socioambientais de cadeias produtivas, selecionando propostas que promovam a sustentabilidade.",
+                    "Priorizar o consumo de produtos importados de longa distância para fortalecer as redes globais.",
+                    "Compreender que a responsabilidade socioambiental é exclusivamente governamental, isentando o indivíduo de mudança de hábito.",
+                    "Focar o estudo do meio ambiente apenas nos aspectos naturais da paisagem, desvinculando-os das relações de poder."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** O papel do professor de Geografia na ETEC é proporcionar ferramentas para que o aluno avalie as cadeias produtivas (desde a mineração até o descarte). Isso exige uma visão sistêmica que conecta economia e ecologia."
+            },
+            {
+                id: 4,
+                q: "O consumo de água nas atividades humanas é um indicador crítico. O conceito de \"água virtual\" auxilia na compreensão do volume invisível necessário para a produção de bens. Considerando o balanço hídrico nacional, é correto afirmar que:",
+                options: [
+                    "O maior impacto sobre as reservas hídricas brasileiras advém do desperdício doméstico nas grandes metrópoles.",
+                    "A estrutura produtiva brasileira é dependente do consumo intensivo na agropecuária, tornando a exportação de commodities uma forma de exportação de \"água virtual\".",
+                    "O setor industrial consome a maior parte da água tratada no Brasil, superando a agropecuária.",
+                    "O consumo animal é irrisório no balanço hídrico nacional, não interferindo na disponibilidade geral.",
+                    "O padrão de consumo de água no Brasil é homogêneo em todo o território, refletindo a abundância de recursos."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** Os dados mostram que a agropecuária é, de longe, o maior consumidor de água (cerca de 70%). Isso desmistifica a ideia de que o consumo doméstico é o único responsável pela crise hídrica, embora este também seja importante."
+            },
+            {
+                id: 5,
+                q: "A transição energética é vital para hábitos sustentáveis. A respeito das fontes de energia e seus impactos no contexto do consumo sustentável, selecione a alternativa correta.",
+                options: [
+                    "A energia solar e a eólica são consideradas fontes de impacto ambiental nulo em toda sua cadeia produtiva.",
+                    "O uso de biocombustíveis elimina todos os problemas ambientais, pois o plantio recupera a fertilidade sem defensivos.",
+                    "A eficiência energética e a redução do consumo são estratégias fundamentais que devem acompanhar a mudança para fontes renováveis.",
+                    "O carvão mineral e o petróleo continuam sendo as fontes mais sustentáveis pelo baixo custo de transporte.",
+                    "As hidrelétricas em larga escala são as únicas fontes de energia que não alteram fluxos migratórios da fauna."
+                ],
+                correct: 2,
+                resolution: "**Resolução:** A redução do consumo é o primeiro passo da eficiência. Mesmo fontes renováveis têm impactos (ex: extração de lítio). Portanto, a mudança de hábitos deve ser aliada à mudança da matriz energética."
+            },
+            {
+                id: 6,
+                q: "O fenômeno das \"Ilhas de Calor\" é um exemplo de como a urbanização densa e o consumo de materiais alteram o clima local. Sobre este fenômeno e a sustentabilidade urbana, é correto afirmar que:",
+                options: [
+                    "As ilhas de calor são causadas exclusivamente pela radiação solar direta.",
+                    "A redução da cobertura vegetal e a verticalização dificultam a dissipação do calor, aumentando o consumo de energia para climatização.",
+                    "A inversão térmica é o nome correto para o aumento da temperatura média na cidade em relação ao campo.",
+                    "O efeito estufa é um fenômeno local que atua apenas em centros urbanos industrializados.",
+                    "A solução sustentável consiste na remoção total das reservas florestais urbanas para circulação de ventos."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** A relação entre o consumo de materiais (concreto/asfalto) e o consumo de energia (ar-condicionado) cria o efeito de retroalimentação térmica nas cidades. Mais asfalto = mais calor = mais ar-condicionado."
+            },
+            {
+                id: 7,
+                q: "A Geografia Crítica propõe uma análise da sustentabilidade que questiona a lógica do lucro. Nesta perspectiva, a crítica geográfica ao modelo atual destaca que:",
+                options: [
+                    "A natureza é um objeto externo e passível de apropriação ilimitada.",
+                    "O sistema econômico vigente prima pelo lucro imediato, o que leva à poluição sistêmica e ao desrespeito aos ciclos naturais.",
+                    "O consumo consciente é uma prática elitista que impede o desenvolvimento dos países pobres.",
+                    "A desigualdade socioespacial não possui relação com o meio ambiente.",
+                    "A economia circular é uma proposta inviável por causa das leis da física moderna."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** A análise de Milton Santos e de outros geógrafos críticos destaca que a lógica do lucro ignora a finitude dos recursos e os tempos de recuperação da natureza. O consumo de massa é o motor desse desequilíbrio."
+            },
+            {
+                id: 8,
+                q: "O conceito de \"Pegada Ecológica\" mede os recursos necessários para sustentar um estilo de vida. Assinale a alternativa que apresenta uma ação eficaz para a redução desse indicador.",
+                options: [
+                    "Incentivar o transporte individual motorizado para dinamizar a economia.",
+                    "Promover o \"comércio justo\" e o consumo de produtos locais e sazonais, reduzindo energia gasta no transporte.",
+                    "Estimular a produção de descartáveis de uso único para garantir a rapidez no consumo.",
+                    "Priorizar o uso de combustíveis fósseis na agricultura para acelerar produtividade.",
+                    "Desvalorizar a educação ambiental nas escolas focando apenas em extração imediata."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** Reduzir a distância entre produção e consumo (produtos locais) diminui drasticamente a queima de combustíveis fósseis no transporte e fortalece economias regionais sustentáveis."
+            },
+            {
+                id: 9,
+                q: "A Política Nacional de Resíduos Sólidos estabelece a responsabilidade compartilhada. Sobre a regra dos 5Rs, é correto afirmar:",
+                options: [
+                    "A \"Reciclagem\" deve ser sempre a primeira e mais importante etapa da gestão.",
+                    "\"Repensar\" hábitos envolve análise crítica da real necessidade de novos produtos, questionando desejos artificiais.",
+                    "\"Reutilizar\" um material é tecnicamente o mesmo que reciclá-lo.",
+                    "O descarte em aterros é a forma mais sustentável, devendo ser incentivado em relação à compostagem.",
+                    "A responsabilidade por pneus e baterias recai exclusivamente sobre o consumidor final."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** O ato de \"Repensar\" ataca a causa do problema (o desejo de consumo), enquanto a reciclagem ataca apenas a consequência (o resíduo). Repensar vem antes na hierarquia."
+            },
+            {
+                id: 10,
+                q: "Milton Santos discute a globalização como fábula, perversidade e possibilidade. Para contribuir para uma \"globalização como possibilidade\", a Geografia na ETEC deve:",
+                options: [
+                    "Fomentar a visão de que a técnica é neutra e o mercado se autorregula.",
+                    "Promover uma educação geográfica que veja o espaço como produto de relações de poder, conectando trabalho, técnica e natureza.",
+                    "Incentivar o estudo estático de mapas apenas para futura exploração econômica transnacional.",
+                    "Ignorar questões éticas e focar exclusivamente em fórmulas de produtividade industrial.",
+                    "Defender a exclusão dos temas ambientais do currículo para focar na descrição do relevo."
+                ],
+                correct: 1,
+                resolution: "**Resolução:** A visão crítica integra economia, política e natureza. Entender o consumo como parte de um sistema de poder permite que o aluno das ETECs atue como cidadão consciente e profissional responsável."
+            }
+        ];
+
+        const container = document.getElementById('questions-container');
+
+        // Renderizar questões
+        questionsData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = "question-card p-6 md:p-8 rounded-2xl shadow-sm mb-6";
+            card.id = `q-block-${index}`;
+            
+            let optionsHTML = '';
+            item.options.forEach((opt, optIdx) => {
+                optionsHTML += `
+                    <label class="option-label flex items-start gap-3" id="label-${index}-${optIdx}">
+                        <input type="radio" name="question-${index}" value="${optIdx}" class="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500" required>
+                        <span class="option-content text-gray-700">${String.fromCharCode(65 + optIdx)}) ${opt}</span>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-gray-900 text-white px-3 py-1 rounded-lg text-sm font-bold uppercase tracking-wider">Questão ${item.id}</span>
+                </div>
+                <p class="text-lg font-medium text-gray-800 mb-6 serif">${item.q}</p>
+                <div class="space-y-2">
+                    ${optionsHTML}
+                </div>
+                <div id="res-${index}" class="resolution-box mt-6 p-5 rounded-xl text-gray-700 italic text-sm">
+                    ${item.resolution}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Lógica do Form
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let score = 0;
+            const formData = new FormData(this);
+
+            questionsData.forEach((item, index) => {
+                const selected = formData.get(`question-${index}`);
+                const resBox = document.getElementById(`res-${index}`);
+                const card = document.getElementById(`q-block-${index}`);
+                
+                resBox.style.display = 'block';
+
+                if (parseInt(selected) === item.correct) {
+                    score++;
+                    document.getElementById(`label-${index}-${selected}`).classList.add('correct');
+                } else {
+                    if (selected !== null) {
+                        document.getElementById(`label-${index}-${selected}`).classList.add('incorrect');
+                    }
+                    document.getElementById(`label-${index}-${item.correct}`).classList.add('correct');
+                }
+            });
+
+            // Mostrar Resultados
+            document.getElementById('results-section').classList.remove('hidden');
+            document.getElementById('score-display').innerText = `${score}/10`;
+            
+            const feedback = score >= 7 ? "Excelente desempenho! Você demonstra um sólido domínio dos conceitos de Geografia Crítica e sustentabilidade." : 
+                             score >= 5 ? "Bom desempenho. Revise os conceitos fundamentais de Milton Santos e as políticas de resíduos para aprofundar seu conhecimento." : 
+                             "Continue estudando. Foque nas relações entre técnica, psicosfera e cadeias produtivas globais.";
+            document.getElementById('feedback-text').innerText = feedback;
+
+            // Scroll suave para o resultado
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('submit-btn').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

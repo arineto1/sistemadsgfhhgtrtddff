@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Segregação Socioespacial nas Metrópoles</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --container-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --accent: #0984e3;
+            --correct: #27ae60;
+            --incorrect: #d63031;
+            --border: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .intro {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input {
+            margin-top: 5px;
+            margin-right: 12px;
+        }
+
+        .btn-submit {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        #results {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .score-card {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 2px solid var(--accent);
+        }
+
+        .score-val {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .resolution-section {
+            margin-top: 50px;
+        }
+
+        .resolution-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fff;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .res-correct { border-left-color: var(--correct); }
+        .res-incorrect { border-left-color: var(--incorrect); }
+
+        .feedback-label {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th { background: #f2f2f2; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Geografia ETEC: Segregação Socioespacial</h1>
+        <p class="intro">Estilo: Concurso para Professor de Ensino Médio (CEETEPS)</p>
+    </header>
+
+    <form id="quizForm">
+        <!-- Questão 1 -->
+        <div class="question-block" id="q1">
+            <span class="question-text">1. O processo de urbanização brasileira consolidou uma estrutura metropolitana marcada por profundas disparidades. À luz da obra de Milton Santos, assinale a alternativa que descreve corretamente o fenômeno dos "dois circuitos da economia urbana" e sua relação com a segregação:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A. O circuito superior e o circuito inferior operam de maneira autônoma e isolada.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B. O circuito superior concentra-se em áreas dotadas de infraestrutura moderna, enquanto o circuito inferior atende às massas segregadas, sendo ambos interdependentes.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C. A segregação socioespacial foi eliminada com a expansão do circuito superior para as periferias.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D. O circuito inferior é composto exclusivamente por atividades ilegais e clandestinas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E. A fragmentação espacial atinge apenas o circuito superior, enquanto o inferior permanece integrado.</label>
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-block" id="q2">
+            <span class="question-text">2. Segundo Roberto Lobato Corrêa, o espaço urbano é um produto social. Sobre a interação entre os agentes da produção do espaço e a segregação, assinale a afirmação correta:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A. A atuação do Estado é tecnicamente neutra e visa garantir condições iguais a todos.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B. Os promotores imobiliários evitam áreas de alta valorização para garantir moradia à classe baixa.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C. A segregação é o resultado da lógica seletiva de localização, onde mercado imobiliário e Estado concentram investimentos em áreas de elite.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D. Os proprietários fundiários facilitam a reforma agrária urbana doando terras vazias.</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E. A fragmentação é determinada puramente por condições topográficas e geológicas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-block" id="q3">
+            <span class="question-text">3. Sobre o conceito de "enclaves fortificados" de Teresa Caldeira e a dinâmica de fragmentação metropolitana, é correto afirmar:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A. Promovem a integração social através de áreas de lazer privadas compartilhadas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B. A mobilidade urbana das populações de maior renda é facilitada, enquanto a de menor renda permanece confinada e com baixa conectividade.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C. A fragmentação socioespacial reduziu a desigualdade intraurbana.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D. A população de menor renda abandonou o centro para morar em condomínios de luxo na periferia.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E. O processo de fragmentação tornou a cidade mais transparente e democrática.</label>
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-block" id="q4">
+            <span class="question-text">4. Analise as proposições sobre a gentrificação:<br>
+            I. Gera aumento do custo de vida, provocando a expulsão indireta da população original.<br>
+            II. É um exemplo de "limpeza social" onde o valor de troca sobrepõe-se ao valor de uso.<br>
+            III. Atenua a fragmentação urbana ao promover mistura social obrigatória.</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A. I, apenas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B. II, apenas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C. I e II, apenas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D. II e III, apenas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E. I, II e III.</label>
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-block" id="q5">
+            <span class="question-text">5. O fenômeno da macrocefalia urbana agrava a segregação socioespacial interna à metrópole porque:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A. Promove a distribuição equânime de recursos entre cidades médias.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B. Gera pressão insustentável sobre a infraestrutura, resultando em carências habitacionais e expansão de periferias desprovidas.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C. Facilita o planejamento urbano e reduz custos de redes de energia.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D. Elimina a necessidade de transportes públicos de massa.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E. Garante que a valorização do solo ocorra de maneira uniforme.</label>
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-block" id="q6">
+            <span class="question-text">6. Sobre a dimensão ambiental da segregação socioespacial (racismo ambiental), assinale a alternativa correta:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A. A ocupação de áreas de risco é uma escolha estética por proximidade com a natureza.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B. Áreas de risco são as mais valorizadas pelo mercado devido à vista panorâmica.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C. Danos causados por desastres naturais atingem desproporcionalmente territórios de grupos de baixa renda e marginalizados.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D. O Estado proíbe infraestrutura de luxo em áreas de proteção ambiental.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E. A fragmentação urbana eliminou os riscos ambientais através de ecovilas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-block" id="q7">
+            <span class="question-text">7. Sobre o Estatuto da Cidade e a função social da propriedade, analise:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A. O IPTU Progressivo visa incentivar a retenção de terrenos vazios para especulação.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B. As ZEIS visam demarcar áreas para habitação de interesse social, integrando populações em territórios com infraestrutura.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C. A Outorga Onerosa permite construir acima do limite sem pagar contrapartidas.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D. A função social impede o Estado de intervir em imóveis abandonados.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E. O planejamento participativo não possui impacto real na contenção da segregação.</label>
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-block" id="q8">
+            <span class="question-text">8. Em "Cidades Globais" como São Paulo, a inserção no fluxo global de capitais aprofunda a fragmentação do espaço por meio da:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A. Dualização do mercado de trabalho, com profissionais qualificados e uma massa de trabalhadores precários.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B. Extinção do setor informal.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C. Descentralização total do capital financeiro para bairros periféricos.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D. Redução da necessidade de segurança privada.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E. Criação de um espaço urbano contínuo e homogêneo.</label>
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-block" id="q9">
+            <span class="question-text">9. Sobre a relação entre transporte (deslocamentos pendulares) e segregação nas metrópoles, assinale a alternativa correta:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A. O custo do transporte público é irrelevante para a segregação.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B. Populações periféricas gastam mais tempo e recursos no deslocamento, limitando acesso a lazer e cultura.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C. O planejamento prioriza o transporte coletivo sobre o individual em toda a metrópole.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D. O automóvel particular eliminou as barreiras de distância para todas as classes.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E. O tempo de deslocamento pendular é maior para as elites urbanas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-block" id="q10">
+            <span class="question-text">10. Conforme a BNCC e o perfil ETEC, ao analisar a produção do espaço, o estudante deve compreender que:</span>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A. A segregação é um fenômeno natural e inevitável decorrente da biologia.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B. O planejamento urbano é uma ciência exata livre de ideologias.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C. A cidade é um território em disputa, onde a organização reflete relações de poder e a luta por direitos.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D. Conflitos urbanos desapareceram devido à harmonia do livre mercado.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E. O papel do geógrafo é descrever as paisagens de forma neutra.</label>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="results">
+        <div class="score-card">
+            <p>Seu Resultado:</p>
+            <div class="score-val" id="scoreValue">0/10</div>
+            <p id="scoreText"></p>
+        </div>
+
+        <div class="resolution-section" id="resolutionsList">
+            <h2>Resoluções Detalhadas</h2>
+            <!-- Inserido via JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'B', q2: 'C', q3: 'B', q4: 'C', q5: 'B',
+        q6: 'C', q7: 'B', q8: 'A', q9: 'B', q10: 'C'
+    };
+
+    const resolutions = {
+        q1: "A alternativa B está correta. Milton Santos propõe que o circuito superior (tecnológico/global) e o inferior (trabalho intensivo/periférico) são interdependentes, mas o primeiro monopoliza a infraestrutura, gerando a segregação.",
+        q2: "A alternativa C é a correta. Roberto Lobato Corrêa destaca que a segregação é produzida por agentes (Estado e capital imobiliário) que direcionam investimentos para áreas de interesse das elites.",
+        q3: "A alternativa B é a correta. Teresa Caldeira analisa como enclaves fortificados criam barreiras físicas que dificultam a mobilidade e integração social da população de menor renda.",
+        q4: "A alternativa C está correta. A gentrificação causa a expulsão econômica (I) e prioriza o valor de troca sobre o uso social (II). A III é falsa pois o processo tende a excluir a população pobre.",
+        q5: "A alternativa B é a correta. A macrocefalia concentra pessoas e capitais desproporcionalmente, sobrecarregando a infraestrutura e empurrando os pobres para periferias precárias.",
+        q6: "A alternativa C está correta. O racismo ambiental mostra que populações vulneráveis são empurradas para áreas de risco (encostas/várzeas) e sofrem mais com eventos naturais.",
+        q7: "A alternativa B é a correta. As ZEIS (Zonas Especiais de Interesse Social) são o principal mecanismo para integrar moradia popular em áreas infraestruturadas.",
+        q8: "A alternativa A é a correta. Saskia Sassen aponta que cidades globais geram uma dualidade entre empregos de alta tecnologia e serviços precários de suporte.",
+        q9: "A alternativa B é a correta. A segregação obriga os trabalhadores periféricos a deslocamentos exaustivos, o que reduz sua qualidade de vida e acesso à cidade.",
+        q10: "A alternativa C é a correta. A BNCC e a Geografia Crítica defendem que o espaço urbano é fruto de tensões sociais e relações de poder, não sendo um dado neutro."
+    };
+
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        const resultsDiv = document.getElementById('results');
+        const resolutionsList = document.getElementById('resolutionsList');
+        const scoreValue = document.getElementById('scoreValue');
+        
+        let score = 0;
+        let htmlResolutions = '<h2>Resoluções Detalhadas</h2>';
+
+        for (let i = 1; i <= 10; i++) {
+            const qKey = 'q' + i;
+            const selected = form.elements[qKey].value;
+            const isCorrect = selected === correctAnswers[qKey];
+            
+            if (isCorrect) score++;
+
+            htmlResolutions += `
+                <div class="resolution-item ${isCorrect ? 'res-correct' : 'res-incorrect'}">
+                    <span class="feedback-label" style="color: ${isCorrect ? 'var(--correct)' : 'var(--incorrect)'}">
+                        Questão ${i}: ${isCorrect ? 'Você Acertou' : 'Você Errou'} (Sua resposta: ${selected || 'Nenhuma'})
+                    </span>
+                    <p><strong>Gabarito: ${correctAnswers[qKey]}</strong></p>
+                    <p>${resolutions[qKey]}</p>
+                </div>
+            `;
+        }
+
+        scoreValue.textContent = `${score}/10`;
+        resolutionsList.innerHTML = htmlResolutions;
+        resultsDiv.style.display = 'block';
+
+        // Scroll suave para o resultado
+        window.scrollTo({
+            top: resultsDiv.offsetTop - 20,
+            behavior: 'smooth'
+        });
+
+        // Desabilita os campos após envio
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = true);
+        form.querySelector('button').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

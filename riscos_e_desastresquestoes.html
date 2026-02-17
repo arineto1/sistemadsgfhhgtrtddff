@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Riscos, Vulnerabilidade e Insegurança Ambiental</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #2980b9;
+            --accent-color: #e67e22;
+            --correct-bg: #d4edda;
+            --correct-text: #155724;
+            --wrong-bg: #f8d7da;
+            --wrong-text: #721c24;
+            --border-color: #e0e0e0;
+            --max-width: 850px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Georgia, serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            max-width: var(--max-width);
+            width: 100%;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-style: italic;
+            color: #555;
+        }
+
+        #quiz-container {
+            max-width: var(--max-width);
+            width: 100%;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            background: #f9f9f9;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f7ff;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+
+        .submit-area {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+        }
+
+        button:hover {
+            background-color: #1f6391;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #results {
+            display: none;
+            max-width: var(--max-width);
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .score-box {
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .resolution-card {
+            margin-top: 15px;
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            display: none; /* Hidden until results are shown */
+        }
+
+        .correct-answer {
+            background-color: var(--correct-bg);
+            color: var(--correct-text);
+            border: 1px solid #c3e6cb;
+        }
+
+        .wrong-answer {
+            background-color: var(--wrong-bg);
+            color: var(--wrong-text);
+            border: 1px solid #f5c6cb;
+        }
+
+        .explanation {
+            background-color: #e9ecef;
+            color: #333;
+            border-left: 5px solid #6c757d;
+            margin-top: 10px;
+            padding: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Riscos, Vulnerabilidade e Insegurança Ambiental</h1>
+    <p class="description">Estilo Concurso ETEC / CEETEPS - Professor de Geografia</p>
+</header>
+
+<div id="quiz-container">
+    <!-- As questões serão inseridas aqui via JS -->
+</div>
+
+<div class="submit-area">
+    <button id="finish-btn" onclick="showResults()">Finalizar Quiz e Ver Resoluções</button>
+</div>
+
+<div id="results">
+    <div class="score-box">
+        <p>Você completou o simulado!</p>
+        <div id="final-score" class="score-text">0 / 10</div>
+        <p id="feedback-msg"></p>
+    </div>
+    <div id="resolutions-container">
+        <!-- As resoluções individuais aparecerão aqui -->
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "Considere o texto abaixo sobre a gênese dos estudos de riscos na ciência geográfica:",
+            quote: "“A ideia de vulnerabilidade é geralmente retratada em termos negativos e indica o estado de susceptibilidade decorrente de três fatores chaves: exposição ao risco; alterações sociais e/ou ambientais e incapacidade de adaptação. Atualmente, o conceito de vulnerabilidade vem sendo abordado sob uma ótica socioambiental, que sobrepõe características sociais e ambientais. A redução desta é o caminho atual para diminuir fundamentalmente a perda de vidas frente aos processos naturais desencadeadores de situações de risco.”",
+            subtext: "Com base no texto e nos conhecimentos sobre a dinâmica dos desastres, analise as asserções a seguir:<br><br>I. O risco é uma categoria de análise que resulta da interação entre o perigo (evento natural ou tecnológico) e a vulnerabilidade.<br>II. A suscetibilidade refere-se à propensão intrínseca de uma área ser afetada por processos naturais, como escorregamentos, dada a sua configuração geológica e geomorfológica.<br>III. Desastres naturais são fenômenos puramente físicos e inevitáveis, cujo impacto é distribuído de forma homogênea pelo território.<br>IV. A vulnerabilidade multifacetada pode ser aplicada tanto a entidades físicas quanto a conceitos abstratos.",
+            options: [
+                "I e II, apenas.",
+                "I, II e IV, apenas.",
+                "II e III, apenas.",
+                "I, III e IV, apenas.",
+                "I, II, III e IV."
+            ],
+            correct: 1,
+            resolution: "A análise geográfica dos riscos exige a compreensão de que o desastre não é um evento puramente natural, mas um desfecho socioambiental. As asserções I, II e IV estão corretas. A III está incorreta porque desastres não são distribuídos de forma homogênea; eles atingem seletivamente os grupos mais pobres e marginalizados devido a falhas no planejamento urbano."
+        },
+        {
+            id: 2,
+            text: "Sobre os conceitos de insegurança ambiental e justiça ambiental propostos por Henri Acselrad, assinale a alternativa correta:",
+            quote: "“A desigualdade ambiental pode ser definida como a distribuição locacional das atividades portadoras de risco de forma concentrada em direção às áreas ocupadas por populações mais suscetíveis a danos. Trata-se de um processo de vulnerabilização historicamente determinado e desigualmente distribuído.”",
+            options: [
+                "A insegurança ambiental é uma patologia do meio ambiente ecologicamente equilibrado, afetando indistintamente todas as classes sociais.",
+                "A lógica da justiça ambiental defende que os impactos ambientais negativos são consequências inevitáveis do progresso.",
+                "O processo de “vulnerabilização” nas cidades é submetido a dinâmicas de regulação, que visam prevenir que a desigualdade social desencadeie conflitos.",
+                "A insegurança ambiental limita-se à dimensão física da degradação, não afetando o bem-estar social.",
+                "A desigualdade ambiental resulta exclusivamente da escolha racional e financeira de grupos privilegiados."
+            ],
+            correct: 2,
+            resolution: "Acselrad argumenta que os processos de produção de vulnerabilidade nas cidades são submetidos a dinâmicas de 'regulação' estatal para evitar que os conflitos ambientais desestabilizem a ordem política vigente. A vulnerabilidade não é apenas um dado técnico, mas um processo político-social."
+        },
+        {
+            id: 3,
+            text: "Considerando o funcionamento do Plano Preventivo de Defesa Civil (PPDC) para escorregamentos nas encostas da Serra do Mar, assinale a alternativa que descreve corretamente a lógica operacional deste sistema:",
+            quote: "Análise da tabela de Níveis de Operação: Observação, Atenção, Alerta e Alerta Máximo.",
+            options: [
+                "O PPDC opera exclusivamente entre os meses de abril e novembro, período de maior estiagem.",
+                "A operação baseia-se na correlação entre a quantidade de chuva acumulada e o mapeamento de áreas de risco, visando reduzir a perda de vidas.",
+                "A mudança de nível de Atenção para Alerta depende apenas da vontade política do gestor municipal.",
+                "O plano tem como objetivo principal a reconstrução total das áreas atingidas.",
+                "A operação é coordenada de forma isolada pelas prefeituras municipais, sem o apoio técnico de institutos como o IG ou o IPT."
+            ],
+            correct: 1,
+            resolution: "O PPDC visa a convivência com o risco por meio do monitoramento e da retirada preventiva de pessoas antes que o deslizamento ocorra, baseando-se no gatilho pluviométrico de 72 horas."
+        },
+        {
+            id: 4,
+            text: "A partir da análise das características físicas e geológicas da Serra do Mar, identifica-se que a alta suscetibilidade a desastres geológicos na região é agravada por:",
+            quote: "“A Serra do Mar no Estado de São Paulo possui uma tendência natural ao escorregamento... há apenas uma camada fina de solo, com cerca de dois metros de profundidade... a geomorfologia da região torna os deslizamentos frequentes.”",
+            options: [
+                "Solos extremamente profundos e porosos que facilitam a drenagem vertical.",
+                "Predomínio de rochas sedimentares jovens que absorvem a umidade.",
+                "Junção de alta inclinação das encostas, solos rasos sobre embasamento cristalino impermeável e chuvas orográficas concentradas.",
+                "Ausência de agentes geológicos externos, como o intemperismo químico.",
+                "Baixa densidade demográfica nas áreas de encosta, o que neutraliza o risco."
+            ],
+            correct: 2,
+            resolution: "A Serra do Mar combina alta declividade com solos rasos (saprolitos) sobre rochas cristalinas impermeáveis. Chuvas orográficas saturam o solo rapidamente, criando superfícies de ruptura que levam a deslizamentos."
+        },
+        {
+            id: 5,
+            text: "Ao trabalhar o tema “Riscos e desastres” em uma aula de Geografia para o Ensino Médio Técnico (MTec) da ETEC, seguindo a BNCC, o professor deve propor uma atividade que:",
+            quote: "(EM13CHS304) Analisar os impactos socioambientais decorrentes de práticas de instituições governamentais, de empresas e de indivíduos...",
+            options: [
+                "Enfoque apenas na descrição estatística de terremotos e tsunamis em países distantes.",
+                "Estimule os estudantes a identificarem áreas de risco no seu próprio município através do uso de cartografia temática.",
+                "Reforce a ideia de que os desastres são “castigos da natureza”, sem capacidade de intervenção social.",
+                "Priorize a resolução de cálculos matemáticos complexos sobre a resistência de materiais, desvinculando-os da análise social.",
+                "Foque exclusivamente na memorização de leis e decretos ambientais."
+            ],
+            correct: 1,
+            resolution: "O ensino de Geografia nas ETECs deve propor uma aprendizagem ativa e contextualizada, utilizando ferramentas geográficas para que o aluno compreenda e atue nos riscos de sua própria localidade."
+        },
+        {
+            id: 6,
+            text: "O conceito de racismo ambiental, fundamental para entender a insegurança ambiental nas metrópoles paulistas, implica que:",
+            quote: "“O racismo ambiental manifesta-se por meio da desproporcionalidade na exposição a impactos ambientais negativos, atingindo de forma mais intensa bairros com maior população negra...”",
+            options: [
+                "A poluição e os desastres afetam a população de maneira homogênea, sem distinção de raça ou classe.",
+                "A injustiça ambiental é corrigida automaticamente pelo mercado imobiliário.",
+                "As políticas de planejamento urbano muitas vezes reproduzem desigualdades históricas, alocando riscos em territórios de populações marginalizadas.",
+                "O racismo ambiental é um termo restrito às questões de saneamento básico.",
+                "A responsabilidade pela degradação ambiental é igual para todos os habitantes da cidade."
+            ],
+            correct: 2,
+            resolution: "O conceito explica que o planejamento urbano e as práticas institucionais muitas vezes empurram populações negras e pobres para as franjas das cidades, onde os terrenos são ambientalmente frágeis."
+        },
+        {
+            id: 7,
+            text: "Sobre o parâmetro de Vistorias de Campo no PPDC, é correto afirmar que os técnicos buscam sinais de instabilidade nas encostas, tais como:",
+            quote: "Critério técnico de monitoramento presencial.",
+            options: [
+                "Aparecimento de trincas em moradias, inclinação de postes e árvores, e surgimento de fendas no terreno.",
+                "Aumento da biodiversidade local e regeneração espontânea da cobertura vegetal.",
+                "Estabilidade total do solo e ausência de ruídos ou estalos em estruturas.",
+                "Diminuição do nível do lençol freático e seca severa em áreas de várzea.",
+                "Presença de sedimentos consolidados e rochas de alta dureza na superfície."
+            ],
+            correct: 0,
+            resolution: "Trincas em 'V', fendas no solo e inclinação de postes são sinais clássicos de que a encosta está perdendo resistência ao cisalhamento e em vias de sofrer escorregamento."
+        },
+        {
+            id: 8,
+            text: "No contexto da globalização, a produção social da vulnerabilidade é agravada pelo fenômeno da “gentrificação verde”, que consiste em:",
+            quote: "Processo de exclusão urbana com discurso ambiental.",
+            options: [
+                "Implementação de infraestruturas ecológicas que promovem a valorização imobiliária e o deslocamento de populações de baixa renda para áreas de risco.",
+                "Reflorestamento em massa de encostas para fixar populações carentes.",
+                "Distribuição gratuita de sementes para comunidades vulneráveis nas várzeas.",
+                "Redução de impostos para empresas em áreas de preservação permanente.",
+                "Proibição do uso de automóveis em bairros periféricos para reduzir emissões."
+            ],
+            correct: 0,
+            resolution: "A gentrificação verde ocorre quando revitalizações 'sustentáveis' valorizam áreas e expulsam moradores originais para ocupações precárias em encostas ou várzeas, aumentando a vulnerabilidade."
+        },
+        {
+            id: 9,
+            text: "No Estado de São Paulo, o mapeamento de riscos geológicos e hidrológicos realizado por institutos governamentais tem como finalidade principal:",
+            quote: "Gestão de riscos e desastres (GIRD).",
+            options: [
+                "Identificar áreas de mineração para exploração imediata.",
+                "Subsidiar as prefeituras na gestão do território, auxiliando na identificação e gerenciamento de situações de risco para evitar mortes.",
+                "Promover a remoção definitiva de todas as populações do litoral para o interior.",
+                "Substituir a necessidade de planos diretores municipais.",
+                "Monitorar o deslocamento de massas de ar polar durante o inverno."
+            ],
+            correct: 1,
+            resolution: "O objetivo principal é fornecer dados precisos às prefeituras para ações preventivas, protegendo a vida e reduzindo perdas econômicas decorrentes de desastres naturais."
+        },
+        {
+            id: 10,
+            text: "Uma encosta urbana com moradias precárias, ausência de canaletas, lixo no talude e árvores inclinadas caracteriza, do ponto de vista técnico, um cenário de:",
+            quote: "Análise de cenário de campo hipotético.",
+            options: [
+                "Baixa suscetibilidade natural e alta resiliência social.",
+                "Equilíbrio dinâmico entre o meio físico e a ocupação antrópica.",
+                "Alta vulnerabilidade socioambiental e risco iminente de escorregamento, demandando ações do PPDC.",
+                "Sucesso do planejamento urbano local, que integrou a moradia à dinâmica natural.",
+                "Ausência de perigo geológico, uma vez que o lixo serve como carga de estabilização."
+            ],
+            correct: 2,
+            resolution: "Esse cenário é o arquétipo do risco geológico urbano. A falta de drenagem e o peso extra de moradias/lixo aumentam a pressão neutra no solo, facilitando o deslizamento iminente."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let html = `
+                <div class="question-text">Questão ${q.id}</div>
+                <div class="quote">${q.quote}</div>
+                <div>${q.subtext || q.text}</div>
+                <ul class="options-list" id="options-${index}">
+            `;
+
+            q.options.forEach((opt, optIndex) => {
+                html += `
+                    <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                        <input type="radio" name="q${index}" id="q${index}o${optIndex}" value="${optIndex}">
+                        <label for="q${index}o${optIndex}">${String.fromCharCode(65 + optIndex)}) ${opt}</label>
+                    </li>
+                `;
+            });
+
+            html += `</ul><div id="res-${index}" class="resolution-card"></div>`;
+            card.innerHTML = html;
+            container.appendChild(card);
+        });
+    }
+
+    window.selectOption = function(qIndex, optIndex) {
+        const options = document.querySelectorAll(`#options-${qIndex} .option-item`);
+        options.forEach(opt => opt.classList.remove('selected'));
+        options[optIndex].classList.add('selected');
+        document.getElementById(`q${qIndex}o${optIndex}`).checked = true;
+    }
+
+    window.showResults = function() {
+        let score = 0;
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        resolutionsContainer.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resBox = document.getElementById(`res-${index}`);
+            resBox.style.display = 'block';
+            
+            const isCorrect = selected && parseInt(selected.value) === q.correct;
+            if (isCorrect) score++;
+
+            // Highlight in the question card
+            const options = document.querySelectorAll(`#options-${index} .option-item`);
+            options.forEach((opt, optIdx) => {
+                if (optIdx === q.correct) {
+                    opt.classList.add('correct-answer');
+                } else if (selected && optIdx === parseInt(selected.value)) {
+                    opt.classList.add('wrong-answer');
+                }
+            });
+
+            // Add Explanation
+            resBox.innerHTML = `
+                <div class="explanation">
+                    <strong>Resolução:</strong> ${q.resolution}
+                </div>
+            `;
+        });
+
+        // Show Score
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('final-score').innerText = `${score} / 10`;
+        
+        let feedback = "";
+        if(score >= 8) feedback = "Excelente desempenho! Você demonstra grande domínio sobre os temas de riscos e vulnerabilidade.";
+        else if(score >= 5) feedback = "Bom desempenho. Revise as resoluções para consolidar os conceitos técnicos.";
+        else feedback = "Atenção necessária. O tema de Riscos e Desastres exige análise aprofundada da relação sociedade-natureza. Estude as resoluções abaixo.";
+        
+        document.getElementById('feedback-msg').innerText = feedback;
+        
+        // Hide finish button
+        document.getElementById('finish-btn').classList.add('hidden');
+        
+        // Scroll to results
+        window.scrollTo({ top: document.getElementById('results').offsetTop - 50, behavior: 'smooth' });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

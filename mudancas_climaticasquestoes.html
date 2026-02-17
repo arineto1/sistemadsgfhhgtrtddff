@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Mudanças Climáticas - Concurso ETEC</title>
+    <style>
+        :root {
+            --bg-color: #f9f9f9;
+            --container-bg: #ffffff;
+            --text-color: #2c3e50;
+            --text-secondary: #576574;
+            --accent-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --border-color: #dcdde1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans', 'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Classes para resultado */
+        .option-item.correct {
+            background-color: #dff9fb;
+            border-color: var(--success-color);
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .option-item.wrong {
+            background-color: #fce4e4;
+            border-color: var(--error-color);
+            color: var(--error-color);
+        }
+
+        button#submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        button#submit-btn:hover {
+            background-color: #2471a3;
+        }
+
+        #result-section {
+            display: none;
+            margin-top: 40px;
+            padding: 25px;
+            background: #f1f2f6;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .active-res {
+            display: block !important;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .main-container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <header>
+        <h1>Avaliação Técnica: Mudanças Climáticas</h1>
+        <p class="subtitle">Simulado estilo Concurso Docente ETEC/CEETEPS - Geografia</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-block" id="q1">
+            <span class="question-text">01. Sobre a estrutura e os objetivos do Acordo de Paris, assinale a alternativa correta:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q1" value="A" id="q1a"><label for="q1a">A. O Acordo de Paris é um tratado juridicamente vinculativo que estabeleceu metas obrigatórias apenas para as nações industrializadas do Anexo I.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="B" id="q1b"><label for="q1b">B. O objetivo central do tratado é manter o aumento da temperatura média global bem abaixo de 2 °C, envidando esforços para limitar a 1,5 °C.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="C" id="q1c"><label for="q1c">C. O Acordo de Paris eliminou o princípio das responsabilidades comuns, porém diferenciadas.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="D" id="q1d"><label for="q1d">D. A implementação do Acordo de Paris no Brasil possui status de lei ordinária, podendo ser revogada por decretos.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="E" id="q1e"><label for="q1e">E. O Acordo de Paris foca exclusivamente na mitigação de gases de efeito estufa, desconsiderando mecanismos de adaptação.</label></div>
+            </div>
+            <div class="resolution-box" id="res1">
+                <strong>Resolução:</strong> O Acordo de Paris opera sob o modelo <em>bottom-up</em>, onde todas as Partes apresentam NDCs. O objetivo central é manter o aquecimento "bem abaixo" de 2 °C. No Brasil, o STF conferiu status "supralegal" ao tratado por ser equivalente a um pacto de direitos humanos.
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-block" id="q2">
+            <span class="question-text">02. Sobre os resultados alcançados na COP29 em Baku (2024), analise as proposições e assinale as corretas:</span>
+            <p style="font-size: 0.9rem; color: #666;">I. Estabeleceu o Novo Objetivo Coletivo Quantificado (NCQG) de US$ 300 bilhões anuais até 2035.<br>II. Finalizou as regras de operacionalização do Artigo 6.4 (mercado de carbono).<br>III. Lançou o "Roteiro Baku-Belém para 1,3T".<br>IV. Concordou em eliminar imediatamente todos os subsídios a combustíveis fósseis até 2026.</p>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q2" value="A" id="q2a"><label for="q2a">A. I e II, apenas.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="B" id="q2b"><label for="q2b">B. II e III, apenas.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="C" id="q2c"><label for="q2c">C. I, II e III, apenas.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="D" id="q2d"><label for="q2d">D. III e IV, apenas.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="E" id="q2e"><label for="q2e">E. I, II, III e IV.</label></div>
+            </div>
+            <div class="resolution-box" id="res2">
+                <strong>Resolução:</strong> As proposições I, II e III estão corretas. A IV está incorreta pois não houve acordo para eliminação imediata com prazo tão curto; a COP28 já havia estabelecido o "transitioning away", mas Baku focou no financiamento.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-block" id="q3">
+            <span class="question-text">03. De acordo com a Política Nacional sobre Mudança do Clima (Lei nº 12.187/2009), o conceito de "mitigação" refere-se a:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q3" value="A" id="q3a"><label for="q3a">A. Iniciativas para reduzir a vulnerabilidade dos sistemas naturais frente aos efeitos esperados.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="B" id="q3b"><label for="q3b">B. Mudanças tecnológicas e implementação de medidas que reduzam as emissões de GEE e aumentem os sumidouros.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="C" id="q3c"><label for="q3c">C. Mudanças no meio físico resultantes da mudança do clima que tenham efeitos deletérios.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="D" id="q3d"><label for="q3d">D. O processo natural de absorção de radiação infravermelha pela atmosfera.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="E" id="q3e"><label for="q3e">E. A transferência compulsória de populações residentes em áreas de risco.</label></div>
+            </div>
+            <div class="resolution-box" id="res3">
+                <strong>Resolução:</strong> Mitigação ataca as <strong>causas</strong> (reduz emissões ou aumenta sumidouros), enquanto a adaptação (opção A) foca em reduzir a vulnerabilidade aos <strong>efeitos</strong>.
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-block" id="q4">
+            <span class="question-text">04. Sobre a operacionalização do Artigo 6 do Acordo de Paris (mecanismos de mercado), é correto afirmar que:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q4" value="A" id="q4a"><label for="q4a">A. O Artigo 6.2 proíbe o uso de créditos para o cumprimento de NDCs para evitar contagem dupla.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="B" id="q4b"><label for="q4b">B. O Órgão Supervisor do mecanismo do Artigo 6.4 deve garantir a inclusão dos conhecimentos dos Povos Indígenas.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="C" id="q4c"><label for="q4c">C. As regras de Baku isentam países desenvolvidos da taxa para o Fundo de Adaptação.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="D" id="q4d"><label for="q4d">D. O mercado de carbono do Artigo 6 exclui atividades de florestamento e reflorestamento.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="E" id="q4e"><label for="q4e">E. O registro do mecanismo do Artigo 6.4 não permite conexão com registros nacionais.</label></div>
+            </div>
+            <div class="resolution-box" id="res4">
+                <strong>Resolução:</strong> As regras aprovadas na COP29 exigem que o Órgão Supervisor inclua conhecimentos indígenas e garanta a integridade ambiental das remoções de carbono.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-block" id="q5">
+            <span class="question-text">05. Segundo orientações pedagógicas para Geografia na ETEC, ao tratar de mudanças climáticas, o docente deve:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q5" value="A" id="q5a"><label for="q5a">A. Focar exclusivamente na climatologia física, sem relacionar aos modelos de produção.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="B" id="q5b"><label for="q5b">B. Analisar as interações dinâmicas entre sociedade e natureza, a espacialidade e a vulnerabilidade socioespacial.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="C" id="q5c"><label for="q5c">C. Adotar postura de neutralidade evitando discutir responsabilidade humana.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="D" id="q5d"><label for="q5d">D. Priorizar a memorização de datas de COPs e nomes de gases.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="E" id="q5e"><label for="q5e">E. Restringir a análise às escalas globais.</label></div>
+            </div>
+            <div class="resolution-box" id="res5">
+                <strong>Resolução:</strong> A Geografia no CEETEPS deve ser crítica e interdisciplinar, tratando o espaço como palco das relações sociais e identificando como as mudanças climáticas agravam desigualdades.
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-block" id="q6">
+            <span class="question-text">06. O Plano de Agricultura de Baixa Emissão de Carbono (Plano ABC) objetiva:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q6" value="A" id="q6a"><label for="q6a">A. Proibir a prática da pecuária em todo o território nacional.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="B" id="q6b"><label for="q6b">B. Fomentar práticas sustentáveis como recuperação de pastagens e integração lavoura-pecuária-floresta.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="C" id="q6c"><label for="q6c">C. Centralizar a gestão de propriedades rurais apenas sob o Ministério do Meio Ambiente.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="D" id="q6d"><label for="q6d">D. Incentivar a expansão da fronteira agrícola sobre os biomas Amazônia e Cerrado.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="E" id="q6e"><label for="q6e">E. Substituir fertilizantes orgânicos por sintéticos de alta eficiência.</label></div>
+            </div>
+            <div class="resolution-box" id="res6">
+                <strong>Resolução:</strong> O Plano ABC foca em tecnologias que reduzam emissões no campo (como o plantio direto e ILPF) e aumentem a produtividade sem necessidade de novos desmatamentos.
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-block" id="q7">
+            <span class="question-text">07. Sobre a matriz energética brasileira e a descarbonização, assinale a alternativa correta:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q7" value="A" id="q7a"><label for="q7a">A. O Brasil possui matriz elétrica predominantemente baseada em combustíveis fósseis.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="B" id="q7b"><label for="q7b">B. A expansão de fontes renováveis não convencionais (solar e eólica) tem sido fundamental para diversificar a matriz.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="C" id="q7c"><label for="q7c">C. As metas brasileiras no Acordo de Paris excluem o setor de energia.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="D" id="q7d"><label for="q7d">D. O governo decidiu desativar todas as hidrelétricas até 2030 por usinas nucleares.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="E" id="q7e"><label for="q7e">E. A queima de biomassa e biocombustíveis é proibida pela legislação atual.</label></div>
+            </div>
+            <div class="resolution-box" id="res7">
+                <strong>Resolução:</strong> O Brasil tem uma matriz elétrica muito limpa (80-90% renovável). A expansão solar e eólica é estratégica para mitigar as variações hidrológicas.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-block" id="q8">
+            <span class="question-text">08. O conceito de "Justiça Climática" fundamenta-se na compreensão de que:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q8" value="A" id="q8a"><label for="q8a">A. A lei deve ser aplicada de forma idêntica ignorando desigualdades históricas.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="B" id="q8b"><label for="q8b">B. Os impactos afetam desproporcionalmente as populações vulneráveis que menos contribuíram para o aquecimento.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="C" id="q8c"><label for="q8c">C. A justiça deve focar apenas na punição criminal de indivíduos isolados.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="D" id="q8d"><label for="q8d">D. O sistema judiciário brasileiro é o único responsável por crimes climáticos globais.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="E" id="q8e"><label for="q8e">E. A natureza possui direitos que impedem qualquer atividade econômica humana.</label></div>
+            </div>
+            <div class="resolution-box" id="res8">
+                <strong>Resolução:</strong> Justiça climática discute a dívida histórica e a vulnerabilidade diferencial: quem menos poluiu é quem mais sofre com os desastres.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-block" id="q9">
+            <span class="question-text">09. Relacione: I. Estocolmo (1972), II. Rio-92, III. Quioto (1997), IV. COP28 (2023). Assinale a sequência correta:</span>
+            <p style="font-size: 0.9rem; color: #666;">( ) Mecanismo de Desenvolvimento Limpo (MDL).<br>( ) Primeiro grande evento da ONU sobre ambiente humano.<br>( ) Transição para longe dos combustíveis fósseis (Stocktake).<br>( ) Adoção da Agenda 21.</p>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q9" value="A" id="q9a"><label for="q9a">A. III, I, IV, II.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="B" id="q9b"><label for="q9b">B. III, II, I, IV.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="C" id="q9c"><label for="q9c">C. II, I, IV, III.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="D" id="q9d"><label for="q9d">D. I, III, II, IV.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="E" id="q9e"><label for="q9e">E. IV, III, II, I.</label></div>
+            </div>
+            <div class="resolution-box" id="res9">
+                <strong>Resolução:</strong> Quioto (MDL) = III; Estocolmo (1972) = I; COP28 (Transição Fóssil) = IV; Rio-92 (Agenda 21) = II.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-block" id="q10">
+            <span class="question-text">10. Sobre a governança de riscos e políticas de adaptação no Brasil, é correto afirmar:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q10" value="A" id="q10a"><label for="q10a">A. A adaptação climática é responsabilidade exclusiva da União.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="B" id="q10b"><label for="q10b">B. A PNMC estabelece que a adaptação deve priorizar sistemas econômicos de alta rentabilidade.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="C" id="q10c"><label for="q10c">C. O PNA visa orientar estratégias para reduzir vulnerabilidade com foco em biomas e setores sensíveis como saúde.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="D" id="q10d"><label for="q10d">D. Desastres climáticos são considerados "força maior" que isentam o Estado de obrigações.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="E" id="q10e"><label for="q10e">E. A única estratégia reconhecida é o confinamento em domos climáticos.</label></div>
+            </div>
+            <div class="resolution-box" id="res10">
+                <strong>Resolução:</strong> O Plano Nacional de Adaptação (PNA) é o guia para aumentar a resiliência do país, focando em segurança alimentar, infraestrutura e saúde pública.
+            </div>
+        </div>
+
+        <button type="button" id="submit-btn" onclick="checkQuiz()">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <div id="result-section">
+        <div class="score-display" id="score-text"></div>
+        <p>Confira abaixo as resoluções detalhadas marcadas em cada questão.</p>
+        <button type="button" onclick="location.reload()" style="background: none; border: 1px solid var(--accent-color); color: var(--accent-color); padding: 5px 15px; cursor: pointer; border-radius: 4px;">Refazer Simulado</button>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'B',
+        q2: 'C',
+        q3: 'B',
+        q4: 'B',
+        q5: 'B',
+        q6: 'B',
+        q7: 'B',
+        q8: 'B',
+        q9: 'A',
+        q10: 'C'
+    };
+
+    function checkQuiz() {
+        let score = 0;
+        const total = Object.keys(answers).length;
+        const form = document.getElementById('quiz-form');
+        
+        // Desabilitar inputs e botão
+        const inputs = form.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+        document.getElementById('submit-btn').style.display = 'none';
+
+        // Verificar cada questão
+        for (let key in answers) {
+            const selected = form.querySelector(`input[name="${key}"]:checked`);
+            const correctValue = answers[key];
+            
+            // Mostrar todas as resoluções
+            const resId = 'res' + key.replace('q', '');
+            document.getElementById(resId).classList.add('active-res');
+
+            // Destacar opções corretas/erradas
+            const optionsInQuestion = form.querySelectorAll(`input[name="${key}"]`);
+            optionsInQuestion.forEach(opt => {
+                const parent = opt.parentElement;
+                if (opt.value === correctValue) {
+                    parent.classList.add('correct');
+                }
+                if (selected && selected.value === opt.value && opt.value !== correctValue) {
+                    parent.classList.add('wrong');
+                }
+            });
+
+            if (selected && selected.value === correctValue) {
+                score++;
+            }
+        }
+
+        // Mostrar placar
+        const scoreBox = document.getElementById('result-section');
+        const scoreText = document.getElementById('score-text');
+        scoreBox.style.display = 'block';
+        scoreText.innerHTML = `Resultado: ${score} de ${total} acertos (${(score/total*100).toFixed(0)}%)`;
+        
+        // Scroll suave para o resultado
+        scoreBox.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

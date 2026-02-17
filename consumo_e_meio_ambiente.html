@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Técnica: Consumo e Meio Ambiente - CEETEPS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem;
+        }
+
+        .highlight {
+            background-color: #fef3c7;
+            font-weight: 600;
+            padding: 1px 3px;
+            border-radius: 2px;
+            color: #1a1a1a;
+        }
+
+        .important-term {
+            border-bottom: 2px solid #2563eb;
+            font-weight: 700;
+        }
+
+        /* Áudio Player Estilizado */
+        .audio-wrapper {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .audio-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        audio {
+            width: 100%;
+            height: 40px;
+        }
+
+        /* Tabelas Anti-Scroll */
+        .table-responsive-wrapper {
+            width: 100%;
+            margin: 2rem 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Impede expansão horizontal */
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            word-wrap: break-word; /* Força quebra de linha em palavras longas */
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #334155;
+            width: 30%;
+        }
+
+        h1 { font-size: 2.25rem; font-weight: 800; color: #0f172a; line-height: 1.2; margin-bottom: 1rem; }
+        h2 { font-size: 1.5rem; font-weight: 700; color: #1e40af; margin-top: 3rem; margin-bottom: 1.25rem; border-left: 5px solid #2563eb; padding-left: 1rem; }
+        h3 { font-size: 1.25rem; font-weight: 700; color: #334155; margin-top: 2rem; }
+
+        .note-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .exam-trap {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            background-color: #0f172a;
+            color: #ffffff;
+            text-align: center;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 4rem;
+            transition: background 0.2s;
+        }
+
+        .btn-action:hover { background-color: #334155; }
+
+        @media (max-width: 640px) {
+            th { width: 40%; }
+            h1 { font-size: 1.875rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="mb-8">
+        <p class="text-blue-600 font-extrabold text-xs uppercase tracking-widest mb-2">Plano de Estudo Docente: CEETEPS/ETEC</p>
+        <h1>Consumo e Meio Ambiente: Do Descarte à Sustentabilidade</h1>
+        <hr class="mt-6 border-slate-100">
+    </header>
+
+    <!-- Reprodutor de Áudio -->
+    <div class="audio-wrapper">
+        <span class="audio-label">▶ Ouça a Revisão Técnica (Podcast de Estudo)</span>
+        <!-- Insira o nome do seu arquivo MP3 no src abaixo -->
+        <audio controls>
+            <source src="consumo_e_meio_ambiente.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+    </div>
+
+    <main>
+        <!-- Seção 1 -->
+        <section>
+            <h2>1. O Sistema de Consumo e a Crise Ambiental</h2>
+            <p>O consumo não é apenas um ato econômico, mas um <span class="highlight">fenômeno geográfico</span> que altera fluxos de matéria e energia. A necessidade de hábitos sustentáveis surge do esgotamento do modelo linear.</p>
+            
+            <h3>Transição de Modelos:</h3>
+            <ul class="list-disc pl-5 space-y-3 mt-4">
+                <li><strong>Modelo Linear:</strong> Extração -> Produção -> Consumo -> Descarte. <span class="important-term">Inviável a longo prazo</span> devido à finitude de recursos.</li>
+                <li><strong>Modelo Circular:</strong> Redesenho de processos para que resíduos retornem como <span class="important-term">insumos</span>. Foco na regeneração de sistemas naturais.</li>
+                <li><strong>Sociedade do Descartável:</strong> Produto da Terceira Revolução Industrial e do Toyotismo, onde o lucro depende da <span class="highlight">velocidade de reposição</span> dos bens.</li>
+            </ul>
+        </section>
+
+        <!-- Seção 2 -->
+        <section>
+            <h2>2. Conceitos Essenciais para o Dia da Prova</h2>
+            <div class="table-responsive-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Termo</th>
+                            <th>O que lembrar para marcar a correta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Obsolescência Programada</strong></td>
+                            <td>Produto com "data de validade" técnica para forçar nova compra.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Obsolescência Perceptiva</strong></td>
+                            <td>O produto funciona, mas é <span class="highlight">esteticamente ultrapassado</span> por marketing.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pegada Ecológica</strong></td>
+                            <td>Área (hectares) necessária para sustentar o estilo de vida de um indivíduo/país.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dia da Sobrecarga</strong></td>
+                            <td>Data em que a humanidade consome todos os recursos que a Terra regenera no ano.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Externalidades</strong></td>
+                            <td>Custos ambientais (poluição) ignorados no preço, pagos pela <span class="highlight">sociedade</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Logística Reversa</strong></td>
+                            <td>Obrigação do setor empresarial de viabilizar o retorno de produtos pós-consumo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 3 -->
+        <section>
+            <h2>3. Análise de Tendências e "Peguinhas" (Banca FAT)</h2>
+            <p>A Banca FAT (Fundação de Apoio à Tecnologia) costuma cobrar o tema sob a ótica da <span class="important-term">Geografia Crítica</span>.</p>
+            
+            <div class="exam-trap">
+                <strong>🚨 O Peguinha Malthusiano:</strong> A banca frequentemente oferece alternativas afirmando que a culpa da degradação é o "excesso de pessoas" (superpopulação). 
+                <br><strong>Ponto de Acerto:</strong> O problema geográfico real é a <span class="highlight">má distribuição e o padrão de consumo</span> do Norte Global (onde poucos consomem a maioria dos recursos).
+            </div>
+
+            <div class="note-box">
+                <strong>Geopolítica do Lixo:</strong> Atente para questões sobre o envio de resíduos eletrônicos para países pobres do Sul Global sob o disfarce de "doações" ou "vendas de sucata". Isso é chamado de <span class="important-term">Injustiça Ambiental</span>.
+            </div>
+        </section>
+
+        <!-- Seção 4 -->
+        <section>
+            <h2>4. Agenda 2030 e ODS 12</h2>
+            <p>O ODS 12 (Consumo e Produção Responsáveis) é o norteador técnico das provas atuais. Pontos-chave:</p>
+            <ul class="list-disc pl-5 space-y-2 mt-4">
+                <li><span class="highlight">Redução de 50%</span> no desperdício de alimentos per capita mundial até 2030.</li>
+                <li>Gestão sustentável e uso eficiente dos recursos naturais (água, solo, minérios).</li>
+                <li>Incentivo a <span class="important-term">Compras Públicas Sustentáveis</span> (o Estado como exemplo de consumo).</li>
+                <li>Educação para o desenvolvimento sustentável integrada ao currículo (foco total na ETEC).</li>
+            </ul>
+        </section>
+
+        <!-- Seção 5 -->
+        <section>
+            <h2>5. Os 5 Rs e a Prática Sustentável</h2>
+            <p>Não confunda a ordem de prioridade. Na sustentabilidade, a <span class="important-term">Reciclagem é a última opção</span> após o esgotamento das outras:</p>
+            <ol class="list-decimal pl-10 space-y-2 mt-4 font-medium">
+                <li><strong>Repensar:</strong> Preciso mesmo disso?</li>
+                <li><strong>Recusar:</strong> Não aceitar produtos altamente poluentes.</li>
+                <li><strong>Reduzir:</strong> Diminuir a quantidade de resíduos e energia.</li>
+                <li><strong>Reutilizar:</strong> Dar novos usos antes de descartar.</li>
+                <li><span class="text-blue-600"><strong>Reciclar:</strong></span> Transformação industrial do material (consome energia e água).</li>
+            </ol>
+        </section>
+
+        <!-- Seção Final de Memorização -->
+        <section class="mt-12 p-8 border-2 border-slate-900 rounded-xl">
+            <h3 class="mt-0 uppercase text-xs tracking-widest text-slate-500">Resumo Flash (Memorize antes de entrar na sala)</h3>
+            <p class="mt-4">
+                • <strong>Capitalismo Comercial</strong> = Extração. <br>
+                • <strong>Fordismo</strong> = Consumo de Massa. <br>
+                • <strong>Toyotismo</strong> = Obsolescência. <br>
+                • <strong>PNRS (Lei 12.305)</strong> = Logística Reversa e fim dos lixões. <br>
+                • <strong>Antropoceno</strong> = Era geológica marcada pela intervenção humana (consumo).
+            </p>
+        </section>
+
+        <!-- Botão Final -->
+        <a href="consumo_e_meio_ambientequestoes.html" class="btn-action shadow-xl hover:shadow-2xl">
+            PRATICAR AGORA: QUESTÕES DE CONCURSO →
+        </a>
+
+        <footer class="mt-10 mb-20 text-center text-slate-400 text-xs">
+            <p>Conteúdo exclusivo para preparação de docentes CEETEPS. Direitos reservados.</p>
+        </footer>
+    </main>
+</div>
+
+</body>
+</html>

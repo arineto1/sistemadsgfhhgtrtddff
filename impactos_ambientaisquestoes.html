@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Impactos Ambientais Rurais e Urbanos - ETEC</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --success-color: #27ae60;
+            --wrong-color: #d63031;
+            --highlight-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-style: italic;
+            color: #636e72;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        label:hover {
+            background-color: #f1f2f6;
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0873c4;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            border-top: 3px solid var(--accent-color);
+            padding-top: 30px;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 30px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-box h2 {
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        .resolutions-title {
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .res-item {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .res-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .gabarito-tag {
+            background: var(--success-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .analysis-box {
+            background: #fdfdfd;
+            padding: 20px;
+            border-left: 4px solid #b2bec3;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .container { width: 95%; padding: 20px 10px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado de Geografia: Impactos Ambientais</h1>
+        <p class="description">Concurso de Professor de Ensino Médio - ETEC (CEETEPS)</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card">
+            <div class="question-text">
+                01. A análise das transformações do espaço geográfico brasileiro contemporâneo exige a compreensão do conceito de "Meio Técnico-Científico-Informacional", desenvolvido por Milton Santos. [...] "É uma área de ocupação periférica recente... Sobre essa herança, os novos dados são os do mundo da informação, da televisão, de uma rede de cidades assentada sobre uma produção agrícola moderna." (SANTOS, M.; SILVEIRA, M. L., 2021).<br><br>
+                Assinale a alternativa que descreve corretamente a região mencionada e as transformações socioambientais decorrentes:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q1" value="A"> A) A região Norte, onde a instalação do meio geográfico técnico-científico-informacional estendeu-se igualmente por todo o país...</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="B"> B) A região Nordeste, caracterizada pelo abandono das metrópoles pelos serviços de inovação tecnológica...</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="C"> C) A região Centro-Oeste, onde a modernização agrícola assentada sobre o Cerrado gerou uma rede de cidades do campo e impactos como a fragmentação de habitats e o comprometimento do balanço hídrico regional.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="D"> D) A região Concentrada (Sul e Sudeste), onde a produção agrícola moderna rejeita o uso de biotecnologia...</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="E"> E) A região do Matopiba, que se caracteriza pela manutenção de um território "pré-técnico" e pela ausência de impactos ambientais...</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card">
+            <div class="question-text">
+                02. Sobre os impactos ambientais no meio rural brasileiro e a gestão do território (Zoneamento Ecológico-Econômico - ZEE), analise as proposições:<br><br>
+                I. A expansão da soja e da cana-de-açúcar em áreas de relevo predominantemente plano facilita a mecanização intensiva, mas pode acelerar processos de compactação do solo e redução da infiltração de água.<br>
+                II. O planejamento territorial deve ignorar as características geomorfológicas do relevo em favor do crescimento imediato do PIB municipal.<br>
+                III. O processo de lixiviação é mitigado em áreas de monocultura intensiva devido ao uso frequente de fertilizantes químicos que "blindam" o solo.<br>
+                IV. O assoreamento dos cursos d'água está diretamente relacionado à remoção das matas ciliares.<br><br>
+                Estão corretas:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q2" value="A"> A) I e II, apenas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="B"> B) I e IV, apenas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="C"> C) II e III, apenas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="D"> D) III e IV, apenas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="E"> E) I, II, III e IV.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card">
+            <div class="question-text">
+                03. Sobre os problemas ambientais urbanos e suas causas econômicas, assinale a alternativa correta:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q3" value="A"> A) As ilhas de calor urbanas são fenômenos causados exclusivamente pela emissão de gases estufa por indústrias de base.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="B"> B) A impermeabilização do solo urbano previne a ocorrência de inundações em áreas periféricas ao aumentar o tempo de concentração.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="C"> C) A gestão inadequada de resíduos sólidos em centros urbanos articula-se a processos de segregação socioespacial, afetando de maneira diferenciada grupos sociais distintos.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="D"> D) A poluição atmosférica urbana é um impacto exclusivamente local, cujos efeitos não se estendem para as áreas rurais.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="E"> E) O processo de industrialização urbana reduz a demanda por recursos naturais do meio rural.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card">
+            <div class="question-text">
+                04. A metodologia de contabilidade ambiental que avalia o impacto do consumo humano sobre os recursos naturais, traduzindo em hectares globais (gha) a quantidade de território necessária para sustentar o estilo de vida de uma pessoa, é:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q4" value="A"> A) Desenvolvimento Sustentável.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="B"> B) Capacidade Circular.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="C"> C) Economia Verde.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="D"> D) Pegada Ecológica.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="E"> E) Biocapacidade Residual.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card">
+            <div class="question-text">
+                05. Sobre a classificação das indústrias e seus impactos socioambientais, analise:<br><br>
+                I. As indústrias de base fabricam produtos empregados por outras indústrias, como a siderurgia, apresentando alto potencial poluidor.<br>
+                II. As indústrias de bens de consumo duráveis, como a automobilística, estimulam a infraestrutura que promove impermeabilização do solo.<br>
+                III. A industrialização da agricultura (agronegócio) transforma a paisagem rural em uma "fábrica a céu aberto" dependente de insumos urbanos.<br><br>
+                Está(ão) correta(s):
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q5" value="A"> A) Apenas I.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="B"> B) Apenas II.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="C"> C) Apenas I e III.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="D"> D) Apenas II e III.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="E"> E) I, II e III.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card">
+            <div class="question-text">
+                06. O processo de lixiviação é um dos principais problemas de degradação dos solos em áreas tropicais. Sobre este fenômeno, é correto afirmar que:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q6" value="A"> A) Ocorre predominantemente em climas áridos por falta de chuvas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="B"> B) Trata-se do processo de retirada de nutrientes e minerais do solo pela ação da água que se infiltra, sendo agravado por desmatamento.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="C"> C) É uma técnica de manejo sustentável para remoção intencional de agrotóxicos.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="D"> D) Consiste na deposição de sedimentos nos fundos de vale (assoreamento).</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="E"> E) Ocorre exclusivamente em áreas urbanas pavimentadas.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card">
+            <div class="question-text">
+                07. As enchentes e inundações nas grandes cidades brasileiras são resultado de:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q7" value="A"> A) Fatores exclusivamente naturais como o El Niño.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="B"> B) Uma combinação de fatores naturais e antrópicos, onde a impermeabilização e a ocupação de várzeas potencializam a vulnerabilidade.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="C"> C) Um processo de sucessão ecológica natural de purificação dos rios.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="D"> D) Políticas de verticalização que reduzem a evapotranspiração através da sombra.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="E"> E) Uma redução na pluviosidade média das cidades.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card">
+            <div class="question-text">
+                08. A "psicoesfera do agronegócio" (Milton Santos) refere-se ao conjunto de crenças que sustentam essa atividade. Uma característica é:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q8" value="A"> A) A promoção de uma imagem de sustentabilidade técnica (Agro é Tech) que mascara o aumento das desigualdades e contaminação hídrica.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="B"> B) O incentivo ao retorno de técnicas de cultivo ancestrais sem máquinas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="C) C) A criação de um imaginário que foca unicamente na segurança alimentar tradicional.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="D"> D) O desmonte de políticas de mecanização para reduzir o assoreamento.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="E"> E) A substituição de commodities por sistemas agroflorestais sem apoio urbano.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card">
+            <div class="question-text">
+                09. Sobre o relevo brasileiro (classificação de Jurandyr Ross), identifique a correta:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q9" value="A"> A) As planícies são locais de processos erosivos intensos.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="B"> B) Os planaltos são áreas onde a sedimentação supera a erosão.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="C"> C) As depressões são áreas de altitudes mais baixas que os planaltos circundantes, com fragilidade pedológica e risco de voçorocas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="D"> D) O relevo brasileiro tem grandes cadeias montanhosas recentes (Andes/Himalaia).</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="E"> E) A classificação de Ross ignora a geologia.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card">
+            <div class="question-text">
+                10. No CEETEPS, a avaliação de competências do aluno de Geografia deve:
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q10" value="A"> A) Basear-se exclusivamente em provas de memorização de dados estatísticos.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="B"> B) Valer-se de instrumentos diversificados para certificar a capacidade crítica e a proposição de soluções sustentáveis.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="C"> C) Focar unicamente no ensino de técnicas de mineração extrativista.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="D"> D) Desconsiderar a integração com Sociologia e temas de segregação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="E"> E) Priorizar línguas estrangeiras em detrimento do entendimento de ciclos hídricos.</label></div>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-box">
+            <h2>Resultado: <span id="score-display">0/10</span></h2>
+            <p id="feedback-text"></p>
+        </div>
+
+        <div class="resolutions-title">Gabarito e Resoluções Analíticas</div>
+
+        <!-- Resoluções (O conteúdo do documento original) -->
+        <div id="resolutions-container">
+            <!-- Injetado via JS ou Mantido fixo -->
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 01 <span class="gabarito-tag">Gabarito: C</span></div>
+                <p>A questão aborda a reestruturação produtiva do território brasileiro sob a égide do meio técnico-científico-informacional (MTCI). O fragmento citado descreve com precisão a transformação do <strong>Centro-Oeste</strong>. Os impactos ambientais são severos: fragmentação de habitats e impacto hídrico pelo uso de pivôs centrais e compactação do solo.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 02 <span class="gabarito-tag">Gabarito: B</span></div>
+                <p>A <strong>Proposição I</strong> é verdadeira: a mecanização em relevo plano causa compactação. A <strong>Proposição IV</strong> é verdadeira: o assoreamento decorre da remoção das matas ciliares. A II é falsa pois planejamento exige dados técnicos. A III é falsa pois fertilizantes não "blindam" o solo contra a lixiviação.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 03 <span class="gabarito-tag">Gabarito: C</span></div>
+                <p>Aborda a <strong>vulnerabilidade socioambiental</strong>. A segregação socioespacial empurra populações de baixa renda para áreas sem infraestrutura, potencializando riscos epidemiológicos e ambientais de forma diferenciada entre os grupos sociais.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 04 <span class="gabarito-tag">Gabarito: D</span></div>
+                <p>A <strong>Pegada Ecológica</strong> mede a pressão do consumo humano sobre os recursos naturais, expressa em hectares globais (gha). É crucial para entender que o estilo de vida urbano consome mais do que a Terra pode regenerar.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 05 <span class="gabarito-tag">Gabarito: E</span></div>
+                <p>Todas estão corretas. I trata das indústrias de base altamente poluidoras; II trata da infraestrutura urbana voltada ao consumo; III trata do agronegócio como subordinação do campo à lógica industrial da cidade.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 06 <span class="gabarito-tag">Gabarito: B</span></div>
+                <p>A lixiviação é a "lavagem" dos nutrientes solúveis pela água da chuva em solos expostos. Em áreas tropicais com alto índice pluviométrico, o desmatamento acelera esse empobrecimento químico do solo.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 07 <span class="gabarito-tag">Gabarito: B</span></div>
+                <p>As enchentes urbanas resultam da ocupação de várzeas aliada à impermeabilização do solo. É um fenômeno sócio-natural que afeta desproporcionalmente as populações marginalizadas.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 08 <span class="gabarito-tag">Gabarito: A</span></div>
+                <p>A psicoesfera (Milton Santos) é a construção ideológica. O marketing "Agro é Tech" mascara o uso intensivo de agrotóxicos e os conflitos de terra, focando apenas na eficiência técnica aparente.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 09 <span class="gabarito-tag">Gabarito: C</span></div>
+                <p>Depressões são áreas rebaixadas por processos erosivos (conforme Ross). Elas apresentam fragilidade pedológica, onde o manejo inadequado gera voçorocas que destroem a terra produtiva.</p>
+            </div>
+
+            <div class="res-item">
+                <div class="res-header">Resolução da Questão 10 <span class="gabarito-tag">Gabarito: B</span></div>
+                <p>No modelo CEETEPS, valoriza-se o raciocínio geográfico crítico e a capacidade do aluno de propor soluções para problemas de sua realidade local, fugindo da decoreba tradicional.</p>
+            </div>
+
+            <div class="analysis-box">
+                <h3>Análise Técnica Comparativa</h3>
+                <table>
+                    <thead>
+                        <tr><th>Processo</th><th>Manifestação Rural</th><th>Manifestação Urbana</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Degradação</td><td>Lixiviação e compactação.</td><td>Impermeabilização.</td></tr>
+                        <tr><td>Água</td><td>Assoreamento de rios.</td><td>Inundações e esgoto.</td></tr>
+                        <tr><td>Atmosfera</td><td>Queimadas.</td><td>Ilhas de calor e smog.</td></tr>
+                    </tbody>
+                </table>
+                <p><em>Nota: O papel do professor no CEETEPS é conectar esses fatos à realidade do aluno, demonstrando a interdependência entre economia e ecologia.</em></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'C', q2: 'B', q3: 'C', q4: 'D', q5: 'E',
+        q6: 'B', q7: 'B', q8: 'A', q9: 'C', q10: 'B'
+    };
+
+    function submitQuiz() {
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+        let score = 0;
+        let total = 10;
+
+        for (let [question, answer] of Object.entries(answers)) {
+            if (formData.get(question) === answer) {
+                score++;
+            }
+        }
+
+        // Mostrar Resultados
+        document.getElementById('score-display').innerText = `${score} de ${total}`;
+        
+        const feedback = document.getElementById('feedback-text');
+        if (score >= 8) {
+            feedback.innerText = "Excelente! Você demonstra domínio profundo dos impactos ambientais e planejamento territorial.";
+        } else if (score >= 5) {
+            feedback.innerText = "Bom desempenho. Revise as resoluções abaixo para consolidar os conceitos de geomorfologia e urbanização.";
+        } else {
+            feedback.innerText = "Atenção necessária. Estude os processos de lixiviação, impermeabilização e as teorias de Milton Santos nas resoluções.";
+        }
+
+        document.getElementById('results-section').style.display = 'block';
+        
+        // Scroll suave para os resultados
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        
+        // Desabilitar o botão para evitar múltiplos envios
+        document.querySelector('.btn-submit').disabled = true;
+        document.querySelector('.btn-submit').style.opacity = '0.5';
+    }
+</script>
+
+</body>
+</html>

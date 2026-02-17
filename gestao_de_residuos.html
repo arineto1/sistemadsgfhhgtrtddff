@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Técnico: Gestão de Resíduos - ETEC/CEETEPS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+
+        .grifado {
+            background-color: #fef08a; /* Amarelo suave */
+            padding: 1px 3px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .secao-titulo {
+            border-left: 4px solid #2d3748;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        /* Tabelas Responsivas sem Scroll Horizontal */
+        .table-wrapper {
+            width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr { border-bottom: 2px solid #edf2f7; }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                min-height: 40px;
+            }
+            td:before {
+                position: absolute;
+                left: 15px;
+                width: 40%;
+                white-space: nowrap;
+                font-weight: 700;
+                content: attr(data-label);
+                color: #4a5568;
+            }
+        }
+
+        audio::-webkit-media-controls-panel {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- PLAYER DE ÁUDIO -->
+    <div class="mb-12 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">Material de Áudio - Podcast de Estudo</h3>
+        <audio controls class="w-full">
+            <!-- INSIRA O NOME DO ARQUIVO MP3 NO SRC ABAIXO -->
+            <source src="gestao_de_residuos.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio HTML5.
+        </audio>
+    </div>
+
+    <header class="text-center mb-16">
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-4">Gestão de Resíduos Sólidos</h1>
+        <p class="text-xl text-slate-600 italic">Desafios da Sustentabilidade Urbana para o Concurso ETEC/CEETEPS</p>
+    </header>
+
+    <!-- INTRODUÇÃO E GEOGRAFIA -->
+    <section>
+        <h2 class="secao-titulo text-2xl font-bold">1. Fundamentos Geográficos e Definições</h2>
+        <p class="mb-4">
+            A gestão de resíduos sólidos na geografia urbana não é apenas uma questão de "limpeza pública", mas sim uma análise do <span class="grifado">metabolismo urbano</span>. Para o geógrafo <span class="grifado">Milton Santos</span>, o lixo é uma <span class="grifado">rugosidade</span> e um reflexo direto da <span class="grifado">sociedade de consumo</span>.
+        </p>
+        <ul class="list-disc pl-6 space-y-2 mb-6">
+            <li><strong>Segregação Socioespacial:</strong> A localização de aterros e lixões geralmente acompanha as franjas periféricas, evidenciando a injustiça ambiental.</li>
+            <li><strong>Externalidades Negativas:</strong> Impactos gerados pela produção que não são contabilizados no preço do produto, mas repassados à sociedade e ao meio ambiente (poluição de aquíferos, doenças).</li>
+        </ul>
+    </section>
+
+    <!-- DEFINIÇÕES BÁSICAS PNRS -->
+    <section>
+        <h2 class="secao-titulo text-2xl font-bold">2. Definições Técnicas (PNRS - Lei 12.305/2010)</h2>
+        <p class="mb-4">Este é o ponto mais cobrado. Você deve distinguir com precisão os termos abaixo:</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Termo</th>
+                        <th>O que é? (Conceito de Prova)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Termo" class="font-bold">Resíduos Sólidos</td>
+                        <td data-label="Conceito">Materiais que podem ser <span class="grifado">reciclados ou reaproveitados</span>. Têm valor econômico.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Termo" class="font-bold">Rejeitos</td>
+                        <td data-label="Conceito">Resíduos que, após esgotadas todas as possibilidades de tratamento, <span class="grifado">não têm outra alternativa</span> senão a disposição final.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Termo" class="font-bold">Logística Reversa</td>
+                        <td data-label="Conceito">Retorno dos produtos ao fabricante (ex: pilhas, pneus, agrotóxicos) após o uso pelo consumidor.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Termo" class="font-bold">Responsabilidade Compartilhada</td>
+                        <td data-label="Conceito">A culpa/dever é de todos: fabricantes, importadores, distribuidores, <span class="grifado">comerciantes, consumidores</span> e poder público.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-lg border-l-4 border-slate-900 my-8">
+            <h4 class="font-bold mb-3 uppercase text-xs">Ordem de Prioridade na Gestão:</h4>
+            <ol class="list-decimal pl-6 space-y-1">
+                <li><span class="grifado">Não geração</span> (O mais importante)</li>
+                <li>Redução</li>
+                <li>Reutilização</li>
+                <li>Reciclagem</li>
+                <li>Tratamento de resíduos</li>
+                <li>Disposição final ambientalmente adequada dos <span class="grifado">rejeitos</span>.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- TIPOS DE DESTINAÇÃO -->
+    <section>
+        <h2 class="secao-titulo text-2xl font-bold">3. Formas de Disposição Final</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Características Principais</th>
+                        <th>Impacto Ambiental</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Tipo" class="font-bold">Lixão</td>
+                        <td data-label="Características">Céu aberto, sem qualquer preparo do solo.</td>
+                        <td data-label="Impacto">Altíssimo: contamina lençol freático e atrai vetores.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tipo" class="font-bold">Aterro Controlado</td>
+                        <td data-label="Características">Lixo é apenas coberto por terra/argila.</td>
+                        <td data-label="Impacto">Incompleto: <span class="grifado">não trata chorume nem gases</span>.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tipo" class="font-bold">Aterro Sanitário</td>
+                        <td data-label="Características">Solo impermeabilizado, coleta de gases e líquidos.</td>
+                        <td data-label="Impacto">Adequado: Transforma metano em energia ou queima.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- TENDÊNCIAS E PEGUINHAS -->
+    <section>
+        <h2 class="secao-titulo text-2xl font-bold text-red-700 border-red-700">4. Análise de Tendências e "Peguinhas" ETEC</h2>
+        <div class="space-y-6">
+            <div class="p-4 bg-red-50 rounded-lg">
+                <p><strong>Peguinha 01: Reuso vs. Reciclagem</strong><br>
+                A prova pode trocar os conceitos. <span class="grifado">Reutilizar</span> é usar o objeto sem transformar sua natureza (ex: lavar garrafa de vidro). <span class="grifado">Reciclar</span> exige transformação físico-química (ex: derreter o plástico para fazer outro produto).</p>
+            </div>
+            
+            <div class="p-4 bg-red-50 rounded-lg">
+                <p><strong>Peguinha 02: O Novo Marco do Saneamento (2020)</strong><br>
+                Muitas questões antigas falam que o prazo dos lixões acabou em 2014. <span class="grifado">Atualização:</span> O Novo Marco estendeu os prazos de forma escalonada até <span class="font-bold">2024</span> para cidades menores.</p>
+            </div>
+
+            <div class="p-4 bg-red-50 rounded-lg">
+                <p><strong>Peguinha 03: Compostagem</strong><br>
+                Muitos acham que é "descarte". Para a ETEC, a compostagem é <span class="grifado">Reciclagem de Matéria Orgânica</span>. É uma técnica de valorização, não de eliminação.</p>
+            </div>
+
+            <div class="p-4 bg-red-50 rounded-lg">
+                <p><strong>Peguinha 04: Lixo no Mar</strong><br>
+                A banca costuma cobrar a origem. Quase <span class="grifado">80% do lixo marinho tem origem terrestre</span> (devido à falha na gestão urbana), e não necessariamente de navios.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUSTENTABILIDADE E DESAFIOS -->
+    <section>
+        <h2 class="secao-titulo text-2xl font-bold">5. Desafios da Sustentabilidade</h2>
+        <p class="mb-4">Para fechar a redação ou questões dissertativas, foque em:</p>
+        <ul class="list-disc pl-6 space-y-4">
+            <li><strong>Economia Circular:</strong> Diferente da economia linear (extrair-produzir-descartar), ela busca o fechamento do ciclo de vida dos materiais.</li>
+            <li><strong>Inclusão Social:</strong> A PNRS obriga a integração de <span class="grifado">Cooperativas de Catadores de Materiais Recicláveis</span> nos sistemas municipais.</li>
+            <li><strong>Geração de Energia (Waste-to-Energy):</strong> Uso do biogás (<span class="grifado">Metano - $CH_4$</span>) dos aterros sanitários para geração de eletricidade, reduzindo o efeito estufa.</li>
+        </ul>
+    </section>
+
+    <footer class="mt-20 py-10 border-t text-center">
+        <p class="text-slate-500 mb-8">Conteúdo revisado conforme o Edital ETEC/CEETEPS - Geografia.</p>
+        <a href="gestao_de_residuosquestoes.html" class="inline-block bg-slate-900 text-white font-bold py-4 px-12 rounded-full hover:bg-slate-800 transition-transform active:scale-95 shadow-xl">
+            ACESSAR QUESTÕES DE TREINAMENTO
+        </a>
+    </footer>
+
+</body>
+</html>

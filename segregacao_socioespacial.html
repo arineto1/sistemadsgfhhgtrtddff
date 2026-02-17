@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Técnico: Concurso ETEC - Segregação Socioespacial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+        .text-grifado {
+            background-color: #fef3c7;
+            font-weight: 600;
+            padding: 0 2px;
+        }
+        .tabela-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px; /* Garante leitura sem esmagar texto, mas o container lida com o scroll se necessário */
+        }
+        /* Ajuste para garantir que em telas médias a tabela não precise de scroll se possível */
+        @media (min-width: 1024px) {
+            .tabela-container { overflow-x: hidden; }
+        }
+        th {
+            background-color: #f9fafb;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #e5e7eb;
+            font-weight: 700;
+            color: #374151;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+        .nota-tecnica {
+            border-left: 4px solid #2563eb;
+            background-color: #eff6ff;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+<body class="max-w-5xl mx-auto px-6 py-10">
+
+    <!-- ÁUDIO PLAYER -->
+    <div class="mb-10 p-6 border border-gray-200 rounded-xl bg-gray-50 shadow-sm">
+        <h3 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">Audiolivro de Revisão</h3>
+        <audio controls class="w-full">
+            <source src="segregacao_socioespacial.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <p class="text-xs text-gray-400 mt-2 italic">Arquivo: <span class="font-mono">aula_segregacao.mp3</span></p>
+    </div>
+
+    <!-- CABEÇALHO -->
+    <header class="border-b border-gray-100 pb-8 mb-8">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Segregação Socioespacial</h1>
+        <p class="text-xl text-gray-600">A fragmentação do espaço nas grandes metrópoles: Foco CEETEPS</p>
+    </header>
+
+    <main>
+        <!-- DEFINIÇÃO -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">1. Definição e Características Essenciais</h2>
+            <p class="mb-4">
+                A segregação socioespacial é a <span class="text-grifado">manifestação geográfica da desigualdade social</span>. Nas metrópoles, o espaço não é apenas um palco, mas um produto de forças econômicas e políticas que separam grupos sociais de acordo com sua renda e poder.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-5 border border-gray-100 rounded-lg bg-white shadow-sm">
+                    <h4 class="font-bold text-blue-700 mb-2">Autosegregação</h4>
+                    <p class="text-sm text-gray-600 italic">Ex: Condomínios fechados (Alphaville). Grupos de alta renda escolhem se isolar por segurança e status.</p>
+                </div>
+                <div class="p-5 border border-gray-100 rounded-lg bg-white shadow-sm">
+                    <h4 class="font-bold text-blue-700 mb-2">Segregação Imposta</h4>
+                    <p class="text-sm text-gray-600 italic">Ex: Favelas e cortiços. Grupos de baixa renda são empurrados para áreas sem infraestrutura por falta de opção no mercado formal.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AGENTES -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">2. Os Agentes Produtores do Espaço (R. L. Corrêa)</h2>
+            <p class="mb-4">Para a prova da ETEC, lembre-se que o espaço urbano é <span class="text-grifado">produzido socialmente</span>. Roberto Lobato Corrêa elenca cinco agentes principais:</p>
+            
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Agente</th>
+                            <th>Interesse / Função</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="font-bold">Proprietários Fundiários</span></td>
+                            <td>Buscam a <span class="text-grifado">Renda da Terra</span> através da especulação imobiliária em vazios urbanos.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="font-bold">Promotores Imobiliários</span></td>
+                            <td>Incorporam, constroem e comercializam o espaço visando lucro direto.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="font-bold">Estado</span></td>
+                            <td>Atua no <span class="text-grifado">Zoneamento Urbano</span>, obras de infraestrutura e Planos Diretores.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="font-bold">Industriais</span></td>
+                            <td>Consumidores de espaço que buscam terrenos amplos e logística eficiente.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="font-bold">Grupos Excluídos</span></td>
+                            <td>Produzem o espaço informal (autoconstrução) por necessidade de sobrevivência.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- DEFINIÇÕES BÁSICAS PARA MEMORIZAÇÃO -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">3. Conceitos-Chave para o Dia da Prova</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="font-bold text-lg border-l-4 border-yellow-400 pl-2">Fragmentação Urbana</h3>
+                    <p>Diferente da segregação macro (Centro vs Periferia), a <span class="text-grifado">fragmentação</span> ocorre em microescala. São os chamados "enclaves fortificados", onde muros separam realidades sociais opostas no mesmo bairro.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg border-l-4 border-yellow-400 pl-2">Gentrificação (Enobrecimento)</h3>
+                    <p>Processo de <span class="text-grifado">substituição de uma população de baixa renda</span> por uma de maior poder aquisitivo em áreas revitalizadas. O custo de vida sobe e os antigos moradores são expulsos pelo mercado.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg border-l-4 border-yellow-400 pl-2">Os Dois Circuitos da Economia Urbana</h3>
+                    <p>Teoria de <span class="text-grifado">Milton Santos</span>: O Circuito Superior (tecnológico, bancário, global) e o Circuito Inferior (informal, baixa tecnologia, local). Ambos coexistem e se alimentam no espaço urbano.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg border-l-4 border-yellow-400 pl-2">Déficit Habitacional vs. Imóveis Vazios</h3>
+                    <p>Contradição central: enquanto milhares não têm casa, imóveis no centro ficam vazios para <span class="text-grifado">especulação</span>, ferindo a função social da propriedade prevista no Estatuto da Cidade.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TENDÊNCIAS E PEGUINHAS -->
+        <section class="mb-12 bg-gray-50 p-8 rounded-2xl">
+            <h2 class="text-2xl font-bold text-red-700 mb-6">4. Análise de Tendências e "Peguinhas" (CEETEPS)</h2>
+            
+            <div class="space-y-6">
+                <div class="flex gap-4">
+                    <span class="text-red-500 font-bold text-xl">⚠️</span>
+                    <div>
+                        <p class="font-bold">Peguinha: Visão Dualista Simples</p>
+                        <p class="text-sm">A prova pode afirmar que a segregação é apenas "rico no centro e pobre longe". <span class="text-grifado">Falso!</span> A tendência atual é a formação de <span class="text-grifado">subcentros periféricos</span> e a migração de elites para condomínios distantes.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <span class="text-red-500 font-bold text-xl">⚠️</span>
+                    <div>
+                        <p class="font-bold">Peguinha: O Papel do Estado</p>
+                        <p class="text-sm">Muitas questões sugerem que o Estado é "vítima" da falta de planejamento. <span class="text-grifado">Cuidado:</span> Na ótica crítica (que a banca prefere), o Estado é um <span class="text-grifado">agente ativo</span> que decide onde investir, beneficiando certos grupos.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <span class="text-red-500 font-bold text-xl">⚠️</span>
+                    <div>
+                        <p class="font-bold">Termo Técnico: Direito à Cidade</p>
+                        <p class="text-sm">Conceito de Henri Lefebvre muito cobrado. Refere-se não apenas ao acesso a serviços, mas ao <span class="text-grifado">protagonismo político</span> dos cidadãos sobre a gestão do espaço.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nota-tecnica mt-8">
+                <p class="font-bold text-blue-800">Dica Prática para Questões de São Paulo:</p>
+                <p class="text-sm">A banca adora citar a <span class="text-grifado">Região Metropolitana de São Paulo (RMSP)</span>. Foque na verticalização de bairros como Itaim Bibi/Vila Olímpia (Circuito Superior) em contraste com o crescimento das ocupações na zona sul extrema e leste (Grajaú/Cidade Tiradentes).</p>
+            </div>
+        </section>
+
+        <!-- BOTÃO DE QUESTÕES -->
+        <div class="flex justify-center mt-12 mb-20">
+            <a href="segregacao_socioespacialquestoes.html" class="bg-gray-900 text-white px-12 py-5 rounded-full font-bold text-lg hover:bg-gray-800 transition-all shadow-xl active:scale-95">
+                Acessar Banco de Questões
+            </a>
+        </div>
+    </main>
+
+    <footer class="text-center text-gray-400 text-xs border-t border-gray-100 pt-8">
+        Material de apoio pedagógico para Concurso Docente CEETEPS - Geografia.
+    </footer>
+
+</body>
+</html>
