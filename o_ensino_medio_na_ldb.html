@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Completo: Ensino Médio LDB & Geografia ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background-color: #ffffff;
+        }
+        .highlight {
+            background-color: #fef08a;
+            color: #1a202c;
+            padding: 2px 4px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+        .section-title {
+            border-left: 5px solid #2563eb;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        /* Tabela Responsiva sem Scroll Horizontal */
+        .responsive-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .responsive-table thead { display: none; }
+            .responsive-table tr { display: block; margin-bottom: 1rem; border: 1px solid #e2e8f0; }
+            .responsive-table td { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 10px; 
+                border-bottom: 1px solid #edf2f7;
+                font-size: 0.9rem;
+            }
+            .responsive-table td::before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: #4a5568;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10 max-w-5xl mx-auto">
+
+    <!-- Reprodutor de Áudio -->
+    <div class="mb-12 p-6 border rounded-lg bg-slate-50 shadow-sm">
+        <h3 class="text-xs font-bold uppercase text-slate-500 mb-3 tracking-widest">Apoio em Áudio (Revisão)</h3>
+        <audio controls class="w-full">
+            <source src="o_ensino_medio_na_ldb.mp3" type="audio/mpeg">
+            Seu navegador não suporta o player de áudio.
+        </audio>
+        <p class="text-xs text-slate-400 mt-2 italic underline text-center">Arquivo atual: aula_ldb_etec.mp3</p>
+    </div>
+
+    <header class="mb-12">
+        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">Guia Definitivo: LDB e o Novo Ensino Médio na ETEC</h1>
+        <p class="text-xl text-slate-600 mt-4">Foco em Legislação Educacional e Prática Docente para Geografia.</p>
+    </header>
+
+    <!-- Bloco 1: LDB e Finalidades -->
+    <section class="mb-16">
+        <h2 class="section-title text-2xl font-bold text-blue-700">1. O Ensino Médio na LDB (Art. 35 e 36)</h2>
+        <p class="mb-4">O Ensino Médio é a <span class="highlight">etapa final da Educação Básica</span>. Sua duração mínima é de 3 anos.</p>
+        
+        <div class="bg-blue-50 p-5 rounded-lg mb-6">
+            <h4 class="font-bold mb-3">Finalidades Essenciais (Para Memorizar):</h4>
+            <ul class="list-disc ml-6 space-y-2">
+                <li>Consolidação e aprofundamento dos conhecimentos do Fundamental.</li>
+                <li><strong>Preparação básica para o trabalho</strong> e a cidadania (ser capaz de se adaptar a novas condições de ocupação).</li>
+                <li>Aprimoramento do educando como <span class="highlight">pessoa humana</span> (ética, autonomia e pensamento crítico).</li>
+                <li>Compreensão dos <strong>fundamentos científico-tecnológicos</strong> dos processos produtivos.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Bloco 2: A Reforma Atualizada (Lei 14.945/2024) -->
+    <section class="mb-16">
+        <h2 class="section-title text-2xl font-bold text-blue-700">2. Estrutura Curricular Atualizada</h2>
+        <p class="mb-4">A nova estrutura divide a carga horária total (3.000h) entre a <strong>FGB (Formação Geral Básica)</strong> e os <strong>Itinerários Formativos</strong>.</p>
+
+        <table class="responsive-table border">
+            <thead class="bg-slate-100">
+                <tr>
+                    <th class="p-3 text-left border">Modalidade</th>
+                    <th class="p-3 text-left border">Formação Geral (FGB)</th>
+                    <th class="p-3 text-left border">Parte Flexível / Técnica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Modalidade" class="p-3 border font-bold">Ensino Médio Regular</td>
+                    <td data-label="Formação Geral" class="p-3 border">2.400 horas</td>
+                    <td data-label="Parte Flexível" class="p-3 border">600 horas</td>
+                </tr>
+                <tr class="bg-blue-50">
+                    <td data-label="Modalidade" class="p-3 border font-bold italic">MTEC (ETEC Integrado)</td>
+                    <td data-label="Formação Geral" class="p-3 border"><span class="highlight">2.100 horas</span></td>
+                    <td data-label="Parte Flexível" class="p-3 border">900 a 1.200 horas</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="space-y-4 mt-6">
+            <p><strong>A Geografia no Currículo:</strong> Deixa de ser apenas "conteúdo de Ciências Humanas" para retomar seu protagonismo como <span class="highlight">componente curricular obrigatório</span> em todos os anos do Ensino Médio.</p>
+            <p><strong>Notório Saber:</strong> Aplicável <span class="highlight">exclusivamente</span> para profissionais que atuarão nos itinerários de formação técnica e profissional. Não se aplica à Geografia (FGB).</p>
+        </div>
+    </section>
+
+    <!-- Bloco 3: Regimento Comum das ETECs -->
+    <section class="mb-16">
+        <h2 class="section-title text-2xl font-bold text-blue-700">3. Regimento Comum (Deliberação CEETEPS 85/2022)</h2>
+        <p class="mb-4">As normas internas do Centro Paula Souza costumam cair em questões sobre "Rotina Escolar".</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="border p-5 rounded-lg">
+                <h4 class="font-bold text-red-600 mb-2 underline">Avaliação e Menções</h4>
+                <p>A avaliação é contínua e cumulativa. As menções são:</p>
+                <ul class="mt-2 space-y-1 font-mono text-sm">
+                    <li><strong>I</strong> - Inidividualizado (Em casos específicos)</li>
+                    <li><strong>A</strong> - Aproveitamento Pleno</li>
+                    <li><strong>B</strong> - Bom Aproveitamento</li>
+                    <li><strong>C</strong> - Aproveitamento Suficiente</li>
+                    <li><strong>R</strong> - Retenção (Abaixo de 50% ou falta de objetivos)</li>
+                </ul>
+            </div>
+            <div class="border p-5 rounded-lg">
+                <h4 class="font-bold text-red-600 mb-2 underline">Promoção e Retenção</h4>
+                <ul class="list-disc ml-5 space-y-1">
+                    <li><span class="highlight">Frequência mínima de 75%</span> do total de horas letivas (sem abono).</li>
+                    <li>Progressão parcial (DP) é permitida em até <span class="highlight">3 componentes</span> curriculares (conforme plano de curso).</li>
+                    <li>Conselho de Classe tem poder deliberativo sobre a promoção do aluno.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloco 4: Geografia - Temas e BNCC -->
+    <section class="mb-16">
+        <h2 class="section-title text-2xl font-bold text-blue-700">4. Geografia na BNCC e Provas da ETEC</h2>
+        
+        <div class="space-y-4">
+            <p>O foco das provas da Banca FAT/ETEC para professores é a <span class="highlight">Geografia Crítica e Aplicada</span>. Esqueça a memorização de capitais; foque na análise espacial.</p>
+            
+            <div class="bg-slate-50 p-6 border-l-4 border-slate-400">
+                <h4 class="font-bold mb-2">Temas Recorrentes:</h4>
+                <ol class="list-decimal ml-6 space-y-2">
+                    <li><strong>Cartografia Contemporânea:</strong> Geotecnologias, Anamorfose e Sensoriamento Remoto no ensino.</li>
+                    <li><strong>Geopolítica:</strong> Conflitos por recursos naturais e a nova ordem mundial multipolar.</li>
+                    <li><strong>Geografia Física:</strong> Domínios Morfoclimáticos (Aziz Ab'Sáber) e impactos ambientais (Antropoceno).</li>
+                    <li><strong>Mundo do Trabalho:</strong> Impactos da Indústria 4.0 no território e na precarização do trabalho.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloco 5: Dicas de Ouro / Peguinhas -->
+    <section class="mb-16">
+        <h2 class="section-title text-2xl font-bold text-red-600">5. "Peguinhas" de Prova (Cuidado!)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-red-50 rounded border border-red-100 italic">
+                "A carga horária da Formação Geral Básica no MTEC pode ser de 1.800 horas." 
+                <br><strong>FALSO:</strong> A nova lei fixa em <span class="font-bold">2.100h</span> para o ensino técnico integrado.
+            </div>
+            <div class="p-4 bg-red-50 rounded border border-red-100 italic">
+                "O ensino de Geografia pode ser ofertado à distância (EaD) para cumprir carga horária." 
+                <br><strong>FALSO:</strong> A formação básica deve ser <span class="font-bold">presencial</span>.
+            </div>
+            <div class="p-4 bg-red-50 rounded border border-red-100 italic">
+                "O Conselho de Classe pode reter um aluno mesmo com 75% de frequência." 
+                <br><strong>VERDADEIRO:</strong> Se o desempenho pedagógico (competências) não for atingido.
+            </div>
+            <div class="p-4 bg-red-50 rounded border border-red-100 italic">
+                "O Espanhol é obrigatório no currículo paulista." 
+                <br><strong>FALSO:</strong> Apenas o <span class="font-bold">Inglês</span> é obrigatório. O espanhol é opcional.
+            </div>
+        </div>
+    </section>
+
+    <!-- Botão de Questões -->
+    <footer class="mt-20 py-10 border-t text-center">
+        <p class="text-slate-500 mb-6 font-medium">Pronto para testar seus conhecimentos?</p>
+        <a href="o_ensino_medio_na_ldbquestoes.html" class="inline-block bg-blue-600 hover:bg-blue-800 text-white font-bold py-4 px-12 rounded-full transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+            RESOLVER QUESTÕES →
+        </a>
+        <p class="mt-8 text-xs text-slate-400">Produzido para Candidatos ao Concurso Docente CEETEPS 2025</p>
+    </footer>
+
+</body>
+</html>

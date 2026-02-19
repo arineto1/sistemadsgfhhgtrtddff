@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Processo Administrativo Estadual - Lei 10.177/98</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+            --max-width: 850px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .quiz-intro {
+            font-style: italic;
+            color: #666;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f8f9fa;
+            border-color: #bdc3c7;
+        }
+
+        .option input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 40px;
+        }
+
+        .submit-btn:hover {
+            background-color: #1a252f;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 30px;
+            background: #f1f3f5;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-card {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-left: 4px solid var(--accent-color);
+            background: #fff;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .badge-correct { background: #d4edda; color: #155724; }
+        .badge-wrong { background: #f8d7da; color: #721c24; }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.4rem; }
+        }
+
+        /* Estilo para tabelas nas resoluções */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Lei Estadual nº 10.177/1998</h1>
+        <p class="quiz-intro">Estilo Concurso Professor ETEC (CEETEPS) - Geografia</p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- As questões serão inseridas aqui pelo JS -->
+        </div>
+
+        <button type="button" class="submit-btn" onclick="calculateScore()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <section id="results-section">
+        <div class="score-box">
+            <p>Seu Resultado:</p>
+            <div class="score-number" id="score-display">0/10</div>
+            <p id="score-feedback"></p>
+        </div>
+
+        <h2>Resoluções Detalhadas</h2>
+        <div id="resolutions-container">
+            <!-- As resoluções aparecerão aqui -->
+        </div>
+    </section>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No que concerne ao âmbito de aplicação da Lei Estadual nº 10.177/1998, que regula o processo administrativo no âmbito da Administração Pública do Estado de São Paulo, e considerando a estrutura administrativa do Centro Estadual de Educação Tecnológica Paula Souza (CEETEPS), analise as seguintes asserções:\n\nI. A referida lei regula os atos e procedimentos administrativos da Administração Pública centralizada e descentralizada, possuindo aplicação mandatória mesmo nos casos em que houver disciplina legal específica concorrente.\nII. Considera-se integrante da Administração descentralizada estadual toda pessoa jurídica controlada ou mantida, direta ou indiretamente, pelo Poder Público estadual, independentemente do regime jurídico a que esteja submetida.\nIII. As normas da Lei nº 10.177/1998 aplicam-se subsidiariamente aos atos e procedimentos administrativos que possuam disciplina legal específica, garantindo a integração do sistema jurídico administrativo paulista.\nIV. Os prazos fixados em normas legais específicas, como o Estatuto dos Funcionários Públicos Civis do Estado, devem ser obrigatoriamente substituídos pelos prazos genéricos previstos nesta lei para garantir a isonomia.",
+            options: [
+                { text: "I e II.", val: "A" },
+                { text: "II e III.", val: "B" },
+                { text: "III e IV.", val: "C" },
+                { text: "I, II e III.", val: "D" }
+            ],
+            correct: "B",
+            resolution: "A compreensão da Lei Estadual nº 10.177/1998 começa pela delimitação de seu campo de força. O Artigo 1.º estabelece que a lei regula os atos e procedimentos da Administração Pública centralizada e descentralizada do Estado de São Paulo. No contexto do CEETEPS (autarquia), a incidência é direta. A asserção I está incorreta porque a lei é subsidiária quando há norma específica (Art. 2º). A asserção IV está incorreta pois os prazos específicos prevalecem sobre os desta lei (Art. 3º). As asserções II e III estão corretas conforme os Artigos 1º (parágrafo único) e 2º."
+        },
+        {
+            id: 2,
+            question: "A atuação do docente de Geografia em uma Escola Técnica Estadual (ETEC) frequentemente perpassa por decisões administrativas, seja em conselhos de classe, na gestão de recursos pedagógicos ou na participação em comissões. De acordo com o Título II da Lei nº 10.177/1998, a Administração Pública deve atuar em obediência a um rol de princípios. Assinale a alternativa que contém a lista exata e completa dos princípios expressos no Artigo 4.º:",
+            options: [
+                { text: "Legalidade, impessoalidade, moralidade, publicidade e eficiência.", val: "A" },
+                { text: "Legalidade, impessoalidade, moralidade, publicidade, razoabilidade, finalidade, interesse público e motivação.", val: "B" },
+                { text: "Legalidade, meritocracia, transparência, celeridade, razoabilidade, finalidade e interesse privado.", val: "C" },
+                { text: "Impessoalidade, moralidade, economicidade, publicidade, eficácia, proporcionalidade e motivação.", val: "D" }
+            ],
+            correct: "B",
+            resolution: "Diferente do texto constitucional federal (LIMPE), a Lei Estadual nº 10.177/1998 amplia o rol para oito princípios fundamentais no Artigo 4.º: Legalidade, Impessoalidade, Moralidade, Publicidade, Razoabilidade, Finalidade, Interesse Público e Motivação. A alternativa B é a única que reproduz integralmente o texto legal."
+        },
+        {
+            id: 3,
+            question: "Considere o Artigo 6.º da Lei Estadual nº 10.177/1998, que estabelece limites à atuação administrativa em relação à esfera jurídica dos particulares, incluindo servidores e alunos. Sobre o tema, é correto afirmar que somente a lei poderá:",
+            options: [
+                { text: "Definir o horário de funcionamento das Unidades de Ensino do CEETEPS, sendo vedada a autonomia administrativa para tal fim.", val: "A" },
+                { text: "Delegar a agentes públicos a competência para criar tributos e taxas escolares em caráter de urgência.", val: "B" },
+                { text: "Criar condicionamentos aos direitos dos particulares ou impor-lhes deveres de qualquer espécie, bem como prever infrações ou prescrever sanções.", val: "C" },
+                { text: "Motivar os atos administrativos que envolvam a aplicação de penalidades disciplinares a professores contratados temporariamente.", val: "D" }
+            ],
+            correct: "C",
+            resolution: "O Artigo 6.º estabelece o princípio da reserva legal: somente a lei pode criar condicionamentos aos direitos dos particulares, impor deveres, prever infrações ou prescrever sanções. Isso impede que atos meramente administrativos (como portarias internas) criem novas obrigações ou punições sem lastro legal prévio."
+        },
+        {
+            id: 4,
+            question: "No que tange à validade e à invalidade dos atos administrativos no Estado de São Paulo, a Lei nº 10.177/1998 impõe balizas rigorosas para a atuação do administrador. Com base no Artigo 8.º e na doutrina administrativa aplicada ao texto legal, assinale a alternativa correta:",
+            options: [
+                { text: "São inválidos os atos administrativos que desatendam os pressupostos legais e regulamentares, exceto quando emanados de autoridade em cargo de confiança, cujos atos gozam de presunção absoluta de validade.", val: "A" },
+                { text: "A Administração tem a faculdade, mas não o dever, de anular atos inválidos quando estes produzirem efeitos favoráveis a terceiros de boa-fé.", val: "B" },
+                { text: "A motivação é elemento dispensável para a validade do ato administrativo, desde que o fim público seja atingido e a autoridade seja competente.", val: "C" },
+                { text: "São inválidos os atos administrativos que desatendam os pressupostos legais e regulamentares de sua edição, ou os princípios da Administração, especialmente nos casos de incompetência da pessoa jurídica, órgão ou agente de que emane.", val: "D" }
+            ],
+            correct: "D",
+            resolution: "Conforme o Artigo 8.º, caput e inciso I, são inválidos os atos que desatendam pressupostos legais/regulamentares ou princípios, destacando-se a incompetência da pessoa jurídica, órgão ou agente. A motivação é obrigatória e a anulação de atos ilegais é um dever-poder da Administração."
+        },
+        {
+            id: 5,
+            question: "A Lei Estadual nº 10.177/1998 dedica um capítulo específico ao dever de decidir da Administração Pública. Suponha que um professor de Geografia protocole um requerimento administrativo junto ao CEETEPS solicitando a revisão de sua contagem de tempo de serviço. De acordo com o Artigo 33 e seus parágrafos, se a autoridade não proferir decisão no prazo legal:",
+            options: [
+                { text: "O requerimento será considerado tacitamente aprovado (deferimento automático) após 60 dias de silêncio.", val: "A" },
+                { text: "O interessado poderá considerar rejeitado o requerimento na esfera administrativa se ultrapassado o prazo de 120 dias, salvo previsão legal ou regulamentar em contrário.", val: "B" },
+                { text: "O processo administrativo será imediatamente anulado e a autoridade responsável será exonerada a bem do serviço público.", val: "C" },
+                { text: "O prazo de decisão é suspenso indefinidamente caso o órgão administrativo alegue falta de pessoal técnico para análise.", val: "D" }
+            ],
+            correct: "B",
+            resolution: "O Artigo 33 fixa o prazo de 120 dias para decisão, salvo norma específica. O § 1º estabelece a 'rejeição tácita' (ou negativa ficta): se não houver decisão no prazo, o interessado pode considerar o pedido rejeitado para fins de interposição de recurso."
+        },
+        {
+            id: 6,
+            question: "Sobre o procedimento sancionatório previsto na Lei Estadual nº 10.177/1998, que visa garantir o devido processo legal e a ampla defesa aos acusados de infrações administrativas, analise as regras contidas no Artigo 63 e assinale a alternativa correta:",
+            options: [
+                { text: "O acusado tem o prazo de 5 (cinco) dias para oferecer defesa após a citação, não sendo permitida a indicação de assistente técnico.", val: "A" },
+                { text: "Após a citação, o acusado poderá oferecer defesa no prazo de 15 (quinze) dias, tendo o direito de produzir provas e acompanhar a instrução.", val: "B" },
+                { text: "A decisão motivada em processos sancionatórios deve ser proferida no prazo máximo de 5 (cinco) dias úteis após as alegações finais.", val: "C" },
+                { text: "O denunciante é considerado parte no procedimento sancionatório, podendo intervir em todas as fases para garantir a condenação do acusado.", val: "D" }
+            ],
+            correct: "B",
+            resolution: "O Artigo 63 detalha o rito sancionatório: o prazo para defesa é de 15 dias (inciso II) e é garantido o direito de produzir provas e acompanhar a instrução (inciso IV). A decisão deve ocorrer em 20 dias (inciso VII)."
+        },
+        {
+            id: 7,
+            question: "No contexto da gestão democrática e transparente defendida pelo CEETEPS, o acesso a informações e certidões é um direito fundamental. Segundo os Artigos 74 e 75 da Lei nº 10.177/1998, sobre a expedição de certidões, é correto afirmar:",
+            options: [
+                { text: "A expedição da certidão deve ocorrer no prazo máximo de 15 dias corridos, independentemente da complexidade da informação.", val: "A" },
+                { text: "O requerimento de certidão será apreciado em 5 (cinco) dias úteis, e a expedição deverá ocorrer em prazo não superior a 5 (cinco) dias úteis.", val: "B" },
+                { text: "Toda certidão solicitada deve ser entregue no ato do pedido, sob pena de responsabilidade funcional do servidor do balcão de atendimento.", val: "C" },
+                { text: "Em caso de risco à segurança do Estado, a certidão pode ser negada sem qualquer necessidade de manifestação do órgão jurídico.", val: "D" }
+            ],
+            correct: "B",
+            resolution: "O Artigo 74 estabelece prazos céleres para certidões: 5 dias úteis para apreciação e mais 5 dias úteis para a expedição propriamente dita. Isso reforça o dever de eficiência e transparência da Administração."
+        },
+        {
+            id: 8,
+            question: "A contagem de prazos no processo administrativo paulista segue regras específicas que visam conferir previsibilidade aos administrados. De acordo com os Artigos 91 e 92 da Lei nº 10.177/1998, assinale a alternativa que descreve a forma CORRETA de cômputo:",
+            options: [
+                { text: "Os prazos são computados incluindo-se o dia do começo e excluindo-se o do vencimento, suspendendo-se aos finais de semana.", val: "A" },
+                { text: "Os prazos previstos na lei são contínuos, salvo disposição expressa em contrário, não se interrompendo aos domingos ou feriados.", val: "B" },
+                { text: "Considera-se prorrogado o prazo até o primeiro dia útil subsequente se, no dia do vencimento, o expediente for encerrado antes do horário normal.", val: "C" },
+                { text: "O dia do começo do prazo é contado mesmo que ocorra em dia de feriado municipal, desde que o protocolo da unidade esteja aberto.", val: "D" }
+            ],
+            correct: "B",
+            resolution: "O Artigo 91 dita que os prazos são contínuos (não param em fins de semana). O Artigo 92 esclarece que se exclui o dia do começo e inclui-se o do vencimento (§ 1º). A alternativa C é incompleta, pois a prorrogação ocorre se o dia do vencimento não for útil ou se o expediente encerrar antes."
+        },
+        {
+            id: 9,
+            question: "Contra as decisões administrativas, cabe a interposição de recurso por aqueles que tenham direitos ou interesses atingidos. Com base nas disposições dos Artigos 93 a 96 da Lei nº 10.177/1998, é correto afirmar:",
+            options: [
+                { text: "O prazo para interpor recurso administrativo é de 15 (quinze) dias e, salvo disposição legal em contrário, o recurso terá efeito suspensivo automático.", val: "A" },
+                { text: "O recurso administrativo deve ser dirigido à autoridade que proferiu a decisão, a qual, se não a reconsiderar em 5 (cinco) dias, o encaminhará à autoridade superior.", val: "B" },
+                { text: "Somente pessoas físicas que demonstrem prejuízo financeiro direto possuem legitimidade para recorrer de decisões administrativas do CEETEPS.", val: "C" },
+                { text: "O prazo para a autoridade superior decidir o recurso é de 90 dias, sendo vedada qualquer prorrogação, sob pena de deferimento tácito.", val: "D" }
+            ],
+            correct: "B",
+            resolution: "O Artigo 94 prevê o juízo de retratação: a autoridade que decidiu tem 5 dias para reconsiderar; caso contrário, remete ao superior. O prazo de recurso é de 15 dias (Art. 93), mas o efeito suspensivo não é automático (Art. 96)."
+        },
+        {
+            id: 10,
+            question: "Acerca da revisão dos procedimentos administrativos dos quais resultem sanções, conforme previsto nos Artigos 97 a 100 da Lei Estadual nº 10.177/1998, assinale a alternativa que descreve uma regra mandatória desse instituto:",
+            options: [
+                { text: "A revisão pode ser requerida a qualquer tempo, e da sua análise poderá resultar o agravamento da sanção original se fatos novos indicarem maior gravidade.", val: "A" },
+                { text: "O pedido de revisão suspende a execução da sanção aplicada, independentemente de decisão expressa da autoridade competente.", val: "B" },
+                { text: "A revisão pode ser requerida quando surgirem fatos novos ou circunstâncias relevantes suscetíveis de justificar a inocência do punido ou a atenuação da sanção.", val: "C" },
+                { text: "Em caso de falecimento do interessado, o direito à revisão extingue-se, não podendo ser exercido por cônjuge ou herdeiros.", val: "D" }
+            ],
+            correct: "C",
+            resolution: "Conforme o Artigo 97, a revisão cabe diante de fatos novos ou circunstâncias relevantes para provar inocência ou atenuar a pena. Diferente do recurso, a revisão pode ocorrer a qualquer tempo. O Artigo 100 veda expressamente o agravamento da sanção na revisão (proibição da reformatio in pejus)."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <span class="question-text">${index + 1}. ${q.question.replace(/\n/g, '<br>')}</span>
+                <div class="options-container">
+                    ${q.options.map(opt => `
+                        <label class="option">
+                            <input type="radio" name="q${q.id}" value="${opt.val}">
+                            ${opt.val}) ${opt.text}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function calculateScore() {
+        let score = 0;
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        resolutionsContainer.innerHTML = ''; // Limpa antes de gerar
+
+        quizData.forEach(q => {
+            const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+            const isCorrect = selected && selected.value === q.correct;
+            
+            if (isCorrect) score++;
+
+            // Cria o card de resolução
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            
+            const badgeClass = isCorrect ? 'badge-correct' : 'badge-wrong';
+            const badgeText = isCorrect ? 'Correto' : (selected ? `Incorreto (Sua resposta: ${selected.value})` : 'Não respondida');
+
+            resCard.innerHTML = `
+                <span class="badge ${badgeClass}">${badgeText}</span>
+                <span class="resolution-title">Questão ${q.id} - Gabarito: ${q.correct}</span>
+                <p>${q.resolution}</p>
+            `;
+            resolutionsContainer.appendChild(resCard);
+        });
+
+        // Mostra resultados
+        document.getElementById('score-display').innerText = `${score}/10`;
+        const feedback = document.getElementById('score-feedback');
+        if (score >= 8) feedback.innerText = "Excelente desempenho! Você conhece bem a Lei 10.177/98.";
+        else if (score >= 5) feedback.innerText = "Bom trabalho, mas revise os pontos que errou para garantir a vaga.";
+        else feedback.innerText = "Recomendamos uma leitura atenta da lei e das resoluções abaixo.";
+
+        document.getElementById('results-section').style.display = 'block';
+        
+        // Scroll suave para o resultado
+        window.scrollTo({
+            top: document.getElementById('results-section').offsetTop - 50,
+            behavior: 'smooth'
+        });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

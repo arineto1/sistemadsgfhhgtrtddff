@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC - Modelo Pedagógico CEETEPS</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfd;
+            --text-color: #2d3436;
+            --card-bg: #ffffff;
+            --accent-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #dfe6e9;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            color: #636e72;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 20px 50px 20px;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            color: #0984e3;
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            display: block;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f1f2f6;
+            border-color: var(--accent-color);
+        }
+
+        .option-input {
+            margin-right: 10px;
+        }
+
+        .option-input:checked + .option-label {
+            background-color: #e3f2fd;
+            border-color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e3799;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .score-box {
+            background-color: #f8f9fa;
+            border: 2px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .resolution-card {
+            background-color: #fff;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .res-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2d3436;
+        }
+
+        .res-status {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .status-correct { background-color: #d4edda; color: #155724; }
+        .status-wrong { background-color: #f8d7da; color: #721c24; }
+
+        .correct-answer-text {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .explanation-text {
+            font-size: 0.95rem;
+            color: #4b4b4b;
+            text-align: justify;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 0 15px 30px 15px; }
+            header h1 { font-size: 1.4rem; }
+            .score-value { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Modelo Pedagógico CEETEPS</h1>
+    <p>Ensino Médio com Ênfases (MTec/ETIM) no Centro Paula Souza - Estudo para Docentes de Geografia</p>
+</header>
+
+<div class="container">
+    <div id="quiz-container">
+        <!-- Perguntas serão inseridas aqui via JS -->
+    </div>
+
+    <button class="btn-submit" id="submit-btn" onclick="checkQuiz()">Finalizar Simulado e Ver Resoluções</button>
+
+    <section id="results-section">
+        <div class="score-box">
+            <h2>Resultado</h2>
+            <span class="score-value" id="score-display">0/10</span>
+            <p id="score-message"></p>
+        </div>
+
+        <h2 style="border-bottom: 2px solid var(--accent-color); padding-bottom: 10px;">Resoluções Detalhadas</h2>
+        <div id="resolutions-container">
+            <!-- Resoluções serão inseridas aqui via JS -->
+        </div>
+    </section>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No contexto da reforma do Ensino Médio introduzida pela Lei nº 13.415/2017 e sua implementação no Centro Estadual de Educação Tecnológica Paula Souza (CEETEPS), o modelo de Ensino Médio com Habilitação Profissional de Técnico (MTec) estabelece uma nova dinâmica de integração curricular em comparação ao antigo Ensino Técnico Integrado ao Ensino Médio (ETIM). Ao analisar as matrizes curriculares do MTec-Novotec, observa-se a utilização de numerais específicos (legendas interdisciplinares) associados aos componentes da Base Nacional Comum Curricular (BNCC) e da Formação Profissional. Considerando as diretrizes pedagógicas para o componente de Geografia no MTec, a função desses numerais na organização do trabalho docente é:",
+            options: [
+                "Determinar a sequência linear obrigatória de conteúdos geográficos físicos e humanos, impedindo a sobreposição de temas entre as séries do ensino médio.",
+                "Indicar a obrigatoriedade de avaliação por meio de exames nacionais unificados para os componentes que compartilham o mesmo código numérico.",
+                "Operacionalizar a integração curricular, sinalizando que componentes com o mesmo numeral devem desenvolver projetos interdisciplinares e atividades conjuntas que articulem os saberes geográficos às competências profissionais da habilitação.",
+                "Estabelecer uma hierarquia de titulação, onde apenas professores com mestrado ou doutorado podem ministrar componentes com numeração superior a cinco.",
+                "Identificar componentes que são passíveis de substituição por horas de estágio supervisionado, conforme previsto na Deliberação CEETEPS 87/2022."
+            ],
+            answer: 2,
+            explanation: "A integração curricular no CPS é operacionalizada através do desenho das matrizes curriculares. Os 'numerais' são códigos inseridos nos Planos de Curso para forçar o diálogo entre áreas. Se o componente de Geografia compartilha o numeral '1' com componentes técnicos, há uma diretriz institucional para planejamento de situações de aprendizagem comuns, garantindo que a BNCC e a formação profissional sejam inseparáveis."
+        },
+        {
+            id: 2,
+            question: "A transição do modelo ETIM para o MTec-Novotec trouxe mudanças significativas na carga horária e na distribuição dos componentes curriculares. No modelo MTec Diurno, a compressão do tempo letivo para viabilizar a oferta em período único (manhã ou tarde) impactou diretamente a oferta de componentes da BNCC, como a Geografia. De acordo com o Plano de Curso nº 427 (Técnico em Administração), a distribuição da carga horária de Geografia no currículo integrado reflete a seguinte estratégia institucional:",
+            options: [
+                "Oferta ininterrupta de 80 horas-aula anuais durante as três séries do Ensino Médio, garantindo o aprofundamento das dez competências gerais da BNCC.",
+                "Concentração da carga horária na 1ª e 2ª séries (80 horas-aula cada), sem previsão de aulas na 3ª série, visando consolidar a base geoeconômica antes da conclusão da habilitação técnica.",
+                "Substituição total do componente de Geografia por 'Estudos de Caso em Administração' a partir da 2ª série, eliminando a autonomia pedagógica da área de Ciências Humanas.",
+                "Ampliação da carga horária na 3ª série para compensar a ausência de conteúdos geográficos nos primeiros anos da formação técnica profissional.",
+                "Oferta exclusiva na modalidade de Educação a Distância (EaD) para todos os componentes de Ciências Humanas, visando otimizar a ocupação das salas de aula para o ensino técnico."
+            ],
+            answer: 1,
+            explanation: "Para manter o curso em apenas um período, o CEETEPS compactou o currículo. No Plano 427 (Administração), a Geografia é concentrada nas duas primeiras séries (80h cada), sem aulas na 3ª série. Isso visa consolidar as competências geográficas essenciais antes do mergulho profundo nos componentes técnicos finais, embora exija do professor um planejamento denso nos anos iniciais."
+        },
+        {
+            id: 3,
+            question: "A Deliberação CEETEPS nº 87, de 08 de dezembro de 2022, que aprova o novo Regimento Comum das Escolas Técnicas Estaduais, estabelece normas rígidas e inovadoras para a avaliação da aprendizagem. Diferente do modelo propedêutico tradicional, o sistema de menções foca no desenvolvimento de competências. No que se refere ao processo avaliativo em Geografia sob a égide do novo Regimento, é correto afirmar que:",
+            options: [
+                "O resultado final do aluno deve ser expresso por notas numéricas de 0 a 10, sendo a média 6,0 o requisito mínimo para promoção direta entre módulos.",
+                "A avaliação deve ser contínua e sistemática, sintetizada em menções (MB, B, R, I), sendo que a menção 'I' (Insatisfatório) obriga a escola a oferecer estudos de recuperação e diagnóstico individual.",
+                "O Conselho de Classe tem a prerrogativa de alterar menções de 'I' para 'R' automaticamente se o aluno possuir 100% de frequência, independentemente do domínio das competências técnicas.",
+                "A menção 'R' (Regular) impede o aluno de obter certificações intermediárias, exigindo a repetição do componente no semestre subsequente.",
+                "Os estudos de recuperação são facultativos e dependem da disponibilidade orçamentária da unidade de ensino para a contratação de horas extras para o docente."
+            ],
+            answer: 1,
+            explanation: "O sistema de menções (MB, B, R, I) é marca identitária do Paula Souza. A menção 'I' (Insatisfatório) não é um veredito final, mas um diagnóstico que exige obrigatoriamente procedimentos de recuperação e reorientação da aprendizagem, garantindo que a avaliação seja um processo de gestão da aprendizagem."
+        },
+        {
+            id: 4,
+            question: "O Itinerário Formativo de Ciências Humanas e Sociais Aplicadas nas ETECs busca aprofundar o estudo do homem em suas dimensões sociais, culturais e históricas. Para tanto, o currículo prevê componentes de 'Estudos Avançados' que dialogam com a Geografia escolar. Ao planejar o componente de Geografia para este itinerário, o docente deve priorizar o desenvolvimento de competências que permitam ao egresso:",
+            options: [
+                "A memorização exaustiva da localização de acidentes geográficos globais para garantir o sucesso em testes de múltipla escolha de grandes vestibulares.",
+                "A mobilização de linguagens, raciocínio sócio-histórico e conhecimentos geográficos para a solução de problemas do mundo real e a construção de novos saberes.",
+                "O uso de manuais técnicos de treinamento empresarial como única fonte de informação, descartando a bibliografia clássica da Geografia Humana.",
+                "A especialização precoce em geoprocessamento industrial, em detrimento das discussões sobre ética, meio ambiente e sociedade contemporânea.",
+                "A atuação exclusiva em funções operacionais de baixo valor agregado, ignorando a capacidade de trabalhar de modo autônomo e colaborativo."
+            ],
+            answer: 1,
+            explanation: "O Itinerário de Ciências Humanas foca no aprofundamento crítico. A Geografia assume o papel de laboratório de investigação social, onde o aluno deve mobilizar conhecimentos para solucionar problemas reais e construir novos saberes, indo além da memorização técnica para formar um cidadão global e reflexivo."
+        },
+        {
+            id: 5,
+            question: "No modelo MTec de Administração ou Turismo, o componente de Geografia é instrumentalizado para fornecer subsídios ao desenvolvimento do perfil profissional do técnico. Isso se reflete na articulação entre bases geográficas e temas profissionais, como a logística e o planejamento de roteiros. A relevância da Geografia na 1ª série de um curso técnico integrado manifesta-se especialmente na contribuição para:",
+            options: [
+                "A certificação intermediária de 'Auxiliar Administrativo', ao capacitar o aluno para compreender o cenário geoeconômico local e a ocupação do espaço urbano.",
+                "O treinamento para operações de caixa e atendimento ao público, temas que substituem os conceitos de território e rede geográfica no novo currículo.",
+                "A redução da evasão escolar, ao transformar as aulas de Geografia em momentos de recreação sem cobrança de competências acadêmicas.",
+                "O aprendizado de línguas estrangeiras, já que a Geografia passa a ser ministrada integralmente em inglês a partir da reforma do ensino médio.",
+                "A substituição dos componentes de Matemática, uma vez que o raciocínio espacial geográfico é considerado equivalente ao raciocínio lógico-matemático no CEETEPS."
+            ],
+            answer: 0,
+            explanation: "A Geografia fornece a base tecnológica para o perfil profissional. Ao compreender a rede urbana e o cenário geoeconômico local na 1ª série, o aluno atinge as competências necessárias para a certificação intermediária de Auxiliar Administrativo, tendo uma visão sistêmica superior à formação puramente técnica."
+        },
+        {
+            id: 6,
+            question: "O Trabalho de Conclusão de Curso (TCC) nas ETECs é um componente interdisciplinar que visa à síntese das competências adquiridas ao longo do curso. O papel do docente de Geografia, mesmo quando não é o orientador principal, é fundamental na construção do referencial teórico-prático do projeto. De acordo com o Regulamento do TCC do Centro Paula Souza, a orientação deve ser entendida como um processo que:",
+            options: [
+                "Isola os saberes da BNCC dos temas técnicos para evitar que o trabalho perca o foco na empregabilidade imediata.",
+                "Responsabiliza exclusivamente o professor de 'Linguagem, Trabalho e Tecnologia' pela formatação e conteúdo, eximindo os demais docentes de qualquer participação.",
+                "Deve ser articulada e integrada aos demais componentes curriculares da habilitação, onde o docente de Geografia auxilia na delimitação de áreas de conhecimento e na construção de referenciais.",
+                "Permite que o aluno escolha temas aleatórios sem qualquer conexão com o eixo tecnológico do curso ou com a realidade geográfica regional.",
+                "Finaliza-se com uma prova escrita individual sobre a bibliografia utilizada, substituindo a apresentação pública perante uma banca de validação."
+            ],
+            answer: 2,
+            explanation: "O TCC é o ápice da integração. O docente de Geografia atua como consultor transversal, ajudando na análise de redes, impactos ambientais ou locação industrial. A orientação é um processo articulado entre BNCC e área técnica para garantir que o projeto tenha solidez teórico-prática e relevância espacial."
+        },
+        {
+            id: 7,
+            question: "As competências socioemocionais ganharam centralidade no modelo pedagógico do Centro Paula Souza, sendo avaliadas por meio de parcerias com instituições como a ACT e o uso de ferramentas como o teste 'Tessera'. Na prática docente de Geografia, o desenvolvimento dessas competências deve estar alinhado à:",
+            options: [
+                "Avaliação punitiva do comportamento discente, utilizando a menção 'I' para alunos que demonstrem timidez ou dificuldades de comunicação oral.",
+                "Promoção de ambientes de aprendizagem que estimulem a empatia, a cooperação e a criatividade no enfrentamento de conflitos socioespaciais e desigualdades territoriais.",
+                "Criação de um ranking de desempenho emocional, onde os alunos mais extrovertidos recebem bônus de pontuação no componente de Geografia.",
+                "Substituição dos conteúdos de Geografia Física por sessões de meditação e autoajuda, visando apenas à saúde emocional do estudante.",
+                "Terceirização completa do desenvolvimento socioemocional para psicólogos externos, desobrigando o professor de Geografia de mediar conflitos na sala de aula."
+            ],
+            answer: 1,
+            explanation: "Na Geografia, as competências socioemocionais são trabalhadas via metodologias ativas. Ao analisar conflitos territoriais ou crises ambientais, o professor estimula a empatia e a criatividade. O objetivo é formar um profissional tecnicamente competente e emocionalmente inteligente, capaz de lidar com a diversidade do mercado."
+        },
+        {
+            id: 8,
+            question: "O conceito de 'Geografia da População' e as dinâmicas do mercado de trabalho são tópicos fundamentais nas ETECs, dada a missão institucional de formar profissionais para o desenvolvimento socioeconômico de São Paulo. Ao abordar a demografia no modelo MTec, o professor deve estabelecer nexos causais entre:",
+            options: [
+                "A taxa de natalidade e a necessidade de importação de insumos industriais pesados, sem considerar a ocupação do território brasileiro.",
+                "O envelhecimento populacional e as transformações nas ocupações do mercado de trabalho, preparando o técnico para atender às novas demandas de consumo e serviços.",
+                "O aumento da migração campo-cidade e a extinção definitiva dos cursos técnicos voltados ao setor agropecuário.",
+                "A densidade demográfica e a obrigatoriedade de instalação de ETECs apenas em municípios com mais de 500 mil habitantes.",
+                "As teorias neomalthusianas e a justificativa para a redução de investimentos públicos em educação profissional para as camadas mais pobres."
+            ],
+            answer: 1,
+            explanation: "A Geografia da População no CPS conecta-se à Geografia Econômica. Entender a transição demográfica e o envelhecimento é vital para cursos de saúde, gestão e serviços. O nexo entre demografia e mercado de trabalho torna o ensino relevante para a terminalidade profissional e o desenvolvimento paulista."
+        },
+        {
+            id: 9,
+            question: "A Cartografia no ensino técnico do Centro Paula Souza transcende a leitura passiva de mapas, integrando-se ao uso de tecnologias digitais e softwares de geoprocessamento, especialmente em eixos de Infraestrutura ou Controle e Processos Industriais. A habilidade (EM13MAT509), integrada à Geografia e Matemática, propõe que o aluno seja capaz de:",
+            options: [
+                "Decorar as coordenadas geográficas de todas as sedes das ETECs no estado de São Paulo como requisito de aprovação.",
+                "Investigar deformações de ângulos e áreas em diferentes projeções cartográficas, utilizando softwares para resolver problemas reais e simular cenários espaciais.",
+                "Desenhar mapas à mão livre utilizando exclusivamente papel vegetal e nanquim, rejeitando o uso de computadores para preservar a técnica tradicional.",
+                "Ignorar as distorções das projeções cilíndricas de Mercator, tratando-as como representações perfeitas da realidade física do planeta.",
+                "Utilizar o sistema de GPS apenas para atividades de lazer, sem correlação com as bases tecnológicas da agrimensura ou da logística administrativa."
+            ],
+            answer: 1,
+            explanation: "A Cartografia contemporânea nas ETECs foca no digital. A habilidade integrada propõe o uso de softwares para investigar distorções cartográficas e resolver problemas reais. Isso aproxima o aluno da prática profissional de geoprocessamento, essencial para eixos de infraestrutura e gestão."
+        },
+        {
+            id: 10,
+            question: "O Grupo de Formulação e Análises Curriculares (Gfac) do CEETEPS é o órgão responsável pela elaboração e atualização dos Planos de Curso e Matrizes Curriculares das ETECs. Suas diretrizes buscam alinhar a escola às transformações tecnológicas, como a Inteligência Artificial. Sobre a influência do Gfac no planejamento do professor de Geografia, é correto afirmar que:",
+            options: [
+                "O professor tem liberdade total para ignorar o Plano de Curso oficial, desde que cumpra a carga horária mínima prevista na CLT.",
+                "As propostas de cursos novos e alterações de itinerários devem obrigatoriamente seguir os Planos de Curso disponibilizados pelo Gfac, que integram competências da BNCC e profissionais.",
+                "O Gfac proíbe a interdisciplinaridade para evitar que o conteúdo de Geografia seja 'contaminado' por temas de gestão e negócios.",
+                "A atuação do Gfac restringe-se aos cursos técnicos modulares, não exercendo influência sobre o Ensino Médio com Ênfases ou MTec.",
+                "O grupo determina que 100% da bibliografia de Geografia seja composta por manuais de instruções de equipamentos técnicos industriais."
+            ],
+            answer: 1,
+            explanation: "O Gfac é o órgão que garante a padronização e qualidade da rede. O Plano de Curso oficial elaborado pelo Gfac é o documento norteador obrigatório, integrando competências da BNCC e do catálogo técnico. O planejamento do professor deve ser uma simbiose entre essas diretrizes e a realidade local."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const resContainer = document.getElementById('resolutions-container');
+    const resultsSection = document.getElementById('results-section');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Inicializar Quiz
+    function initQuiz() {
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-header">Questão ${index + 1}</div>
+                <div class="question-text">${q.question}</div>
+                <div class="options-list">
+                    ${q.options.map((opt, i) => `
+                        <div class="option-item">
+                            <input type="radio" id="q${index}_opt${i}" name="question${index}" value="${i}" class="option-input" style="display:none">
+                            <label for="q${index}_opt${i}" class="option-label">
+                                <strong>${String.fromCharCode(65 + i)})</strong> ${opt}
+                            </label>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            quizContainer.appendChild(card);
+        });
+    }
+
+    // Verificar Respostas
+    function checkQuiz() {
+        let score = 0;
+        const userAnswers = [];
+        
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+            const answerVal = selected ? parseInt(selected.value) : null;
+            userAnswers.push(answerVal);
+            
+            if (answerVal === q.answer) {
+                score++;
+            }
+        });
+
+        // Mostrar Resultados
+        displayResults(score, userAnswers);
+        submitBtn.style.display = 'none';
+        
+        // Desabilitar inputs
+        document.querySelectorAll('input').forEach(input => input.disabled = true);
+        
+        resultsSection.style.display = 'block';
+        window.scrollTo({ top: resultsSection.offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function displayResults(score, userAnswers) {
+        document.getElementById('score-display').innerText = `${score}/10`;
+        const msg = document.getElementById('score-message');
+        if(score >= 8) msg.innerText = "Excelente! Você demonstra amplo conhecimento do modelo pedagógico do CPS.";
+        else if(score >= 5) msg.innerText = "Bom desempenho. Revise os pontos sobre legislação e integração curricular.";
+        else msg.innerText = "Continue estudando. O modelo MTec possui particularidades importantes para o concurso.";
+
+        resContainer.innerHTML = '';
+        quizData.forEach((q, index) => {
+            const isCorrect = userAnswers[index] === q.answer;
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            resCard.innerHTML = `
+                <div class="res-header">
+                    Questão ${index + 1} 
+                    <span class="res-status ${isCorrect ? 'status-correct' : 'status-wrong'}">
+                        ${isCorrect ? 'Acertou' : 'Errou'}
+                    </span>
+                </div>
+                <div class="correct-answer-text">
+                    Alternativa Correta: ${String.fromCharCode(65 + q.answer)}
+                </div>
+                <div class="explanation-text">
+                    ${q.explanation}
+                </div>
+            `;
+            resContainer.appendChild(resCard);
+        });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

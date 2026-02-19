@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC: O Ensino Médio na LDB</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --border-color: #dfe6e9;
+            --success-color: #27ae60;
+            --error-color: #eb4d4b;
+            --max-width: 850px;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            max-width: var(--max-width);
+            width: 100%;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #000;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            width: 100%;
+        }
+
+        .question-card {
+            background: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input {
+            margin-top: 6px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .finish-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+        }
+
+        .finish-btn:hover {
+            background-color: #0773c5;
+        }
+
+        .finish-btn:active {
+            transform: scale(0.98);
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .resolution-item {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .correct { color: var(--success-color); border: 1px solid var(--success-color); }
+        .incorrect { color: var(--error-color); border: 1px solid var(--error-color); }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: O Ensino Médio na LDB e Currículo de Geografia</h1>
+    <p>Concurso Docente ETEC - CEETEPS</p>
+</header>
+
+<div class="container" id="quiz-form">
+    <!-- Questões Geradas via JS para manter limpeza -->
+    <div id="questions-container"></div>
+    
+    <button class="finish-btn" onclick="gradeQuiz()">Finalizar Quiz</button>
+</div>
+
+<div class="container hidden" id="results-section">
+    <div class="score-display" id="score-text"></div>
+    <div id="resolutions-container">
+        <h2>Resoluções Detalhadas e Análise</h2>
+    </div>
+    <button class="finish-btn" onclick="window.location.reload()">Refazer Quiz</button>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            q: "No contexto da Lei de Diretrizes e Bases da Educação Nacional (LDB - Lei nº 9.394/1996), com as alterações introduzidas pela Lei nº 13.415/2017 e as recentes atualizações da Lei nº 14.945/2024, o Ensino Médio é definido como a etapa final da educação básica. Para um docente de Geografia que atua nas Unidades de Ensino do Centro Estadual de Educação Tecnológica Paula Souza (CEETEPS), a compreensão das finalidades desta etapa é crucial para o planejamento pedagógico. Com base no Artigo 35 da LDB, assinale a alternativa que apresenta corretamente uma das finalidades precípuas do Ensino Médio:",
+            options: [
+                "A consolidação e o aprofundamento dos conhecimentos adquiridos no ensino fundamental, com foco exclusivo na aprovação em exames vestibulares de instituições de ensino superior públicas.",
+                "A preparação básica para o trabalho e a cidadania do educando, para continuar aprendendo, de modo a ser capaz de se adaptar com flexibilidade a novas condições de ocupação ou aperfeiçoamento posteriores.",
+                "O desenvolvimento estrito de competências técnicas voltadas à operação de máquinas e softwares específicos, desvinculado de uma formação humanística ou social.",
+                "A fragmentação dos conteúdos em disciplinas isoladas, garantindo que o ensino de Geografia se restrinja à descrição física do relevo e do clima, sem análise das relações sociais.",
+                "O cumprimento de uma carga horária mínima de 1.800 horas totais para a formação geral básica, sem a possibilidade de integração com cursos técnicos ou itinerários formativos."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. O Artigo 35 da LDB destaca que uma das finalidades precípuas é a 'preparação básica para o trabalho e a cidadania do educando, para continuar aprendendo, de modo a ser capaz de se adaptar com flexibilidade a novas condições de ocupação ou aperfeiçoamento posteriores'. Isso reforça que o Ensino Médio não é apenas um preparatório para vestibular, nem um treinamento mecânico, mas uma formação integral voltada para a autonomia do sujeito."
+        },
+        {
+            id: 2,
+            q: "A Lei nº 14.945, de 31 de julho de 2024, alterou significativamente a estrutura do Ensino Médio no Brasil, especialmente no que tange à carga horária da Formação Geral Básica (FGB) e sua articulação com a Formação Técnica e Profissional (FTP), modalidade amplamente ofertada pelas ETECs do Centro Paula Souza. De acordo com o novo texto do Artigo 35-C da LDB, a organização da carga horária para alunos que optam pela formação técnica deve seguir a seguinte regra:",
+            options: [
+                "A carga horária mínima da FGB será de 1.800 horas, devendo as 1.200 horas restantes ser dedicadas exclusivamente ao estágio supervisionado em empresas parceiras.",
+                "A carga horária mínima da FGB será de 2.400 horas para todos os cursos, sendo vedada qualquer redução para a oferta de ensino técnico integrado.",
+                "A carga horária mínima da FGB será de 2.100 horas, admitindo-se que até 300 horas da carga horária da FGB sejam destinadas ao aprofundamento de estudos de conteúdos da BNCC diretamente relacionados à formação técnica profissional oferecida.",
+                "A formação técnica profissional terá carga horária máxima de 600 horas, independentemente do curso escolhido, para garantir que a Geografia e a História ocupem 90% do currículo.",
+                "A LDB estabelece que a carga horária da FGB é facultativa para os cursos técnicos das ETECs, prevalecendo a autonomia do CEETEPS para definir os conteúdos de base comum."
+            ],
+            correct: 2, // C
+            res: "A alternativa correta é a C. Com a nova lei de 2024, para a Educação Profissional e Tecnológica (EPT), a carga horária mínima da FGB será de 2.100 horas. Destas, permite-se que até 300 horas sejam destinadas ao aprofundamento de estudos de conteúdos da BNCC diretamente relacionados à formação técnica oferecida, promovendo a integração curricular."
+        },
+        {
+            id: 3,
+            q: "No ensino de Geografia para o nível médio das ETECs, a Base Nacional Comum Curricular (BNCC) orienta que o componente deve ser trabalhado dentro da área de Ciências Humanas e Sociais Aplicadas. O currículo atualizado exige que o docente promova o desenvolvimento de competências específicas. Segundo o Artigo 35-A da LDB e as diretrizes curriculares nacionais, a organização dos currículos deve:",
+            options: [
+                "Basear-se na memorização de dados estatísticos e nomes de acidentes geográficos mundiais, desconsiderando as mudanças globais no mundo do trabalho.",
+                "Organizar-se por áreas do conhecimento, de modo a permitir uma visão integrada dos fenômenos socioespaciais, ambientais e políticos, fundamentada no raciocínio geográfico.",
+                "Excluir temas transversais como educação ambiental e direitos humanos, por serem considerados conteúdos de caráter meramente ideológico e sem base científica.",
+                "Substituir o estudo da Geografia regional brasileira pelo ensino de inglês técnico, visando a adaptação imediata do aluno às exigências de multinacionais.",
+                "Definir a Geografia como uma disciplina facultativa em todos os anos do Ensino Médio, dependendo exclusivamente da escolha do itinerário formativo pelo estudante."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. A organização por áreas do conhecimento visa superar a fragmentação disciplinar. No caso da Geografia, o 'raciocínio geográfico' é central para explicar a realidade através de categorias como território, lugar e paisagem, integrando dimensões sociais, ambientais e políticas."
+        },
+        {
+            id: 4,
+            q: "As Escolas Técnicas Estaduais (ETECs) operam sob o Regimento Comum das Etecs (Deliberação CEETEPS nº 87/2022), que normatiza a vida escolar em consonância com a legislação federal. Sobre a avaliação da aprendizagem e o controle de frequência, temas recorrentes em editais de concurso para docentes, assinale a alternativa que reflete as normas da LDB e do Regimento Comum:",
+            options: [
+                "A avaliação é puramente somativa e classificatória, sendo proibida qualquer forma de recuperação paralela ao longo do semestre letivo.",
+                "A frequência mínima exigida para aprovação no Ensino Médio, incluindo os cursos técnicos integrados (M-Tec), é de 75% do total de horas letivas, conforme os artigos 24-VI e 31-V da LDB.",
+                "O controle de frequência é irrelevante para a aprovação, desde que o aluno obtenha nota máxima nas avaliações de Geografia e História.",
+                "O Regimento Comum das Etecs impede a expedição de certificados de qualificação profissional intermediária, exigindo a conclusão dos três anos para qualquer reconhecimento.",
+                "A avaliação deve priorizar os resultados de provas finais sobre o desempenho qualitativo do aluno ao longo do período letivo."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. Conforme a LDB (Art. 24) e o Regimento do CEETEPS, a frequência mínima exigida é de 75%. Além disso, a avaliação deve ser contínua e cumulativa, com a prevalência do qualitativo sobre o quantitativo, incluindo a obrigatoriedade de estudos de recuperação paralela."
+        },
+        {
+            id: 5,
+            q: "A reforma do Ensino Médio estabeleceu a obrigatoriedade dos itinerários formativos. Com a atualização da Lei nº 14.945/2024, houve mudanças na oferta desses itinerários pelos sistemas de ensino. No contexto de uma ETEC que planeja sua oferta curricular para 2025, a legislação vigente determina que:",
+            options: [
+                "Cada unidade escolar deve oferecer obrigatoriamente todos os cinco itinerários formativos previstos no Artigo 36 da LDB.",
+                "Os sistemas de ensino devem garantir a oferta de, no mínimo, dois itinerários formativos em cada município, devendo as instituições considerar as possibilidades estruturais e a relevância local.",
+                "O itinerário de Formação Técnica e Profissional é o único permitido nas ETECs, sendo vedada a oferta de aprofundamentos em Ciências Humanas.",
+                "A escolha do itinerário pelo aluno é definitiva e irrevogável, não sendo permitida a mudança de percurso após a matrícula inicial no primeiro ano.",
+                "Os itinerários formativos foram extintos pela nova lei de 2024, retornando-se ao currículo único de 13 disciplinas obrigatórias para todos os alunos."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. A nova lei de 2024 busca garantir a diversidade de escolha. Os sistemas de ensino devem garantir ao menos dois itinerários por município. Nas ETECs, embora a FTP seja o foco, a integração com outras áreas é possível e a oferta deve considerar a estrutura da unidade."
+        },
+        {
+            id: 6,
+            q: "O Artigo 3º da LDB elenca os princípios que devem reger o ensino nacional. No caso da educação profissional e tecnológica, pilar das instituições do Centro Paula Souza, um princípio ganha especial relevo na articulação curricular. Assinale a alternativa que apresenta corretamente um desses princípios:",
+            options: [
+                "Unicidade de ideias e de concepções pedagógicas para garantir a padronização do pensamento entre todos os docentes de Geografia.",
+                "Vinculação entre a educação escolar, o trabalho e as práticas sociais, promovendo uma leitura crítica do espaço e dos processos produtivos.",
+                "Coexistência exclusiva de instituições públicas, sendo vedada a participação da iniciativa privada na educação técnica de nível médio.",
+                "Priorização do ensino de conteúdos teóricos em detrimento da experiência extraescolar ou do saber prático acumulado pelo aluno.",
+                "Garantia de padrão de qualidade medido apenas por indicadores financeiros e lucro das unidades escolares."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. O princípio da vinculação entre educação, trabalho e práticas sociais (Art. 3º, XI) é basilar para o CEETEPS. Na Geografia, isso significa analisar como as transformações espaciais são frutos de relações de trabalho e produção, conectando teoria e realidade profissional."
+        },
+        {
+            id: 7,
+            q: "De acordo com o Artigo 36-B da LDB, a educação profissional técnica de nível médio pode ser desenvolvida de diferentes formas articuladas com o ensino médio. Para os cursos 'M-Tec' (Novotec) e ETIM do Centro Paula Souza, a modalidade que melhor descreve a estrutura de uma matrícula única conduzindo a uma dupla certificação é a:",
+            options: [
+                "Educação profissional técnica de nível médio subsequente, destinada apenas a quem já concluiu o Ensino Médio.",
+                "Educação profissional técnica de nível médio articulada na forma integrada, oferecida a quem já concluiu o ensino fundamental, com matrícula única na mesma instituição.",
+                "Educação profissional técnica de nível médio concomitante, em que o aluno cursa o ensino médio em uma escola e o técnico em outra, com matrículas distintas.",
+                "Educação profissional técnica de nível superior, voltada para a formação de tecnólogos em Geografia e Cartografia.",
+                "Educação profissional técnica de nível médio avulsa, sem qualquer vínculo com a base nacional comum curricular."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. A forma integrada permite que o aluno curse o ensino médio e o técnico simultaneamente, sob uma matrícula única, garantindo a integração dos saberes da base comum com a formação profissional, característica central dos cursos integrais do CPS."
+        },
+        {
+            id: 8,
+            q: "O currículo de Geografia nas ETECs deve observar a inclusão de temas obrigatórios por lei, integrando-os à análise socioespacial. O Artigo 26-A da LDB e suas atualizações estabelecem que, no ensino médio, torna-se obrigatório o estudo:",
+            options: [
+                "Exclusivo da história dos Estados Unidos e da União Europeia, visando a compreensão da hegemonia global no século XXI.",
+                "Da história e cultura afro-brasileira e indígena, o que, na Geografia, implica analisar a formação do território, as desigualdades e a resistência espacial desses grupos.",
+                "De técnicas de mineração em áreas de preservação ambiental, sem a necessidade de abordar os impactos sociais ou ecológicos.",
+                "De apenas uma língua estrangeira moderna, preferencialmente o espanhol, sendo o inglês considerado facultativo pela nova lei.",
+                "Da cartografia analógica como única forma de representação espacial, proibindo-se o uso de SIGs (Sistemas de Informação Geográfica)."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. O Art. 26-A torna obrigatório o estudo da história e cultura afro-brasileira e indígena. Para a Geografia, isso é fundamental para discutir a posse da terra, as disparidades socioespaciais e a formação étnico-cultural do território brasileiro."
+        },
+        {
+            id: 9,
+            q: "A Lei nº 14.945/2024 introduziu diretrizes sobre o reconhecimento de aprendizagens e competências desenvolvidas fora do ambiente escolar para fins de cumprimento curricular. Segundo o Artigo 35-A, § 4º da LDB, os sistemas de ensino poderão reconhecer, mediante formas de comprovação:",
+            options: [
+                "Apenas atividades esportivas de alto rendimento que resultem em medalhas em competições internacionais.",
+                "Experiências de estágio, programas de aprendizagem profissional, trabalho remunerado ou voluntariado supervisionado, desde que explicitada a relação com o currículo.",
+                "Participação em eventos sociais e festividades locais, sem necessidade de relatório ou vínculo com os objetivos de aprendizagem do Ensino Médio.",
+                "O tempo gasto pelo aluno em redes sociais, convertendo-o automaticamente em horas da carga horária de Geografia e Sociologia.",
+                "A conclusão de cursos de nível superior realizados pelo aluno antes de ingressar no Ensino Médio, independentemente da área."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. A nova lei valoriza a experiência prática do jovem no mundo do trabalho, permitindo que estágios e aprendizagens profissionais sejam aproveitados na carga horária, desde que comprovada a relevância pedagógica e curricular."
+        },
+        {
+            id: 10,
+            q: "No que tange à organização do calendário e das atividades pedagógicas nas ETECs, o Regimento Comum das Etecs (Deliberação CEETEPS nº 87/2022) e a LDB preveem a oferta de estudos de recuperação. Segundo a legislação e as normas do Centro Paula Souza, a recuperação deve ser:",
+            options: [
+                "Realizada exclusivamente ao final do ano letivo, por meio de uma prova única abrangendo todo o conteúdo semestral.",
+                "Ofertada de forma contínua e preferencialmente paralela ao período letivo, para alunos que apresentarem baixo rendimento escolar.",
+                "Cobrada financeiramente dos alunos que não atingirem a média, visando custear as horas extras dos docentes.",
+                "Destinada apenas aos alunos que não tiveram faltas durante o bimestre, sendo vedada aos alunos com frequência irregular.",
+                "Substituída por atividades de monitoria obrigatória, em que o aluno com nota baixa deve ensinar os alunos de anos anteriores."
+            ],
+            correct: 1, // B
+            res: "A alternativa correta é a B. A recuperação é um direito do aluno e um dever do estabelecimento (Art. 12 da LDB). Ela deve ocorrer preferencialmente de forma paralela ao longo do bimestre para intervir na dificuldade de aprendizagem assim que ela é detectada."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('questions-container');
+        questionsData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            let optionsHtml = '';
+            item.options.forEach((opt, optIndex) => {
+                const letter = String.fromCharCode(65 + optIndex);
+                optionsHtml += `
+                    <label class="option-item">
+                        <input type="radio" name="q${item.id}" value="${optIndex}">
+                        <span><strong>${letter})</strong> ${opt}</span>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="question-text">${item.id}. ${item.q}</div>
+                <div class="options-list">${optionsHtml}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        const resContainer = document.getElementById('resolutions-container');
+        // Clear previous resolutions if any
+        resContainer.innerHTML = '<h2>Resoluções Detalhadas e Análise</h2>';
+
+        questionsData.forEach(item => {
+            const selected = document.querySelector(`input[name="q${item.id}"]:checked`);
+            const isCorrect = selected && parseInt(selected.value) === item.correct;
+            if(isCorrect) score++;
+
+            // Build Resolution item
+            const resItem = document.createElement('div');
+            resItem.className = 'resolution-item';
+            const badgeClass = isCorrect ? 'correct' : 'incorrect';
+            const badgeText = isCorrect ? 'ACERTOU' : 'ERROU';
+            
+            resItem.innerHTML = `
+                <div class="resolution-title">
+                    Questão ${item.id} <span class="status-badge ${badgeClass}">${badgeText}</span>
+                </div>
+                <p><strong>Resposta Correta:</strong> ${String.fromCharCode(65 + item.correct)}</p>
+                <p>${item.res}</p>
+            `;
+            resContainer.appendChild(resItem);
+        });
+
+        // Show results
+        document.getElementById('quiz-form').classList.add('hidden');
+        const resultSection = document.getElementById('results-section');
+        resultSection.classList.remove('hidden');
+        
+        document.getElementById('score-text').innerHTML = `
+            Você acertou ${score} de ${questionsData.length} questões! (${(score/questionsData.length*100).toFixed(0)}%)
+        `;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Start
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

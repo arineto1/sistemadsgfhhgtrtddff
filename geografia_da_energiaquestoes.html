@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Geografia: Energia e Mineração</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --container-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #546e7a;
+            --accent-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        .intro-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        .question-card {
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #fff;
+        }
+
+        .option-label:hover {
+            background-color: #f0f7ff;
+            border-color: var(--accent-color);
+        }
+
+        .option-label input {
+            margin-right: 15px;
+            margin-top: 6px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1f6391;
+        }
+
+        /* Results Styles */
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-card {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #fdfdfd;
+            border-left: 5px solid var(--accent-color);
+            display: none;
+        }
+
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+        }
+
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+        }
+
+        .correct-answer-text {
+            color: var(--correct-color);
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .user-feedback {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Geografia da Energia e Mineração</h1>
+        <p class="intro-text">Foco: Cadeia produtiva do petróleo, minérios e impactos na biodiversidade (Estilo ETEC/CEETEPS).</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <span class="question-header">Questão 01</span>
+            <div class="question-text">
+                <p>Considere a tabela abaixo, que apresenta dados consolidados e projeções para o setor de petróleo no Brasil entre 2024 e 2025:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicador de Produção e Mercado</th>
+                            <th>Valor em 2024</th>
+                            <th>Tendência para 2025</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Participação do Petróleo nas Exportações</td>
+                            <td>13,3%</td>
+                            <td>Crescimento sustentado</td>
+                        </tr>
+                        <tr>
+                            <td>Produção Média Nacional (Petróleo)</td>
+                            <td>3,4 milhões bbl/dia</td>
+                            <td>3,773 milhões bbl/dia</td>
+                        </tr>
+                        <tr>
+                            <td>Percentual de Origem no Pré-sal</td>
+                            <td>78,8%</td>
+                            <td>79,6%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Avalie as asserções e assinale a alternativa que apresenta apenas as corretas:</p>
+                <p>I. O segmento de <i>upstream</i> concentra os maiores riscos ambientais e investimentos tecnológicos.<br>
+                II. O <i>midstream</i> é o elo logístico que permite ao Brasil converter produtividade em eficiência exportadora.<br>
+                III. O domínio do <i>downstream</i> garante que 89,35% do total seja refinado internamente, eliminando importação.<br>
+                IV. A ascensão do petróleo ao topo da pauta exportadora em 2024 reflete a estratégia iniciada com o pré-sal.</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A) I e II, apenas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B) I, II e IV, apenas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C) II e III, apenas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D) III e IV, apenas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="E"> E) I, II, III e IV.</label>
+            </div>
+            <div class="resolution-card" id="res-q1">
+                <strong>Resolução:</strong> O gabarito é <b>B</b>. As asserções I, II e IV estão corretas. A III está incorreta porque, apesar de ser um grande produtor de óleo bruto, o Brasil ainda não possui autossuficiência plena em todos os derivados refinados, continuando a importar parte do que consome no <i>downstream</i>.
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <span class="question-header">Questão 02</span>
+            <div class="question-text">
+                <p>"O território brasileiro é um dos maiores exploradores de minérios do mundo... facilitando o fluxo produtivo que é, em sua maioria, destinado ao mercado externo". Sobre as principais áreas produtoras, identifique a relação correta:</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A) Quadrilátero Ferrífero (MG): principal área de extração de bauxita escoada via hidrovia.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B) Serra dos Carajás (PA): extração de minério de ferro de alto teor, com escoamento via Estrada de Ferro Carajás.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C) Maciço do Urucum (MS): produção integrada à cadeia do aço via gasodutos diretos ao Sudeste.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D) Oriximiná (PA): principal polo de extração de nióbio, mineral crítico para a transição energética.</label>
+                <label class="option-label"><input type="radio" name="q2" value="E"> E) Vale do Jequitinhonha (MG): maior exportador de bauxita do país devido a novos investimentos.</label>
+            </div>
+            <div class="resolution-card" id="res-q2">
+                <strong>Resolução:</strong> O gabarito é <b>B</b>. Carajás (PA) é o maior projeto mineral do país, focado em ferro de alta pureza. O Quadrilátero Ferrífero foca em ferro, não bauxita (A). Oriximiná é bauxita, não nióbio (D).
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <span class="question-header">Questão 03</span>
+            <div class="question-text">
+                <p>Considere os impactos na biodiversidade decorrentes da extração mineral: (I) Supressão vegetal; (II) Poluição sonora; (III) Contaminação por metais pesados/biomagnificação; (IV) Assoreamento de rios. É correto afirmar que:</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A) Apenas I e III são considerados diretos; II e IV são externalidades secundárias.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B) A mineração de ouro é a única que causa biomagnificação.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C) Todos os impactos citados representam alterações sinérgicas que comprometem a resiliência dos ecossistemas.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D) O impacto IV é mitigado naturalmente pelo processo de autodepuração dos rios tropicais.</label>
+                <label class="option-label"><input type="radio" name="q3" value="E"> E) A legislação permite a supressão vegetal sem necessidade de compensação ambiental.</label>
+            </div>
+            <div class="resolution-card" id="res-q3">
+                <strong>Resolução:</strong> O gabarito é <b>C</b>. Os impactos ambientais na mineração são sistêmicos e sinérgicos; um problema potencializa o outro (ex: a supressão vegetal facilita o assoreamento que carrega poluentes).
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <span class="question-header">Questão 04</span>
+            <div class="question-text">
+                <p>Sobre o extenso derramamento de óleo no litoral brasileiro (2019-2020), analise:</p>
+                <p>I. Atingiu manguezais e corais, onde o óleo pode persistir por décadas.<br>
+                II. Comprometeu a fotossíntese do fitoplâncton ao bloquear a luz solar.<br>
+                III. Afetou a pesca artesanal por contaminação e descrédito comercial.<br>
+                IV. Foi rapidamente controlado pelo Plano Nacional de Contingência, protegendo as APAs.</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A) I e II, apenas.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B) II e III, apenas.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C) I, II e III, apenas.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D) I, III e IV, apenas.</label>
+                <label class="option-label"><input type="radio" name="q4" value="E"> E) II, III e IV, apenas.</label>
+            </div>
+            <div class="resolution-card" id="res-q4">
+                <strong>Resolução:</strong> O gabarito é <b>C</b>. A afirmação IV é falsa porque o Plano Nacional de Contingência foi amplamente criticado pela demora e falta de eficácia, permitindo que o óleo atingisse centenas de áreas protegidas.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <span class="question-header">Questão 05</span>
+            <div class="question-text">
+                <p>Considere o gráfico sobre o destino de resíduos minerais (2015 vs 2024): <b>Barragens de Rejeito (85% para 60%)</b>, <b>Reuso na Construção (5% para 20%)</b>. Assinale a melhor descrição da tendência atual:</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A) A desativação total de barragens é uma meta cumprida em 2024.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B) A transformação de rejeitos em "minério de interesse industrial" permite agregar valor e reduzir o passivo ambiental.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C) C) A legislação atual desobriga micro-mineradoras de adotar práticas ambientais.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D) O reuso de resíduos na agricultura é proibido pela PNRS em todos os casos.</label>
+                <label class="option-label"><input type="radio" name="q5" value="E"> E) A disposição de rejeitos no fundo oceânico é a alternativa mais incentivada pelo governo.</label>
+            </div>
+            <div class="resolution-card" id="res-q5">
+                <strong>Resolução:</strong> O gabarito é <b>B</b>. O conceito de economia circular na mineração busca transformar o que era "lixo" (rejeito) em insumos para outras indústrias, como a construção civil.
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <span class="question-header">Questão 06</span>
+            <div class="question-text">
+                <p>Ao planejar uma aula sobre a "Cadeia do Petróleo" para alunos de Etec no 3º ano, o professor deve priorizar uma abordagem que:</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A) Foque na memorização das profundidades de cada campo de extração.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B) Incentive o pensamento crítico sobre a dependência de fósseis e os desafios da transição para fontes renováveis.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C) Limite-se a descrever aspectos físicos, evitando debates socioambientais para não politizar.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D) Promova a visão de que a exploração mineral é a única via de desenvolvimento.</label>
+                <label class="option-label"><input type="radio" name="q6" value="E"> E) Utilize exclusivamente o livro didático, descartando dados de agências reguladoras.</label>
+            </div>
+            <div class="resolution-card" id="res-q6">
+                <strong>Resolução:</strong> O gabarito é <b>B</b>. De acordo com as diretrizes da BNCC e o perfil das Etecs, o ensino de geografia deve ser crítico e contextualizado com os desafios contemporâneos.
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <span class="question-header">Questão 07</span>
+            <div class="question-text">
+                <p>Sobre desastres como Mariana e Brumadinho, é correto afirmar:</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A) Barragens de alteamento a montante eram as mais seguras.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B) O rompimento causa esterilização apenas por matéria orgânica em decomposição.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C) A lama soterra vegetação, destrói habitats aquáticos e torna hídricos impróprios para consumo por longos períodos.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D) O impacto ambiental de um rompimento é restrito à área imediata da mina.</label>
+                <label class="option-label"><input type="radio" name="q7" value="E"> E) A recuperação de áreas atingidas leva cerca de dois a três anos para restauração integral.</label>
+            </div>
+            <div class="resolution-card" id="res-q7">
+                <strong>Resolução:</strong> O gabarito é <b>C</b>. Os danos de um rompimento de barragem de mineração são vastos, atingindo centenas de quilômetros de rios até o oceano, destruindo a biota e a potabilidade da água.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <span class="question-header">Questão 08</span>
+            <div class="question-text">
+                <p>Sobre minerais críticos (Lítio, Cobre, Nióbio) na transição energética:</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A) A demanda por esses minerais reduzirá a necessidade de novas minas.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B) O Brasil não possui reservas significativas desses minerais.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C) A exploração deve ter rigoroso licenciamento, pois a "energia limpa" na ponta depende de uma extração com impactos locais.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D) A mineração desses elementos é isenta de EIA por ser de "interesse estratégico".</label>
+                <label class="option-label"><input type="radio" name="q8" value="E"> E) O impacto ambiental da mineração de lítio é nulo por ocorrer em salares sem vida.</label>
+            </div>
+            <div class="resolution-card" id="res-q8">
+                <strong>Resolução:</strong> O gabarito é <b>C</b>. É o paradoxo da transição energética: para produzir tecnologia verde (baterias), consome-se muita água e recursos minerais na extração, gerando impactos locais.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <span class="question-header">Questão 09</span>
+            <div class="question-text">
+                <p>Associe: (1) Upstream; (2) Midstream; (3) Downstream.</p>
+                <p>( ) Refino, petroquímicos e distribuição.<br>
+                ( ) Prospecção, perfuração e extração.<br>
+                ( ) Transporte por dutos, armazenamento e atacado.</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A) 1 – 2 – 3</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B) 3 – 1 – 2</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C) 2 – 3 – 1</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D) 3 – 2 – 1</label>
+                <label class="option-label"><input type="radio" name="q9" value="E"> E) 1 – 3 – 2</label>
+            </div>
+            <div class="resolution-card" id="res-q9">
+                <strong>Resolução:</strong> O gabarito é <b>B</b>. A sequência lógica é: Extração (1 - Upstream), Transporte (2 - Midstream) e Refino/Consumo (3 - Downstream).
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10" style="border-bottom: none;">
+            <span class="question-header">Questão 10</span>
+            <div class="question-text">
+                <p>Sobre a produção e consumo de energia no Estado de São Paulo, é correto afirmar:</p>
+            </div>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A) O estado é autossuficiente em petróleo devido ao Vale do Paraíba.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B) A matriz paulista baseia-se exclusivamente em carvão mineral.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C) O estado destaca-se pela biomassa da cana e infraestrutura de refino (ex: REPLAN), integrando o downstream.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D) São Paulo não possui impactos ambientais relacionados à energia.</label>
+                <label class="option-label"><input type="radio" name="q10" value="E"> E) A exploração de gás de xisto por fracking é a principal atividade do interior.</label>
+            </div>
+            <div class="resolution-card" id="res-q10">
+                <strong>Resolução:</strong> O gabarito é <b>C</b>. São Paulo é o maior polo de refino do país (Downstream) e lidera a geração de energia renovável via biomassa (cana-de-açúcar).
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" id="submit-btn">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-box">
+            <h2>Resultado Final</h2>
+            <div class="score-number" id="score-display">0/10</div>
+            <p id="score-message">Analise as resoluções abaixo para fixar o conteúdo.</p>
+        </div>
+        <div id="resolutions-list">
+            <!-- Resolções aparecerão aqui com JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'B',
+        q2: 'B',
+        q3: 'C',
+        q4: 'C',
+        q5: 'B',
+        q6: 'B',
+        q7: 'C',
+        q8: 'C',
+        q9: 'B',
+        q10: 'C'
+    };
+
+    document.getElementById('submit-btn').addEventListener('click', function() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const resultsSection = document.getElementById('results-section');
+        const scoreDisplay = document.getElementById('score-display');
+        
+        // Desabilitar rádio buttons
+        const inputs = form.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+
+        // Verificar respostas
+        for (let q in answers) {
+            const selected = form.querySelector(`input[name="${q}"]:checked`);
+            const questionCard = document.getElementById(q);
+            const resolution = document.getElementById(`res-${q}`);
+            
+            // Mostrar a resolução
+            resolution.style.display = 'block';
+
+            if (selected) {
+                if (selected.value === answers[q]) {
+                    score++;
+                    selected.parentElement.classList.add('correct');
+                    selected.parentElement.innerHTML += ' <span class="user-feedback">✓ Correto</span>';
+                } else {
+                    selected.parentElement.classList.add('incorrect');
+                    selected.parentElement.innerHTML += ' <span class="user-feedback">✗ Sua resposta</span>';
+                    
+                    // Destacar a correta
+                    const correctOption = form.querySelector(`input[name="${q}"][value="${answers[q]}"]`);
+                    correctOption.parentElement.classList.add('correct');
+                    correctOption.parentElement.innerHTML += ' <span class="correct-answer-text">← Resposta Correta</span>';
+                }
+            } else {
+                // Caso não tenha respondido
+                const correctOption = form.querySelector(`input[name="${q}"][value="${answers[q]}"]`);
+                correctOption.parentElement.classList.add('correct');
+                correctOption.parentElement.innerHTML += ' <span class="correct-answer-text">← Resposta Correta (Não respondida)</span>';
+            }
+        }
+
+        // Exibir Placar
+        scoreDisplay.textContent = `${score} / 10`;
+        resultsSection.style.display = 'block';
+        
+        // Scroll suave para o resultado
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Esconder botão
+        this.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>

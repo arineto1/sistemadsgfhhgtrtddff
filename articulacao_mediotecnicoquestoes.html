@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Decreto 5.154/2004 e Ensino Técnico</title>
+    <style>
+        /* Design System para Leitura Longa */
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #ecf0f1;
+            --max-width: 800px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1a252f;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-header {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f8f9fa;
+            border-color: var(--primary-color);
+        }
+
+        .option-label input {
+            margin-top: 6px;
+            margin-right: 15px;
+        }
+
+        /* Classes de Feedback */
+        .option-label.correct {
+            background-color: #e8f5e9;
+            border-color: var(--success-color);
+            color: #1b5e20;
+        }
+
+        .option-label.wrong {
+            background-color: #ffebee;
+            border-color: var(--error-color);
+            color: #b71c1c;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f1f7fc;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .resolution-box.visible {
+            display: block;
+        }
+
+        #submit-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1f6391;
+        }
+
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        #results {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-top: 40px;
+            border: 2px solid var(--primary-color);
+        }
+
+        #results h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .score-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 20px 15px; }
+            h1 { font-size: 1.6rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Decreto 5.154/2004</h1>
+        <p class="subtitle">Articulação entre Ensino Médio e Técnico - Perfil ETEC/CEETEPS</p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="quiz-container">
+            <!-- As questões serão injetadas aqui via JavaScript -->
+        </div>
+
+        <div id="submit-container">
+            <button type="button" id="btn-finish" onclick="calculateResults()">Finalizar Quiz e Ver Resoluções</button>
+        </div>
+    </form>
+
+    <div id="results">
+        <h2>Resultado Final</h2>
+        <div class="score-text" id="score-display"></div>
+        <p>As resoluções de cada questão estão detalhadas abaixo de cada pergunta.</p>
+        <button type="button" onclick="window.location.reload()" style="margin-top: 20px; background-color: #7f8c8d;">Reiniciar Simulado</button>
+    </div>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            text: "Questão 01: O Decreto nº 5.154/2004 regulamenta dispositivos da LDB e define as formas de articulação da educação profissional técnica de nível médio. Segundo o Art. 4º, a articulação entre a educação profissional técnica de nível médio e o ensino médio dar-se-á de forma:",
+            options: [
+                "Exclusivamente integrada, visando a unicidade curricular.",
+                "Integrada, concomitante ou subsequente.",
+                "Apenas integrada e concomitante, sendo a subsequente facultativa.",
+                "Sequencial, modular ou integrada.",
+                "Integrada ou externa, através de parcerias privadas."
+            ],
+            correct: 1, // Letra B
+            res: "O Art. 4º especifica as três formas: Integrada (projeto único), Concomitante (matrículas distintas simultâneas) e Subsequente (pós-médio)."
+        },
+        {
+            id: 2,
+            text: "Questão 02: No contexto das ETECs, a forma de articulação \"concomitante\" mencionada no Decreto 5.154/2004 caracteriza-se por:",
+            options: [
+                "Matrícula única na mesma instituição, com projeto pedagógico unificado.",
+                "Cursos destinados a quem já concluiu o ensino médio.",
+                "Matrículas distintas para cada curso, podendo ocorrer na mesma instituição ou instituições distintas, mas com aproveitamento de estudos.",
+                "Oferta exclusiva por meio de Educação a Distância (EAD).",
+                "Integração total de disciplinas propedêuticas e profissionais em um único bloco semestral."
+            ],
+            correct: 2, // Letra C
+            res: "A concomitância exige matrículas distintas. Pode ocorrer na mesma escola (ex: ETEC oferecendo os dois separadamente) ou em escolas diferentes."
+        },
+        {
+            id: 3,
+            text: "Questão 03: A Geografia escolar, ao dialogar com o Decreto 5.154/2004 na educação profissional, deve priorizar a \"formação integral do trabalhador\". Esse conceito implica:",
+            options: [
+                "O treinamento técnico específico para o preenchimento de vagas imediatas no mercado local.",
+                "A sobreposição dos conteúdos técnicos em detrimento da base nacional comum.",
+                "A compreensão das dimensões do trabalho, da ciência, da tecnologia e da cultura como eixos estruturantes.",
+                "A exclusão de temas políticos e sociais para focar na produtividade industrial.",
+                "O ensino de cartografia aplicada exclusivamente ao agronegócio regional."
+            ],
+            correct: 2, // Letra C
+            res: "A formação integral no decreto e na base do CEETEPS recusa o tecnicismo puro, buscando integrar ciência, cultura e trabalho."
+        },
+        {
+            id: 4,
+            text: "Questão 04: De acordo com o Art. 2º do Decreto 5.154/2004, a educação profissional observará as seguintes premissas, EXCETO:",
+            options: [
+                "Organização por eixos tecnológicos.",
+                "Centralidade do mercado de trabalho como único definidor de currículos.",
+                "Articulação com o ensino regular e com diferentes modalidades de educação.",
+                "Respeito aos valores estéticos, políticos e éticos.",
+                "Avaliação e reconhecimento de saberes adquiridos no trabalho."
+            ],
+            correct: 1, // Letra B
+            res: "O decreto preza pelo equilíbrio. Embora o mercado seja importante, ele não deve ser o \"único\" definidor, respeitando-se a formação cidadã."
+        },
+        {
+            id: 5,
+            text: "Questão 05: Sobre a modalidade \"integrada\" de ensino médio e técnico, o decreto estabelece que o curso deve ser planejado de modo a conduzir o aluno à habilitação profissional técnica de nível médio e ao término do ensino médio. No Centro Paula Souza, essa integração exige:",
+            options: [
+                "Dois diplomas distintos emitidos por Secretarias de Educação diferentes.",
+                "Uma única matrícula na mesma instituição, com um currículo que integra as duas formações.",
+                "Que o aluno curse o técnico pela manhã e o médio à noite em escolas diferentes.",
+                "Que a parte técnica seja obrigatoriamente realizada em empresas parceiras (estágio curricular).",
+                "A conclusão prévia da base comum para início da base técnica."
+            ],
+            correct: 1, // Letra B
+            res: "Na forma integrada (M-TEC nas ETECs), o aluno possui um único vínculo escolar e o currículo é desenhado de forma orgânica."
+        },
+        {
+            id: 6,
+            text: "Questão 06: Ao analisar a divisão territorial do trabalho no ensino técnico de Geografia, o professor deve considerar o Decreto 5.154/2004, que prevê o \"itinerário formativo\". Este conceito refere-se a:",
+            options: [
+                "O caminho físico percorrido pelo aluno até a escola técnica.",
+                "A sequência de disciplinas teóricas desvinculadas da prática profissional.",
+                "O conjunto de etapas que compõem a trajetória do estudante, permitindo o aproveitamento de competências e a certificação intermediária.",
+                "A obrigatoriedade de transferência de unidade escolar a cada semestre.",
+                "O mapa de indústrias onde o aluno poderá estagiar."
+            ],
+            correct: 2, // Letra C
+            res: "Itinerários formativos permitem que o aluno construa sua carreira em etapas, com certificações que comprovam competências parciais."
+        },
+        {
+            id: 7,
+            text: "Questão 07: O Decreto 5.154/2004 reforça a autonomia das instituições na organização curricular por \"eixos tecnológicos\". Para uma ETEC situada em uma região de forte expansão do setor logístico, a Geografia contribui para esse eixo ao discutir:",
+            options: [
+                "Apenas a memorização de capitais e bandeiras.",
+                "A dinâmica dos fluxos, redes de transporte e a organização do espaço econômico regional.",
+                "A geologia do período Pré-Cambriano de forma isolada.",
+                "A história das dinastias europeias sem conexão com o Brasil.",
+                "A biologia das células procariontes no contexto urbano."
+            ],
+            correct: 1, // Letra B
+            res: "A Geografia é essencial para entender a logística (fluxos e redes), conectando a teoria espacial à prática profissional tecnológica."
+        },
+        {
+            id: 8,
+            text: "Questão 08: O Art. 5º do Decreto trata do aproveitamento de conhecimentos e experiências anteriores. No ensino técnico do CEETEPS, isso se reflete nos processos de:",
+            options: [
+                "Exclusão de alunos que não possuem experiência profissional prévia.",
+                "Avaliação de competências para fins de prosseguimento de estudos.",
+                "Repetência obrigatória de módulos para todos os ingressantes.",
+                "Proibição de certificações intermediárias.",
+                "Unificação nacional de todas as provas de seleção sem considerar o contexto regional."
+            ],
+            correct: 1, // Letra B
+            res: "O aproveitamento de saberes (Vervas ou exames de competência) é um direito garantido para quem já atua na área ou possui conhecimentos equivalentes."
+        },
+        {
+            id: 9,
+            text: "Questão 09: Na articulação entre ensino médio e técnico, a interdisciplinaridade é um princípio pedagógico fundamental. No caso da Geografia nas ETECs, um exemplo de aplicação desse princípio conforme as diretrizes do decreto é:",
+            options: [
+                "Ministrar aulas de Geografia apenas como leitura de textos técnicos de mecânica.",
+                "Projetos que integrem a análise do impacto ambiental (Geografia) com normas de segurança e processos produtivos (Técnico).",
+                "Substituir a carga horária de Geografia por horas de prática em laboratório de informática.",
+                "Ignorar as questões sociais e focar apenas na localização geográfica das fábricas.",
+                "Manter as disciplinas totalmente isoladas, sem qualquer diálogo entre professores."
+            ],
+            correct: 1, // Letra B
+            res: "A integração curricular via interdisciplinaridade é o cerne do Decreto 5.154/2004, visando a superação da fragmentação do conhecimento."
+        },
+        {
+            id: 10,
+            text: "Questão 10: A organização da educação profissional técnica de nível médio, segundo o Decreto, permite a organização em módulos. Sobre isso, é correto afirmar que os módulos:",
+            options: [
+                "Não podem ter caráter terminal para fins de profissionalização.",
+                "Devem ser cursados sempre de forma linear, sem possibilidade de interrupção.",
+                "Podem ter caráter terminal e dar direito a certificados de qualificação profissional, desde que previstos no plano de curso.",
+                "São unidades de ensino exclusivamente teóricas.",
+                "Servem apenas para a contagem de faltas dos alunos."
+            ],
+            correct: 2, // Letra C
+            res: "A organização modular facilita a saída para o mercado de trabalho através de qualificações intermediárias antes da diplomação final de técnico."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('quiz-container');
+        questionsData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `card-${index}`;
+
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                const letter = String.fromCharCode(65 + optIndex);
+                optionsHtml += `
+                    <li class="option-item">
+                        <label class="option-label" id="label-${index}-${optIndex}">
+                            <input type="radio" name="question-${index}" value="${optIndex}">
+                            <span><strong>${letter})</strong> ${opt}</span>
+                        </label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-header">${q.text}</span>
+                <ul class="options-list">
+                    ${optionsHtml}
+                </ul>
+                <div class="resolution-box" id="res-${index}">
+                    <strong>Resolução:</strong> ${q.res}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function calculateResults() {
+        let score = 0;
+        
+        questionsData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            const correctLabel = document.getElementById(`label-${index}-${q.correct}`);
+
+            resolutionBox.classList.add('visible');
+
+            if (selected) {
+                const userChoice = parseInt(selected.value);
+                if (userChoice === q.correct) {
+                    score++;
+                    correctLabel.classList.add('correct');
+                } else {
+                    const wrongLabel = document.getElementById(`label-${index}-${userChoice}`);
+                    wrongLabel.classList.add('wrong');
+                    correctLabel.classList.add('correct');
+                }
+            } else {
+                // Se não respondeu, apenas mostra a correta
+                correctLabel.classList.add('correct');
+            }
+
+            // Desabilita inputs
+            const inputs = document.querySelectorAll(`input[name="question-${index}"]`);
+            inputs.forEach(input => input.disabled = true);
+        });
+
+        // Exibir placar
+        const resultsDiv = document.getElementById('results');
+        const scoreDisplay = document.getElementById('score-display');
+        resultsDiv.style.display = 'block';
+        scoreDisplay.innerText = `${score} de ${questionsData.length} acertos (${(score/questionsData.length)*100}%)`;
+
+        // Esconder botão de finalizar
+        document.getElementById('btn-finish').style.display = 'none';
+        
+        // Scroll para o topo dos resultados
+        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Inicializar ao carregar
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

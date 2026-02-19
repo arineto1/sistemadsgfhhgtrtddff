@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Decreto Estadual 58.052/12 - CEETEPS</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --border-color: #e0e0e0;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --highlight-bg: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .question-block {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: var(--highlight-bg);
+            border-color: #bdc3c7;
+        }
+
+        .option-item input {
+            margin-top: 5px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Results Section */
+        #results-area {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background-color: var(--highlight-bg);
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .score-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #2c3e50;
+        }
+
+        /* Feedback styling */
+        .resolution-box {
+            margin-top: 15px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .correct-answer {
+            background-color: #d4edda !important;
+            border-color: var(--correct-color) !important;
+            color: #155724;
+        }
+
+        .wrong-selection {
+            background-color: #f8d7da !important;
+            border-color: var(--wrong-color) !important;
+            color: #721c24;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .badge-correct { background: var(--correct-color); color: white; }
+        .badge-wrong { background: var(--wrong-color); color: white; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #95a5a6;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Avaliação Técnica: Decreto Estadual nº 58.052/2012</h1>
+        <p class="subtitle">Regulamentação da LAI em São Paulo - Foco ETEC/CEETEPS</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questions will be injected here via JavaScript for better maintenance -->
+        <div id="questions-container"></div>
+
+        <button type="button" class="btn-submit" id="finish-btn" onclick="calculateScore()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="results-area">
+        <div class="score-box">
+            <p>Resultado do Simulado</p>
+            <span class="score-number" id="final-score">0/10</span>
+            <p id="score-msg"></p>
+        </div>
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;">
+        <div id="detailed-feedback"></div>
+        <button type="button" class="btn-submit" style="margin-top:20px; background:#7f8c8d" onclick="window.location.reload()">Refazer Simulado</button>
+    </div>
+
+    <footer>
+        Simulado técnico pedagógico baseado no Decreto Estadual 58.052/12
+    </footer>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "QUESTÃO 01: No âmbito da Administração Pública do Estado de São Paulo, o Decreto Estadual nº 58.052/2012 estabelece as normas regulamentadoras para a aplicação da LAI. De acordo com o Artigo 2º, qual o preceito geral estabelecido?",
+            options: [
+                "A publicidade deve ser tratada como um preceito geral, enquanto o sigilo deve ser interpretado como uma exceção restrita a casos de segurança extrema do Estado.",
+                "O acesso à informação deve ser condicionado à comprovação de interesse jurídico ou motivação específica por parte do cidadão solicitante.",
+                "A divulgação de informações de interesse público independe de solicitações prévias, devendo os órgãos priorizar o sigilo de dados técnicos.",
+                "A gestão transparente deve assegurar o acesso irrestrito a dados pessoais de servidores para fins de controle social.",
+                "O fomento ao desenvolvimento da cultura de transparência deve ser realizado apenas mediante provocação direta dos órgãos de controle."
+            ],
+            correct: 0,
+            resolution: "A análise exige compreensão do Art. 2º. A regra é a publicidade máxima e o sigilo a exceção. O decreto veda a exigência de motivação (opção B) e impõe a transparência ativa (opção C). Dados pessoais são protegidos pela intimidade (opção D)."
+        },
+        {
+            id: 2,
+            question: "QUESTÃO 02: Segundo o Decreto Estadual nº 58.052/2012, os órgãos devem manter páginas com informações de interesse coletivo (Transparência Ativa). O que deve ser obrigatoriamente disponibilizado?",
+            options: [
+                "A agenda privada e os endereços residenciais de todos os diretores e coordenadores pedagógicos.",
+                "Registros de quaisquer repasses ou transferências de recursos financeiros, acompanhados da execução orçamentária detalhada.",
+                "A relação nominal de todos os alunos reprovados nos últimos cinco anos, incluindo históricos disciplinares.",
+                "Cópia integral de todos os pareceres jurídicos classificados como ultrassecretos.",
+                "Acesso a comunicações internas de caráter meramente opinativo antes da decisão final."
+            ],
+            correct: 1,
+            resolution: "O Art. 7º determina a obrigatoriedade de divulgar registros de repasses (inciso IV) e execução orçamentária (inciso V). Dados residenciais e notas de alunos violam a privacidade e intimidade."
+        },
+        {
+            id: 3,
+            question: "QUESTÃO 03: No que tange às competências do SIC e à tramitação de pedidos, assinale a alternativa correta:",
+            options: [
+                "O SIC deve funcionar em local de difícil acesso para garantir a segurança dos arquivos físicos.",
+                "Cabe ao SIC encaminhar o pedido, mas o controle de prazos é de responsabilidade exclusiva do solicitante.",
+                "Na impossibilidade de conceder o acesso imediato, o SIC deve, em prazo não superior a 20 dias, comunicar a data para consulta ou as razões da negativa.",
+                "O SIC pode cobrar taxas de serviço pela busca e extração de informações, independente da situação econômica.",
+                "O pedido de acesso à informação não precisa conter a identificação do requerente, podendo ser totalmente anônimo."
+            ],
+            correct: 2,
+            resolution: "O Art. 15, §1º estabelece o prazo de 20 dias (prorrogável por mais 10). O SIC deve estar em local acessível e o acesso é gratuito, salvo custos de reprodução (Art. 16)."
+        },
+        {
+            id: 4,
+            question: "QUESTÃO 04: De acordo com o Artigo 31, as informações sigilosas podem ser classificadas em três graus. Quais os prazos máximos corretos?",
+            options: [
+                "Reservado (até 2 anos); Secreto (até 5 anos); Ultrassecreto (até 10 anos).",
+                "Reservado (até 5 anos); Secreto (até 15 anos); Ultrassecreto (até 25 anos).",
+                "Confidencial (até 10 anos); Restrito (até 20 anos); Sigiloso (até 30 anos).",
+                "Interno (até 3 anos); Público (ilimitado); Governamental (até 50 anos).",
+                "Transitório (até 1 ano); Permanente (até 100 anos); Histórico (até 500 anos)."
+            ],
+            correct: 1,
+            resolution: "Conforme o Art. 31, os prazos são: Ultrassecreto (25 anos), Secreto (15 anos) e Reservado (5 anos)."
+        },
+        {
+            id: 5,
+            question: "QUESTÃO 05: Em relação ao acesso a informações pessoais relativas à honra e à imagem, o decreto determina que:",
+            options: [
+                "Tais informações são de livre acesso a qualquer cidadão via Portal da Transparência.",
+                "O acesso é restrito a agentes públicos legalmente autorizados e à própria pessoa a que se referirem.",
+                "O prazo de restrição de acesso a informações pessoais é de, no máximo, 25 anos.",
+                "Informações pessoais podem ser divulgadas integralmente caso o indivíduo seja um ocupante de cargo em comissão.",
+                "A restrição não se aplica a pesquisas científicas, mesmo que identifiquem o indivíduo sem seu consentimento."
+            ],
+            correct: 1,
+            resolution: "O Art. 35 protege dados pessoais por 100 anos. O acesso é restrito aos autorizados e ao próprio titular para resguardar a intimidade."
+        },
+        {
+            id: 6,
+            question: "QUESTÃO 06: Sobre a autoridade competente para a classificação no grau ultrassecreto, assinale a correta:",
+            options: [
+                "Governador e Secretários podem classificar, sendo permitida a delegação para diretores de ETEC.",
+                "A classificação no grau ultrassecreto é de competência exclusiva do Comando da PM e Polícia Civil.",
+                "Governador, Vice, Secretários e Procurador Geral podem classificar como ultrassecretas, sendo VEDADA a delegação.",
+                "O Diretor Superintendente do CEETEPS possui competência originária para classificar qualquer documento como ultrassecreto.",
+                "A classificação ultrassecreta pode ser atribuída por qualquer servidor, se ratificada pela CADA."
+            ],
+            correct: 2,
+            resolution: "O Art. 33 proíbe expressamente a delegação da competência para classificação nos graus ultrassecreto e secreto, restringindo-a à cúpula do Executivo."
+        },
+        {
+            id: 7,
+            question: "QUESTÃO 07: No caso de uma negativa de acesso proferida por uma autoridade, qual a norma correta sobre recursos?",
+            options: [
+                "O prazo para recurso é de 30 dias e deve ser encaminhado ao Poder Judiciário.",
+                "Negado o acesso, o requerente poderá interpor recurso no prazo de 10 dias à autoridade superior, que deve se manifestar em 5 dias.",
+                "O recurso contra negativa de acesso deve ser acompanhado de taxas judiciais.",
+                "A Corregedoria Geral não possui competência para analisar recursos de prazos da LAI.",
+                "Em caso de indeferimento de acesso a informações desclassificadas, não cabe qualquer recurso."
+            ],
+            correct: 1,
+            resolution: "O Art. 19 define o rito recursal administrativo: 10 dias para interpor e 5 dias para a autoridade superior decidir."
+        },
+        {
+            id: 8,
+            question: "QUESTÃO 08: Segundo o Decreto nº 58.052/2012, entre as atribuições principais da CADA (Comissão de Avaliação de Documentos e Acesso), destaca-se:",
+            options: [
+                "A execução direta das obras de infraestrutura e manutenção das unidades.",
+                "A promoção de estudos e pesquisas para a elaboração de tabelas de documentos, dados e informações sigilosas.",
+                "O julgamento definitivo de crimes de responsabilidade cometidos por professores.",
+                "A coordenação das atividades de segurança patrimonial e vigilância armada.",
+                "A substituição automática do Diretor da Unidade em casos de vacância."
+            ],
+            correct: 1,
+            resolution: "A CADA é um órgão técnico (Art. 11) focado na gestão documental e na definição do que deve ser sigiloso ou preservado historicamente."
+        },
+        {
+            id: 9,
+            question: "QUESTÃO 09: Sobre o tratamento de documentos e a transparência passiva, é correto afirmar:",
+            options: [
+                "Documentos de arquivo são apenas registros em papel com mais de 50 anos.",
+                "O órgão pode negar o acesso sob alegação de fase de organização arquivística por tempo indeterminado.",
+                "O direito de acesso aos documentos que fundamentam um ato administrativo é assegurado com a edição do ato decisório.",
+                "A autenticidade das informações é de responsabilidade exclusiva de empresas privadas de TI.",
+                "O acesso a informações de entidades privadas que recebam recursos estaduais não está sujeito às regras do Decreto."
+            ],
+            correct: 2,
+            resolution: "O Art. 14, §3º garante o acesso aos fundamentos após a edição do ato. A desorganização do arquivo não justifica negativa de acesso."
+        },
+        {
+            id: 10,
+            question: "QUESTÃO 10: Assinale a alternativa que descreve corretamente uma das funções da Comissão Estadual de Acesso à Informação (CEAI):",
+            options: [
+                "Nomear os professores coordenadores de projetos das ETECs.",
+                "Atuar como instância recursal sobre as decisões da Corregedoria Geral que negarem acesso.",
+                "Definir o currículo da disciplina de Geografia para incluir documentos secretos.",
+                "Autorizar a venda de dados pessoais de cidadãos para empresas de marketing.",
+                "Exercer poder de polícia para prender cidadãos que fizerem pedidos excessivos."
+            ],
+            correct: 1,
+            resolution: "A CEAI é a instância superior (Art. 21) que uniformiza a aplicação da lei e decide recursos em última instância administrativa."
+        }
+    ];
+
+    function loadQuestions() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((q, index) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-block';
+            qDiv.id = `q-block-${index}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                const letter = String.fromCharCode(65 + optIndex);
+                optionsHtml += `
+                    <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                        <input type="radio" name="q${index}" id="q${index}opt${optIndex}" value="${optIndex}">
+                        <label for="q${index}opt${optIndex}"><strong>${letter})</strong> ${opt}</label>
+                    </li>
+                `;
+            });
+
+            qDiv.innerHTML = `
+                <span class="question-text">${q.question}</span>
+                <ul class="options">${optionsHtml}</ul>
+                <div id="res-${index}" class="resolution-box">
+                    <span id="badge-${index}"></span>
+                    <p><strong>Resolução:</strong> ${q.resolution}</p>
+                </div>
+            `;
+            container.appendChild(qDiv);
+        });
+    }
+
+    function selectOption(qIdx, optIdx) {
+        document.getElementById(`q${qIdx}opt${optIdx}`).checked = true;
+    }
+
+    function calculateScore() {
+        let score = 0;
+        const total = quizData.length;
+        
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resBox = document.getElementById(`res-${index}`);
+            const badge = document.getElementById(`badge-${index}`);
+            const optionsList = document.querySelectorAll(`#q-block-${index} .option-item`);
+            
+            resBox.style.display = 'block';
+
+            if (selected) {
+                const answer = parseInt(selected.value);
+                if (answer === q.correct) {
+                    score++;
+                    badge.innerHTML = '<span class="badge badge-correct">Acertou</span>';
+                    optionsList[answer].classList.add('correct-answer');
+                } else {
+                    badge.innerHTML = '<span class="badge badge-wrong">Errou</span>';
+                    optionsList[answer].classList.add('wrong-selection');
+                    optionsList[q.correct].classList.add('correct-answer');
+                }
+            } else {
+                badge.innerHTML = '<span class="badge badge-wrong">Não Respondida</span>';
+                optionsList[q.correct].classList.add('correct-answer');
+            }
+        });
+
+        // Show result area
+        document.getElementById('finish-btn').style.display = 'none';
+        document.getElementById('results-area').style.display = 'block';
+        document.getElementById('final-score').innerText = `${score}/${total}`;
+        
+        let msg = "";
+        const perc = (score/total) * 100;
+        if(perc === 100) msg = "Excelente! Você domina o Decreto 58.052/12.";
+        else if(perc >= 70) msg = "Muito bom! Ótimo desempenho para o concurso.";
+        else if(perc >= 50) msg = "Bom desempenho, mas revise os pontos onde errou.";
+        else msg = "Continue estudando. A legislação paulista possui muitos detalhes técnicos.";
+        
+        document.getElementById('score-msg').innerText = msg;
+
+        // Scroll to results
+        document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = loadQuestions;
+</script>
+
+</body>
+</html>

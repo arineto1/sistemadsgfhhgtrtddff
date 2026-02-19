@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC: DCNs Educação Profissional</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --secondary-color: #636e72;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 100px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: var(--primary-color);
+        }
+
+        .option-item.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+
+        .option-letter {
+            font-weight: bold;
+            margin-right: 15px;
+            min-width: 25px;
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #submit-btn:hover {
+            background-color: #0773c5;
+        }
+
+        /* Results Section */
+        #results-area {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .score-box {
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .resolution-card {
+            border-left: 5px solid var(--primary-color);
+            background: #f8f9fa;
+            padding: 20px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .feedback {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .feedback.correct {
+            color: var(--correct-color);
+            background: #e9f7ef;
+        }
+
+        .feedback.incorrect {
+            color: var(--incorrect-color);
+            background: #fdedec;
+        }
+
+        .correct-answer-is {
+            display: block;
+            margin-top: 5px;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Resolução CNE/CP nº 1/2021</h1>
+    <p>Diretrizes Curriculares Nacionais para a Educação Profissional e Tecnológica (EPT)</p>
+</header>
+
+<div class="container">
+    <div id="quiz-form">
+        <!-- As questões serão injetadas aqui via JS -->
+    </div>
+
+    <button id="submit-btn" onclick="checkAnswers()">Finalizar Simulado</button>
+
+    <div id="results-area">
+        <div class="score-box">
+            <div class="score-title">Resultado do Simulado</div>
+            <div class="score-value" id="score-display">0/10</div>
+            <p id="score-message"></p>
+        </div>
+
+        <div id="review-area">
+            <!-- As resoluções aparecerão aqui com os feedbacks -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "A Resolução CNE/CP nº 1, de 5 de janeiro de 2021, estabelece princípios fundamentais que devem balizar a organização curricular. No âmbito das Escolas Técnicas Estaduais (ETECs), o docente de Geografia deve articular os conceitos de território e trabalho a esses princípios. Considerando o Art. 6º, assinale a alternativa que apresenta corretamente os princípios norteadores da EPT:",
+            options: [
+                "Primazia do ensino técnico sobre a formação geral básica, visando a aceleração da inserção produtiva; pesquisa como princípio exclusivo da pós-graduação; e centralidade na memorização de procedimentos operacionais.",
+                "Trabalho como princípio educativo; pesquisa como princípio pedagógico; integração de saberes teóricos e práticos; e articulação com o setor produtivo para a construção de itinerários formativos.",
+                "Flexibilidade absoluta dos currículos sem necessidade de observância aos Catálogos Nacionais; foco na formação para o setor de serviços em detrimento da indústria; e dissociação entre ciência e cultura.",
+                "Padronização nacional rígida dos planos de curso; obrigatoriedade de estágio curricular para todos os cursos técnicos de nível médio; e exclusão de saberes não formais na avaliação institucional."
+            ],
+            correct: 1, // B
+            resolution: "A alternativa (B) fundamenta-se no Art. 6º. O trabalho como princípio educativo (Inciso III) postula que o trabalho é a base de produção da existência humana. A pesquisa como princípio pedagógico (Inciso IV) incentiva a investigação de problemas reais. A integração de saberes (Inciso X) e a articulação com o setor produtivo (Inciso I) garantem a coerência com o desenvolvimento socioeconômico local."
+        },
+        {
+            id: 2,
+            question: "A Educação Profissional e Tecnológica (EPT), conforme definida no Art. 2º da Resolução CNE/CP nº 1/2021, é uma modalidade educacional que perpassa todos os níveis da educação nacional. Sobre a organização da EPT, é correto afirmar que ela se organiza por:",
+            options: [
+                "Áreas do conhecimento definidas pela Base Nacional Comum Curricular (BNCC), sem subdivisões técnicas específicas.",
+                "Eixos tecnológicos, em consonância com a estrutura sócio-ocupacional do trabalho e as exigências da formação profissional.",
+                "Disciplinas isoladas, visando o aprofundamento acadêmico e a preparação exclusiva para exames de ingresso no ensino superior.",
+                "Ciclos de aprendizagem baseados na idade cronológica, independentemente das competências profissionais desenvolvidas."
+            ],
+            correct: 1, // B
+            resolution: "A alternativa (B) está correta. A estrutura fundamental da EPT, conforme o Art. 2º, é a organização por eixos tecnológicos. Isso reflete o agrupamento de profissões em torno de matrizes tecnológicas e bases científicas comuns, permitindo a verticalização do ensino."
+        },
+        {
+            id: 3,
+            question: "A articulação entre a Educação Profissional Técnica de Nível Médio e o Ensino Médio regular pode ocorrer de diferentes formas. Assinale a alternativa que descreve corretamente a forma de articulação 'Integrada':",
+            options: [
+                "O curso é cursado simultaneamente em instituições diferentes, com matrículas independentes e projetos pedagógicos distintos.",
+                "O curso é oferecido apenas a quem já concluiu o Ensino Médio, com foco exclusivo na habilitação profissional técnica.",
+                "O curso é planejado de modo a constituir uma unidade curricular única, com projeto pedagógico unificado e matrícula única para cada aluno.",
+                "O curso é organizado por meio de convênios entre empresas e escolas, sem a obrigatoriedade de cumprimento da Base Nacional Comum Curricular (BNCC)."
+            ],
+            correct: 2, // C
+            resolution: "A alternativa (C) é a correta. No modelo integrado (Arts. 11, 26-30), um único projeto pedagógico funde a Formação Geral Básica com os componentes técnicos. O aluno faz uma única matrícula e recebe um diploma com dupla validade ao concluir."
+        },
+        {
+            id: 4,
+            question: "Segundo a Resolução CNE/CP nº 1/2021 e a prática pedagógica nas ETECs, a avaliação deve:",
+            options: [
+                "Centrar-se em exames finais de caráter classificatório, visando a seleção dos alunos mais aptos para o mercado de trabalho.",
+                "Basear-se exclusivamente na frequência escolar, garantindo a certificação ao aluno que cumprir a carga horária mínima prevista.",
+                "Focar na demonstração de competências profissionais, entendidas como a mobilização de valores, conhecimentos e habilidades para resolver problemas da vida cotidiana e do trabalho.",
+                "Ser realizada de forma punitiva, visando desencorajar a evasão escolar por meio do rigor excessivo em conteúdos teóricos abstratos."
+            ],
+            correct: 2, // C
+            resolution: "A alternativa (C) está correta. Os artigos 42 a 44 estabelecem que a avaliação deve focar em competências: a capacidade de mobilizar recursos (conhecimentos, habilidades, atitudes) para resolver situações complexas."
+        },
+        {
+            id: 5,
+            question: "Sobre a organização dos cursos técnicos em módulos e a certificação intermediária, assinale a alternativa correta:",
+            options: [
+                "É proibida em qualquer nível da EPT, devendo o aluno receber apenas o diploma final após a conclusão de todos os semestres.",
+                "Pode ser concedida quando as etapas do curso técnico configuram uma qualificação profissional técnica claramente identificável no mundo do trabalho.",
+                "Depende da aprovação do aluno em processo seletivo externo organizado por conselhos de classe profissionais.",
+                "É restrita aos cursos superiores de tecnologia, não sendo permitida nos cursos técnicos de nível médio vinculados ao ensino médio."
+            ],
+            correct: 1, // B
+            resolution: "A alternativa (B) está correta. O Art. 19 permite a organização modular. Se um módulo configura uma qualificação identificável na CBO (Classificação Brasileira de Ocupações), a escola pode emitir um certificado intermediário."
+        },
+        {
+            id: 6,
+            question: "É correto afirmar que as instituições de ensino, quanto ao aproveitamento de saberes e experiências anteriores:",
+            options: [
+                "Devem ignorar experiências laborais anteriores para garantir que todos os alunos passem pelo mesmo processo de instrução formal.",
+                "Podem reconhecer saberes e competências adquiridos no trabalho ou por meios informais, mediante avaliação, para fins de prosseguimento de estudos.",
+                "Estão autorizadas a aproveitar créditos apenas de instituições do mesmo sistema de ensino, sendo vedada a aceitação de experiências de outras redes.",
+                "Devem exigir um tempo mínimo de cinco anos de experiência comprovada para que qualquer competência profissional seja validada academicamente."
+            ],
+            correct: 1, // B
+            resolution: "A alternativa (B) está correta (Art. 41). A legislação permite o reconhecimento, validação e certificação de competências (RVCC) adquiridas fora da escola, mediante avaliação da instituição, permitindo acelerar os estudos."
+        },
+        {
+            id: 7,
+            question: "Segundo a norma, sobre as atividades práticas nos cursos em modalidade a distância (EaD):",
+            options: [
+                "Devem ser substituídas por simuladores virtuais em 100% da carga horária, eliminando a necessidade de laboratórios físicos.",
+                "São facultativas, ficando a cargo do estudante decidir se deseja ou não realizar estágios ou práticas profissionais.",
+                "Devem ser realizadas conforme o Plano de Curso, podendo ocorrer em polos presenciais ou em ambientes profissionais reais, observada a legislação vigente.",
+                "São permitidas apenas para cursos das áreas de Humanas, sendo proibidas para eixos tecnológicos que envolvam recursos naturais ou infraestrutura."
+            ],
+            correct: 2, // C
+            resolution: "A alternativa (C) está correta. O Art. 22 determina que, embora a teoria seja mediada por tecnologia, momentos presenciais em laboratórios ou ambientes de trabalho reais são obrigatórios para garantir a formação técnica."
+        },
+        {
+            id: 8,
+            question: "Sobre a carga horária do itinerário de formação técnica e profissional no contexto da EPT de nível médio:",
+            options: [
+                "Pode ocupar até 1.200 horas da carga horária total do Ensino Médio, dependendo da extensão da habilitação profissional escolhida.",
+                "Deve ser limitada a 400 horas, de modo a não prejudicar o desenvolvimento dos conteúdos da Formação Geral Básica (BNCC).",
+                "É fixa em 800 horas para todos os cursos do Catálogo Nacional de Cursos Técnicos, independentemente do eixo tecnológico.",
+                "Deve ser cursada obrigatoriamente no período noturno, sendo vedada a sua integração no período diurno."
+            ],
+            correct: 0, // A
+            resolution: "A alternativa (A) está correta. Com a Lei nº 13.415/2017 e a Resolução de 2021, o itinerário técnico pode ocupar até 1.200 horas do total de 3.000 horas do Ensino Médio."
+        },
+        {
+            id: 9,
+            question: "A Resolução CNE/CP nº 1/2021 estabelece que os currículos de EPT devem ser orientados por:",
+            options: [
+                "Manuais técnicos fornecidos exclusivamente por empresas multinacionais parceiras da instituição.",
+                "Perfis profissionais de conclusão que expressem as competências profissionais necessárias para o exercício das atividades laborais.",
+                "Conteúdos programáticos fixos estabelecidos na década de 1990, visando a preservação da tradição técnica da escola.",
+                "Critérios de produtividade baseados no número de patentes geradas pelos docentes durante o ano letivo."
+            ],
+            correct: 1, // B
+            resolution: "A alternativa (B) está correta. O Perfil Profissional de Conclusão (Art. 17) é o documento que descreve o que o egresso deve ser capaz de fazer, fundamentando a construção de todo o currículo."
+        },
+        {
+            id: 10,
+            question: "Conforme o Art. 6º, o ensino de Geografia deve contribuir para que o futuro técnico:",
+            options: [
+                "Priorize o lucro imediato das organizações, independentemente dos impactos socioambientais gerados pela atividade produtiva.",
+                "Compreenda a dimensão ética do exercício profissional e a responsabilidade social e ambiental das atividades produtivas e do desenvolvimento tecnológico.",
+                "Utilize o conhecimento geográfico apenas para a localização de recursos naturais a serem explorados de forma predatória.",
+                "Ignore as legislações ambientais locais em favor de uma competitividade econômica global desregulamentada."
+            ],
+            correct: 1, // B
+            resolution: "A alternativa (B) está correta. O inciso VII do Art. 6º coloca a sustentabilidade ambiental e social como princípio. A Geografia promove a visão crítica sobre como as atividades produtivas afetam o território."
+        }
+    ];
+
+    let userAnswers = new Array(quizData.length).fill(null);
+
+    function initQuiz() {
+        const form = document.getElementById('quiz-form');
+        quizData.forEach((item, qIdx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${qIdx}`;
+
+            const html = `
+                <span class="question-number">Questão ${item.id}</span>
+                <div class="question-text">${item.question}</div>
+                <ul class="options">
+                    ${item.options.map((opt, oIdx) => `
+                        <li class="option-item" onclick="selectOption(${qIdx}, ${oIdx})" id="q${qIdx}o${oIdx}">
+                            <span class="option-letter">${String.fromCharCode(65 + oIdx)})</span>
+                            <span class="option-text">${opt}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div id="feedback-${qIdx}"></div>
+                <div class="resolution-card" id="res-${qIdx}">
+                    <strong>Resolução:</strong><br>
+                    ${item.resolution}
+                </div>
+            `;
+            card.innerHTML = html;
+            form.appendChild(card);
+        });
+    }
+
+    function selectOption(qIdx, oIdx) {
+        // Remover seleção anterior
+        const options = document.querySelectorAll(`[id^="q${qIdx}o"]`);
+        options.forEach(opt => opt.classList.remove('selected'));
+
+        // Adicionar nova seleção
+        document.getElementById(`q${qIdx}o${oIdx}`).classList.add('selected');
+        userAnswers[qIdx] = oIdx;
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        const submitBtn = document.getElementById('submit-btn');
+        
+        quizData.forEach((item, idx) => {
+            const feedbackDiv = document.getElementById(`feedback-${idx}`);
+            const resolutionDiv = document.getElementById(`res-${idx}`);
+            const selected = userAnswers[idx];
+            
+            resolutionDiv.style.display = 'block';
+
+            if (selected === item.correct) {
+                score++;
+                feedbackDiv.innerHTML = `<div class="feedback correct">✓ Correto!</div>`;
+            } else {
+                const letter = String.fromCharCode(65 + item.correct);
+                feedbackDiv.innerHTML = `
+                    <div class="feedback incorrect">
+                        ✗ Incorreto. 
+                        <span class="correct-answer-is">A resposta correta é a alternativa <strong>(${letter})</strong>.</span>
+                    </div>`;
+            }
+
+            // Marcar as opções
+            const correctEl = document.getElementById(`q${idx}o${item.correct}`);
+            correctEl.style.borderColor = 'var(--correct-color)';
+            correctEl.style.backgroundColor = '#e9f7ef';
+
+            if (selected !== null && selected !== item.correct) {
+                const wrongEl = document.getElementById(`q${idx}o${selected}`);
+                wrongEl.style.borderColor = 'var(--incorrect-color)';
+                wrongEl.style.backgroundColor = '#fdedec';
+            }
+        });
+
+        // Exibir Placar
+        document.getElementById('score-display').innerText = `${score} / ${quizData.length}`;
+        const msg = score >= 7 ? "Excelente desempenho! Você está dominando a legislação." : "Continue estudando. A revisão das resoluções ajudará a fixar os conceitos.";
+        document.getElementById('score-message').innerText = msg;
+        
+        document.getElementById('results-area').style.display = 'block';
+        submitBtn.style.display = 'none';
+
+        // Scroll para o topo dos resultados
+        document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

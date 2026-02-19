@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Lei de Acesso à Informação (LAI) - CEETEPS</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #ecf0f1;
+            --card-bg: #ffffff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        main {
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px 60px 20px;
+            box-sizing: border-box;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-header {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option:hover {
+            background-color: #f8f9fa;
+        }
+
+        .option input {
+            margin-top: 6px;
+            margin-right: 12px;
+        }
+
+        .option.selected {
+            border-color: var(--accent-color);
+            background-color: #f0f4f8;
+        }
+
+        /* Classes para o resultado */
+        .option.correct {
+            border-color: var(--success-color);
+            background-color: #eafaf1;
+        }
+
+        .option.wrong {
+            border-color: var(--error-color);
+            background-color: #fdedec;
+        }
+
+        .resolution {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            display: none;
+            font-size: 0.95rem;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .resolution h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #results-banner {
+            display: none;
+            background: var(--accent-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        #results-banner h2 {
+            margin: 0 0 10px 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Lei de Acesso à Informação</h1>
+    <p>Concurso Professor de Geografia - ETEC/CEETEPS</p>
+</header>
+
+<main>
+    <div id="results-banner">
+        <h2>Resultado Final</h2>
+        <p id="score-text"></p>
+        <p>Veja as resoluções detalhadas abaixo de cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <div id="quiz-container">
+            <!-- As questões serão inseridas aqui via JS -->
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-btn" onclick="finishQuiz()">Finalizar Quiz e Ver Resoluções</button>
+        </div>
+    </form>
+</main>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No contexto da Administração Pública do Estado de São Paulo, o Centro Estadual de Educação Tecnológica Paula Souza (CEETEPS) submete-se aos ditames da Lei Federal nº 12.527/2011, a Lei de Acesso à Informação (LAI), e ao seu regulamento estadual, o Decreto nº 58.052/2012. Considerando a atuação do Professor de Geografia nas Escolas Técnicas Estaduais (Etecs) e a necessidade de pautar sua conduta docente e administrativa pelos princípios da transparência, assinale a alternativa que descreve corretamente o preceito geral e as diretrizes de aplicação da referida legislação.",
+            options: [
+                "A publicidade deve ser tratada como a regra geral da administração pública, enquanto o sigilo deve ser interpretado como uma exceção absoluta e perpétua, visando proteger a imagem da instituição de ensino perante a comunidade externa.",
+                "O acesso à informação pública é um direito fundamental do cidadão e um dever do Estado, sendo que a publicidade é o preceito geral e o sigilo a exceção, devendo a gestão documental assegurar a disponibilidade, autenticidade e integridade das informações necessárias ao controle social.",
+                "A divulgação de informações de interesse público nas Etecs é condicionada à demonstração de interesse específico pelo solicitante, cabendo ao Diretor da Unidade de Ensino avaliar a conveniência e oportunidade do fornecimento dos dados orçamentários e pedagógicos.",
+                "O direito de acesso à informação não abrange dados relativos a políticas públicas educacionais ou execução orçamentária do CEETEPS, uma vez que estas informações possuem caráter estratégico para a competitividade do sistema de ensino técnico paulista.",
+                "A transparência passiva, caracterizada pela divulgação espontânea de dados em sítios oficiais, substitui integralmente a necessidade de atendimento a pedidos individuais de informação, desonerando os agentes públicos de responder a questionamentos da sociedade civil."
+            ],
+            correct: 1,
+            resolution: "A Lei Federal nº 12.527/2011 estabelece que a publicidade é o preceito geral e o sigilo é a exceção. No âmbito do CEETEPS, essa lei é complementada pelo Decreto Estadual nº 58.052/2012. A gestão documental deve assegurar integridade, autenticidade e disponibilidade para o controle social."
+        },
+        {
+            id: 2,
+            text: "A transparência ativa é um dos pilares da Lei de Acesso à Informação, exigindo que os órgãos públicos disponibilizem proativamente dados de interesse geral. Segundo o Artigo 8º da Lei nº 12.527/2011 e o Decreto Estadual nº 58.052/2012, as entidades do CEETEPS devem divulgar em seus sítios eletrônicos, independentemente de requerimentos, informações que contenham, no mínimo:",
+            options: [
+                "Apenas o registro das competências e a estrutura organizacional, sendo a divulgação de despesas e contratos opcional para unidades de ensino com menos de 1.000 alunos.",
+                "Registros de repasses ou transferências de recursos, informações sobre procedimentos licitatórios, dados para acompanhamento de programas e projetos, além de respostas a perguntas mais frequentes da sociedade.",
+                "Exclusivamente a folha de pagamento nominal dos servidores, ficando vedada a divulgação de informações sobre contratos e convênios para evitar a exposição de parceiros privados da instituição.",
+                "Informações sobre a vida privada dos docentes e discentes, como forma de garantir a transparência total sobre o comportamento dos agentes envolvidos no processo educacional.",
+                "Relatórios de inteligência e segurança institucional, classificados como ultrassecretos, para que a população possa fiscalizar as estratégias de proteção das unidades escolares contra ameaças externas."
+            ],
+            correct: 1,
+            resolution: "O Artigo 8º define a Transparência Ativa: a obrigação de divulgar informações de interesse geral proativamente. Isso inclui repasses financeiros, licitações, contratos e dados de acompanhamento de programas."
+        },
+        {
+            id: 3,
+            text: "Um cidadão solicita, via SIC, cópia dos estudos de viabilidade técnica e geográfica realizados nos últimos cinco anos. Com base na Lei nº 12.527/2011 e Decreto nº 58.052/2012, o prazo para que a administração responda ao pedido, caso a informação não possa ser concedida de imediato, é de:",
+            options: [
+                "10 dias, sem possibilidade de prorrogação, sob pena de responsabilidade administrativa do Diretor de Escola Técnica.",
+                "15 dias úteis, podendo ser prorrogado por mais 5 dias úteis, mediante justificativa fundamentada encaminhada ao solicitante.",
+                "20 dias, podendo ser prorrogado por mais 10 dias, desde que haja justificativa expressa e o interessado seja cientificado da dilação do prazo.",
+                "30 dias corridos, contados a partir da data de protocolo físico na sede do CEETEPS na capital, sendo vedado o uso de meios eletrônicos para contagem de prazo.",
+                "45 dias, extensíveis por igual período, caso a informação envolva dados georreferenciados ou cartográficos de alta complexidade técnica."
+            ],
+            correct: 2,
+            resolution: "Conforme o Art. 11 da LAI, caso o acesso imediato não seja possível, a resposta deve ocorrer em até 20 dias, prorrogáveis por mais 10 dias mediante justificativa."
+        },
+        {
+            id: 4,
+            text: "A classificação da informação quanto ao grau de sigilo é uma medida excepcional. No âmbito da administração pública paulista e do CEETEPS, os prazos máximos de restrição de acesso para as categorias Ultrassecreta, Secreta e Reservada são, respectivamente:",
+            options: [
+                "Ultrassecreta: 25 anos; Secreta: 15 anos; Reservada: 5 anos.",
+                "Ultrassecreta: 50 anos; Secreta: 25 anos; Reservada: 10 anos.",
+                "Ultrassecreta: 30 anos; Secreta: 20 anos; Reservada: 10 anos.",
+                "Ultrassecreta: 20 anos; Secreta: 10 anos; Reservada: 2 anos.",
+                "Ultrassecreta: 100 anos; Secreta: 50 anos; Reservada: 25 anos."
+            ],
+            correct: 0,
+            resolution: "Os prazos máximos de sigilo vigentes, segundo o Art. 24 da LAI, são: Ultrassecreta (25 anos), Secreta (15 anos) e Reservada (5 anos)."
+        },
+        {
+            id: 5,
+            text: "Segundo o Artigo 31 da Lei nº 12.527/2011, as informações pessoais relativas à intimidade, vida privada, honra e imagem das pessoas:",
+            options: [
+                "Devem ser publicadas nos murais das escolas para garantir que todos os membros da comunidade escolar conheçam a conduta ética de seus pares.",
+                "Terão seu acesso restrito, independentemente de classificação de sigilo, pelo prazo máximo de 100 anos a contar da sua data de produção.",
+                "São de livre acesso a qualquer cidadão que alegue fins de pesquisa acadêmica, dispensando-se o consentimento do titular dos dados.",
+                "Perdem a proteção de sigilo após 25 anos, passando a integrar o domínio público para fins de consulta em arquivos históricos.",
+                "Não podem ser protegidas pela administração pública, uma vez que o princípio da publicidade anula o direito individual à privacidade no serviço público."
+            ],
+            correct: 1,
+            resolution: "Informações pessoais relativas à honra e imagem têm acesso restrito por 100 anos a partir da data de produção, protegendo a privacidade garantida constitucionalmente."
+        },
+        {
+            id: 6,
+            text: "De acordo com o Decreto Estadual nº 58.052/2012, atos de recusar-se a fornecer informação requerida ou fornecer dados intencionalmente incorretos podem ser caracterizados como:",
+            options: [
+                "Meras irregularidades administrativas de natureza leve, puníveis apenas com advertência verbal sem registro em prontuário.",
+                "Infração disciplinar sujeita às penas de repreensão, suspensão ou, em casos graves, demissão, além de possível responsabilização por improbidade administrativa.",
+                "Atos de gestão discricionária protegidos pela autonomia didático-científica das instituições de ensino tecnológico.",
+                "Crimes de responsabilidade previstos exclusivamente no Código Penal, sendo vedada a aplicação de sanções administrativas internas pelo CEETEPS.",
+                "Procedimentos padrão de segurança institucional, desde que a negativa de acesso vise proteger a reputação do governo estadual."
+            ],
+            correct: 1,
+            resolution: "O descumprimento da LAI sujeita o agente público a sanções disciplinares (repreensão, suspensão ou demissão) e à Lei de Improbidade Administrativa."
+        },
+        {
+            id: 7,
+            text: "Conforme a Lei nº 12.527/2011, a qualidade da informação que pode ser estabelecida mediante comprovação de sua integridade, autenticidade e primariedade é denominada:",
+            options: [
+                "Disponibilidade.",
+                "Transparência.",
+                "Qualidade da informação.",
+                "Metadados.",
+                "Informação sigilosa."
+            ],
+            correct: 2,
+            resolution: "A reunião dos atributos de primariedade, integridade e autenticidade define o conceito legal de 'Qualidade da Informação'."
+        },
+        {
+            id: 8,
+            text: "No CEETEPS, o órgão responsável por analisar documentos e deliberar sobre prazos de sigilo, segundo o Decreto nº 58.052/2012, é a:",
+            options: [
+                "Comissão de Avaliação de Documentos e Acesso (CADA).",
+                "Associação de Pais e Mestres (APM).",
+                "Congregação da Unidade de Ensino.",
+                "Coordenadoria de Ensino Médio e Técnico (CETEC).",
+                "Comissão Central de Concursos Públicos (CCCP)."
+            ],
+            correct: 0,
+            resolution: "A CADA (Comissão de Avaliação de Documentos e Acesso) é o colegiado interno responsável pela gestão documental e classificação de sigilo no estado de SP."
+        },
+        {
+            id: 9,
+            text: "Em caso de negativa de acesso, o prazo para a interposição de recurso pelo cidadão e o prazo para a autoridade máxima decidir sobre ele são, respectivamente:",
+            options: [
+                "5 dias para interpor e 10 dias para decidir.",
+                "10 dias para interpor e 5 dias para decidir.",
+                "15 dias para interpor e 15 dias para decidir.",
+                "30 dias para interpor e 30 dias para decidir.",
+                "10 dias para interpor e 10 dias para decidir."
+            ],
+            correct: 1,
+            resolution: "O cidadão tem 10 dias para recorrer após a ciência da negativa, e a autoridade máxima do órgão tem 5 dias para proferir a decisão."
+        },
+        {
+            id: 10,
+            text: "A Lei de Acesso à Informação determina que os órgãos públicos utilizem tecnologias da informação para:",
+            options: [
+                "Centralizar o controle de dados em servidores offline, impedindo o acesso remoto para garantir a segurança cibernética do Estado.",
+                "Divulgar informações em formatos abertos e legíveis por máquina, facilitando a análise, o reuso e o cruzamento de dados pela sociedade civil.",
+                "Restringir o uso de ferramentas de busca na internet, obrigando o cidadão a comparecer presencialmente ao Serviço de Informações ao Cidadão (SIC).",
+                "Cobrar taxas de serviço elevadas para o acesso a dados digitais, visando o aumento da arrecadação das autarquias estaduais.",
+                "Divulgar apenas dados parciais e interpretados, de modo a evitar que a população tire conclusões críticas sobre a gestão pública."
+            ],
+            correct: 1,
+            resolution: "A LAI fomenta a cultura da transparência ao exigir que os dados sejam disponibilizados em formatos abertos (como CSV ou JSON), facilitando o controle social."
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('quiz-container');
+        questions.forEach((q, qIndex) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${qIndex}`;
+
+            let optionsHtml = '';
+            q.options.forEach((opt, oIndex) => {
+                const label = String.fromCharCode(65 + oIndex); // A, B, C...
+                optionsHtml += `
+                    <label class="option" id="opt-${qIndex}-${oIndex}">
+                        <input type="radio" name="q${qIndex}" value="${oIndex}" onchange="selectOption(${qIndex}, ${oIndex})">
+                        <span><strong>${label}.</strong> ${opt}</span>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="question-header">Questão ${q.id}</div>
+                <div class="question-text"><p>${q.text}</p></div>
+                <div class="options-container">
+                    ${optionsHtml}
+                </div>
+                <div class="resolution" id="res-${qIndex}">
+                    <h4>Resolução:</h4>
+                    <p>${q.resolution}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIndex, oIndex) {
+        // Remove 'selected' class from all options of this question
+        const options = document.querySelectorAll(`input[name="q${qIndex}"]`);
+        options.forEach(input => {
+            input.parentElement.classList.remove('selected');
+        });
+        // Add to selected
+        document.getElementById(`opt-${qIndex}-${oIndex}`).classList.add('selected');
+    }
+
+    function finishQuiz() {
+        let score = 0;
+        let unanswered = [];
+
+        questions.forEach((q, qIndex) => {
+            const selected = document.querySelector(`input[name="q${qIndex}"]:checked`);
+            
+            if (!selected) {
+                unanswered.push(qIndex + 1);
+            }
+
+            const resolutionDiv = document.getElementById(`res-${qIndex}`);
+            resolutionDiv.style.display = 'block';
+
+            const correctIdx = q.correct;
+            
+            // Mark correct answer
+            document.getElementById(`opt-${qIndex}-${correctIdx}`).classList.add('correct');
+
+            if (selected) {
+                const userChoice = parseInt(selected.value);
+                if (userChoice === correctIdx) {
+                    score++;
+                } else {
+                    document.getElementById(`opt-${qIndex}-${userChoice}`).classList.add('wrong');
+                }
+            }
+
+            // Disable all inputs after finishing
+            const inputs = document.querySelectorAll(`input[name="q${qIndex}"]`);
+            inputs.forEach(i => i.disabled = true);
+        });
+
+        // Show banner
+        const banner = document.getElementById('results-banner');
+        const scoreText = document.getElementById('score-text');
+        banner.style.display = 'block';
+        scoreText.innerText = `Você acertou ${score} de ${questions.length} questões.`;
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Hide button
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+
+    // Initialize
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

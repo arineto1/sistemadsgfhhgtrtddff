@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Reforma do Ensino Médio - ETEC Geografia</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #34495e;
+            --accent-color: #e67e22;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #dcdde1;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            line-height: 1.3;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #576574;
+            margin-bottom: 30px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 6px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #e8f0fe;
+            border-color: #1a73e8;
+        }
+
+        #submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 40px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        #submit-btn:hover {
+            background-color: #1e272e;
+        }
+
+        /* Results Section */
+        #results-area {
+            display: none;
+            margin-top: 50px;
+        }
+
+        .score-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            display: block;
+            font-weight: bold;
+        }
+
+        .resolution-card {
+            border-left: 5px solid var(--primary-color);
+            background: #f8f9fa;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .correct-answer-label {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .user-answer-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .status-correct { background: #d4edda; color: #155724; }
+        .status-incorrect { background: #f8d7da; color: #721c24; }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Concurso Professor ETEC (CEETEPS) - Geografia</h1>
+        <p class="intro-text">Simulado Temático: Reforma do Ensino Médio (Lei 13.415/17) e Práticas Curriculares.</p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- Questions will be injected here by JS -->
+        </div>
+        <button type="button" id="submit-btn" onclick="calculateResults()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="results-area">
+        <div class="score-banner">
+            <span class="score-number" id="score-display">0/10</span>
+            <p id="score-message">Confira abaixo o desempenho e as resoluções detalhadas.</p>
+        </div>
+        <div id="detailed-results">
+            <!-- Detailed resolutions injected here -->
+        </div>
+        <button type="button" id="retry-btn" onclick="window.location.reload()" style="margin-top: 20px; padding: 10px; cursor: pointer;">Tentar Novamente</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "Considerando a Lei nº 13.415/2017 e a organização curricular das ETECs (CEETEPS), como fica a distribuição da carga horária da Formação Geral Básica (FGB) e a presença da disciplina de Geografia no Ensino Médio Integrado?",
+            options: [
+                "A Geografia permanece como disciplina obrigatória nas três séries, com carga horária mínima de 2.400 horas exclusivas para a base comum.",
+                "A FGB possui um teto de 1.800 horas, permitindo que componentes como Geografia tenham carga reduzida ou não apareçam na 3ª série para dar espaço ao itinerário técnico.",
+                "A reforma extinguiu a Geografia como disciplina, transformando-a obrigatoriamente em um componente de 'Estudos Sociais' sem carga horária definida.",
+                "O CEETEPS é isento da Lei 13.415/17, mantendo a estrutura da LDB de 1996 sem necessidade de adequação aos Itinerários Formativos.",
+                "A carga horária de Geografia foi ampliada obrigatoriamente para 4 aulas semanais em todos os cursos técnicos como forma de compensar a BNCC."
+            ],
+            answer: 1, // B
+            resolution: "A legislação fixou um teto para a Formação Geral Básica de 1.800 horas do total da carga horária mínima. No CEETEPS, isso resultou em matrizes onde disciplinas de humanidades, como a Geografia, podem ter sua carga horária reduzida ou concentrada nas duas primeiras séries para garantir o espaço de 1.200 horas destinadas ao itinerário de formação técnica e profissional."
+        },
+        {
+            id: 2,
+            question: "A BNCC do Ensino Médio organiza o conhecimento em áreas. Sobre o ensino de Geografia na área de Ciências Humanas e Sociais Aplicadas, analise:\nI. A Competência 2 foca em analisar processos de ocupação do espaço e formação de territórios.\nII. A interdisciplinaridade é incentivada entre Geografia, História, Sociologia e Filosofia.\nIII. O foco exclusivo deve ser a memorização de dados geológicos e demográficos físicos.",
+            options: [
+                "Apenas a afirmação I está correta.",
+                "As afirmações I e II estão corretas.",
+                "As afirmações II e III estão corretas.",
+                "Apenas a afirmação III está correta.",
+                "Todas as afirmações estão corretas."
+            ],
+            answer: 1, // B
+            resolution: "A Competência Específica 2 da BNCC foca na análise de processos de ocupação do espaço. A reforma incentiva a interdisciplinaridade para promover uma visão sistêmica. A afirmação III é incorreta pois a BNCC pede o desenvolvimento de abstrações complexas e análise ética, não apenas memorização."
+        },
+        {
+            id: 3,
+            question: "De acordo com a Deliberação CEE 207/2022, quais são os quatro eixos estruturantes que devem nortear os Itinerários Formativos no sistema paulista?",
+            options: [
+                "Memorização, Repetição, Avaliação e Certificação.",
+                "Investigação Científica, Processos Criativos, Mediação e Intervenção Sociocultural e Empreendedorismo.",
+                "Estágio Obrigatório, Trabalho de Conclusão de Curso, Disciplinas Técnicas e Ética Profissional.",
+                "Esporte, Cultura, Lazer e Trabalho.",
+                "Língua Portuguesa, Matemática, Inglês e Projeto de Vida."
+            ],
+            answer: 1, // B
+            resolution: "A Deliberação estabelece quatro eixos estruturantes para todos os itinerários: Investigação Científica, Processos Criativos, Mediação e Intervenção Sociocultural e Empreendedorismo. Isso garante que o itinerário técnico não seja apenas prático, mas também intelectual e criativo."
+        },
+        {
+            id: 4,
+            question: "Sobre o perfil docente exigido nos processos seletivos do CEETEPS (Deliberação 41/2018), o que é priorizado na avaliação de métodos pedagógicos para um professor de Geografia?",
+            options: [
+                "A capacidade de ditar conteúdos extensos para os alunos copiarem.",
+                "O domínio do 'Saber Fazer' pedagógico, utilizando metodologias ativas para desenvolver habilidades da BNCC e competências socioemocionais.",
+                "A quantidade de livros publicados na área de Geologia pura.",
+                "A habilidade de ignorar o Projeto de Vida dos alunos para focar apenas no conteúdo vestibular.",
+                "O uso exclusivo de mapas físicos de papel, sem auxílio de tecnologias digitais."
+            ],
+            answer: 1, // B
+            resolution: "O CEETEPS exige que o docente domine o 'Saber Fazer' pedagógico. Na Prova de Métodos Pedagógicos, avalia-se a capacidade de transpor conceitos para uma aula prática que estimule proatividade e resiliência (socioemocionais)."
+        },
+        {
+            id: 5,
+            question: "A flexibilização curricular permitida pela Lei 13.415/17 possibilita que o CEETEPS organize seus cursos técnicos. Qual a consequência prática comum nas matrizes de cursos como o M-TEC?",
+            options: [
+                "Aumento da carga horária de Geografia na 3ª série para 5 aulas semanais.",
+                "Concentração de componentes da FGB (como Geografia) na 1ª e 2ª séries para priorizar a terminalidade técnica no último ano.",
+                "Eliminação total de todas as matérias que não sejam técnicas desde o primeiro dia de aula.",
+                "Substituição de professores licenciados por profissionais sem formação pedagógica em todas as matérias.",
+                "Obrigatoriedade de cursar Geografia apenas no período noturno."
+            ],
+            answer: 1, // B
+            resolution: "O limite de 1.800 horas para a FGB exige compressão. No CEETEPS, costuma-se concentrar Geografia na 1ª e 2ª séries para garantir que o aluno tenha contato com a base comum antes de focar integralmente nas disciplinas técnicas terminais."
+        },
+        {
+            id: 6,
+            question: "No contexto da 'Cultura Digital' prevista na Reforma, como o ensino de Geografia nas ETECs deve abordar as geotecnologias?",
+            options: [
+                "Apenas como curiosidade, sem aplicação prática no mercado de trabalho.",
+                "Proibindo o uso de celulares e computadores durante as aulas de cartografia.",
+                "Integrando o uso de SIG (Sistemas de Informação Geográfica) e Google Earth para análise crítica de dados e combate a Fake News territoriais.",
+                "Focando apenas no desenho manual de mapas com nanquim.",
+                "Substituindo a análise geográfica por aulas de programação de jogos."
+            ],
+            answer: 2, // C
+            resolution: "A BNCC exige o desenvolvimento da capacidade de usar linguagens digitais. Na Geografia, isso significa usar SIG, Google Earth e análise de dados para alfabetização midiática e entendimento de fluxos de informação."
+        },
+        {
+            id: 7,
+            question: "A Lei nº 14.945/2024 trouxe novas alterações ao Ensino Médio. Qual foi a principal mudança em relação à carga horária da Formação Geral Básica (FGB)?",
+            options: [
+                "Reduziu a FGB para 1.000 horas totais.",
+                "Ampliou a FGB para 2.400 horas no ensino regular e estabeleceu 2.100 horas para o ensino técnico (podendo articular 300h).",
+                "Extinguiu os itinerários formativos definitivamente.",
+                "Tornou o ensino de Geografia facultativo em todo o Brasil.",
+                "Proibiu o ensino técnico integrado ao ensino médio."
+            ],
+            answer: 1, // B
+            resolution: "A Lei 14.945/24 reestruturou o Ensino Médio, aumentando a FGB para 2.400h (regular) e 2.100h (técnico). Isso garante maior espaço para humanidades como a Geografia a partir de 2025."
+        },
+        {
+            id: 8,
+            question: "O papel do GFAC (Grupo de Formulação e Análises Curriculares) no CEETEPS é garantir a integração curricular. Um exemplo prático dessa integração na Geografia é:",
+            options: [
+                "Relacionar conteúdos de hidrografia e climatologia com a aplicação técnica em cursos de Meio Ambiente ou Agropecuária.",
+                "Abandonar o ensino de climas para focar apenas em marketing digital.",
+                "Exigir que o professor de Geografia ensine apenas as normas da ABNT para os técnicos.",
+                "Isolar a Geografia da base técnica para que os alunos não se confundam.",
+                "Substituir aulas de Geografia por treinamento de operação de caixa de supermercado."
+            ],
+            answer: 0, // A
+            resolution: "O GFAC busca evitar que cursos técnicos sejam meros treinamentos. Em Meio Ambiente, a Geografia fornece a base sobre hidrografia e solos necessária para a aplicação técnica da gestão ambiental."
+        },
+        {
+            id: 9,
+            question: "O 'Projeto de Vida' é um componente central da Reforma. No CEETEPS, seu objetivo principal é:",
+            options: [
+                "Servir como uma hora de descanso para os alunos.",
+                "Auxiliar o estudante em suas escolhas conscientes sobre seu percurso formativo, carreira e inserção social/territorial.",
+                "Avaliar apenas a saúde física dos estudantes.",
+                "Ensinar os alunos a investir na bolsa de valores exclusivamente.",
+                "Substituir as aulas de Português e Matemática."
+            ],
+            answer: 1, // B
+            resolution: "O Projeto de Vida auxilia o estudante a entender se a habilitação técnica faz sentido para seus objetivos ou se deve buscar outros caminhos, sendo um espaço de acolhimento e autoconhecimento."
+        },
+        {
+            id: 10,
+            question: "A avaliação no Novo Ensino Médio, conforme as diretrizes do CEETEPS, deve ser:",
+            options: [
+                "Punitiva e baseada apenas em uma única prova final anual.",
+                "Contínua, cumulativa e focada no desenvolvimento de competências e habilidades qualitativas sobre as notas quantitativas.",
+                "Baseada apenas na frequência do aluno, sem considerar o aprendizado.",
+                "Realizada apenas através de testes de múltipla escolha sem direito a recuperação.",
+                "Terceirizada para empresas externas de avaliação."
+            ],
+            answer: 1, // B
+            resolution: "A avaliação deve ser contínua e cumulativa. O foco não é o erro, mas o desenvolvimento de competências (como a análise espacial), valorizando o processo e garantindo o direito à recuperação."
+        }
+    ];
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <span class="question-header">Questão ${index + 1}</span>
+                <p>${q.question.replace(/\n/g, '<br>')}</p>
+                <ul class="options-list">
+                    ${q.options.map((opt, i) => `
+                        <li class="option-item" onclick="selectOption(${index}, ${i})">
+                            <input type="radio" name="q${index}" id="q${index}o${i}" value="${i}">
+                            <label for="q${index}o${i}">${String.fromCharCode(65 + i)}) ${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    window.selectOption = function(qIndex, oIndex) {
+        const options = document.querySelectorAll(`input[name="q${qIndex}"]`);
+        options[oIndex].checked = true;
+        
+        // Visual feedback
+        const items = document.querySelectorAll(`input[name="q${qIndex}"]`);
+        items.forEach(input => {
+            input.parentElement.classList.remove('selected');
+        });
+        options[oIndex].parentElement.classList.add('selected');
+    };
+
+    function calculateResults() {
+        let score = 0;
+        const total = quizData.length;
+        const detailedResultsContainer = document.getElementById('detailed-results');
+        detailedResultsContainer.innerHTML = '';
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const selectedValue = selected ? parseInt(selected.value) : null;
+            const isCorrect = selectedValue === q.answer;
+
+            if (isCorrect) score++;
+
+            // Build Resolution Card
+            const resCard = document.createElement('div');
+            resCard.className = 'question-card';
+            resCard.innerHTML = `
+                <span class="question-header">Questão ${index + 1} 
+                    <span class="status-badge ${isCorrect ? 'status-correct' : 'status-incorrect'}">
+                        ${isCorrect ? 'Acertou' : 'Errou'}
+                    </span>
+                </span>
+                <p style="font-size: 0.95rem; color: #636e72; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    ${q.question.substring(0, 150)}...
+                </p>
+                <div class="user-answer-label">
+                    Sua resposta: ${selectedValue !== null ? String.fromCharCode(65 + selectedValue) : 'Não respondida'}
+                </div>
+                <div class="correct-answer-label">
+                    Resposta correta: ${String.fromCharCode(65 + q.answer)}
+                </div>
+                <div class="resolution-card">
+                    <strong>Fundamentação Legislativa/Técnica:</strong><br>
+                    ${q.resolution}
+                </div>
+            `;
+            detailedResultsContainer.appendChild(resCard);
+        });
+
+        // Display results
+        document.getElementById('quiz-form').classList.add('hidden');
+        document.getElementById('results-area').style.display = 'block';
+        document.getElementById('score-display').innerText = `${score} / ${total}`;
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onload = renderQuestions;
+</script>
+
+</body>
+</html>

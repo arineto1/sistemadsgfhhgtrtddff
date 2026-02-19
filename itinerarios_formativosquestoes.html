@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Itinerários Formativos e Geografia na ETEC</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --incorrect-color: #d63031;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 850px;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-top: 6px;
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0873c4;
+        }
+
+        #results {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result-header {
+            text-align: center;
+            padding: 40px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .score-box {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-card {
+            background: #fff;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+        }
+
+        .correct-answer-indicator {
+            color: var(--correct-color);
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .incorrect-selection {
+            background-color: #ffeef0 !important;
+            border-color: var(--incorrect-color) !important;
+        }
+
+        .correct-selection {
+            background-color: #e6ffed !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .badge-correct { background: var(--correct-color); color: white; }
+        .badge-incorrect { background: var(--incorrect-color); color: white; }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Itinerários Formativos - ETEC</h1>
+    <p>Concurso para Professor de Geografia (CEETEPS)</p>
+</header>
+
+<div class="container">
+    <form id="quiz-form">
+        <div id="questions-container"></div>
+        <button type="button" class="btn-submit" onclick="calculateResults()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="results">
+        <div class="result-header">
+            <h2>Resultado do Simulado</h2>
+            <div class="score-box" id="score-display">0/10</div>
+            <p id="score-message"></p>
+        </div>
+        <div id="resolutions-list"></div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No contexto da reorganização do Ensino Médio nas Escolas Técnicas Estaduais (ETECs), a Deliberação CEETEPS nº 87/2022 estabeleceu o novo Regimento Comum. Com base na organização administrativa e didática prevista, assinale a alternativa que descreve corretamente a operacionalização da avaliação e da promoção do estudante no modelo de itinerários:",
+            options: [
+                "A avaliação do rendimento escolar é realizada por meio de notas numéricas de 0 a 10, sendo a promoção decidida exclusivamente pelo professor.",
+                "O sistema de avaliação é contínuo, cumulativo e diversificado, utilizando menções (MB, B, R, I), sendo a promoção decidida pelo Conselho de Classe, exigindo-se frequência mínima de 75%.",
+                "Os itinerários formativos, por serem áreas de interesse eletivas, não possuem regime de frequência obrigatória ou critérios de retenção.",
+                "A Deliberação estabelece que a Geografia deve ser ensinada exclusivamente na 1ª série, sendo substituída integralmente pelos componentes técnicos.",
+                "O Conselho de Escola é a única instância com poder para reclassificar alunos entre diferentes itinerários formativos trimestralmente."
+            ],
+            correct: 1,
+            resolution: "A Deliberação CEETEPS nº 87/2022 define que a avaliação é contínua e cumulativa, priorizando aspectos qualitativos. O sistema utiliza as menções MB, B, R, I. A promoção é competência do Conselho de Classe e a LDB exige 75% de frequência mínima."
+        },
+        {
+            id: 2,
+            text: "Sobre a estruturação dos componentes curriculares e a distribuição da carga horária nos itinerários do CEETEPS, assinale a alternativa correta:",
+            options: [
+                "Os itinerários são compostos por disciplinas isoladas que não se comunicam, com carga horária fixa de 400 horas anuais.",
+                "A carga horária total do Ensino Médio é de 3.000 horas, das quais 1.200 horas são destinadas aos itinerários formativos, organizados em eixos estruturantes.",
+                "O CEETEPS veda a integração entre a Formação Geral Básica e o itinerário formativo, exigindo apenas conteúdos técnicos.",
+                "A Geografia perde sua nomenclatura original, passando a ser denominada obrigatoriamente como 'Geopolítica e Empreendedorismo'.",
+                "A organização do ensino por áreas de interesse exclui a participação de professores licenciados em Geografia."
+            ],
+            correct: 1,
+            resolution: "O modelo do Novo Ensino Médio nas ETECs reserva 1.200 horas para o itinerário (de um total de 3.000h). No CEETEPS, esses itinerários são organizados com base nos eixos estruturantes da BNCC, transformados em componentes práticos."
+        },
+        {
+            id: 3,
+            text: "O componente 'Laboratório de Investigação Científica' (LIC) é fundamental na 1ª série. Selecione a alternativa que descreve a prática pedagógica correta:",
+            options: [
+                "O LIC deve ser utilizado para a correção de exercícios de memorização de dados estatísticos demográficos.",
+                "O foco do laboratório é transformar o estudante em um sujeito ativo, capaz de identificar, selecionar e analisar dados geográficos com ética e criticidade.",
+                "A investigação científica na Geografia das ETECs restringe-se ao estudo geológico do terreno da escola.",
+                "O componente LIC é uma disciplina puramente teórica, sem a utilização de tecnologias digitais ou atividades de campo.",
+                "No modelo de itinerários do CEETEPS, o LIC substitui integralmente a disciplina de Geografia na 1ª série."
+            ],
+            correct: 1,
+            resolution: "O LIC visa o protagonismo discente e a iniciação científica. O estudante aprende a aplicar o método científico para analisar fenômenos socioespaciais, utilizando evidências e dados com rigor e ética."
+        },
+        {
+            id: 4,
+            text: "Sobre a aplicação do eixo estruturante de 'Processos Criativos' no ensino de Geografia, assinale a alternativa correta:",
+            options: [
+                "O processo criativo na Geografia resume-se à elaboração de maquetes de argila representando formas de relevo.",
+                "O componente permite que o estudante identifique problemas reais do espaço e proponha soluções inovadoras, utilizando metodologias como o Design Thinking.",
+                "A criatividade é vista como um obstáculo ao rigor científico da Geografia, por isso é trabalhada apenas em Artes.",
+                "O protagonismo discente significa que o aluno deve decidir o conteúdo a ser ensinado, isentando o professor de seguir o Plano de Trabalho.",
+                "Os processos criativos são limitados à criação de slogans publicitários para empresas do agronegócio."
+            ],
+            correct: 1,
+            resolution: "O eixo de Processos Criativos busca a materialização de ideias. O uso do Design Thinking no CEETEPS permite que os alunos prototipem soluções para problemas geográficos reais de forma colaborativa e técnica."
+        },
+        {
+            id: 5,
+            text: "Assinale a alternativa que exemplifica uma prática de intervenção sociocultural alinhada às diretrizes do CEETEPS para as séries finais:",
+            options: [
+                "Realização de um debate sobre a Guerra Fria focado na memorização de datas, sem relação com a realidade atual.",
+                "Desenvolvimento de mapeamento participativo para identificar áreas de vulnerabilidade socioambiental, com propostas apresentadas à comunidade.",
+                "Aplicação de uma prova dissertativa avaliando apenas a capacidade de reprodução textual de conceitos do livro didático.",
+                "Proibição de trabalhos em grupo visando garantir que a intervenção seja um ato individual e competitivo.",
+                "Substituição das atividades de intervenção por visitas técnicas a fábricas onde o aluno deve apenas observar a linha de montagem."
+            ],
+            correct: 1,
+            resolution: "A Intervenção Sociocultural (LMIS) exige que o conhecimento escolar tenha aplicação social. O mapeamento participativo é uma ferramenta geográfica de cidadania que conecta o aluno às necessidades do entorno da escola."
+        },
+        {
+            id: 6,
+            text: "De acordo com os documentos orientadores do CEETEPS, a sequência correta das 'Escalas de Reflexão-Ação' é:",
+            options: [
+                "1ª Série: O mercado de trabalho; 2ª Série: A economia global; 3ª Série: O sucesso profissional.",
+                "1ª Série: Eu e o meu mundo; 2ª Série: Eu e o mundo; 3ª Série: Eu para o mundo.",
+                "1ª Série: Geografia Física; 2ª Série: Geografia Humana; 3ª Série: Geopolítica.",
+                "1ª Série: Pesquisa bibliográfica; 2ª Série: Estágio em empresa; 3ª Série: Certificação técnica.",
+                "1ª Série: O aluno e a escola; 2ª Série: O aluno e a família; 3ª Série: O aluno e a universidade."
+            ],
+            correct: 1,
+            resolution: "As Escalas de Reflexão-Ação acompanham o amadurecimento do jovem: partindo do autoconhecimento (Eu e meu mundo), passando pela relação com a comunidade (Eu e o mundo) até a atuação profissional/social (Eu para o mundo)."
+        },
+        {
+            id: 7,
+            text: "Sobre a docência e a metodologia do componente 'Estudos Avançados' (EA), assinale a alternativa correta:",
+            options: [
+                "O EA deve ser atribuído a qualquer professor, independentemente de sua área de licenciatura, como reforço escolar genérico.",
+                "Este componente deve ser atribuído a licenciados na área do itinerário e utiliza metodologias como a Aprendizagem Baseada em Problemas (PBL).",
+                "A carga horária de EA deve ser utilizada obrigatoriamente para o treinamento intensivo em questões de vestibulares tradicionais.",
+                "O EA foca exclusivamente no ensino de técnicas de desenho técnico e topografia, substituindo a base humanística.",
+                "É vedada a realização de projetos interdisciplinares, devendo cada professor trabalhar de forma isolada."
+            ],
+            correct: 1,
+            resolution: "Estudos Avançados visa o aprofundamento das competências da BNCC. Exige formação específica na área e prioriza metodologias ativas (PBL) para consolidar o pensamento crítico do estudante."
+        },
+        {
+            id: 8,
+            text: "No modelo M-Tec (Integrado), sobre a integração entre Geografia e Formação Técnica, assinale a alternativa correta:",
+            options: [
+                "A Geografia não possui relevância para o Técnico em Administração, devendo sua carga horária ser transferida para Finanças.",
+                "A Geografia fornece ferramentas de análise socioeconômica e territorial, permitindo compreender a organização do espaço produtivo e do mercado.",
+                "O CEETEPS proíbe que professores de Geografia utilizem exemplos do mundo do trabalho em suas aulas.",
+                "A integração curricular resume-se à exigência de que o professor utilize o mesmo uniforme dos alunos técnicos.",
+                "No modelo M-Tec, a Geografia é eliminada e substituída por 'Marketing Territorial'."
+            ],
+            correct: 1,
+            resolution: "No M-Tec, a Formação Geral Básica deve conversar com o perfil profissional. Na Geografia, isso ocorre através da análise de redes, demografia e dinâmica territorial, fundamentais para qualquer formação técnica de gestão ou produção."
+        },
+        {
+            id: 9,
+            text: "Sobre o significado e a aplicação das menções (MB, B, R, I) no CEETEPS, assinale a alternativa correta:",
+            options: [
+                "As menções correspondem exatamente às notas 10, 8, 5 e 0, sendo obrigatória a conversão decimal.",
+                "As menções refletem o alcance de indicadores de competência: Pleno (MB), Satisfatório (B), Parcial (R) e Não atingimento (I).",
+                "O aluno que obtiver menção R em Geografia é automaticamente retido na série, sem possibilidade de recuperação.",
+                "A menção I (Insatisfatório) só pode ser aplicada se o aluno tiver menos de 50% de frequência.",
+                "O CEETEPS aboliu o uso de menções em 2024, retornando ao sistema de notas de 0 a 100."
+            ],
+            correct: 1,
+            resolution: "O sistema de menções é um modelo de avaliação por competências. MB indica que todos os indicadores foram atingidos plenamente, enquanto I indica a necessidade de intervenção pedagógica imediata (recuperação)."
+        },
+        {
+            id: 10,
+            text: "Qual das seguintes posturas é esperada do professor de Geografia no Novo Ensino Médio ETEC?",
+            options: [
+                "Uma postura centrada na transmissão unilateral de conteúdos, priorizando a aula expositiva baseada no livro didático.",
+                "Uma postura flexível e de mediador, orientando projetos que demandam pesquisas, leituras críticas e compartilhamento de conhecimento.",
+                "A recusa em trabalhar com temas contemporâneos por considerar que pertencem apenas à Sociologia ou Biologia.",
+                "A atuação como um fiscal de disciplina, focando apenas no controle do comportamento dos alunos.",
+                "O isolamento em relação aos demais professores da área para proteger a 'pureza' dos conceitos geográficos."
+            ],
+            correct: 1,
+            resolution: "O professor de Geografia atua como um arquiteto de aprendizagens. No CEETEPS, ele deve mediar o processo de pesquisa dos alunos, incentivando a autonomia e a visão interdisciplinar das Humanidades."
+        }
+    ];
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                        <input type="radio" name="q${index}" id="q${index}o${optIndex}" value="${optIndex}">
+                        <label for="q${index}o${optIndex}">${opt}</label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-text">${index + 1}. ${q.text}</span>
+                <ul class="options-list">${optionsHtml}</ul>
+                <div id="res-${index}" style="display:none"></div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIndex, optIndex) {
+        document.getElementById(`q${qIndex}o${optIndex}`).checked = true;
+    }
+
+    function calculateResults() {
+        let score = 0;
+        const resolutionsContainer = document.getElementById('resolutions-list');
+        resolutionsContainer.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const card = document.getElementById(`q-card-${index}`);
+            const options = card.querySelectorAll('.option-item');
+            
+            let userChoice = selected ? parseInt(selected.value) : null;
+            let isCorrect = userChoice === q.correct;
+
+            if (isCorrect) score++;
+
+            // Highlight answers on cards
+            options.forEach((opt, idx) => {
+                opt.style.pointerEvents = 'none'; // Disable clicking after submit
+                if (idx === q.correct) {
+                    opt.classList.add('correct-selection');
+                } else if (idx === userChoice && !isCorrect) {
+                    opt.classList.add('incorrect-selection');
+                }
+            });
+
+            // Create resolution element
+            const resItem = document.createElement('div');
+            resItem.className = 'question-card';
+            resItem.innerHTML = `
+                <span class="badge ${isCorrect ? 'badge-correct' : 'badge-incorrect'}">
+                    Questão ${index + 1}: ${isCorrect ? 'Acertou' : 'Errou'}
+                </span>
+                <p><strong>Enunciado:</strong> ${q.text}</p>
+                <p class="correct-answer-indicator">Resposta Correta: ${String.fromCharCode(65 + q.correct)}) ${q.options[q.correct]}</p>
+                <div class="resolution-card">
+                    <strong>Resolução Detalhada:</strong><br>
+                    ${q.resolution}
+                </div>
+            `;
+            resolutionsContainer.appendChild(resItem);
+        });
+
+        // Display summary
+        document.getElementById('quiz-form').style.display = 'none';
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('score-display').innerText = `${score}/10`;
+        
+        const message = score >= 7 ? "Excelente desempenho! Você conhece bem as diretrizes do CEETEPS." : "Bom esforço. Revise as resoluções abaixo para fixar os conceitos normativos.";
+        document.getElementById('score-message').innerText = message;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onload = renderQuestions;
+</script>
+
+</body>
+</html>

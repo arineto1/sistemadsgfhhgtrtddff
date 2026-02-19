@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz LDB: Princípios e Fins da Educação - ETEC Geografia</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #1a1a1b;
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f1f5f9;
+            --border-color: #e2e8f0;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        header p {
+            color: var(--secondary-color);
+            max-width: 600px;
+            margin: 0.5rem auto 0;
+        }
+
+        main {
+            width: 90%;
+            max-width: 850px;
+            padding-bottom: 5rem;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .question-header {
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 1rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: white;
+        }
+
+        .option-label:hover {
+            background-color: var(--accent-color);
+            border-color: var(--primary-color);
+        }
+
+        .option-input {
+            margin-right: 1rem;
+            margin-top: 0.3rem;
+            cursor: pointer;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        #submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        #submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        #results-section {
+            display: none;
+            background-color: var(--accent-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        #resolutions-section {
+            display: none;
+            border-top: 2px solid var(--border-color);
+            padding-top: 3rem;
+        }
+
+        .resolution-item {
+            background-color: white;
+            padding: 2rem;
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .resolution-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .resolution-text {
+            font-size: 1rem;
+            color: #444;
+        }
+
+        .correct-answer-pill {
+            display: inline-block;
+            background-color: var(--success-color);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .question-card {
+                padding: 1.5rem;
+            }
+            header h1 {
+                font-size: 1.4rem;
+            }
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado LDB: Princípios e Fins</h1>
+    <p>Questões no estilo CEETEPS para Professor de Geografia de Ensino Médio.</p>
+</header>
+
+<main>
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>01.</span>
+                <span>No que concerne aos fins da educação nacional expressos no Artigo 2º da Lei de Diretrizes e Bases da Educação Nacional (LDB), a legislação estabelece que a educação é dever da família e do Estado, inspirada nos princípios de liberdade e nos ideais de solidariedade humana. Considerando a atuação do docente de Geografia nas Escolas Técnicas Estaduais (ETECs), a finalidade precípua do processo educativo deve visar:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="A" class="option-input">
+                        A) À primazia da formação técnica setorial, garantindo a subordinação dos conceitos geográficos às demandas imediatas do setor produtivo regional.
+                    </label>
+                </div>
+                <div class="option-item">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="B" class="option-input">
+                        B) Ao pleno desenvolvimento do educando, seu preparo para o exercício da cidadania e sua qualificação para o trabalho, integrando a compreensão espacial à formação humana.
+                    </label>
+                </div>
+                <div class="option-item">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="C" class="option-input">
+                        C) Ao fortalecimento exclusivo da autonomia intelectual acadêmica, desvinculando os conteúdos de geografia humana das práticas sociais e laborais contemporâneas.
+                    </label>
+                </div>
+                <div class="option-item">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="D" class="option-input">
+                        D) À padronização do comportamento social do discente, visando à homogeneidade cultural necessária para a estabilidade das instituições públicas e privadas.
+                    </label>
+                </div>
+                <div class="option-item">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="E" class="option-input">
+                        E) À instrução técnica mínima obrigatória, delegando à família a responsabilidade integral pelo preparo ético e pelo desenvolvimento das competências de cidadania.
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>02.</span>
+                <span>O Artigo 3º da LDB (Lei nº 9.394/96) elenca os princípios sobre os quais o ensino será ministrado. Um dos pilares fundamentais, especialmente relevante para o Centro Paula Souza (CEETEPS) dada a natureza de sua seleção por vestibulinho, é a "igualdade de condições para o acesso e permanência na escola". Sob a ótica da Geografia da Educação, este princípio implica que:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q2" value="A" class="option-input"> A) A escola deve garantir o acesso universal sem considerar as disparidades socioespaciais que afetam a permanência dos estudantes de diferentes regiões periféricas.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q2" value="B" class="option-input"> B) A permanência na unidade escolar é uma responsabilidade individual do aluno, cabendo ao Estado apenas a oferta da vaga inicial em estabelecimentos oficiais.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q2" value="C" class="option-input"> C) O sistema de ensino deve implementar estratégias pedagógicas e de assistência que mitiguem as barreiras geográficas e socioeconômicas, assegurando a continuidade dos estudos.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q2" value="D" class="option-input"> D) A igualdade de condições restringe-se ao ato da matrícula, sendo vedada a diferenciação de tratamento pedagógico para alunos com necessidades educacionais especiais.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q2" value="E" class="option-input"> E) A distribuição das vagas deve priorizar os territórios com maior IDH, visando maximizar o retorno dos investimentos públicos em educação técnica e tecnológica.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>03.</span>
+                <span>Analise a seguinte situação: um professor de Geografia de uma ETEC propõe um estudo de campo para analisar os impactos ambientais de uma indústria local, permitindo que os alunos confrontem as versões da empresa, dos moradores e dos movimentos ambientalistas. Ao agir dessa forma, o docente fundamenta sua prática no seguinte princípio do Artigo 3º da LDB:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q3" value="A" class="option-input"> A) Unicidade de concepção pedagógica e centralização dos procedimentos de pesquisa.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q3" value="B" class="option-input"> B) Pluralismo de ideias e de concepções pedagógicas, promovendo a análise crítica do espaço.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q3" value="C" class="option-input"> C) Coexistência de instituições públicas e privadas de ensino, com foco na competitividade empresarial.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q3" value="D" class="option-input"> D) Vinculação entre a educação escolar e o trabalho, restrita à memorização de normas técnicas industriais.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q3" value="E" class="option-input"> E) Consideração exclusiva com o direito à conectividade em detrimento das observações empíricas do território.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>04.</span>
+                <span>As atualizações legislativas da LDB têm buscado alinhar a educação nacional às demandas por diversidade e inclusão. O inciso XII do Artigo 3º, incluído pela Lei nº 12.796/2013, estabelece como princípio do ensino a "consideração com a diversidade étnico-racial". Para o ensino de Geografia no nível médio, este princípio exige:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q4" value="A" class="option-input"> A) A inclusão de temas geográficos que discutam a produção do espaço a partir das desigualdades raciais e a valorização das territorialidades negras e indígenas.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q4" value="B" class="option-input"> B) A abordagem da questão racial apenas em componentes curriculares das áreas de linguagens e artes, dada a neutralidade da ciência geográfica.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q4" value="C" class="option-input"> C) O foco no estudo das migrações europeias para o Brasil, omitindo as dinâmicas de poder que estruturaram a segregação espacial das populações afrodescendentes.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q4" value="D" class="option-input"> D) A adoção de uma perspectiva de "democracia racial" que ignore as contradições existentes na ocupação das periferias urbanas brasileiras.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q4" value="E" class="option-input"> E) A limitação da discussão sobre etnicidade aos períodos históricos coloniais, sem conexão com a organização atual do território nacional.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>05.</span>
+                <span>No contexto do Centro Paula Souza, a autonomia pedagógica das unidades escolares é um fator determinante para a qualidade do ensino técnico. Segundo o Artigo 3º da LDB, a "gestão democrática do ensino público" deve ocorrer na forma da lei e da legislação dos respectivos sistemas de ensino. Nas ETECs, este princípio se materializa, entre outras formas, por meio da:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q5" value="A" class="option-input"> A) Definição das diretrizes curriculares exclusivamente pela Administração Central do CEETEPS, sem consulta aos docentes ou à comunidade escolar.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q5" value="B" class="option-input"> B) Eleição direta de todos os cargos administrativos por sufrágio universal de moradores do entorno da unidade escolar.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q5" value="C" class="option-input"> C) Participação da comunidade escolar na elaboração e no acompanhamento do Projeto Político-Pedagógico (PPP) da unidade de ensino.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q5" value="D" class="option-input"> D) Subordinação total do conselho de escola às decisões das empresas parceiras que oferecem estágios aos estudantes técnicos.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q5" value="E" class="option-input"> E) Extinção dos grêmios estudantis para garantir a neutralidade política e o foco estritamente profissionalizante da formação escolar.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>06.</span>
+                <span>O princípio da "garantia de padrão de qualidade", estabelecido no Artigo 3º, inciso IX da LDB, é um dos desafios das políticas públicas educacionais. Para um curso de Ensino Médio Integrado ao Técnico em uma ETEC, a observância deste princípio requer:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q6" value="A" class="option-input"> A) A redução dos investimentos em infraestrutura física em prol da digitalização total do ensino a distância.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q6" value="B" class="option-input"> B) A manutenção de insumos mínimos, como laboratórios equipados e bibliotecas atualizadas, que permitam o desenvolvimento das competências geográficas e técnicas.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q6" value="C" class="option-input"> C) A padronização nacional de todas as avaliações, impedindo a adaptação dos conteúdos às realidades geográficas regionais de cada escola técnica.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q6" value="D" class="option-input"> D) O aumento do número de alunos por sala de aula acima da capacidade física, visando otimizar os custos operacionais do estado.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q6" value="E" class="option-input"> E) A contratação temporária de profissionais sem a formação acadêmica exigida, priorizando apenas a experiência prática no setor privado.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>07.</span>
+                <span>A Lei nº 9.394/96, em seu Artigo 3º, inciso XI, prega a "vinculação entre a educação escolar, o trabalho e as práticas sociais". No ensino de Geografia, essa integração é essencial para que o aluno compreenda:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q7" value="A" class="option-input"> A) O trabalho apenas como um fator de produção estático, sem relação com a transformação da paisagem ou com a dinâmica do lugar.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q7" value="B" class="option-input"> B) A geografia como uma disciplina puramente teórica, cujos conceitos de rede e fluxo são independentes do mercado laboral globalizado.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q7" value="C" class="option-input"> C) As relações sociais de produção como agentes modeladores do espaço geográfico, preparando o estudante para atuar criticamente no território.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q7" value="D" class="option-input"> D) A necessidade de adequação do comportamento do trabalhador aos interesses do capital, sem questionamentos sobre a sustentabilidade ambiental.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q7" value="E" class="option-input"> E) O isolamento da escola em relação aos problemas sociais da vizinhança, focando estritamente na técnica operativa de softwares de geoprocessamento.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>08.</span>
+                <span>A Lei nº 14.191/2021 inseriu na LDB a modalidade de Educação Bilíngue de Surdos, alterando também os princípios do ensino para incluir o "respeito à diversidade humana, linguística, cultural e identitária das pessoas surdas, surdo-cegas e com deficiência auditiva". No ensino de Geografia nas ETECs, essa diretriz impacta o planejamento docente ao exigir:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q8" value="A" class="option-input"> A) A dispensa dos alunos surdos das aulas de cartografia e análise espacial, devido à complexidade visual dos mapas temáticos.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q8" value="B" class="option-input"> B) O uso exclusivo de textos escritos em língua portuguesa, sem a necessidade de adaptação para a Língua Brasileira de Sinais (Libras).</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q8" value="C" class="option-input"> C) A construção de ambientes de aprendizagem que valorizem a visualidade e o acesso à informação em Libras como primeira língua para esses estudantes.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q8" value="D" class="option-input"> D) A segregação dos estudantes surdos em salas especiais dentro da ETEC, impedindo a convivência com os demais alunos ouvintes do ensino médio.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q8" value="E" class="option-input"> E) A desconsideração das identidades culturais surdas na análise das populações, tratando a deficiência apenas sob a perspectiva médica e patológica.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>09.</span>
+                <span>Considerando o princípio da "valorização da experiência extraescolar" (Art. 3º, inciso X), como deve o professor de Geografia de uma ETEC proceder ao abordar o tema de Urbanização e Planejamento Urbano?</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q9" value="A" class="option-input"> A) Desconsiderar o conhecimento prévio dos alunos sobre seus próprios bairros, priorizando apenas os modelos teóricos de cidades globais europeias.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q9" value="B" class="option-input"> B) Proibir que os estudantes tragam relatos de suas vivências cotidianas no transporte público, por considerá-los saberes informais sem validade científica.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q9" value="C" class="option-input"> C) Integrar os saberes e percepções espaciais que o aluno adquiriu em sua vivência comunitária e laboral à análise científica dos conceitos geográficos.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q9" value="D" class="option-input"> D) Utilizar a experiência do aluno apenas como recurso ilustrativo secundário, sem impacto na avaliação final ou na construção do conhecimento acadêmico.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q9" value="E" class="option-input"> E) Substituir as aulas teóricas inteiramente por depoimentos dos alunos, abrindo mão do rigor metodológico da ciência geográfica em favor do senso comum.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span>10.</span>
+                <span>Recentes alterações na LDB (Lei nº 14.533/2023) incluíram princípios relativos à educação digital. Entre eles, a "consideração com o direito à conectividade" e o "fomento à cidadania digital". Para o CEETEPS, que utiliza plataformas de ensino e laboratórios de informática, este princípio significa que o ensino de Geografia deve:</span>
+            </div>
+            <div class="options-list">
+                <div class="option-item"><label class="option-label"><input type="radio" name="q10" value="A" class="option-input"> A) Promover o letramento digital para que o aluno utilize ferramentas de geotecnologia de forma ética e crítica na análise do território.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q10" value="B" class="option-input"> B) Substituir o uso de mapas físicos e globos terrestres pelo uso obrigatório e exclusivo de redes sociais comerciais durante as aulas.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q10" value="C" class="option-input"> C) Limitar o acesso à internet na escola apenas para fins administrativos, vedando o uso pedagógico pelos estudantes para evitar distrações.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q10" value="D" class="option-input"> D) Considerar a conectividade como um privilégio opcional, não sendo dever da escola prover acesso tecnológico aos alunos de baixa renda.</label></div>
+                <div class="option-item"><label class="option-label"><input type="radio" name="q10" value="E" class="option-input"> E) Focar exclusivamente no ensino de linguagens de programação, abandonando a análise dos fenômenos geográficos físicos e sociais tradicionais.</label></div>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-btn">Finalizar Quiz</button>
+        </div>
+    </form>
+
+    <section id="results-section">
+        <h2>Resultado do Simulado</h2>
+        <div class="score-display" id="score-text">0 / 10</div>
+        <p id="feedback-text">Você completou o simulado! Veja abaixo as resoluções detalhadas.</p>
+    </section>
+
+    <section id="resolutions-section">
+        <h2 style="margin-bottom: 2rem;">Gabarito Comentado</h2>
+        <div id="resolutions-container">
+            <!-- Resolutions will be injected here by JS -->
+        </div>
+    </section>
+</main>
+
+<script>
+    const correctAnswers = {
+        q1: "B", q2: "C", q3: "B", q4: "A", q5: "C", 
+        q6: "B", q7: "C", q8: "C", q9: "C", q10: "A"
+    };
+
+    const resolutions = [
+        {
+            title: "Questão 01 - A Finalidade Teleológica da Educação Nacional",
+            text: "A questão foca no Artigo 2º da LDB, que define a teleologia do processo educativo. A legislação estabelece uma tríade indissociável: o pleno desenvolvimento do educando, o preparo para o exercício da cidadania e a qualificação para o trabalho. No CEETEPS, as ETECs devem formar cidadãos integrais, não apenas técnicos setoriais."
+        },
+        {
+            title: "Questão 02 - Igualdade de Condições e Permanência",
+            text: "O princípio da igualdade de acesso e permanência (Art. 3º, I) implica que o sistema deve mitigar barreiras geográficas e socioeconômicas. No contexto das ETECs, isso se traduz em políticas de assistência e estratégias pedagógicas que assegurem que o aluno, após entrar pelo vestibulinho, consiga concluir o curso."
+        },
+        {
+            title: "Questão 03 - Pluralismo de Ideias e Concepções",
+            text: "Ao permitir que alunos confrontem diferentes versões de um impacto ambiental, o professor aplica o pluralismo de ideias (Art. 3º, III). Na Geografia Crítica, isso é essencial para que o estudante desenvolva o contraditório e analise o espaço como fruto de tensões sociais."
+        },
+        {
+            title: "Questão 04 - Diversidade Étnico-Racial",
+            text: "O inciso XII do Art. 3º exige a consideração com a diversidade étnico-racial. Na Geografia, isso significa discutir a produção do espaço a partir das desigualdades raciais e valorizar territorialidades negras e indígenas, combatendo visões de neutralidade ou invisibilização histórica."
+        },
+        {
+            title: "Questão 05 - Gestão Democrática",
+            text: "A gestão democrática (Art. 3º, VIII) materializa-se na participação da comunidade escolar na elaboração e acompanhamento do Projeto Político-Pedagógico (PPP). É um processo coletivo que envolve professores, alunos e pais, afastando modelos autocráticos de gestão."
+        },
+        {
+            title: "Questão 06 - Garantia de Padrão de Qualidade",
+            text: "Qualidade na LDB (Art. 3º, IX) envolve insumos mínimos indispensáveis. Para o ensino técnico de Geografia, isso requer laboratórios equipados e bibliotecas que permitam o desenvolvimento de competências técnicas e científicas reais."
+        },
+        {
+            title: "Questão 07 - Vinculação Educação e Trabalho",
+            text: "O inciso XI prega a integração entre educação, trabalho e práticas sociais. No ensino de Geografia, o trabalho é visto como agente modelador do espaço. O objetivo é que o aluno atue criticamente no território, entendendo as relações sociais de produção."
+        },
+        {
+            title: "Questão 08 - Educação Bilíngue de Surdos",
+            text: "A Lei nº 14.191/2021 exige respeito à diversidade linguística e cultural surda. No ensino de Geografia, isso demanda ambientes que valorizem a visualidade e o acesso à informação em Libras como primeira língua, garantindo acessibilidade plena aos conteúdos espaciais."
+        },
+        {
+            title: "Questão 09 - Valorização da Experiência Extraescolar",
+            text: "O inciso X valoriza o que o aluno traz de fora da escola. Na Geografia, isso significa integrar os saberes e percepções que o aluno tem de seu bairro e comunidade (espaço vivido) à análise científica e acadêmica dos conceitos geográficos."
+        },
+        {
+            title: "Questão 10 - Educação Digital e Conectividade",
+            text: "A Lei nº 14.533/2023 introduz a cidadania digital. Para o CEETEPS, isso significa promover o letramento digital para o uso ético de geotecnologias (SIG, imagens de satélite) na análise crítica do território, e não apenas o uso recreativo de redes sociais."
+        }
+    ];
+
+    document.getElementById('submit-btn').addEventListener('click', function() {
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+        let score = 0;
+        let total = 10;
+        let unanswered = false;
+
+        // Check score and validation
+        for (let i = 1; i <= total; i++) {
+            const answer = formData.get('q' + i);
+            if (answer === correctAnswers['q' + i]) {
+                score++;
+            }
+            if (!answer) unanswered = true;
+        }
+
+        // Custom modal behavior (avoid alert)
+        if (unanswered) {
+            const confirmMsg = "Você não respondeu todas as questões. Deseja finalizar assim mesmo?";
+            const box = document.createElement('div');
+            box.style = "position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:2rem; border-radius:12px; box-shadow:0 0 100px rgba(0,0,0,0.5); z-index:1000; text-align:center; border: 1px solid #ccc";
+            box.innerHTML = `<p>${confirmMsg}</p><br><button id='confirm-yes' style='padding:0.5rem 1rem; margin-right:1rem; cursor:pointer'>Sim</button><button id='confirm-no' style='padding:0.5rem 1rem; cursor:pointer'>Não</button>`;
+            document.body.appendChild(box);
+
+            document.getElementById('confirm-yes').onclick = () => {
+                document.body.removeChild(box);
+                showResults(score, total);
+            };
+            document.getElementById('confirm-no').onclick = () => {
+                document.body.removeChild(box);
+            };
+        } else {
+            showResults(score, total);
+        }
+    });
+
+    function showResults(score, total) {
+        // Display Results
+        const resultsSection = document.getElementById('results-section');
+        const scoreText = document.getElementById('score-text');
+        resultsSection.style.display = 'block';
+        scoreText.innerText = `${score} / ${total}`;
+        
+        // Disable form
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+        document.getElementById('submit-btn').classList.add('hidden');
+
+        // Render Resolutions
+        const resSection = document.getElementById('resolutions-section');
+        const resContainer = document.getElementById('resolutions-container');
+        resSection.style.display = 'block';
+        resContainer.innerHTML = '';
+
+        resolutions.forEach((res, index) => {
+            const qKey = 'q' + (index + 1);
+            const div = document.createElement('div');
+            div.className = 'resolution-item';
+            div.innerHTML = `
+                <div class="resolution-title">${res.title}</div>
+                <div class="resolution-text">${res.text}</div>
+                <div class="correct-answer-pill">Gabarito: ${correctAnswers[qKey]}</div>
+            `;
+            resContainer.appendChild(div);
+        });
+
+        // Scroll to results
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

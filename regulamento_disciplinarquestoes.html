@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Regulamento Disciplinar CEETEPS</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --secondary-color: #636e72;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        main {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        #results-section {
+            display: none;
+            width: 100%;
+            background: #fff;
+            border-top: 4px solid var(--primary-color);
+            padding: 40px 20px;
+            margin-top: 20px;
+        }
+
+        .score-box {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .resolution-card {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .correct-answer-label {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .label-success { background: #dff9fb; color: var(--success-color); }
+        .label-error { background: #fab1a0; color: var(--error-color); }
+
+        .explanation-text {
+            color: #444;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Desafio: Regulamento Disciplinar CEETEPS</h1>
+    <p class="description">Questões estilo concurso para Professor de Geografia - Deliberação 11/2015</p>
+</header>
+
+<main id="quiz-container">
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card">
+            <span class="question-text">Questão 01 - No que concerne à Deliberação CEETEPS nº 11/2015, o artigo 1º estabelece os deveres fundamentais. Analise as proposições sobre a atuação de um Professor de Geografia:</span>
+            <p>I - É dever comparecer à repartição no horário de trabalho.<br>
+               II - O docente deve desempenhar com zelo e presteza as atribuições.<br>
+               III - O sigilo sobre assuntos da Autarquia é facultativo dependendo do tema.<br>
+               IV - Manter o espírito de cooperação não consta como dever formal.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A) I e II, apenas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B) I, II e IV, apenas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C) II e III, apenas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D) I, II, III e IV.</label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card">
+            <span class="question-text">Questão 02 - Um professor recebe ordem direta para alterar registros de frequência de alunos sem amparo legal. À luz da Deliberação 11/2015:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A) É seu dever incondicional cumprir todas as ordens superiores.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B) Deve cumprir ordens superiores, exceto quando manifestamente ilegais.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C) O dever de obediência é absoluto, questionamentos só após o cumprimento.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D) As ordens devem ser seguidas apenas se concordarem com convicções ideológicas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card">
+            <span class="question-text">Questão 03 - De acordo com o inciso VII do artigo 1º do REDEPS, o empregado público deve:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A) Preterir o atendimento ao público em geral em favor de autoridades locais.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B) Tratar com urbanidade apenas os seus superiores hierárquicos.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C) Não preferir ou preterir quem quer que seja no atendimento ao público.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D) Priorizar o atendimento de alunos com maior aptidão técnica.</label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card">
+            <span class="question-text">Questão 04 - Sobre a conservação do patrimônio público (GPS, mapas, laboratórios), o REDEPS estabelece:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A) Utilizar materiais da Autarquia para fins particulares se não houver prejuízo.</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B) Zelar pela economia do material e pela conservação do que for confiado.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C) Delegar exclusivamente aos alunos a responsabilidade jurídica pelos danos.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D) Solicitar reposição constante independente do desperdício.</label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card">
+            <span class="question-text">Questão 05 - É dever do empregado representar sobre irregularidades ao seu chefe imediato ou:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A) Às autoridades superiores, quando o chefe for o responsável direto ou for omisso.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B) Diretamente aos veículos de comunicação de massa.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C) Exclusivamente aos sindicatos da categoria.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D) Ao Conselho de Escola, eximindo-se de notificar instâncias administrativas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card">
+            <span class="question-text">Questão 06 - Constitui infração disciplinar passível de penalidade para o docente:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A) Manifestar-se respeitosamente sobre temas técnicos de sua especialidade.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B) Praticar conduta que se enquadre em qualquer das alíneas do Art. 482 da CLT.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C) Exercer o direito de representação contra abusos fundamentados.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D) Manter o assentamento individual atualizado.</label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card">
+            <span class="question-text">Questão 07 - No que tange ao pessoal docente e ao REDEPS, o arcabouço normativo determina:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A) Docentes submetem-se exclusivamente à LDB.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B) Devem cumprir atribuições do Regimento Comum e do Regulamento Disciplinar.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C) Autonomia didática permite descumprimento ocasional do horário.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D) Dever de urbanidade aplica-se apenas na relação entre professores.</label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card">
+            <span class="question-text">Questão 08 - Segundo o REDEPS, são vedadas condutas que:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A) Atentem contra os princípios da legalidade, impessoalidade e moralidade.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B) Busquem o aprimoramento pedagógico contínuo sem autorização prévia.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C) Envolvam a participação em conselhos de classe.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D) Estimulem o pensamento crítico dos alunos de Geografia.</label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card">
+            <span class="question-text">Questão 09 - Assinale a alternativa que apresenta corretamente uma penalidade do REDEPS:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A) Suspensão do registro profissional pelo Ministério do Trabalho.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B) Advertência, aplicada em casos de inobservância de deveres simples.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C) Multa compulsória de 50% do salário por atraso de dez minutos.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D) Transferência compulsória como sanção pedagógica.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card">
+            <span class="question-text">Questão 10 - Docente negligencia segurança e guarda de material em aula de campo. Essa conduta fere o dever de:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A) Guardar sigilo sobre os assuntos estratégicos da Autarquia.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B) Desempenhar com zelo e presteza e zelar pela economia do material.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C) Tratar com urbanidade o público em geral.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D) Representar sobre irregularidades conhecidas.</label>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar e Ver Resoluções</button>
+    </form>
+</main>
+
+<section id="results-section">
+    <div class="score-box">
+        Você acertou <span id="score-num">0</span> de 10 questões!
+    </div>
+    <div id="resolutions-list">
+        <!-- Inserido via JS -->
+    </div>
+</section>
+
+<script>
+    const answers = {
+        q1: "A", q2: "B", q3: "C", q4: "B", q5: "A",
+        q6: "B", q7: "B", q8: "A", q9: "B", q10: "B"
+    };
+
+    const explanations = [
+        "O Artigo 1º estabelece deveres como assiduidade, zelo, presteza e cooperação. O sigilo (III) não é facultativo e a cooperação (IV) é dever formal (inciso IX).",
+        "O dever de obediência (inciso V) cessa em caso de ordens manifestamente ilegais, devendo o docente fundamentar a recusa e representar à autoridade.",
+        "O inciso VII proíbe favoritismos (impessoalidade). O atendimento deve ser igualitário, respeitando apenas as prioridades legais.",
+        "O inciso X obriga o zelo pela economia e conservação do patrimônio. Usar bens para fins privados ou negligenciar a guarda são infrações.",
+        "A representação é dever (inciso IV). Se a chefia for a autora ou for omissa, a denúncia deve seguir para instâncias superiores.",
+        "Empregados do CEETEPS seguem a CLT. O Art. 482 lista faltas graves como improbidade e desídia que justificam a rescisão.",
+        "O Regimento Comum das Etecs e o REDEPS (Deliberação 11/2015) atuam de forma complementar na regência do pessoal docente.",
+        "As proibições visam proteger o LIMPE (Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência) da Administração Pública.",
+        "A advertência é a pena mais branda, por escrito, para descumprimento de deveres ou proibições que não exijam sanção mais severa.",
+        "Zelo e presteza são fundamentais em atividades externas. A negligência com materiais e segurança fere diretamente os deveres funcionais."
+    ];
+
+    function submitQuiz() {
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+        let score = 0;
+        let html = "";
+
+        for (let i = 1; i <= 10; i++) {
+            const userAnswer = formData.get('q' + i);
+            const correctAnswer = answers['q' + i];
+            const isCorrect = userAnswer === correctAnswer;
+
+            if (isCorrect) score++;
+
+            html += `
+                <div class="resolution-card">
+                    <div class="resolution-title">Questão ${i}</div>
+                    <div class="correct-answer-label ${isCorrect ? 'label-success' : 'label-error'}">
+                        ${isCorrect ? 'Você acertou!' : 'Você errou.'} Resposta correta: Alternativa ${correctAnswer}
+                    </div>
+                    <div class="explanation-text">
+                        <strong>Resolução:</strong> ${explanations[i-1]}
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById('score-num').innerText = score;
+        document.getElementById('resolutions-list').innerHTML = html;
+        document.getElementById('results-section').style.display = 'block';
+        
+        // Scroll suave para os resultados
+        window.scrollTo({
+            top: document.getElementById('results-section').offsetTop - 20,
+            behavior: 'smooth'
+        });
+    }
+
+    // Feedback visual ao selecionar opção
+    document.querySelectorAll('.option-item input').forEach(input => {
+        input.addEventListener('change', function() {
+            const parentList = this.closest('.options-list');
+            parentList.querySelectorAll('.option-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            this.parentElement.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+</html>

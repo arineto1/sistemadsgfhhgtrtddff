@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Completo: Deliberação CEETEPS 23/2015</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            margin: 25px 0;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-weight: 700;
+            text-align: left;
+            padding: 14px 20px;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #f9fafb; }
+
+        .audio-container {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            border: 2px solid #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-action:hover {
+            background-color: #334155;
+            transform: translateY(-2px);
+        }
+
+        .note-box {
+            background-color: #f8fafc;
+            border-left: 5px solid #334155;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        h1 { font-size: 2.25rem; font-weight: 800; color: #111827; letter-spacing: -0.025em; }
+        h2 { font-size: 1.75rem; font-weight: 700; color: #1e293b; margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
+        h3 { font-size: 1.25rem; font-weight: 600; color: #334155; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12 max-w-5xl mx-auto">
+
+    <!-- Player de Áudio -->
+    <div class="audio-container">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="bg-black text-white p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            </div>
+            <div>
+                <h3 class="m-0 text-lg">Revisão Geográfica e Normativa</h3>
+                <p class="text-sm text-gray-500">Ouça o resumo técnico enquanto revisa os pontos abaixo.</p>
+            </div>
+        </div>
+        <audio controls class="w-full">
+            <source src="atribuicao_de_aulas.mp3" type="audio/mpeg">
+            Seu navegador não suporta o áudio.
+        </audio>
+        <p class="text-xs mt-3 text-gray-400">Arquivo alvo: <span class="font-mono">atribuicao_aulas_geografia.mp3</span></p>
+    </div>
+
+    <header class="text-center mb-16">
+        <span class="text-blue-600 font-bold tracking-widest uppercase text-sm">Tutor Especialista CEETEPS</span>
+        <h1>Aula Técnica: Deliberação 23/2015</h1>
+        <p class="text-xl text-gray-500 mt-2">Critérios de Pontuação e Atribuição de Aulas para Geografia</p>
+    </header>
+
+    <!-- Definição e Essenciais -->
+    <section>
+        <h2>1. Definição e Características Essenciais</h2>
+        <p>A Deliberação 23/2015 regulamenta a <span class="highlight">pontuação docente</span> e a <span class="highlight">classificação</span> para fins de atribuição de aulas no Centro Paula Souza. Ela é o pilar jurídico que impede favoritismos, garantindo que a escolha de aulas siga critérios meritocráticos e de tempo de serviço.</p>
+        
+        <div class="note-box">
+            <strong>Fato Fundamental:</strong> A pontuação é apurada anualmente, geralmente com data-base em <span class="highlight">30 de junho</span> do ano anterior ao da atribuição. Mudanças de títulos após essa data só contarão para o ciclo seguinte.
+        </div>
+    </section>
+
+    <!-- Pontuação Detalhada -->
+    <section>
+        <h2>2. Critérios de Pontuação Interna (Os 4 Grupos)</h2>
+        <p class="mb-6">Para a prova objetiva, memorize os pesos e limites de cada grupo. A banca costuma cobrar o "teto" de pontos de cada categoria.</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Grupo de Pontuação</th>
+                        <th>Detalhamento Técnico</th>
+                        <th>Pontuação Máxima</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>G1: Formação e Atualização</strong></td>
+                        <td>
+                            <div class="mb-2"><span class="badge">A</span> Doutorado: <strong>15 pts</strong></div>
+                            <div class="mb-2"><span class="badge">B</span> Mestrado: <strong>10 pts</strong></div>
+                            <div><span class="badge">C</span> Especialização (min. 360h): <strong>5 pts</strong></div>
+                        </td>
+                        <td class="font-bold">30 Pontos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>G2: Produção Acadêmica</strong></td>
+                        <td>Livros publicados, artigos em revistas científicas, participação em congressos, elaboração de material didático (apostilas ETEC).</td>
+                        <td class="font-bold">42 Pontos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>G3: Experiência Profissional</strong></td>
+                        <td>
+                            <div class="mb-2">• Tempo no CEETEPS: 0,002 pt por hora/aula.</div>
+                            <div>• Experiência Externa: 0,001 pt por hora/aula na área.</div>
+                        </td>
+                        <td class="font-bold">Sem Limite Estrito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>G4: Assiduidade (Peso Ouro)</strong></td>
+                        <td>Baseado na frequência do ano anterior. Descontam-se faltas (mesmo justificadas, exceto licença-maternidade/nojo/gala).</td>
+                        <td class="font-bold">408 Pontos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Hierarquia de Escolha -->
+    <section>
+        <h2>3. Hierarquia e Prioridades de Atribuição</h2>
+        <p>A atribuição não ocorre apenas por nota, mas por <span class="highlight">vínculo jurídico</span>. A ordem de chamada nas sessões de atribuição é rigorosa:</p>
+        
+        <div class="grid md:grid-cols-3 gap-4 my-8">
+            <div class="p-6 border-2 border-gray-100 rounded-xl text-center">
+                <h4 class="font-bold text-gray-400">CATEGORIA A</h4>
+                <p class="font-extrabold text-xl">Docentes Concursados</p>
+                <p class="text-sm text-gray-500">Aqueles que ingressaram via Concurso Público.</p>
+            </div>
+            <div class="p-6 border-2 border-gray-100 rounded-xl text-center">
+                <h4 class="font-bold text-gray-400">CATEGORIA B</h4>
+                <p class="font-extrabold text-xl">Docentes Estáveis</p>
+                <p class="text-sm text-gray-500">Estabilidade via Art. 19 das ADCT (Constituição de 88).</p>
+            </div>
+            <div class="p-6 border-2 border-gray-100 rounded-xl text-center">
+                <h4 class="font-bold text-gray-400">CATEGORIA C</h4>
+                <p class="font-extrabold text-xl">Docentes Temporários</p>
+                <p class="text-sm text-gray-500">Contratados via Processo Seletivo Simplificado.</p>
+            </div>
+        </div>
+
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+            <h3 class="text-red-800 m-0">Regra de Desempate (Sequência Decisiva)</h3>
+            <ol class="list-decimal ml-6 mt-4 space-y-2 text-red-900 font-medium">
+                <li>Maior pontuação no <span class="highlight">Grupo G4 (Assiduidade)</span>.</li>
+                <li>Maior pontuação no Grupo G1 (Títulos).</li>
+                <li>Maior tempo de casa na Unidade de Ensino (ETEC sede).</li>
+                <li>Maior número de dependentes (Encargos de Família).</li>
+                <li>Maior Idade.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Geografia no CRT -->
+    <section>
+        <h2>4. Área de Geografia: CRT e Habilitação</h2>
+        <p class="mb-4">O Catálogo de Requisitos de Titulação (CRT) divide os candidatos em três níveis para a Geografia:</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Classificação</th>
+                        <th>Perfil do Candidato</th>
+                        <th>Regra de Escolha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Habilitados</strong></td>
+                        <td>Licenciados Plenos em Geografia.</td>
+                        <td>Prioridade absoluta de escolha.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Qualificados</strong></td>
+                        <td>Bacharéis em Geografia com R2 (Complementação) ou áreas afins (Geologia/Sociais com créditos em Geo).</td>
+                        <td>Escolhem após todos os habilitados.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Autorizados</strong></td>
+                        <td>Alunos de último ano ou profissionais de áreas correlatas (Engenharia Agronômica).</td>
+                        <td>Escolhem por último, caráter precário.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Tendências e Peguinhas -->
+    <section>
+        <h2>5. Tendências de Cobrança e "Peguinhas"</h2>
+        <div class="space-y-6">
+            <div class="flex gap-4">
+                <div class="text-2xl">🚨</div>
+                <div>
+                    <p><strong>O Peguinha do Horário:</strong> A banca pode dizer que o docente escolhe o horário. <span class="highlight">Falso</span>. O docente escolhe as <strong>aulas</strong> (componentes). O horário é uma atribuição da Direção de Serviço e da Coordenação de Curso após a sessão.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div class="text-2xl">🚨</div>
+                <div>
+                    <p><strong>Redução de Carga:</strong> O docente pode ter redução de carga horária se não houver aulas disponíveis, mas o <span class="highlight">concursado</span> tem direito à "suplementação" em outras ETECs (trânsito) antes de perder carga.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div class="text-2xl">🚨</div>
+                <div>
+                    <p><strong>Substituição vs. Livre:</strong> Aulas <span class="highlight underline">Livres</span> são vagas definitivas. Aulas em <span class="highlight underline">Substituição</span> são temporárias (licença prêmio, médica). No momento da escolha, o docente deve ser informado sobre a natureza da aula.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memorização Rápida -->
+    <section class="mt-12 p-8 bg-gray-50 rounded-2xl border border-gray-100">
+        <h2 class="mt-0 text-center">FLASHCARDS DE MEMORIZAÇÃO</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="p-4 bg-white rounded-lg shadow-sm">
+                <p class="text-xs font-bold text-gray-400">QUAL O TETO DO G4?</p>
+                <p class="text-lg font-bold">408 Pontos.</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg shadow-sm">
+                <p class="text-xs font-bold text-gray-400">QUEM TEM PRIORIDADE: G1 OU G4?</p>
+                <p class="text-lg font-bold">G4 (Assiduidade).</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg shadow-sm">
+                <p class="text-xs font-bold text-gray-400">DEMAIS DEPENDENTES CONTAM?</p>
+                <p class="text-lg font-bold">Sim, como 4º critério de desempate.</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg shadow-sm">
+                <p class="text-xs font-bold text-gray-400">PONTUAÇÃO É CUMULATIVA?</p>
+                <p class="text-lg font-bold">Sim, títulos + tempo + assiduidade.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center mt-16 mb-20">
+        <a href="atribuicao_de_aulasquestoes.html" class="btn-action">
+            <span>Iniciar Prática de Questões</span>
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+        </a>
+    </div>
+
+    <footer class="border-t border-gray-100 pt-8 text-center text-gray-400 text-sm">
+        <p>© 2024 Preparatório Especialista - Geografia ETEC/CPS</p>
+        <p>Conteúdo baseado na Deliberação CEETEPS 23/2015 e Catálogo de Requisitos de Titulação.</p>
+    </footer>
+
+</body>
+</html>

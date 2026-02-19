@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado DCNEM - Professor de Geografia ETEC</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --container-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --accent-color: #0984e3;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --border-color: #dfe6e9;
+            --resolution-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 40px;
+            background: var(--container-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .question-card {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-top: 7px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #e1f5fe;
+            border-color: var(--accent-color);
+        }
+
+        /* Classes para o Feedback */
+        .option-item.correct {
+            background-color: #d4edda;
+            border-color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .option-item.wrong {
+            background-color: #f8d7da;
+            border-color: var(--error-color);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 40px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0771c1;
+        }
+
+        #result-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background-color: var(--resolution-bg);
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--accent-color);
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f7ff;
+            border-left: 5px solid var(--accent-color);
+            font-size: 0.95rem;
+            color: #34495e;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        .badge-correct { background-color: var(--success-color); color: white; }
+        .badge-wrong { background-color: var(--error-color); color: white; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 10px; }
+            h1 { font-size: 1.4rem; }
+        }
+
+        .print-note {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: DCNs Ensino Médio (Res. 03/2018)</h1>
+        <div class="subtitle">Concurso Professor de Geografia - ETEC / CEETEPS</div>
+    </header>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- As questões serão inseridas aqui pelo JS -->
+        </div>
+
+        <button type="button" class="btn-submit" id="submit-btn" onclick="evaluateQuiz()">Finalizar Simulado</button>
+    </form>
+
+    <div id="result-section">
+        <h3>Resultado Final</h3>
+        <div class="score-display" id="final-score">0 / 10</div>
+        <p id="score-comment"></p>
+        <p>As resoluções técnicas foram liberadas abaixo de cada questão.</p>
+        <button type="button" class="btn-submit" style="background-color: #636e72;" onclick="window.print()">Imprimir com Gabarito</button>
+    </div>
+    
+    <p class="print-note">Documento gerado para fins de estudo técnico.</p>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No âmbito da Resolução CNE/CEB nº 03/2018, que atualiza as Diretrizes Curriculares Nacionais para o Ensino Médio (DCNEM), a organização curricular é estruturada a partir da articulação entre a Formação Geral Básica e os Itinerários Formativos. Considerando as disposições do Artigo 10 e parágrafos subsequentes, assinale a alternativa que descreve corretamente a carga horária mínima total e o limite estabelecido para a Formação Geral Básica ao longo dos três anos desta etapa:",
+            options: [
+                "A carga horária mínima total deve ser de 2.400 horas, sendo que a Formação Geral Básica não poderá exceder 1.200 horas, destinando-se o tempo restante aos Itinerários Formativos focados exclusivamente em projetos de extensão.",
+                "O Ensino Médio deve ter carga horária total mínima de 3.000 horas, sendo que a Formação Geral Básica não poderá exceder 1.800 horas da carga horária total, devendo o tempo restante ser dedicado aos Itinerários Formativos, conforme a disponibilidade dos sistemas de ensino.",
+                "A carga horária anual deve ser de 800 horas, totalizando 2.400 horas no triênio, com a Formação Geral Básica ocupando 60% do total e os Itinerários Formativos sendo optativos apenas para as escolas da rede privada.",
+                "A organização curricular deve prever 3.200 horas totais, com a Formação Geral Básica limitada a 1.200 horas, permitindo que as Escolas Técnicas utilizem 2.000 horas para o estágio supervisionado obrigatório e atividades de laboratório.",
+                "A Resolução determina que a carga horária mínima seja de 1.400 horas anuais, com a Formação Geral Básica ocupando 2.400 horas no total, deixando apenas 600 horas para a parte diversificada e os componentes de Geografia e História."
+            ],
+            correct: 1,
+            resolution: "A nova diretriz estabelece que a carga horária total mínima deve atingir 3.000 horas. A Formação Geral Básica (FGB) está limitada a um teto máximo de 1.800 horas, destinando as 1.200 horas restantes aos Itinerários Formativos. (Art. 10 da Resolução 03/2018)."
+        },
+        {
+            id: 2,
+            question: "A Resolução CNE/CEB nº 03/2018 reorganiza os componentes curriculares em áreas do conhecimento. Com base no texto da Resolução e na Base Nacional Comum Curricular (BNCC), a Geografia integra a área de:",
+            options: [
+                "Ciências da Natureza e suas Tecnologias, devendo priorizar o estudo da climatologia e da geologia de forma isolada.",
+                "Linguagens e suas Tecnologias, com foco exclusivo na alfabetização cartográfica e no letramento digital.",
+                "Ciências Humanas e Sociais Aplicadas, articulando as competências e habilidades de forma integrada com História, Filosofia e Sociologia.",
+                "Ciências Espaciais e Geopolítica, sendo tratada como uma área independente e obrigatória sem integração com a BNCC.",
+                "Tecnologias da Informação e Comunicação, servindo apenas como suporte para o ensino de sistemas de informação geográfica (SIG)."
+            ],
+            correct: 2,
+            resolution: "A Geografia integra a área de Ciências Humanas e Sociais Aplicadas, unindo-se à História, Sociologia e Filosofia para desenvolver competências voltadas para a análise crítica do mundo contemporâneo e fenômenos socioespaciais."
+        },
+        {
+            id: 3,
+            question: "Conforme o Art. 6º da Resolução CNE/CEB nº 03/2018, o conceito de 'Habilitação Profissional Técnica de Nível Médio' refere-se a:",
+            options: [
+                "Formação técnico-profissional compatível com o desenvolvimento do jovem, prevista na CLT, com tarefas de complexidade progressiva.",
+                "Processo de formação e desenvolvimento de competências de um perfil profissional definido no mercado de trabalho, sem necessidade de diploma.",
+                "Qualificação formal reconhecida por diploma de conclusão de curso técnico com validade nacional, desde que devidamente registrado.",
+                "Possibilidade de emitir certificados parciais para o trabalho quando a formação é estruturada em etapas com terminalidade.",
+                "Espaços pedagógicos para atividades práticas quando o ambiente real oferecer riscos de insalubridade ao estudante."
+            ],
+            correct: 2,
+            resolution: "A 'Habilitação Profissional Técnica' é a certificação máxima de um curso técnico, garantindo ao estudante o diploma oficial para o exercício da profissão, conforme as definições operacionais do Art. 6º."
+        },
+        {
+            id: 4,
+            question: "De acordo com a Resolução CNE/CEB nº 03/2018, a escolha e a oferta dos Itinerários Formativos devem considerar, primordialmente:",
+            options: [
+                "A disponibilidade de recursos financeiros exclusivos do Governo Federal.",
+                "O projeto de vida dos estudantes e as possibilidades de oferta das instituições de ensino, garantindo a diversidade de arranjos.",
+                "A obrigatoriedade de todas as escolas oferecerem simultaneamente os cinco itinerários previstos na LDB.",
+                "A necessidade de priorizar o itinerário de Ciências da Natureza em escolas industriais e Linguagens em áreas comerciais.",
+                "O ranqueamento da unidade escolar no IDEB, restringindo a oferta às escolas com melhores notas."
+            ],
+            correct: 1,
+            resolution: "O 'Projeto de Vida' é princípio estruturante. A oferta de itinerários deve resultar do cruzamento entre o desejo do aluno e a capacidade de oferta da instituição, respeitando a realidade local."
+        },
+        {
+            id: 5,
+            question: "Sobre a oferta de Educação de Jovens e Adultos (EJA) em nível de Ensino Médio, a Resolução CNE/CEB nº 03/2018 estabelece:",
+            options: [
+                "É proibida a utilização de educação a distância na modalidade EJA.",
+                "A organização curricular da EJA deve manter uma carga horária mínima de 1.600 horas para a FGB, sem redução para trabalhadores.",
+                "Os sistemas de ensino podem oferecer até 80% da carga horária a distância, tanto na formação geral quanto nos itinerários, com suporte pedagógico.",
+                "A Geografia na EJA deve ser ensinada apenas como um tema transversal, sem carga horária específica.",
+                "A certificação da EJA fica condicionada à realização de um estágio obrigatório de 400 horas em logística."
+            ],
+            correct: 2,
+            resolution: "A resolução autoriza que até 80% da carga horária da EJA seja realizada a distância, visando reduzir a evasão e oferecer flexibilidade ao estudante trabalhador."
+        },
+        {
+            id: 6,
+            question: "No contexto da Resolução CNE/CEB nº 03/2018, o termo 'Arranjo Curricular' é definido como:",
+            options: [
+                "A lista de conteúdos mínimos obrigatórios que o professor deve seguir rigorosamente.",
+                "A seleção de competências que promovam o aprofundamento das aprendizagens essenciais demandadas pela natureza do respectivo itinerário.",
+                "O cronograma de aulas semanais definido pela Secretaria da Educação.",
+                "A organização física das salas de aula e laboratórios.",
+                "O agrupamento de alunos por nível de rendimento escolar."
+            ],
+            correct: 1,
+            resolution: "Arranjo Curricular é a forma estratégica de agrupar competências e habilidades para dar identidade a um itinerário formativo, visando o aprofundamento em áreas específicas."
+        },
+        {
+            id: 7,
+            question: "Sobre a atuação docente com 'Notório Saber' na educação profissional técnica, é correto afirmar:",
+            options: [
+                "O notório saber substitui a necessidade de concurso para todos os professores de Geografia.",
+                "Profissionais com notório saber podem atuar exclusivamente no itinerário de formação técnica e profissional, para ministrar conteúdos afins à sua experiência.",
+                "O notório saber é concedido automaticamente a qualquer profissional com mais de 10 anos de experiência.",
+                "É permitida a atuação de notório saber nas disciplinas da Formação Geral Básica, como Língua Portuguesa.",
+                "O CEETEPS está proibido por seu Regimento de contratar profissionais sob a modalidade de notório saber."
+            ],
+            correct: 1,
+            resolution: "O 'Notório Saber' aplica-se apenas ao itinerário técnico e profissional. As disciplinas da Formação Geral Básica, como Geografia, continuam exigindo licenciatura específica."
+        },
+        {
+            id: 8,
+            question: "De acordo com o Art. 27 da Resolução CNE/CEB nº 03/2018, os currículos devem adotar estratégias que visem:",
+            options: [
+                "À fragmentação do conhecimento em disciplinas isoladas.",
+                "À adoção de metodologias passivas.",
+                "Ao fortalecimento da competência pedagógica das equipes escolares para adotar estratégias dinâmicas, interativas e colaborativas.",
+                "À eliminação de temas transversais como educação ambiental.",
+                "À padronização das avaliações em nível nacional, impedindo instrumentos próprios dos professores."
+            ],
+            correct: 2,
+            resolution: "A norma incentiva a superação do modelo de aula puramente expositiva, fortalecendo a autonomia das equipes para o uso de metodologias ativas e colaborativas."
+        },
+        {
+            id: 9,
+            question: "Em relação à interdisciplinaridade, pilar das DCNEM, a Geografia deve atuar no Ensino Médio de forma a:",
+            options: [
+                "Isolar-se das demais disciplinas de Humanas.",
+                "Servir como um apêndice da História, focando apenas na localização.",
+                "Articular-se com as demais áreas, contextualizando os conteúdos à situação histórica, econômica, social, ambiental e cultural.",
+                "Substituir as aulas de Filosofia e Sociologia sempre que houver falta de professores.",
+                "Focar exclusivamente no desenvolvimento de competências matemáticas aplicadas à estatística."
+            ],
+            correct: 2,
+            resolution: "A Geografia deve realizar a ponte entre o físico e o social, contextualizando fenômenos em múltiplas dimensões (ambiental, econômica, política) de forma integrada."
+        },
+        {
+            id: 10,
+            question: "Sobre a transição entre os modelos curriculares (Art. 37), a norma assegura aos alunos matriculados antes da implementação plena:",
+            options: [
+                "A migração obrigatória para o novo modelo sob pena de não receber o diploma.",
+                "O direito de concluírem seus estudos segundo a organização curricular orientada pela Resolução 02/2012 ou de migração assistida.",
+                "A proibição do aproveitamento de estudos realizados anteriormente.",
+                "Que a migração implica necessariamente o alongamento do curso em um ano.",
+                "Que alunos das ETECs não gozam desse direito por regimento interno."
+            ],
+            correct: 1,
+            resolution: "O Art. 37 garante o direito adquirido: o aluno pode terminar no modelo antigo (Res. 02/2012) ou migrar para o novo modelo com as devidas equivalências."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-card';
+            questionDiv.id = `q-card-${index}`;
+
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                const char = String.fromCharCode(65 + optIndex);
+                optionsHtml += `
+                    <label class="option-item" id="label-${index}-${optIndex}">
+                        <input type="radio" name="question-${index}" value="${optIndex}">
+                        <span><strong>${char})</strong> ${opt}</span>
+                    </label>
+                `;
+            });
+
+            questionDiv.innerHTML = `
+                <span class="question-text">${index + 1}. ${q.question}</span>
+                <div class="options-list">${optionsHtml}</div>
+                <div class="resolution-box" id="res-${index}">
+                    <h4>Análise Técnica / Resolução</h4>
+                    <p>${q.resolution}</p>
+                </div>
+            `;
+            container.appendChild(questionDiv);
+        });
+
+        // Adiciona evento de seleção visual
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const [_, qIdx] = this.name.split('-');
+                document.querySelectorAll(`[id^="label-${qIdx}"]`).forEach(label => {
+                    label.classList.remove('selected');
+                });
+                if(this.checked) {
+                    this.parentElement.classList.add('selected');
+                }
+            });
+        });
+    }
+
+    function evaluateQuiz() {
+        let score = 0;
+        let answeredAll = true;
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            
+            if (!selected) {
+                answeredAll = false;
+                document.getElementById(`q-card-${index}`).style.borderLeft = "4px solid var(--error-color)";
+            } else {
+                document.getElementById(`q-card-${index}`).style.borderLeft = "none";
+                const val = parseInt(selected.value);
+                
+                // Mostrar resoluções
+                const resBox = document.getElementById(`res-${index}`);
+                resBox.style.display = 'block';
+
+                // Destacar acerto/erro
+                const correctLabel = document.getElementById(`label-${index}-${q.correct}`);
+                correctLabel.classList.add('correct');
+                
+                if (val === q.correct) {
+                    score++;
+                    selected.parentElement.innerHTML += ' <span class="badge badge-correct">Acertou</span>';
+                } else {
+                    selected.parentElement.classList.add('wrong');
+                    selected.parentElement.innerHTML += ' <span class="badge badge-wrong">Sua resposta</span>';
+                }
+            }
+        });
+
+        if (!answeredAll) {
+            alert("Por favor, responda todas as questões antes de finalizar.");
+            return;
+        }
+
+        // Finalizar e mostrar resultados
+        document.getElementById('submit-btn').style.display = 'none';
+        const resultSection = document.getElementById('result-section');
+        resultSection.style.display = 'block';
+        
+        const finalScoreEl = document.getElementById('final-score');
+        finalScoreEl.innerText = `${score} / 10`;
+
+        const commentEl = document.getElementById('score-comment');
+        if(score >= 8) commentEl.innerText = "Excelente desempenho! Você possui domínio sólido das DCNEM.";
+        else if(score >= 5) commentEl.innerText = "Bom desempenho. Revise as resoluções técnicas para fixar os detalhes da legislação.";
+        else commentEl.innerText = "Atenção: Recomenda-se a leitura integral da Resolução CNE/CEB nº 03/2018.";
+
+        // Rolar para o resultado
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Desativar inputs para evitar mudanças pós-gabarito
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

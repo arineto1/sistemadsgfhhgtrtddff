@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Regimento Comum das Etecs - Geografia</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfd;
+            --text-color: #1e293b;
+            --primary-blue: #2563eb;
+            --border-color: #e2e8f0;
+            --correct-bg: #f0fdf4;
+            --correct-text: #166534;
+            --wrong-bg: #fef2f2;
+            --wrong-text: #991b1b;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 850px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 100px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f8fafc;
+            border-color: var(--primary-blue);
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            margin-top: 5px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #submit-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        #submit-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Results & Feedback */
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: white;
+            border: 2px solid var(--primary-blue);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .resolution-section {
+            display: none;
+            margin-top: 50px;
+        }
+
+        .resolution-title {
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+        }
+
+        .res-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fff;
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .res-item h4 {
+            margin-top: 0;
+            color: var(--primary-blue);
+        }
+
+        .correct-answer {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-text) !important;
+            color: var(--correct-text);
+        }
+
+        .wrong-answer {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-text) !important;
+            color: var(--wrong-text);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Regimento Comum das Etecs</h1>
+    <p class="subtitle">Foco: Organização Administrativa e Pedagógica - Professor de Geografia</p>
+</header>
+
+<main id="quiz-container">
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1-card">
+            <div class="question-text">Questão 01: No âmbito da gestão democrática das Escolas Técnicas Estaduais (Etecs), conforme estabelecido na Deliberação CEETEPS nº 87, de 08 de dezembro de 2022, a autonomia das unidades de ensino é exercida por meio de processos participativos que buscam a integração entre a escola e a comunidade. Durante uma aula de Geografia sobre "Dinâmicas Territoriais e Urbanização no Estado de São Paulo", um docente propõe um projeto de campo que exige a articulação com empresas do entorno e a revisão do calendário escolar local para acomodar a atividade. Considerando a organização administrativa descrita no Regimento Comum, assinale a alternativa que descreve corretamente o princípio de gestão e a competência do órgão colegiado responsável por deliberar sobre tais alterações:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A) A gestão da Unidade Etec é centralizada na Direção do CEETEPS, cabendo às unidades apenas a execução técnica das diretrizes pedagógicas.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B) O princípio de gestão democrática norteia as relações na Unidade Etec, sendo competência do Conselho de Escola deliberar sobre o calendário escolar.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C) A autonomia das Etecs é restrita aos aspectos pedagógicos, sendo a organização administrativa de competência exclusiva da Secretaria de Desenvolvimento Econômico.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D) O Conselho de Classe é o órgão soberano para a alteração do calendário escolar e para a aprovação de projetos de campo.</label>
+                <label class="option-label"><input type="radio" name="q1" value="E"> E) As Unidades Etec não possuem órgãos colegiados próprios, sendo as decisões tomadas por uma comissão paritária externa designada pela CETEC.</label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2-card">
+            <div class="question-text">Questão 02: Segundo o Regimento Comum das Etecs (Deliberação 87/2022), o documento que apresenta a proposta de trabalho da unidade escolar, com vigência de cinco anos e atualizações anuais, e o instrumento específico de planejamento do docente são, respectivamente:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A) O Plano Escolar e o Diário de Classe Digital.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B) O Regimento Interno do CEETEPS e o Plano de Aula Diário.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C) O Plano Plurianual de Gestão (PPG) e o Plano de Trabalho Docente (PTD).</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D) O Estatuto do CEETEPS e o Plano de Carreira Docente.</label>
+                <label class="option-label"><input type="radio" name="q2" value="E"> E) O Projeto Político de Curso (PPC) e o Relatório Anual de Atividades.</label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3-card">
+            <div class="question-text">Questão 03: Um docente de Geografia necessita de suporte técnico para a utilização de softwares de geoprocessamento em um laboratório de informática. De acordo com o Regimento Comum vigente, a área responsável pelo suporte didático-pedagógico e o profissional que auxilia no desenvolvimento de aulas práticas são, respectivamente:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A) A Direção de Serviços Administrativos e o Agente Técnico Administrativo.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B) A Coordenação Pedagógica e o Auxiliar de Docente.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C) A Secretaria Acadêmica e o Analista de Suporte e Gestão.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D) A Assessoria de Comunicação e o Estagiário de Nível Superior.</label>
+                <label class="option-label"><input type="radio" name="q3" value="E"> E) O Conselho de Escola e o Professor Orientador de Estágio.</label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4-card">
+            <div class="question-text">Questão 04: Com base no Artigo 12 da Deliberação CEETEPS 87/2022, é finalidade do Conselho de Classe:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A) Aplicar sanções disciplinares severas aos alunos que apresentarem baixo rendimento acadêmico persistente.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B) Deliberar sobre a contratação e demissão de professores da unidade.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C) Diagnosticar dificuldades de aprendizagem e estabelecer medidas de natureza didático-pedagógica, especialmente recuperação.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D) Alterar o Plano de Curso sem consulta prévia ao CEETEPS para facilitar a aprovação.</label>
+                <label class="option-label"><input type="radio" name="q4" value="E"> E) Aprovar a prestação de contas financeira da Associação de Pais e Mestres (APM).</label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5-card">
+            <div class="question-text">Questão 05: Conforme as normas regimentais para o Plano de Trabalho Docente (PTD) descritas na Deliberação 87/2022, o docente deve:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A) Manter os critérios de avaliação em sigilo até a data da prova final.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B) Informar aos alunos, no início do período letivo, sobre o PTD, apresentando competências e critérios de avaliação.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C) Avaliar os alunos exclusivamente por meio de provas escritas individuais.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D) Realizar a recuperação de aprendizagem apenas no final do ano letivo.</label>
+                <label class="option-label"><input type="radio" name="q5" value="E"> E) Elaborar o PTD de forma independente das orientações do CEETEPS.</label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6-card">
+            <div class="question-text">Questão 06: De acordo com o Artigo 43, § 4º da Deliberação 87/2022, a matrícula nas séries ou módulos iniciais:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A) É definitiva e não pode ser cancelada sob nenhuma hipótese.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B) Será confirmada automaticamente após o pagamento da taxa da APM.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C) Será confirmada no prazo de cinco dias letivos, ficando sujeita a cancelamento em caso de falta consecutiva sem justificativa.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D) Depende de aprovação em exame médico admissional e prova de aptidão física.</label>
+                <label class="option-label"><input type="radio" name="q6" value="E"> E) Pode ser realizada a qualquer momento do semestre se o aluno comprovar estudos em outra instituição.</label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7-card">
+            <div class="question-text">Questão 07: No exercício de suas funções, o professor de Geografia da Etec tem, entre seus deveres regimentais:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A) Exercer a guarda patrimonial dos prédios escolares durante as férias.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B) Estabelecer estratégias de recuperação contínua para alunos de menor rendimento e dar ciência dela aos responsáveis.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C) Elaborar o calendário escolar da unidade de forma autônoma.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D) Realizar a manutenção corretiva de equipamentos de informática nos laboratórios.</label>
+                <label class="option-label"><input type="radio" name="q7" value="E"> E) Organizar exclusivamente atividades de lazer para a comunidade extraescolar.</label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8-card">
+            <div class="question-text">Questão 08: Para a matrícula em séries ou módulos subsequentes de alunos com competências profissionais prévias, o Regimento Comum prevê o processo de:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A) Reclassificação, que visa apenas a redução da carga horária.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B) Classificação, que pode ocorrer por transferência ou avaliação de competências.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C) Expulsão preventiva para alunos que não realizaram o vestibulinho.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D) Matrícula de cortesia para filhos de servidores do CEETEPS.</label>
+                <label class="option-label"><input type="radio" name="q8" value="E"> E) Trancamento compulsório quando o aluno possui mais de 25% de faltas no primeiro mês.</label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9-card">
+            <div class="question-text">Questão 09: Sobre a escolha e as atribuições do Diretor de Escola Técnica, segundo o Regimento Comum:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A) O Diretor é nomeado livremente pelo Governador, sem consulta à comunidade.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B) A indicação é composta pelos processos de qualificação (prova e currículo) e consulta à comunidade escolar.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C) O mandato do Diretor é vitalício.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D) Compete ao Diretor alterar as notas dadas pelos professores no Conselho de Classe arbitrariamente.</label>
+                <label class="option-label"><input type="radio" name="q9" value="E"> E) O Diretor foca exclusivamente na manutenção física das instalações.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10-card">
+            <div class="question-text">Questão 10: Quando um aluno incorre em infração disciplinar grave, a penalidade de transferência compulsória:</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A) Pode ser aplicada sumariamente pelo professor em sala de aula.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B) Deve ser referendada pelo Conselho de Escola, garantindo o direito de defesa.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C) É proibida em todas as escolas do CEETEPS.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D) Só pode ser aplicada com concordância unânime de todos os alunos da turma.</label>
+                <label class="option-label"><input type="radio" name="q10" value="E"> E) Aplica-se apenas a infrações cometidas fora do ambiente escolar.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-btn" onclick="checkQuiz()">Finalizar Simulado</button>
+        </div>
+    </form>
+
+    <div id="results-section">
+        <div class="score-display" id="score-text"></div>
+        <p>Confira abaixo a resolução comentada de cada questão para aprimorar seus conhecimentos.</p>
+    </div>
+
+    <div class="resolution-section" id="res-container">
+        <h2 class="resolution-title">Resoluções Comentadas</h2>
+        
+        <div class="res-item">
+            <h4>Questão 01 - Gabarito: B</h4>
+            <p>A gestão democrática (Art. 3º) é princípio básico das Etecs. O Conselho de Escola é o órgão máximo deliberativo da unidade, tendo entre suas funções a aprovação do calendário escolar e a definição de diretrizes para integração com a comunidade.</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 02 - Gabarito: C</h4>
+            <p>O PPG (Plano Plurianual de Gestão) tem vigência de 5 anos e é o planejamento estratégico da escola. O PTD (Plano de Trabalho Docente) é o planejamento específico do professor para o componente curricular.</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 03 - Gabarito: B</h4>
+            <p>A Coordenação Pedagógica presta o suporte didático ao ensino, enquanto o Auxiliar de Docente (Art. 109) é o responsável por preparar ambientes de laboratório e apoiar aulas práticas.</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 04 - Gabarito: C</h4>
+            <p>Segundo o Art. 12, o Conselho de Classe foca no diagnóstico pedagógico e na interpretação de resultados para estabelecer medidas de recuperação da aprendizagem.</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 05 - Gabarito: B</h4>
+            <p>O professor tem o dever regimental de informar os alunos sobre o PTD no início do semestre, incluindo critérios de avaliação e metodologia, garantindo a transparência do processo pedagógico.</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 06 - Gabarito: C</h4>
+            <p>O Art. 43 § 4º estabelece o prazo de 5 dias letivos para confirmação da matrícula inicial, visando a rotatividade da lista de espera do vestibulinho caso haja desistência.</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 07 - Gabarito: B</h4>
+            <p>É dever do professor estabelecer estratégias de recuperação contínua e notificar os responsáveis, visando o sucesso acadêmico e prevenindo a evasão.</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 08 - Gabarito: B</h4>
+            <p>A classificação permite o ingresso em séries/módulos subsequentes, podendo ser feita por transferência de outra escola ou por um exame de competências para quem já atua na área.</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 09 - Gabarito: B</h4>
+            <p>O processo de seleção do Diretor de Etec envolve uma etapa técnica (qualificação por prova e currículo) e uma etapa democrática (votação/consulta à comunidade).</p>
+        </div>
+
+        <div class="res-item">
+            <h4>Questão 10 - Gabarito: B</h4>
+            <p>A transferência compulsória é medida extrema e deve passar obrigatoriamente pelo Conselho de Escola (Art. 11), assegurando os direitos constitucionais do aluno.</p>
+        </div>
+    </div>
+</main>
+
+<script>
+    const answers = {
+        q1: "B", q2: "C", q3: "B", q4: "C", q5: "B",
+        q6: "C", q7: "B", q8: "B", q9: "B", q10: "B"
+    };
+
+    function checkQuiz() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+
+        // Validar se todas foram respondidas
+        let answeredCount = 0;
+        for (let i = 1; i <= 10; i++) {
+            if (formData.get('q' + i)) answeredCount++;
+        }
+
+        if (answeredCount < 10) {
+            const confirmAction = confirm("Você não respondeu todas as questões. Deseja finalizar assim mesmo?");
+            if (!confirmAction) return;
+        }
+
+        // Avaliar questões
+        for (let i = 1; i <= 10; i++) {
+            const userAns = formData.get('q' + i);
+            const correctAns = answers['q' + i];
+            const card = document.getElementById(`q${i}-card`);
+            const options = card.querySelectorAll('.option-label');
+
+            options.forEach(label => {
+                const input = label.querySelector('input');
+                
+                // Limpar estilos anteriores
+                label.classList.remove('correct-answer', 'wrong-answer');
+
+                if (input.value === correctAns) {
+                    label.classList.add('correct-answer');
+                }
+                
+                if (userAns && input.value === userAns && userAns !== correctAns) {
+                    label.classList.add('wrong-answer');
+                }
+            });
+
+            if (userAns === correctAns) {
+                score++;
+            }
+        }
+
+        // Mostrar resultados
+        const resultsSection = document.getElementById('results-section');
+        const scoreText = document.getElementById('score-text');
+        const resContainer = document.getElementById('res-container');
+
+        resultsSection.style.display = 'block';
+        resContainer.style.display = 'block';
+        scoreText.innerHTML = `Você acertou ${score} de 10 questões (${(score/10)*100}%)`;
+
+        // Scroll suave para o resultado
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Desabilitar inputs após envio
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = true);
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

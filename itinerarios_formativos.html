@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Class ETEC: Itinerários Formativos e Geografia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .section-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            color: #111827;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        th {
+            background-color: #f9fafb;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: #4b5563;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        td, th {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            word-wrap: break-word;
+            vertical-align: top;
+        }
+
+        .audio-container {
+            background: #f3f4f6;
+            border-left: 4px solid #1d4ed8;
+        }
+
+        .exam-tip {
+            border-left: 4px solid #ef4444;
+            background-color: #fef2f2;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-box { padding: 1.5rem; }
+            td, th { padding: 10px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        
+        <!-- Reprodutor de Áudio -->
+        <div class="audio-container p-6 rounded-lg mb-10">
+            <h3 class="text-blue-800 font-bold mb-3 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.983 5.983 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.983 3.983 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" />
+                </svg>
+                OUVIR RESUMO DA AULA (Áudio-Guia)
+            </h3>
+            <!-- ESPAÇO PARA O ARQUIVO MP3 -->
+            <audio controls class="w-full">
+                <source src="itinerarios_formativos.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-500 mt-2 italic text-center">Referência: aula-itinerarios-geografia-etec.mp3</p>
+        </div>
+
+        <header class="mb-16 border-b pb-8">
+            <span class="text-blue-600 font-bold tracking-widest text-sm uppercase">Tutor Especialista CEETEPS</span>
+            <h1 class="text-4xl md:text-5xl font-black mt-2 mb-4 leading-tight text-gray-900">Itinerários Formativos: O Guia de Aprovação para Geografia</h1>
+            <p class="text-lg text-gray-600">Dominando a organização por áreas de interesse no Novo Ensino Médio da ETEC.</p>
+        </header>
+
+        <!-- 1. DEFINIÇÃO E CARACTERÍSTICAS -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 border-l-4 border-blue-600 pl-4">1. Definição e Base Legal</h2>
+            <p class="mb-6">Os Itinerários Formativos (IF) representam a parte flexível do currículo, permitindo que o estudante aprofunde conhecimentos em áreas específicas. Para o CEETEPS, o foco principal é a <span class="highlight">Formação Técnica e Profissional (Eixo 5)</span>.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                    <h3 class="font-bold text-gray-800 mb-2">Fundamentação</h3>
+                    <ul class="text-sm space-y-2">
+                        <li>• Lei Federal nº 13.415/2017.</li>
+                        <li>• BNCC (Base Nacional Comum Curricular).</li>
+                        <li>• <span class="highlight">Deliberação CEE 186/2020</span> (São Paulo).</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                    <h3 class="font-bold text-gray-800 mb-2">Características Essenciais</h3>
+                    <ul class="text-sm space-y-2">
+                        <li>• <span class="highlight">Protagonismo Juvenil</span> (escolha do aluno).</li>
+                        <li>• Flexibilidade curricular.</li>
+                        <li>• Foco no Projeto de Vida.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DEFINIÇÕES BÁSICAS PARA MEMORIZAR -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 border-l-4 border-blue-600 pl-4">2. Definições Técnicas (Checklist de Prova)</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-blue-800">Carga Horária (A Regra de Ouro)</h3>
+                    <p>Total: 3.000 horas. <span class="highlight">FGB: Máximo de 1.800h</span>. <span class="highlight">Itinerários: Mínimo de 1.200h</span>. Nota: No modelo M-TEC do CEETEPS, essas horas são integradas ao curso técnico.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-blue-800">Os 4 Eixos Estruturantes (Obrigatórios)</h3>
+                    <p class="text-sm text-gray-600 mb-3 italic">Toda atividade de itinerário deve se basear em pelo menos um destes:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-medium">
+                        <div class="p-3 bg-white border rounded">1. Investigação Científica</div>
+                        <div class="p-3 bg-white border rounded">2. Processos Criativos</div>
+                        <div class="p-3 bg-white border rounded">3. Mediação e Intervenção Sociocultural</div>
+                        <div class="p-3 bg-white border rounded">4. Empreendedorismo</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-blue-800">Geografia nas Humanidades</h3>
+                    <p>A Geografia deixa de ser isolada para compor a área de <span class="highlight">Ciências Humanas e Sociais Aplicadas</span>. O foco migra para competências transversais: análise espacial, cartografia aplicada à logística, geopolítica das cadeias produtivas e sustentabilidade ambiental no trabalho.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. TABELA DE TENDÊNCIAS E PEGUINHAS -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 border-l-4 border-blue-600 pl-4">3. Análise de Tendências e "Peguinhas" CEETEPS</h2>
+            <p class="mb-4 text-sm text-gray-600">Foque na transição da teoria geográfica tradicional para a prática profissional técnica.</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="w-1/3">Tema</th>
+                            <th class="w-2/3">O "Peguinha" ou Tendência de Cobrança</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>M-TEC vs. Novotec</strong></td>
+                            <td>A banca pode tentar confundir modelos. No <strong>M-TEC</strong> (Específico da ETEC), o currículo é <span class="highlight">integrado</span> e a Geografia deve dialogar diretamente com as competências técnicas do curso.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Oferta de Itinerários</strong></td>
+                            <td>A prova pode sugerir que a escola deve oferecer todos os 5 eixos. <strong>Falso!</strong> A escola oferece conforme sua <span class="highlight">capacidade instalada</span> (disponibilidade física e de professores).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Projeto de Vida</strong></td>
+                            <td>Não é uma disciplina de "carreira", mas um <span class="highlight">processo contínuo</span> de formação humana, social e profissional presente em todo o currículo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Geografia Física</strong></td>
+                            <td>Nas questões de didática, a Geografia Física (clima, solo, relevo) raramente é cobrada isolada. Ela aparece como <span class="highlight">suporte para impactos ambientais</span> ou planejamento urbano/logístico.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="exam-tip">
+                <h4 class="font-bold text-red-700">🚨 DICA DE OURO PARA GEOGRAFIA:</h4>
+                <p class="text-sm">Em questões de <strong>Plano de Aula (PTD)</strong>, use termos como "análise multiescalar", "territorialidades contemporâneas" e "raciocínio geográfico". A banca CEETEPS valoriza o uso da tecnologia (Google Earth, QGIS) como ferramenta nos Itinerários de Investigação Científica.</p>
+            </div>
+        </section>
+
+        <!-- 4. PONTOS DE ACERTO (RESUMO DE MEMORIZAÇÃO) -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 border-l-4 border-blue-600 pl-4">4. Resumo de Memorização (Última Hora)</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-bold mb-3">Conceitos Inegociáveis</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><span class="font-bold">Habilidade ≠ Conteúdo:</span> O foco é no que o aluno <em>faz</em> com a informação.</li>
+                        <li><span class="font-bold">Interdisciplinaridade:</span> Geografia + História + Sociologia + Filosofia = CHSA.</li>
+                        <li><span class="font-bold">Avaliação:</span> Deve ser formativa e processual, focada nas competências dos itinerários.</li>
+                    </ul>
+                </div>
+                <div class="border-l pl-6">
+                    <h3 class="font-bold mb-3">Termos para Usar na Redação/Didática</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>• "Mundo do Trabalho" (evite "Mercado de Trabalho").</li>
+                        <li>• "Sustentabilidade e Governança".</li>
+                        <li>• "Alfabetização Cartográfica Digital".</li>
+                        <li>• "Pensamento Crítico e Ético".</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botão Final -->
+        <div class="text-center mt-12 mb-24">
+            <p class="text-gray-500 mb-6 font-medium italic">Pronto para validar seu conhecimento?</p>
+            <a href="itinerarios_formativosquestoes.html" class="inline-block bg-gray-900 hover:bg-black text-white font-bold py-5 px-12 rounded-full transition-transform hover:scale-105 shadow-xl">
+                ACESSAR BANCO DE QUESTÕES
+            </a>
+        </div>
+
+    </div>
+
+    <footer class="bg-gray-50 border-t py-12 text-center text-gray-500">
+        <p class="text-sm">Desenvolvido para Preparação Docente ETEC/CEETEPS</p>
+        <p class="text-xs mt-2 uppercase tracking-widest">Geografia & Itinerários Formativos</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC: Deliberação 23/2015</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background: #f0f4f8;
+        }
+
+        .option-item input {
+            margin-top: 6px;
+            margin-right: 12px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1a252f;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .score-box {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .resolution {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fdfdfd;
+            border-left: 4px solid var(--accent-color);
+            display: none;
+        }
+
+        .is-correct {
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .is-wrong {
+            color: var(--wrong-color);
+            font-weight: bold;
+        }
+
+        .correct-answer-row {
+            background-color: #e8f5e9 !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .wrong-answer-row {
+            background-color: #ffebee !important;
+            border-color: var(--wrong-color) !important;
+        }
+
+        .tech-analysis {
+            margin-top: 50px;
+            padding: 25px;
+            background: #f0f4f8;
+            border-radius: 8px;
+            border: 1px solid #d1d9e6;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Atribuição de Aulas (ETEC)</h1>
+    <p>Deliberação CEETEPS 23/2015 e Portaria CETEC 1263/2017</p>
+</header>
+
+<div class="container">
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-card" id="q1">
+            <div class="question-text">1. Analise as proposições sobre o procedimento de atribuição de aulas e assinale a alternativa que descreve corretamente a sequência obrigatória de etapas estabelecida no Artigo 2º:</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q1" value="a"> a) A atribuição inicia-se pela definição do horário escolar, seguida pela classificação dos docentes por tempo de serviço e, finalmente, pela escolha dos componentes curriculares.</label>
+                <label class="option-item"><input type="radio" name="q1" value="b"> b) O procedimento é composto pelas etapas sucessivas de classificação docente, elaboração do quadro geral de aulas e execução do ato de atribuição de aulas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="c"> c) A direção deve primeiro realizar o ato de atribuição para, posteriormente, classificar os docentes de acordo com a assiduidade demonstrada no semestre anterior.</label>
+                <label class="option-item"><input type="radio" name="q1" value="d"> d) O quadro geral de aulas precede a classificação docente, sendo que o ato de atribuição ocorre de forma concomitante à definição dos horários de aula pelo Coordenador de Curso.</label>
+                <label class="option-item"><input type="radio" name="q1" value="e"> e) A classificação docente é facultativa caso a Unidade de Ensino possua apenas professores contratados por prazo indeterminado, priorizando-se a manutenção automática da carga horária.</label>
+            </div>
+            <div class="resolution" id="res-q1">
+                <strong>Resolução:</strong> O Artigo 2º estabelece uma sequência lógica e obrigatória: primeiro a <strong>Classificação Docente</strong> (ranqueamento meritocrático), segundo o <strong>Quadro Geral de Aulas</strong> (transparência do que está disponível) e por fim o <strong>Ato de Atribuição</strong> (escolha formal).
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q2">
+            <div class="question-text">2. Com base no Artigo 3º da Deliberação 23/2015 e nas regulamentações da Portaria CETEC 1263/2017, assinale a alternativa correta sobre a natureza da pontuação e os critérios de aferição:</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q2" value="a"> a) A pontuação é puramente qualitativa, baseada em avaliações de desempenho pedagógico realizadas pela equipe gestora ao final de cada ciclo letivo.</label>
+                <label class="option-item"><input type="radio" name="q2" value="b"> b) O escalonamento dos docentes ocorre em uma pontuação numérica crescente, onde os docentes mais novos na carreira possuem prioridade para garantir a renovação do quadro.</label>
+                <label class="option-item"><input type="radio" name="q2" value="c"> c) A classificação objetiva fixar a posição dos docentes em relação aos demais na ETEC, escalonando-os em uma pontuação numérica decrescente, obtida por aferição baseada em critérios objetivos e uniformes.</label>
+                <label class="option-item"><input type="radio" name="q2" value="d"> d) Os critérios de pontuação são definidos de forma autônoma por cada Conselho de Escola, podendo variar entre as diferentes ETECs para atender às especificidades regionais.</label>
+                <label class="option-item"><input type="radio" name="q2" value="e"> e) A pontuação docente leva em conta exclusivamente a produção acadêmica (mestrado e doutorado), sendo vedada a contagem de pontos por tempo de serviço ou assiduidade.</label>
+            </div>
+            <div class="resolution" id="res-q2">
+                <strong>Resolução:</strong> A classificação utiliza critérios objetivos e uniformes para toda a rede. O escalonamento é decrescente, ou seja, quem tem mais pontos (mérito) fica no topo e escolhe primeiro.
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q3">
+            <div class="question-text">3. De acordo com o Artigo 4º, inciso VI, da Deliberação 23/2015, o conceito de "manutenção de carga horária" define-se corretamente como:</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q3" value="a"> a) É a garantia de que o docente lecionará exatamente nas mesmas turmas e horários do ano anterior, independentemente de mudanças na matriz curricular.</label>
+                <label class="option-item"><input type="radio" name="q3" value="b"> b) Define-se como a maior quantidade de aulas livres atribuídas a um professor no ano anterior para o Ensino Médio/MTEC ou no semestre anterior para o Ensino Técnico.</label>
+                <label class="option-item"><input type="radio" name="q3" value="c"> c) Refere-se à carga horária mínima de 2 horas-aula semanais, independentemente da pontuação obtida pelo docente na classificação geral.</label>
+                <label class="option-item"><input type="radio" name="q3" value="d"> d) É o direito do docente de manter sua carga horária total, incluindo aulas em substituição, desde que estas tenham sido ministradas por mais de dois anos consecutivos.</label>
+                <label class="option-item"><input type="radio" name="q3" value="e"> e) Trata-se da preservação do número de aulas, limitada ao teto de 40 horas semanais, independentemente de o docente possuir ou não habilitação específica para os componentes.</label>
+            </div>
+            <div class="resolution" id="res-q3">
+                <strong>Resolução:</strong> Manutenção refere-se à quantidade (volume) de aulas livres. No Ensino Médio/MTEC olha-se para o ano anterior; no Técnico, para o semestre anterior.
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q4">
+            <div class="question-text">4. Qual será a pontuação total de um docente com um Doutorado (24 pontos) e um Mestrado (21 pontos) no subgrupo de pós-graduação stricto sensu, segundo a Portaria CETEC 1263/2017?</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q4" value="a"> a) 45 pontos, pois embora a soma dos títulos totalize 45, este é o limite máximo permitido para este subgrupo.</label>
+                <label class="option-item"><input type="radio" name="q4" value="b"> b) 50 pontos, visto que o Doutorado confere 30 pontos e o Mestrado 20 pontos, sem haver teto limitador para a formação acadêmica.</label>
+                <label class="option-item"><input type="radio" name="q4" value="c"> c) 24 pontos, pois a norma prevê que apenas o título de maior grau seja contabilizado para fins de classificação docente.</label>
+                <label class="option-item"><input type="radio" name="q4" value="d"> d) 48 pontos, considerando que cada título de pós-graduação stricto sensu possui valor fixo de 24 pontos, independentemente do nível (Mestre ou Doutor).</label>
+                <label class="option-item"><input type="radio" name="q4" value="e"> e) 15 pontos, sendo 10 pontos para o Doutorado e 5 para o Mestrado, conforme a tabela de pontuação simplificada para docentes da base comum.</label>
+            </div>
+            <div class="resolution" id="res-q4">
+                <strong>Resolução:</strong> O Doutorado vale 24 e o Mestrado 21. A soma é 45, que coincide com o limite máximo (teto) estabelecido pela Portaria para este subgrupo específico.
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q5">
+            <div class="question-text">5. Sobre o Grupo de Assiduidade e as alterações da Portaria CETEC 2186/2021, assinale a alternativa que descreve corretamente o tratamento das ausências:</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q5" value="a"> a) Todas as faltas, independentemente da justificativa legal, acarretam a perda total dos pontos de bonificação por assiduidade.</label>
+                <label class="option-item"><input type="radio" name="q5" value="b"> b) As faltas médicas justificadas não devem ser consideradas ausências para fins de concessão da bonificação de pontuação prevista na norma (Bônus, Grupo 4, Fator E).</label>
+                <label class="option-item"><input type="radio" name="q5" value="c"> c) O docente que apresentar mais de três faltas injustificadas no semestre é automaticamente excluído do processo de atribuição de aulas.</label>
+                <label class="option-item"><input type="radio" name="q5" value="d"> d) A pontualidade é aferida subjetivamente pelo Diretor de Serviço Administrativo, não gerando pontos numéricos para a classificação.</label>
+                <label class="option-item"><input type="radio" name="q5" value="e"> e) Somente as licenças-prêmio são computadas como tempo de efetivo exercício, sendo que todas as demais licenças subtraem pontos da classificação final.</label>
+            </div>
+            <div class="resolution" id="res-q5">
+                <strong>Resolução:</strong> Uma atualização importante (Portaria 2186/2021) garantiu que faltas médicas justificadas não tirem o bônus de assiduidade do docente, protegendo o direito à saúde.
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q6">
+            <div class="question-text">6. Qual critério de prioridade deve ser observado inicialmente pela Direção da ETEC em uma concorrência por aulas livres de Geografia?</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q6" value="a"> a) A prioridade é dos docentes contratados por prazo determinado (processo seletivo) sobre os contratados por prazo indeterminado.</label>
+                <label class="option-item"><input type="radio" name="q6" value="b"> b) Devem ser atendidos primeiro os docentes de outras unidades do CEETEPS que solicitaram ampliação de carga horária na unidade em questão.</label>
+                <label class="option-item"><input type="radio" name="q6" value="c"> c) A atribuição será realizada inicialmente aos docentes inscritos e classificados na própria Escola Técnica para fins de manutenção de carga horária.</label>
+                <label class="option-item"><input type="radio" name="q6" value="d"> d) A preferência é dada ao docente que reside mais próximo à Unidade de Ensino, visando a redução de custos com vale-transporte.</label>
+                <label class="option-item"><input type="radio" name="q6" value="e"> e) O docente que possuir maior número de dependentes econômicos tem prioridade absoluta na escolha dos horários e componentes.</label>
+            </div>
+            <div class="resolution" id="res-q6">
+                <strong>Resolução:</strong> O primeiro passo é sempre garantir a <strong>Manutenção</strong> dos docentes da própria unidade que já possuíam as aulas, conforme o Artigo 13.
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q7">
+            <div class="question-text">7. Segundo o Artigo 11 da Deliberação 23/2015, qual grupo possui a primeira prioridade na atribuição de aulas remanescentes?</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q7" value="a"> a) Docentes contratados por prazo indeterminado da própria U.E. que sofreram redução involuntária de carga horária, para fins de recomposição.</label>
+                <label class="option-item"><input type="radio" name="q7" value="b"> b) Novos candidatos aprovados em concurso público que ainda não foram admitidos no quadro do Centro Paula Souza.</label>
+                <label class="option-item"><input type="radio" name="q7" value="c"> c) Docentes em gozo de licença sem vencimentos que manifestem interesse em retornar antecipadamente ao exercício.</label>
+                <label class="option-item"><input type="radio" name="q7" value="d"> d) Docentes de outras ETECs que desejam iniciar um processo de permuta ou transferência definitiva.</label>
+                <label class="option-item"><input type="radio" name="q7" value="e"> e) Candidatos remanescentes de processos seletivos simplificados de outras unidades da mesma região administrativa.</label>
+            </div>
+            <div class="resolution" id="res-q7">
+                <strong>Resolução:</strong> A lei prioriza quem teve perda involuntária (ex: fechamento de turma). Estes docentes têm o direito de "recompor" sua carga horária antes dos demais.
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q8">
+            <div class="question-text">8. Qual é a conduta correta sobre a relação entre o horário das aulas e o ato de atribuição (Art. 16)?</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q8" value="a"> a) O horário das aulas deve ser definido antes da atribuição, e o docente que não puder cumpri-lo deve ser induzido à redução voluntária de carga horária.</label>
+                <label class="option-item"><input type="radio" name="q8" value="b"> b) O Diretor de Escola Técnica deve definir o horário das aulas após a realização do ato de atribuição, atendendo às necessidades pedagógicas e observando as aulas já atribuídas.</label>
+                <label class="option-item"><input type="radio" name="q8" value="c"> c) O docente com menor pontuação tem o direito de escolher seu horário primeiro, para compensar sua posição desfavorável na lista de componentes.</label>
+                <label class="option-item"><input type="radio" name="q8" value="d"> d) A atribuição de aulas é condicionada à aceitação prévia do horário estático definido pela Direção no início do ano civil.</label>
+                <label class="option-item"><input type="radio" name="q8" value="e"> e) O horário é de responsabilidade exclusiva do Coordenador Pedagógico, não havendo necessidade de observar a classificação docente no ato de sua elaboração.</label>
+            </div>
+            <div class="resolution" id="res-q8">
+                <strong>Resolução:</strong> A atribuição gera o direito. O horário vem depois (post-facto) para organizar o funcionamento, respeitando o que foi atribuído aos docentes segundo sua classificação.
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q9">
+            <div class="question-text">9. Qual é a ordem correta dos três primeiros critérios de desempate na classificação docente?</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q9" value="a"> a) Maior idade, maior número de filhos e maior tempo de Centro Paula Souza.</label>
+                <label class="option-item"><input type="radio" name="q9" value="b"> b) Maior pontuação em Assiduidade/Pontualidade, maior pontuação em Titulação/Atualização e maior tempo de efetivo exercício na ETEC.</label>
+                <label class="option-item"><input type="radio" name="q9" value="a"> c) Sorteio público em sessão aberta, ordem alfabética do nome completo e tempo de formação acadêmica.</label>
+                <label class="option-item"><input type="radio" name="q9" value="d"> d) Maior carga horária no semestre anterior, menor número de faltas justificadas e estado civil.</label>
+                <label class="option-item"><input type="radio" name="q9" value="e"> e) Experiência profissional fora do magistério, maior pontuação em produção técnica e maior idade.</label>
+            </div>
+            <div class="resolution" id="res-q9">
+                <strong>Resolução:</strong> Primeiro desempata quem falta menos (Assiduidade), depois quem estudou mais (Titulação) e depois quem tem mais tempo naquela escola específica.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-text">10. Qual é o procedimento e o prazo para interposição de recurso (pedido revisional) contra o ato de atribuição?</div>
+            <div class="options">
+                <label class="option-item"><input type="radio" name="q10" value="a"> a) Recurso por escrito ao Conselho Deliberativo do CEETEPS, no prazo de 15 dias úteis após a publicação oficial no Diário Oficial.</label>
+                <label class="option-item"><input type="radio" name="q10" value="b"> b) Pedido revisional justificado ao Diretor da Escola Técnica, no prazo de 03 (três) dias úteis contados da data do ato de atribuição.</label>
+                <label class="option-item"><input type="radio" name="q10" value="c"> c) Manifestação verbal imediata durante a sessão de atribuição, sem necessidade de formalização posterior.</label>
+                <label class="option-item"><input type="radio" name="q10" value="d"> d) Reclamação junto à Diretoria de Serviços Acadêmicos no prazo de 30 dias após o início das aulas.</label>
+                <label class="option-item"><input type="radio" name="q10" value="e"> e) Pedido de reconsideração ao Coordenador de Curso, no prazo de 24 horas após a ciência da pontuação.</label>
+            </div>
+            <div class="resolution" id="res-q10">
+                <strong>Resolução:</strong> O prazo é curto (03 dias úteis) e deve ser endereçado diretamente ao Diretor da ETEC onde ocorreu a atribuição.
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-box" id="score-display"></div>
+        <div id="resolutions-list">
+            <h3>Conferência e Resoluções Detalhadas</h3>
+            <!-- Conteúdo injetado via JS -->
+        </div>
+
+        <div class="tech-analysis">
+            <h4>Análise Técnica Complementar</h4>
+            <p><strong>Gestão:</strong> Cargos de direção e coordenação somam pontos multiplicados pelo tempo de exercício (limite de 592 pontos).</p>
+            <p><strong>Tempo na Unidade:</strong> 0,05 ponto por mês completo (limite de 21 pontos), valorizando a fixação do docente.</p>
+            <p><strong>Produção Técnica:</strong> Publicações valem 2 pontos cada (limite de 8 pontos), incentivando a pesquisa no ensino tecnológico.</p>
+        </div>
+        
+        <button type="button" class="btn-submit" style="background: #7f8c8d;" onclick="window.scrollTo(0,0)">Voltar ao Topo</button>
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'b', q2: 'c', q3: 'b', q4: 'a', q5: 'b',
+        q6: 'c', q7: 'a', q8: 'b', q9: 'b', q10: 'b'
+    };
+
+    function gradeQuiz() {
+        let score = 0;
+        const total = 10;
+        const form = document.getElementById('quiz-form');
+        const resultsSection = document.getElementById('results-section');
+        const scoreDisplay = document.getElementById('score-display');
+
+        // Limpar marcações anteriores
+        document.querySelectorAll('.option-item').forEach(el => el.classList.remove('correct-answer-row', 'wrong-answer-row'));
+
+        for (let i = 1; i <= total; i++) {
+            const questionId = 'q' + i;
+            const selected = form.elements[questionId].value;
+            const correct = correctAnswers[questionId];
+            const card = document.getElementById(questionId);
+            const resolution = document.getElementById('res-' + questionId);
+
+            // Mostrar resolução
+            resolution.style.display = 'block';
+
+            // Destacar respostas
+            const options = card.querySelectorAll('.option-item');
+            options.forEach(opt => {
+                const radio = opt.querySelector('input');
+                if (radio.value === correct) {
+                    opt.classList.add('correct-answer-row');
+                }
+                if (selected === radio.value && selected !== correct) {
+                    opt.classList.add('wrong-answer-row');
+                }
+            });
+
+            if (selected === correct) {
+                score++;
+            }
+        }
+
+        // Exibir Placar
+        resultsSection.style.display = 'block';
+        scoreDisplay.innerHTML = `Você acertou <strong>${score}</strong> de <strong>${total}</strong> questões.<br>` + 
+                                 (score >= 7 ? '<span class="is-correct">Excelente desempenho!</span>' : '<span class="is-wrong">Continue estudando a Deliberação 23/2015.</span>');
+        
+        // Scroll suave para os resultados
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Técnico LAI-SP - Concurso ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #1a202c;
+            background-color: #ffffff;
+        }
+
+        .highlight-yellow {
+            background-color: #fef3c7;
+            font-weight: 600;
+            padding: 0 2px;
+            border-bottom: 1px solid #f59e0b;
+        }
+
+        .highlight-blue {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            background: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+        }
+
+        .card {
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header {
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #1e3a8a;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .geography-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-5xl mx-auto">
+        
+        <!-- Reprodutor de Áudio -->
+        <div class="bg-white p-6 rounded-2xl border-2 border-slate-100 shadow-sm mb-10">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="bg-blue-600 p-3 rounded-full text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="font-bold text-slate-800">Audioaula: Memorização LAI-SP</h2>
+                    <p class="text-sm text-slate-500 italic">Professor Tutor de Geografia - ETEC/CEETEPS</p>
+                </div>
+            </div>
+            <audio controls class="w-full">
+                <!-- ESPAÇO PARA O NOME DO ARQUIVO MP3 -->
+                <source src="decreto_estadual_58052.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+            <p class="text-xs text-slate-400 mt-2">Arquivo atual: <span class="font-mono">aula_lai_sp_etec.mp3</span></p>
+        </div>
+
+        <header class="mb-10">
+            <h1 class="text-4xl font-extrabold text-slate-900 leading-tight">Decreto Estadual 58.052/12 <br><span class="text-blue-600 text-2xl">Regulamentação da Lei de Acesso à Informação em SP</span></h1>
+            <p class="mt-4 text-slate-600 text-lg max-w-2xl">Este guia compila toda a teoria necessária para gabaritar a prova de legislação e sua aplicação na área de Geografia.</p>
+        </header>
+
+        <!-- SEÇÃO 1: CONCEITOS E DEFINIÇÕES -->
+        <section>
+            <h2 class="section-header text-xl italic">1. Definições Básicas (Obrigatório Decorar)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="card">
+                    <p><strong>Informação:</strong> Dados, processados ou não, que podem ser utilizados para produção e transmissão de conhecimento.</p>
+                </div>
+                <div class="card">
+                    <p><strong>Documento:</strong> Unidade de registro de informações, <span class="highlight-yellow">qualquer que seja o suporte ou formato</span>.</p>
+                </div>
+                <div class="card">
+                    <p><strong>Disponibilidade:</strong> Qualidade da informação que pode ser consultada por <span class="highlight-blue">autorizados</span>.</p>
+                </div>
+                <div class="card">
+                    <p><strong>Primariedade:</strong> Qualidade da informação coletada na fonte, com o <span class="highlight-blue">máximo de detalhamento</span> e sem modificações.</p>
+                </div>
+                <div class="card">
+                    <p><strong>Integridade:</strong> Garantia de que a informação <span class="highlight-yellow">não foi modificada</span> de forma indevida.</p>
+                </div>
+                <div class="card">
+                    <p><strong>Autenticidade:</strong> Informação que foi produzida por <span class="highlight-blue">quem se diz autor</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: TRANSPARÊNCIA ATIVA vs PASSIVA -->
+        <section>
+            <h2 class="section-header text-xl italic">2. Transparência Ativa e Passiva</h2>
+            <div class="space-y-4">
+                <p>O Decreto diferencia a forma como o Estado de SP disponibiliza dados:</p>
+                <ul class="list-disc ml-6 space-y-3">
+                    <li><span class="font-bold">Ativa (Divulgação Proativa):</span> Independe de requerimento. Deve ser feita na internet. Inclui: estrutura organizacional, repasses financeiros, licitações e <span class="highlight-yellow">perguntas frequentes</span>.</li>
+                    <li><span class="font-bold">Passiva (Acesso Mediante Pedido):</span> O cidadão solicita via <span class="highlight-blue">SIC (Serviço de Informações ao Cidadão)</span>.</li>
+                    <li><span class="font-bold italic">Gratuidade:</span> O acesso é gratuito. O órgão pode cobrar apenas o <span class="highlight-yellow">custo de reprodução</span> (xerox, mídias). Isenção para quem declarar pobreza.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: PRAZOS E GRAUS DE SIGILO -->
+        <section>
+            <h2 class="section-header text-xl italic">3. Graus de Sigilo e Classificação</h2>
+            <p class="mb-4">Informações que podem colocar em risco a sociedade ou o Estado podem ser classificadas:</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Grau de Sigilo</th>
+                            <th>Prazo de Sigilo</th>
+                            <th>Autoridade Competente (Indelegável)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-red-600">Ultrassecreto</td>
+                            <td>25 anos</td>
+                            <td>Governador, Vice, Secretários, PGE.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-orange-600">Secreto</td>
+                            <td>15 anos</td>
+                            <td>Governador, Vice, Secretários, PGE.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-yellow-600">Reservado</td>
+                            <td>5 anos</td>
+                            <td>Governador, Vice, Secretários, PGE e Dirigentes (Autarquias).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mt-4">
+                <p><strong>Observação sobre Prorrogação:</strong> Somente o <span class="highlight-yellow">Ultrassecreto</span> pode ser prorrogado uma única vez por igual período (total de 50 anos), por decisão da <span class="font-bold">CEAI</span>.</p>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: INFORMAÇÕES PESSOAIS -->
+        <section>
+            <h2 class="section-header text-xl italic">4. Proteção de Dados Pessoais</h2>
+            <div class="card bg-slate-50 border-none">
+                <ul class="space-y-4">
+                    <li>🛡️ <strong>Acesso Restrito:</strong> Informações relativas à intimidade, vida privada, honra e imagem.</li>
+                    <li>⏳ <strong>Prazo de 100 anos:</strong> O acesso é restrito pelo prazo de <span class="highlight-blue text-lg">100 anos</span> a contar da data de sua produção.</li>
+                    <li>🚫 <strong>Vedação:</strong> Não podem ser usadas para limitar o acesso a informações de interesse público ou para <span class="highlight-yellow">prejudicar apuração de irregularidades</span>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: ESTRUTURA E RECURSOS -->
+        <section>
+            <h2 class="section-header text-xl italic">5. Rito Procedimental e Recursos</h2>
+            <p><strong>Prazo de Resposta:</strong> <span class="highlight-blue">20 dias</span>, prorrogáveis por mais <span class="highlight-blue">10 dias</span> mediante justificativa expressa.</p>
+            
+            <h3 class="font-bold mt-6 mb-3">O Fluxo Recursal:</h3>
+            <div class="flex flex-col gap-2">
+                <div class="p-3 border-l-4 border-slate-200 bg-slate-50">1. Negativa de Acesso ou Classificação Indevida.</div>
+                <div class="p-3 border-l-4 border-slate-300 bg-slate-100">2. Recurso em <span class="font-bold">10 dias</span> para autoridade superior.</div>
+                <div class="p-3 border-l-4 border-blue-400 bg-blue-50">3. Se negado: Recurso para a <span class="font-bold">CGE (Controladoria Geral do Estado)</span>.</div>
+                <div class="p-3 border-l-4 border-blue-600 bg-blue-100 font-bold">4. Instância Final: CEAI (Comissão Estadual de Acesso à Informação).</div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6: GEOGRAFIA E LAI -->
+        <section>
+            <h2 class="section-header text-xl italic">6. Aplicação Técnica na Geografia (ETEC)</h2>
+            <div class="geography-box">
+                <p class="mb-4 font-semibold">Como isso cai para o Professor de Geografia?</p>
+                <div class="space-y-4 text-sm md:text-base">
+                    <p>🌐 <strong>Dados Geoespaciais:</strong> O Decreto obriga a transparência de dados sobre ocupação do solo, áreas de risco e zoneamento ambiental. São informações de <span class="highlight-yellow">interesse coletivo</span> que não podem sofrer sigilo sem justificativa extrema.</p>
+                    <p>🏗️ <strong>Cartografia Estratégica:</strong> Mapas detalhados de infraestrutura crítica (redes elétricas, hidrelétricas, telecomunicações) podem entrar no grau <span class="font-bold">Reservado</span> por questões de segurança do Estado.</p>
+                    <p>📂 <strong>Dados Censitários e Ambientais:</strong> O professor deve saber que dados brutos sobre recursos naturais em SP devem ser fornecidos em <span class="highlight-blue">formatos abertos</span> (CSV, Shapefile) para permitir o reuso pela sociedade.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 7: PEGUINHAS RECORRENTES -->
+        <section>
+            <h2 class="section-header text-xl italic">7. Check-list de "Peguinhas" CEETEPS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 border border-red-100 rounded-lg">
+                    <span class="text-red-500 font-bold">ERRO COMUM:</span> Dizer que qualquer funcionário pode classificar documento como secreto. <br>
+                    <span class="text-green-600 font-bold">CORRETO:</span> A competência é restrita ao <span class="underline">alto escalão</span> e é <span class="font-bold">indelegável</span>.
+                </div>
+                <div class="p-4 border border-red-100 rounded-lg">
+                    <span class="text-red-500 font-bold">ERRO COMUM:</span> Afirmar que o sigilo vale para sempre se for segurança nacional. <br>
+                    <span class="text-green-600 font-bold">CORRETO:</span> Todos os sigilos têm <span class="underline">prazo determinado</span>.
+                </div>
+                <div class="p-4 border border-red-100 rounded-lg">
+                    <span class="text-red-500 font-bold">ERRO COMUM:</span> Confundir CADA com CEAI. <br>
+                    <span class="text-green-600 font-bold">CORRETO:</span> <span class="font-bold">CADA</span> (Comissão de Avaliação de Documentos e Arquivo) cuida da temporalidade. <span class="font-bold">CEAI</span> cuida de recursos e acesso.
+                </div>
+                <div class="p-4 border border-red-100 rounded-lg">
+                    <span class="text-red-500 font-bold">ERRO COMUM:</span> Achar que informações de violação de Direitos Humanos podem ser sigilosas. <br>
+                    <span class="text-green-600 font-bold">CORRETO:</span> Elas <span class="underline">nunca</span> podem ter acesso restrito.
+                </div>
+            </div>
+        </section>
+
+        <!-- RODAPÉ E BOTÃO -->
+        <footer class="mt-20 text-center border-t border-slate-200 pt-10 pb-20">
+            <p class="text-slate-500 mb-6">Fim do conteúdo teórico condensado para o concurso CEETEPS.</p>
+            <a href="decreto_estadual_58052questoes.html" class="inline-flex items-center justify-center px-10 py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-xl group">
+                PRATICAR COM QUESTÕES
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

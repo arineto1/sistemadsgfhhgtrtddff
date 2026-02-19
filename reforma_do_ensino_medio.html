@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Técnica: Reforma do Ensino Médio para ETECs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Grifos e Destaques */
+        .highlight {
+            background-color: #fef9c3;
+            border-bottom: 2px solid #fde047;
+            padding: 0 2px;
+            font-weight: 600;
+        }
+
+        .term-definition {
+            font-weight: 700;
+            color: #0f172a;
+            border-bottom: 1px dotted #94a3b8;
+        }
+
+        /* Tabelas Responsivas sem Scroll */
+        .table-wrapper {
+            width: 100%;
+            margin: 2rem 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: 700;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+        }
+
+        /* Estilo para listas de estudo */
+        .study-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .study-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .study-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        /* Player de Áudio */
+        .audio-section {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        /* Seção de Destaque */
+        .section-box {
+            background-color: #fcfcfc;
+            border: 1px solid #f1f5f9;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        /* Botão Final */
+        .nav-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #f1f5f9;
+            text-align: center;
+        }
+
+        .btn-action {
+            display: inline-block;
+            background-color: #1e293b;
+            color: #ffffff;
+            padding: 1.2rem 3rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            background-color: #000000;
+            transform: translateY(-2px);
+        }
+
+        /* Responsividade para Tabelas - empilhamento */
+        @media (max-width: 640px) {
+            table, thead, tbody, th, td, tr { display: block; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            tr { border: 1px solid #e2e8f0; margin-bottom: 1rem; }
+            td { border: none; position: relative; padding-left: 50%; text-align: right; }
+            td:before { 
+                content: attr(data-label); 
+                position: absolute; left: 1rem; width: 45%; 
+                padding-right: 10px; white-space: nowrap; 
+                text-align: left; font-weight: bold;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Player de Áudio -->
+    <div class="audio-section">
+        <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Estudo em Áudio (Podcast Técnico)</h4>
+        <p class="text-sm mb-4 text-gray-600">Arquivo de áudio configurado:</p>
+        <audio controls class="w-full">
+            <source src="reforma_do_ensino_medio.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+    </div>
+
+    <header class="mb-12">
+        <h1 class="text-4xl font-extrabold mb-4 tracking-tight">Reforma do Ensino Médio e Geografia (Lei 13.415/17)</h1>
+        <p class="text-lg text-gray-500">Tutor Especialista: Preparatório para Docentes de Geografia - CEETEPS/ETEC</p>
+    </header>
+
+    <!-- Seção 1: Definição -->
+    <section>
+        <h2 class="text-2xl font-bold mb-6 border-b-2 border-gray-100 pb-2">1. Definição e Transição Legal (2017 - 2024)</h2>
+        <p class="mb-4">
+            A Reforma (Lei 13.415/17) alterou a LDB para flexibilizar o currículo. Em 2024, a <span class="highlight">Lei 14.945/24</span> trouxe ajustes críticos na carga horária para fortalecer a Formação Geral Básica (FGB).
+        </p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Carga Horária (Total 3.000h)</th>
+                        <th>Características Práticas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Componente"><strong>FGB (BNCC)</strong></td>
+                        <td data-label="Carga Horária">Mínimo de <span class="highlight">2.400 horas</span></td>
+                        <td data-label="Características">Garante os conteúdos de Geografia integrados à área de CHSA.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Componente"><strong>Itinerários (IF)</strong></td>
+                        <td data-label="Carga Horária">Máximo de <span class="highlight">600 horas</span></td>
+                        <td data-label="Características">Foco em aprofundamento (Linguagens, Matemática, Natureza, Humanas ou Técnico).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Seção 2: Itinerários no CEETEPS -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold mb-4">2. Modelos Educacionais nas ETECs</h2>
+        <p class="mb-4 text-sm text-gray-600">O Centro Paula Souza opera predominantemente com o Itinerário de Formação Técnica e Profissional:</p>
+        <ul class="study-list">
+            <li><span class="term-definition">M-Tec (Ensino Médio Integrado):</span> O aluno cursa o ensino médio e o técnico em um único bloco, com currículo integrado.</li>
+            <li><span class="term-definition">Novotec Integrado:</span> Parceria CPS e SEDUC-SP, focada em rápida inserção no mercado.</li>
+            <li><span class="term-definition">AMS (Articulação Médio-Superior):</span> Modelo 3+2 (Ensino Médio/Técnico + Curso Superior de Tecnologia na FATEC) sem vestibular para a FATEC.</li>
+            <li><span class="term-definition">M-Tec PI:</span> Período Integral. Oferece maior carga horária para componentes de <span class="highlight">Projeto de Vida</span> e disciplinas eletivas.</li>
+        </ul>
+    </section>
+
+    <!-- Seção 3: Geografia e BNCC -->
+    <section>
+        <h2 class="text-2xl font-bold mb-6 border-b-2 border-gray-100 pb-2">3. Geografia: De Disciplina à Área de Humanas (CHSA)</h2>
+        <p class="mb-4">Na prática do concurso, a Geografia deve ser abordada através do <span class="highlight">Raciocínio Geográfico</span>. Memorize os 7 princípios fundamentais:</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="p-3 bg-gray-50 rounded border-l-4 border-blue-500"><strong>Analogia:</strong> Comparação entre fenômenos em diferentes lugares.</div>
+            <div class="p-3 bg-gray-50 rounded border-l-4 border-blue-500"><strong>Conexão:</strong> Interdependência entre objetos e fenômenos.</div>
+            <div class="p-3 bg-gray-50 rounded border-l-4 border-blue-500"><strong>Diferenciação:</strong> O que torna um lugar único.</div>
+            <div class="p-3 bg-gray-50 rounded border-l-4 border-blue-500"><strong>Distribuição:</strong> Como o fenômeno se espalha no espaço.</div>
+            <div class="p-3 bg-gray-50 rounded border-l-4 border-blue-500"><strong>Extensão:</strong> Delimitação da área de ocorrência.</div>
+            <div class="p-3 bg-gray-50 rounded border-l-4 border-blue-500"><strong>Localização:</strong> Coordenadas e posição geográfica.</div>
+            <div class="p-3 bg-gray-50 rounded border-l-4 border-blue-500"><strong>Ordem:</strong> Estruturação escalonada dos fenômenos.</div>
+        </div>
+
+        <div class="important-note p-4 bg-yellow-50 border-l-4 border-yellow-400">
+            <strong>Foco BNCC:</strong> A Geografia contribui para a competência de analisar relações <span class="highlight">Produção x Consumo</span>, dinâmicas demográficas e o <span class="highlight">Antropoceno</span> (ação humana no sistema Terra).
+        </div>
+    </section>
+
+    <!-- Seção 4: Regimento Comum (Legislação CPS) -->
+    <section>
+        <h2 class="text-2xl font-bold mb-6 border-b-2 border-gray-100 pb-2">4. Regimento Comum e Avaliação (Deliberação CEETEPS 87/22)</h2>
+        <p class="mb-4">Itens obrigatórios para a prova de legislação docente:</p>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tópico</th>
+                        <th>O que você deve marcar no gabarito</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Tópico"><strong>Conselho de Classe</strong></td>
+                        <td data-label="Resposta"><span class="highlight">Um voto por professor</span> na classe. Empates são decididos pelo coordenador/diretor.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tópico"><strong>Frequência</strong></td>
+                        <td data-label="Resposta">Mínimo de <span class="highlight">75%</span>. Abaixo disso é retenção automática (Reprovação).</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tópico"><strong>Avaliação Docente</strong></td>
+                        <td data-label="Resposta">Utiliza Menções: <span class="highlight">MB, B, R, I</span>. Foco qualitativo sobre o quantitativo.</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Tópico"><strong>Reclassificação</strong></td>
+                        <td data-label="Resposta">Permite o avanço do aluno por competência, avaliado por comissão de 3 professores.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Seção 5: Peguinhas de Prova -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold mb-4">5. Análise de Tendências e "Peguinhas"</h2>
+        <div class="space-y-4">
+            <div class="flex items-start">
+                <div class="bg-red-50 text-red-600 px-2 py-1 rounded font-bold mr-3">ERRADO</div>
+                <p>Dizer que Geografia não é mais obrigatória. <span class="highlight">Ela é obrigatória</span> como parte da área de Humanas (CHSA) em todos os anos.</p>
+            </div>
+            <div class="flex items-start">
+                <div class="bg-red-50 text-red-600 px-2 py-1 rounded font-bold mr-3">ERRADO</div>
+                <p>Dizer que o PTD é feito apenas no início do ano. O PTD é <span class="highlight">replanejado continuamente</span> com base nos diagnósticos.</p>
+            </div>
+            <div class="flex items-start">
+                <div class="bg-red-50 text-red-600 px-2 py-1 rounded font-bold mr-3">ERRADO</div>
+                <p>Confundir Licenciatura com Notório Saber. Geografia <span class="highlight">exige Licenciatura</span>. Notório saber é apenas para componentes técnicos específicos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 6: Prova de Métodos (O PTD) -->
+    <section>
+        <h2 class="text-2xl font-bold mb-6 border-b-2 border-gray-100 pb-2">6. O Plano de Trabalho Docente (PTD) na Prática</h2>
+        <p class="mb-4">O PTD é o seu contrato pedagógico. Na prova prática, ele é avaliado em:</p>
+        <ul class="study-list">
+            <li><strong>Domínio de Conteúdo (40 pts):</strong> Profundidade e atualização geográfica.</li>
+            <li><strong>Organização e Planejamento (20 pts):</strong> Coerência entre objetivos, métodos e avaliação.</li>
+            <li><strong>Procedimentos Didáticos (20 pts):</strong> Uso de recursos (Mapas, GIS, Notícias, Dados IBGE).</li>
+            <li><strong>Linguagem e Postura (20 pts):</strong> Comunicação clara e adequada ao perfil ETEC.</li>
+        </ul>
+    </section>
+
+    <footer class="nav-footer">
+        <p class="text-sm text-gray-400 mb-6 italic">Estude este resumo até que as palavras-chave (FGB, CHSA, Deliberação 87, PTD) se tornem automáticas.</p>
+        <a href="reforma_do_ensino_medioquestoes.html" class="btn-action">
+            Praticar com Questões Reais
+        </a>
+    </footer>
+</div>
+
+</body>
+</html>

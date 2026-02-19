@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC: Educação Profissional e LDB</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --container-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --primary: #0984e3;
+            --primary-dark: #074b83;
+            --success: #27ae60;
+            --error: #d63031;
+            --border: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f7ff;
+            border-color: var(--primary);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 5px;
+            transform: scale(1.2);
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Classes para o resultado */
+        .option-item.correct {
+            background-color: #d1f7d1;
+            border-color: var(--success);
+        }
+
+        .option-item.incorrect {
+            background-color: #ffe0e0;
+            border-color: var(--error);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f4f8;
+            border-left: 4px solid var(--primary);
+            font-size: 0.95rem;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--primary-dark);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        #results-summary {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            margin-bottom: 30px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            border: 1px solid var(--primary);
+        }
+
+        .score-big {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .feedback-msg {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Técnico: LDB e Educação Profissional</h1>
+        <p class="subtitle">Caderno de Questões para Concurso de Professor ETEC (Geografia) - Centro Paula Souza</p>
+    </header>
+
+    <div id="results-summary">
+        <div class="score-big" id="final-score">0/10</div>
+        <div class="feedback-msg" id="feedback-text">Veja abaixo as resoluções comentadas.</div>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-block" data-correct="D">
+            <span class="question-text">Questão 01: No contexto da organização da educação nacional, a LDB define a Educação Profissional Técnica de Nível Médio como uma etapa que deve ser articulada com o Ensino Médio regular. Analise as afirmações:</span>
+            <p>I. Desenvolvida de forma integrada, em matrícula única.<br>II. A forma subsequente permite integração curricular com a educação básica de forma pretérita.<br>III. A preparação pode ser desenvolvida nos próprios estabelecimentos ou em cooperação.<br>IV. De acordo com a Lei nº 14.645/2023, permite o aproveitamento das horas de trabalho.</p>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q1" value="A" id="q1a"><label for="q1a">A) I e II, apenas.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="B" id="q1b"><label for="q1b">B) I, II e III, apenas.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="C" id="q1c"><label for="q1c">C) II, III e IV, apenas.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="D" id="q1d"><label for="q1d">D) I, III e IV, apenas.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="E" id="q1e"><label for="q1e">E) I, II, III e IV.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q1">
+                <h4>Resolução Comentada</h4>
+                A afirmação II está incorreta porque a forma subsequente destina-se a quem já concluiu o ensino médio, não havendo "integração curricular pretérita" (o currículo é independente). As demais (I, III e IV) estão em conformidade com os Arts. 36-A, 36-B e as atualizações da Lei 14.645/2023.
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-block" data-correct="C">
+            <span class="question-text">Questão 02: Sobre as modalidades "integrada" e "concomitante", assinale a alternativa que apresenta a interpretação correta:</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q2" value="A" id="q2a"><label for="q2a">A) Na integrada, o curso é oferecido apenas a quem já concluiu o ensino médio.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="B" id="q2b"><label for="q2b">B) A concomitante ocorre sem necessidade de projeto pedagógico unificado, bastando horários compatíveis.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="C" id="q2c"><label for="q2c">C) A integrada pressupõe projeto pedagógico único, com matrícula única na mesma instituição.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="D" id="q2d"><label for="q2d">D) Na concomitante, é vedada a oferta de ensino médio e técnico pela mesma unidade.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="E" id="q2e"><label for="q2e">E) A LDB veda convênios de intercomplementaridade.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q2">
+                <h4>Resolução Comentada</h4>
+                A forma Integrada exige matrícula única e projeto pedagógico unificado para superar o dualismo entre propedêutico e técnico. Na concomitante, as matrículas são independentes.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-block" data-correct="B">
+            <span class="question-text">Questão 03: Sobre diplomas e certificados de cursos de educação profissional técnica de nível médio (Art. 36-D), analise:</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q3" value="A" id="q3a"><label for="q3a">A) Diplomas têm validade apenas no sistema de ensino estadual de origem.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="B" id="q3b"><label for="q3b">B) Os cursos devem observar as diretrizes nacionais, permitindo o aproveitamento de créditos e saberes.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="C" id="q3c"><label for="q3c">C) O diploma habilita exclusivamente ao exercício profissional, não para graduação.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="D" id="q3d"><label for="q3d">D) Certificados de qualificação não possuem validade para fins de prosseguimento de estudos.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="E" id="q3e"><label for="q3e">E) O aproveitamento de saberes é faculdade exclusiva das empresas contratantes.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q3">
+                <h4>Resolução Comentada</h4>
+                O Art. 36-D e o Art. 41 reforçam que conhecimentos adquiridos, inclusive no trabalho, podem ser aferidos e reconhecidos para prosseguimento de estudos. Diplomas têm validade nacional.
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-block" data-correct="D">
+            <span class="question-text">Questão 04: Sobre os objetivos e abrangência da Educação Profissional e Tecnológica (EPT), assinale a INCORRETA:</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q4" value="A" id="q4a"><label for="q4a">A) Abrange formação inicial e continuada, além de técnico, graduação e pós-graduação.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="B" id="q4b"><label for="q4b">B) Deve ser organizada preferencialmente por eixos tecnológicos.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="C" id="q4c"><label for="q4c">C) Conhecimentos do ambiente de trabalho podem ser objeto de avaliação e certificação.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="D" id="q4d"><label for="q4d">D) As instituições estão impedidas de oferecer cursos especiais abertos à comunidade.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="E" id="q4e"><label for="q4e">E) Deve articular-se com dimensões do trabalho, ciência e tecnologia.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q4">
+                <h4>Resolução Comentada</h4>
+                O Art. 42 da LDB estabelece expressamente que as instituições oferecerão cursos especiais abertos à comunidade, condicionado à capacidade de aproveitamento do aluno.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-block" data-correct="B">
+            <span class="question-text">Questão 05: Sobre a Lei nº 14.645/2023 e o Artigo 42-A (Eixos tecnológicos e itinerários contínuos), é correto:</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q5" value="A" id="q5a"><label for="q5a">A) O itinerário contínuo impede o aproveitamento incremental de experiências anteriores.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="B" id="q5b"><label for="q5b">B) O CNCT e o CNCST devem orientar a organização para permitir aproveitamento entre nível médio e superior.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="C" id="q5c"><label for="q5c">C) A organização em eixos visa fragmentar o conhecimento, proibindo integração de mais de um eixo.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="D" id="q5d"><label for="q5d">D) O MEC é o único responsável pela atualização dos catálogos, sem colaboração estadual.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="E" id="q5e"><label for="q5e">E) O itinerário contínuo aplica-se apenas aos cursos de pós-graduação.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q5">
+                <h4>Resolução Comentada</h4>
+                O objetivo dos Catálogos Nacionais (CNCT e CNCST) é justamente garantir a verticalização do ensino, permitindo que um técnico aproveite estudos na graduação tecnológica.
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-block" data-correct="B">
+            <span class="question-text">Questão 06: De acordo com a Lei nº 14.945/2024 (Política Nacional de Ensino Médio), o que se prevê para os cursos técnicos a partir de 2025?</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q6" value="A" id="q6a"><label for="q6a">A) A carga da FGB foi reduzida para 1.200 horas em todos os modelos.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="B" id="q6b"><label for="q6b">B) FGB mínima de 2.100 horas, admitindo-se até 300 horas destinadas a conteúdos da BNCC relacionados à técnica.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="C" id="q6c"><label for="q6c">C) Os itinerários formativos deixaram de ser obrigatórios para as escolas técnicas.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="D" id="q6d"><label for="q6d">D) Extinguiu a modalidade de ensino médio integrado.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="E" id="q6e"><label for="q6e">E) O itinerário profissional passa a ter carga fixa de 1.800 horas, sem uso da base comum.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q6">
+                <h4>Resolução Comentada</h4>
+                O "Novo Novo Ensino Médio" equilibrou as cargas: 2.400h de FGB no regular, e 2.100h de FGB no técnico (permitindo que 300h dessa base sejam contextualizadas na área técnica).
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-block" data-correct="B">
+            <span class="question-text">Questão 07: Sobre a gestão democrática e organização das Etecs (Deliberação CEETEPS nº 85/2022):</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q7" value="A" id="q7a"><label for="q7a">A) O Conselho de Escola é composto apenas por diretores e coordenadores.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="B" id="q7b"><label for="q7b">B) A gestão faz-se pela autonomia pedagógica e administrativa, com participação em órgãos colegiados.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="C" id="q7c"><label for="q7c">C) As reuniões do Conselho de Escola devem ser obrigatoriamente semanais.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="D" id="q7d"><label for="q7d">D) A atribuição de aulas é ato de soberania absoluta do diretor.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="E" id="q7e"><label for="q7e">E) É proibida a oferta de cursos de qualificação profissional de curta duração.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q7">
+                <h4>Resolução Comentada</h4>
+                O Regimento e a LDB asseguram a gestão democrática via órgãos colegiados (Conselho de Escola) com participação paritária de todos os segmentos da comunidade.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-block" data-correct="B">
+            <span class="question-text">Questão 08: Como a Geografia se posiciona juridicamente na LDB e nos editais do CEETEPS no contexto do ensino técnico?</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q8" value="A" id="q8a"><label for="q8a">A) É classificada como componente optativo, podendo ser substituída por gestão.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="B" id="q8b"><label for="q8b">B) Integra a FGB (Ciências Humanas), contribuindo para compreender o trabalho em dimensões espaciais.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="C" id="q8c"><label for="q8c">C) Deve focar exclusivamente em cartografia técnica, vedada a abordagem política.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="D" id="q8d"><label for="q8d">D) O professor de Geografia atua apenas no médio regular, proibido no técnico integrado.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="E" id="q8e"><label for="q8e">E) Foi fundida com História e é obrigatória apenas no 1º ano.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q8">
+                <h4>Resolução Comentada</h4>
+                A Geografia faz parte da área obrigatória de Ciências Humanas da BNCC e deve integrar a formação geral para que o técnico tenha visão espacial e crítica do mundo produtivo.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-block" data-correct="B">
+            <span class="question-text">Questão 09: Sobre a articulação entre Educação de Jovens e Adultos (EJA) e educação profissional na LDB (Art. 37):</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q9" value="A" id="q9a"><label for="q9a">A) Sistemas de ensino devem proibir matrícula da EJA em cursos técnicos.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="B" id="q9b"><label for="q9b">B) A EJA deverá articular-se, preferencialmente, com a educação profissional.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="C" id="q9c"><label for="q9c">C) O aluno da EJA técnica deve ter no mínimo 15 anos para exames supletivos do médio.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="D" id="q9d"><label for="q9d">D) Conhecimentos informais da EJA não podem ser reconhecidos.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="E" id="q9e"><label for="q9e">E) A articulação é permitida apenas em instituições privadas.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q9">
+                <h4>Resolução Comentada</h4>
+                O Art. 37 § 3º determina a articulação preferencial com a educação profissional para elevar a escolaridade associada à qualificação laboral. Para o médio, a idade mínima é 18 anos.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-block" data-correct="C">
+            <span class="question-text">Questão 10: Sobre a lógica dos eixos tecnológicos e do Catálogo Nacional de Cursos Técnicos (CNCT):</span>
+            <div class="options">
+                <div class="option-item"><input type="radio" name="q10" value="A" id="q10a"><label for="q10a">A) São divisões administrativas que separam alunos por classe social.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="B" id="q10b"><label for="q10b">B) O CNCT é meramente ilustrativo, sem força normativa.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="C" id="q10c"><label for="q10c">C) Agrupam cursos com bases científicas e tecnológicas comuns, facilitando mobilidade e aproveitamento.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="D" id="q10d"><label for="q10d">D) Impedem que o aluno de técnico ingresse em graduação tecnológica.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="E" id="q10e"><label for="q10e">E) A LDB obriga que cada unidade ofereça cursos de todos os eixos simultaneamente.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q10">
+                <h4>Resolução Comentada</h4>
+                Os eixos tecnológicos organizam os saberes por afinidade técnica, permitindo que o aluno transite entre cursos de uma mesma área com aproveitamento de estudos.
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+</div>
+
+<script>
+    function gradeQuiz() {
+        const form = document.getElementById('quiz-form');
+        const questions = document.querySelectorAll('.question-block');
+        let score = 0;
+
+        questions.forEach((qBlock, index) => {
+            const qNum = index + 1;
+            const selected = form.querySelector(`input[name="q${qNum}"]:checked`);
+            const correctAnswer = qBlock.getAttribute('data-correct');
+            const resolution = qBlock.querySelector('.resolution-box');
+            const options = qBlock.querySelectorAll('.option-item');
+
+            // Mostrar resolução
+            resolution.style.display = 'block';
+
+            // Validar acerto
+            if (selected) {
+                if (selected.value === correctAnswer) {
+                    score++;
+                    selected.parentElement.classList.add('correct');
+                } else {
+                    selected.parentElement.classList.add('incorrect');
+                    // Marcar a correta também para estudo
+                    options.forEach(opt => {
+                        if (opt.querySelector('input').value === correctAnswer) {
+                            opt.classList.add('correct');
+                        }
+                    });
+                }
+            } else {
+                // Se não respondeu, mostrar qual era a correta
+                options.forEach(opt => {
+                    if (opt.querySelector('input').value === correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+
+            // Desabilitar inputs após correção
+            options.forEach(opt => {
+                opt.querySelector('input').disabled = true;
+                opt.style.cursor = 'default';
+            });
+        });
+
+        // Mostrar resumo
+        const summary = document.getElementById('results-summary');
+        const scoreDisplay = document.getElementById('final-score');
+        const feedbackText = document.getElementById('feedback-text');
+        
+        summary.style.display = 'block';
+        scoreDisplay.innerText = `${score}/10`;
+        
+        if (score >= 8) {
+            feedbackText.innerText = "Excelente desempenho! Você domina a base legal da EPT.";
+        } else if (score >= 5) {
+            feedbackText.innerText = "Bom desempenho. Revise as resoluções para sanar dúvidas pontuais.";
+        } else {
+            feedbackText.innerText = "Atenção necessária. Estude os artigos 36 a 42 da LDB e as atualizações de 2023/2024.";
+        }
+
+        // Esconder botão de submit
+        document.querySelector('.btn-submit').classList.add('hidden');
+
+        // Rolar para o topo
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

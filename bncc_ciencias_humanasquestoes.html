@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: BNCC Geografia - Concurso ETEC</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --container-bg: #ffffff;
+            --text-color: #212529;
+            --accent-color: #b30000; /* Tom de vermelho do Centro Paula Souza */
+            --border-color: #dee2e6;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --highlight-bg: #e9ecef;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .question-card {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            border-color: var(--accent-color);
+            background-color: #fff5f5;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #8c0000;
+        }
+
+        /* Seção de Resultados */
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding: 30px;
+            background: #f1f3f5;
+            border-radius: 8px;
+        }
+
+        .score-summary {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .review-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--border-color);
+        }
+
+        .review-card.correct {
+            border-left-color: var(--success-color);
+        }
+
+        .review-card.incorrect {
+            border-left-color: var(--error-color);
+        }
+
+        .resolution-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fdfdfe;
+            border: 1px dashed #ccc;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .correct-answer-label {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Geografia e BNCC (CEETEPS)</h1>
+        <p class="intro">10 questões sobre as Competências Específicas da Geografia na BNCC de Ciências Humanas.</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- As questões serão inseridas aqui via JS -->
+    </div>
+
+    <div class="btn-container">
+        <button id="submit-btn" onclick="showResults()">Finalizar e Ver Gabarito</button>
+    </div>
+
+    <div id="results-section">
+        <div class="score-summary" id="score-display"></div>
+        <div id="detailed-review"></div>
+        <div class="btn-container">
+            <button onclick="window.location.reload()">Reiniciar Simulado</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "A Base Nacional Comum Curricular (BNCC) para o Ensino Médio estrutura a área de Ciências Humanas e Sociais Aplicadas em seis competências específicas que devem ser articuladas com os componentes de Geografia, História, Filosofia e Sociologia. No contexto da Geografia, a Competência Específica 1 enfoca a análise de processos políticos, econômicos, sociais, ambientais e culturais em múltiplas escalas. Considerando a habilidade EM13CHS101, o planejamento docente em uma ETEC deve priorizar uma abordagem que:",
+            options: [
+                "Isole a análise dos fatores físico-naturais da Amazônia como variáveis independentes, tratando a economia global como fator secundário.",
+                "Utilize o trânsito entre as escalas global, nacional e local para demonstrar como a produção do espaço resulta da dialética entre componentes sociais e físico-naturais.",
+                "Substitua a categoria de 'território' pela de 'itinerário formativo', focando exclusivamente na preparação técnica imediata.",
+                "Priorize a memorização dos limites políticos dos estados brasileiros que compõem a Amazônia Legal.",
+                "Desvincule os processos históricos de ocupação do solo da análise geográfica contemporânea."
+            ],
+            correct: 1,
+            resolution: "A alternativa B reflete o conceito de 'escala' como categoria de análise política e social. A Competência 1 propõe que o estudante desenvolva a capacidade de estabelecer diálogos entre saberes em diversas escalas. O professor deve levar o aluno a perceber que fenômenos locais (como o desmatamento) estão ligados ao global (commodities)."
+        },
+        {
+            id: 2,
+            question: "A Competência Específica 2 da BNCC de Ciências Humanas orienta o estudante a 'analisar matrizes conceituais e discursos'. Analise as afirmações sobre a habilidade EM13CHS102 e a dinâmica urbana paulista:\nI. A distribuição da população deve considerar indicadores demográficos articulados a recortes de etnia e renda.\nII. A gentrificação é apenas um processo econômico de revitalização, sem novos discursos sobre o espaço.\nIII. As migrações para o interior de São Paulo relacionam-se à desconcentração industrial.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "I e III.",
+                "II e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            resolution: "A afirmação I está fundamentada na habilidade de analisar matrizes conceituais, revelando disparidades históricas. A afirmação III conecta-se à desconcentração industrial e valorização de cidades médias. A afirmação II está incorreta porque a gentrificação envolve novos discursos e narrativas de 'higienização' do espaço."
+        },
+        {
+            id: 3,
+            question: "Sobre a aplicação da habilidade EM13CHS103 (analisar e utilizar dados de mapas, gráficos e tabelas) no Ensino Médio e o uso da Cartografia Social, assinale a alternativa correta:",
+            options: [
+                "A cartografia deve ser ensinada apenas como técnica de desenho geométrico focado na precisão métrica absoluta.",
+                "O uso de GPS e mapas artesanais demonstra como a cartografia pode ser utilizada para a valorização de identidades coletivas e defesa de territórios.",
+                "Mapas digitais e SIG são ferramentas complexas demais para o Ensino Médio.",
+                "A análise de indicadores socioeconômicos deve servir exclusivamente para comparação de PIB, evitando problematizar desigualdades.",
+                "O ensino de coordenadas geográficas deve ser abolido devido ao uso de aplicativos de localização em tempo real."
+            ],
+            correct: 1,
+            resolution: "A cartografia na BNCC é vista como uma linguagem de representação de mundo. A Cartografia Social utiliza tecnologias para fortalecer a autonomia de grupos tradicionais, tornando o mapa um instrumento de prova e identidade."
+        },
+        {
+            id: 4,
+            question: "A BNCC destaca a importância de romper com visões dicotômicas entre o campo e a cidade (Competência 4). De acordo com a habilidade EM13CHS104, qual abordagem o professor de Geografia deve adotar ao discutir a questão agrária no Brasil?",
+            options: [
+                "Focar exclusivamente no agronegócio como único modelo viável e moderno.",
+                "Abordar as interconexões entre espaços urbanos e rurais, analisando as territorialidades juvenis e os conflitos pela terra.",
+                "Tratar a questão agrária como um tema meramente histórico, focado no período das Sesmarias.",
+                "Isolar o estudo da vegetação natural das práticas de ocupação econômica.",
+                "Promover a visão de que o espaço rural é um ambiente puramente idílico e de preservação."
+            ],
+            correct: 1,
+            resolution: "A Competência 4 trata das relações entre cultura material e imaterial e as interconexões campo-cidade. É fundamental analisar como o agronegócio interage com a agricultura familiar e os conflitos gerados, rompendo com o estigma de 'atraso' do rural."
+        },
+        {
+            id: 5,
+            question: "A estrutura morfoclimática do território brasileiro (Ab’Sáber) articulada com a Competência 1 e 5 da BNCC. Considerando um trajeto ferroviário do Sudeste ao Norte, o professor deve explorar:",
+            options: [
+                "Apenas a descrição de rochas e solos, sem relacionar à ocupação humana.",
+                "Como as diferentes configurações de relevo e clima condicionaram a ocupação econômica e os desafios atuais para a sustentabilidade.",
+                "A ideia de que o clima equatorial impede qualquer tipo de desenvolvimento industrial.",
+                "A classificação das Caatingas como um ecossistema sem relação com dinâmicas climáticas globais.",
+                "O isolamento geográfico do Pantanal como domínio imune às atividades econômicas do entorno."
+            ],
+            correct: 1,
+            resolution: "O estudo dos domínios deve articular o suporte físico à ação humana. No contexto de infraestrutura (ferrovias), deve-se discutir como o relevo e clima impõem desafios técnicos e éticos quanto à resiliência dos biomas."
+        },
+        {
+            id: 6,
+            question: "Qual atividade pedagógica melhor exemplifica a aplicação da Competência 6 (Protagonismo) articulada à habilidade EM13CHS601 no contexto de uma ETEC?",
+            options: [
+                "Um debate simulado sobre a demarcação de terras indígenas e quilombolas com uso de mapas de conflitos.",
+                "Uma aula expositiva focada na memorização de dados estatísticos de habitantes por continente.",
+                "Realização de exercícios de múltipla escolha focados em termos geológicos técnicos.",
+                "Exibição de filme sobre a Revolução Industrial na Inglaterra sem conexão com o Brasil atual.",
+                "Leitura individual e silenciosa do livro didático sem interação entre os estudantes."
+            ],
+            correct: 0,
+            resolution: "A Competência 6 trata da participação qualificada no debate público. Atividades que colocam o aluno como protagonista e utilizam dados reais para fundamentar argumentos críticos atendem ao objetivo da BNCC."
+        },
+        {
+            id: 7,
+            question: "Segundo a LDB 9.394/1996 e as normas do Centro Paula Souza para o Ensino Médio Integrado, a educação profissional deve:",
+            options: [
+                "Excluir a Geografia do currículo técnico para focar apenas em competências operacionais.",
+                "Integrar as aprendizagens das Ciências Humanas (compreensão crítica do espaço) à formação profissional.",
+                "Manter a Geografia como disciplina isolada sem relação com temas transversais de ética.",
+                "Priorizar o ensino de Geografia Física apenas nos cursos voltados ao meio ambiente.",
+                "Substituir as competências da BNCC por manuais técnicos de instrução de equipamentos."
+            ],
+            correct: 1,
+            resolution: "A reforma do Ensino Médio prevê que a educação profissional não seja meramente operacional, mas uma formação integral. A Geografia oferece a base para entender as dinâmicas territoriais onde o técnico irá atuar."
+        },
+        {
+            id: 8,
+            question: "Considerando a lógica de um 'carro global' no contexto da Globalização (Competência 1 e 3), assinale a alternativa que descreve corretamente o processo:",
+            options: [
+                "Montagem do carro inteiramente em um único país utilizando 100% de insumos locais.",
+                "Fragmentação da produção, com projeto em um país, peças em diversos outros e montagem final em zonas específicas.",
+                "Redução da circulação de mercadorias devido ao fortalecimento de barreiras alfandegárias.",
+                "Homogeneização cultural total eliminando as resistências locais.",
+                "Fim da divisão internacional do trabalho devido à tecnologia de informação."
+            ],
+            correct: 1,
+            resolution: "O 'carro global' é a metáfora da fragmentação espacial da produção. Projeto, fabricação de peças e montagem ocorrem em locais diferentes baseados em vantagens comparativas, sustentados por redes logísticas."
+        },
+        {
+            id: 9,
+            question: "Qual das afirmações abaixo reflete uma abordagem geográfica alinhada à BNCC sobre o tema ambiental (Competência 5)?",
+            options: [
+                "O aquecimento global deve ser tratado apenas como um ciclo natural da Terra.",
+                "A análise ambiental deve integrar a geomorfologia e o clima às dinâmicas econômicas e de consumo.",
+                "A sustentabilidade é responsabilidade exclusiva da disciplina de Biologia.",
+                "O desmatamento da Mata Atlântica é um processo concluído e sem relevância para a vida urbana.",
+                "O ensino de preservação deve ser apenas a memorização do Código Florestal."
+            ],
+            correct: 1,
+            resolution: "A BNCC exige análise sistêmica que conecte o meio físico às escolhas políticas e econômicas. O professor deve discutir como modelos de consumo impactam biomas e a resiliência do planeta."
+        },
+        {
+            id: 10,
+            question: "Sobre os fundamentos da cartografia aplicados ao Ensino Médio, assinale a alternativa que apresenta uma afirmação tecnicamente INCORRETA:",
+            options: [
+                "Paralelos são círculos paralelos ao Equador, Meridianos ligam os polos.",
+                "A escala indica a proporcionalidade entre distância no mapa e real.",
+                "Projeções cartográficas sempre apresentam algum tipo de distorção.",
+                "O fuso horário de um lugar é determinado exclusivamente pela sua latitude.",
+                "O GPS utiliza uma rede de satélites para fornecer coordenadas de latitude e longitude."
+            ],
+            correct: 3,
+            resolution: "Afirmação incorreta: O fuso horário é determinado pela LONGITUDE (meridianos), não pela latitude. Cada fuso de 15 graus de longitude corresponde a uma hora legal."
+        }
+    ];
+
+    const quizForm = document.getElementById('quiz-form');
+
+    // Inicializa o Quiz
+    function buildQuiz() {
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <span class="question-text">${index + 1}. ${q.question}</span>
+                <ul class="options-list">
+                    ${q.options.map((opt, i) => `
+                        <li class="option-item" onclick="selectOption(${index}, ${i})">
+                            <input type="radio" name="q${index}" id="q${index}o${i}" value="${i}">
+                            <label for="q${index}o${i}">${String.fromCharCode(65 + i)}) ${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            quizForm.appendChild(card);
+        });
+    }
+
+    function selectOption(qIdx, oIdx) {
+        // Desmarcar outros itens da mesma questão visualmente
+        const items = quizForm.querySelectorAll(`.question-card:nth-child(${qIdx + 1}) .option-item`);
+        items.forEach(item => item.classList.remove('selected'));
+        
+        // Marcar o selecionado
+        items[oIdx].classList.add('selected');
+        items[oIdx].querySelector('input').checked = true;
+    }
+
+    function showResults() {
+        let score = 0;
+        const reviewContainer = document.getElementById('detailed-review');
+        reviewContainer.innerHTML = '';
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const selectedVal = selected ? parseInt(selected.value) : null;
+            const isCorrect = selectedVal === q.correct;
+            
+            if (isCorrect) score++;
+
+            const reviewCard = document.createElement('div');
+            reviewCard.className = `review-card ${isCorrect ? 'correct' : 'incorrect'}`;
+            
+            reviewCard.innerHTML = `
+                <p><strong>Questão ${index + 1}:</strong> ${isCorrect ? '✅ Acertou' : '❌ Errou'}</p>
+                <p>Sua resposta: ${selectedVal !== null ? String.fromCharCode(65 + selectedVal) : 'Não respondida'}</p>
+                <p class="correct-answer-label">Resposta Correta: ${String.fromCharCode(65 + q.correct)}</p>
+                <div class="resolution-box">
+                    <span class="resolution-title">Resolução:</span>
+                    ${q.resolution}
+                </div>
+            `;
+            reviewContainer.appendChild(reviewCard);
+        });
+
+        // Mostrar resumo
+        document.getElementById('score-display').innerText = `Você acertou ${score} de ${quizData.length} questões!`;
+        
+        // Esconder quiz e mostrar resultados
+        document.getElementById('quiz-form').style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
+        
+        // Scroll para o topo dos resultados
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Gerar quiz ao carregar
+    window.onload = buildQuiz;
+</script>
+
+</body>
+</html>
