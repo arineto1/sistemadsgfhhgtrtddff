@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC - Acumulação de Cargos</title>
+    <style>
+        :root {
+            --bg-color: #fcfcf9;
+            --text-color: #2c3e50;
+            --accent-color: #2980b9;
+            --border-color: #e0e0e0;
+            --correct-bg: #e8f5e9;
+            --wrong-bg: #ffebee;
+            --max-width: 850px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Georgia, serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            max-width: var(--max-width);
+            width: 100%;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 { font-size: 1.8rem; color: #1a252f; margin-bottom: 10px; }
+        p.subtitle { font-style: italic; color: #7f8c8d; }
+
+        .quiz-container {
+            max-width: var(--max-width);
+            width: 100%;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            transition: background 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f0f7fd;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 6px;
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1f6391;
+            transform: translateY(-2px);
+        }
+
+        #results-section {
+            display: none;
+            max-width: var(--max-width);
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .score-box {
+            background: var(--accent-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .resolution-card {
+            background: #fff;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .correct { color: #2e7d32; background: #e8f5e9; }
+        .wrong { color: #c62828; background: #ffebee; }
+
+        .hidden { display: none; }
+        
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Exame de Proficiência Legislativa e Funcional: Geografia CEETEPS</h1>
+        <p class="subtitle">Tema: Acumulação de Cargos e Regime Jurídico</p>
+    </header>
+
+    <div class="quiz-container" id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q-card-1">
+            <span class="question-text">Questão 01: No ordenamento jurídico brasileiro, a regra geral estabelecida pelo Artigo 37, inciso XVI, da Constituição Federal de 1988, é a vedação à acumulação remunerada de cargos... Com base nas diretrizes constitucionais e nas normas que regem o serviço público estadual paulista, assinale a alternativa que descreve uma hipótese de acumulação considerada lícita:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A) A ocupação simultânea de Professor e Oficial Administrativo na SEFAZ-SP.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B) A manutenção de dois vínculos de Professor em diferentes unidades do CEETEPS ou na SEE-SP, independentemente de a soma ultrapassar 60h semanais.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C) A acumulação de professor na ETEC com Geógrafo municipal, desde que uma seja voluntária.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D) O exercício de Professor na ETEC com cargo burocrático em empresa pública mediante autorização prévia.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E) A acumulação de dois cargos de professor, desde que um deles seja obrigatoriamente na rede privada.</label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q-card-2">
+            <span class="question-text">Questão 02: Analise as proposições abaixo e selecione a alternativa correta sobre o que caracteriza o cargo técnico ou científico:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A) Qualquer cargo cujo edital exija ensino médio completo.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B) Apenas cargos que possuam a denominação "Técnico" em sua nomenclatura oficial.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C) Cargos cujas atribuições exijam aplicação de conhecimentos especializados de nível superior ou profissionalizante, excluindo atividades meramente rotineiras.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D) Cargos de confiança de livre nomeação que são equiparados a científicos.</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E) Atividades sob regime CLT em empresas de economia mista, consideradas técnicas por presunção.</label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q-card-3">
+            <span class="question-text">Questão 03: De acordo com a tese fixada pelo STF no Tema 1081, a compatibilidade de horários deve ser analisada sob o seguinte prisma:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A) Observância do limite máximo improrrogável de 60 horas semanais.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B) Prevalência de normas infraconstitucionais limitadoras sobre a previsão constitucional.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C) Sujeição unicamente à existência de compatibilidade de horários verificada no caso concreto, mesmo ultrapassando limites infraconstitucionais.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D) Presunção de compatibilidade para servidores com mais de 10 anos de exercício.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E) Limite de 40 horas semanais para cada cargo isoladamente.</label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q-card-4">
+            <span class="question-text">Questão 04: Sobre a composição da retribuição pecuniária do docente de Geografia da ETEC, assinale a alternativa correta:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A) O salário é composto exclusivamente pelas horas-aula ministradas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B) À carga horária de aulas é acrescido 30% de hora-atividade e, sobre o montante, incide 1/6 de DSR.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C) O valor da hora-aula é unificado para todos os docentes do Estado, proibindo escala própria do CEETEPS.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D) A jornada máxima mensal é de 100 horas-aula no CEETEPS.</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E) A hora-atividade é opcional, paga apenas a quem comprova pesquisa científica.</label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q-card-5">
+            <span class="question-text">Questão 05: Sobre a competência administrativa para análise e publicação do ato decisório de acumulação em uma ETEC, é correto afirmar:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A) Competência exclusiva do Governador do Estado.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B) Na admissão cabe à CGGP; durante a vida funcional (alterações), cabe ao Diretor da ETEC.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C) O Tribunal de Contas (TCE-SP) publica semestralmente a lista de permitidos.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D) O Conselho Deliberativo do CEETEPS julga todos os casos em última instância.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E) A publicação do Ato Decisório é facultativa.</label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q-card-6">
+            <span class="question-text">Questão 06: Um Geógrafo aposentado decide prestar concurso para Professor na ETEC. Sobre a acumulação de proventos e remuneração:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A) Poderá acumular, pois a Constituição permite percepção simultânea se os cargos forem acumuláveis na atividade.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B) A acumulação é proibida em qualquer hipótese de cargo permanente.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C) Só é permitida se o cargo for em comissão.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D) O teto remuneratório não se aplica à soma de proventos e remuneração.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E) A acumulação é livre e dispensa verificação de compatibilidade de horários.</label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q-card-7">
+            <span class="question-text">Questão 07: Sobre penalidades administrativas anteriores e ingresso no CEETEPS:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A) Qualquer suspensão impede permanentemente o ingresso.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B) O candidato não poderá ser admitido se demitido ou demitido "a bem do serviço" nos últimos 5 ou 10 anos, respectivamente.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C) Sanções federais não repercutem na esfera estadual.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D) A reabilitação ocorre automaticamente após 2 anos da demissão.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E) O CEETEPS não exige informações sobre demissões anteriores estatutárias por ser regime CLT.</label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q-card-8">
+            <span class="question-text">Questão 08: Professor de Geografia com 20h assume também Coordenador de Projetos na mesma unidade. Isso configura:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A) Acumulação ilegal por conflito de interesses.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B) Alteração de carga horária permitida, desde que respeite 200h mensais e compatibilidade de horários.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C) Substituição temporária que dispensa Ato Decisório por ser "pro labore".</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D) Acumulação lícita apenas se renunciar às horas-aula.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E) Situação de dedicação exclusiva obrigatória.</label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q-card-9">
+            <span class="question-text">Questão 09: Na verificação da compatibilidade de horários e deslocamento, o gestor deve observar:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A) Exclusivamente a distância em linha reta.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B) Distância, meios de transporte e tempo necessário, garantindo tempo para alimentação e descanso.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C) Obrigatoriedade de intervalo mínimo de 6 horas entre jornadas.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D) Uso preferencial de transporte aéreo em distâncias acima de 100km.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E) Declaração de que não utilizará transporte público.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q-card-10">
+            <span class="question-text">Questão 10: Após constatação de indícios de ilegalidade na acumulação de um docente em exercício, o passo imediato é:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A) Exoneração imediata e encaminhamento ao MP.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B) Notificação formal para apresentar defesa ou formalizar direito de opção no prazo legal.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C) Suspensão preventiva de ambos os vencimentos.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D) Anulação automática do concurso público.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E) Arquivamento se a situação já ocorre há mais de 2 anos.</label>
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+    </div>
+
+    <div id="results-section">
+        <div class="score-box">
+            <h2 id="final-score">Pontuação: 0 / 10</h2>
+            <p id="feedback-text"></p>
+        </div>
+
+        <div id="detailed-resolutions">
+            <!-- As resoluções serão inseridas aqui via JS -->
+        </div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: "B", q2: "C", q3: "C", q4: "B", q5: "B",
+            q6: "A", q7: "B", q8: "B", q9: "B", q10: "B"
+        };
+
+        const resolutions = {
+            q1: "A Constituição permite a acumulação de dois cargos de professor. No CEETEPS, isso abrange tanto a acumulação interna quanto externa (ETEC + SEE-SP). Recentemente, o STF afastou a barreira automática das 60 horas semanais.",
+            q2: "Cargo técnico ou científico é aquele que exige conhecimentos especializados de nível superior ou profissionalizante. Não são cargos burocráticos ou de suporte comum.",
+            q3: "Tese do Tema 1081 do STF: a compatibilidade deve ser verificada no caso concreto, prevalecendo a realidade dos horários sobre limites matemáticos de normas inferiores.",
+            q4: "A remuneração docente no CEETEPS inclui: Hora-aula + 30% de Hora-Atividade + 1/6 de DSR sobre a soma anterior.",
+            q5: "A análise inicial é da CGGP (admissão), mas durante a vida funcional (mudanças de sede ou carga), a competência para o ato decisório é do Diretor da Unidade (ETEC).",
+            q6: "É permitido acumular proventos de aposentadoria com remuneração ativa se os cargos forem acumuláveis na atividade (ex: Geógrafo + Professor).",
+            q7: "Demitidos do serviço público paulista ficam impedidos de retornar por 5 anos (demissão comum) ou 10 anos (a bem do serviço público).",
+            q8: "Docentes podem acumular aulas com funções de confiança (coordenação) na mesma unidade, desde que respeitem o limite de 200h mensais da instituição.",
+            q9: "A compatibilidade exige análise logística: tempo de deslocamento real, meios de transporte e garantia de condições mínimas de saúde e descanso.",
+            q10: "Em respeito à ampla defesa, o servidor deve ser notificado para se defender ou exercer o direito de opção (escolher um dos cargos) antes de sanções."
+        };
+
+        function gradeQuiz() {
+            let score = 0;
+            const userAnswers = {};
+            const resolutionContainer = document.getElementById('detailed-resolutions');
+            resolutionContainer.innerHTML = '<h3>Correção Detalhada</h3>';
+
+            for (let i = 1; i <= 10; i++) {
+                const selector = `input[name="q${i}"]:checked`;
+                const selected = document.querySelector(selector);
+                const val = selected ? selected.value : "Não respondida";
+                
+                const isCorrect = val === answers[`q${i}`];
+                if (isCorrect) score++;
+
+                // Criar card de resolução
+                const resCard = document.createElement('div');
+                resCard.className = 'question-card';
+                resCard.innerHTML = `
+                    <p><strong>Questão ${i}</strong></p>
+                    <span class="status-badge ${isCorrect ? 'correct' : 'wrong'}">
+                        ${isCorrect ? '✓ ACERTOU' : '✗ ERROU'}
+                    </span>
+                    <p>Sua resposta: <strong>${val}</strong> | Gabarito: <strong>${answers[`q${i}`]}</strong></p>
+                    <div class="resolution-card">
+                        <strong>Resolução:</strong> ${resolutions[`q${i}`]}
+                    </div>
+                `;
+                resolutionContainer.appendChild(resCard);
+            }
+
+            // Mostrar resultados
+            document.getElementById('quiz-form').classList.add('hidden');
+            document.getElementById('results-section').style.display = 'block';
+            document.getElementById('final-score').innerText = `Pontuação: ${score} / 10`;
+            
+            let feedback = "";
+            if (score === 10) feedback = "Excelente! Você domina o Regime Jurídico do CEETEPS.";
+            else if (score >= 7) feedback = "Bom desempenho. Revise os pontos onde houve dúvida.";
+            else feedback = "Atenção necessária. Leia atentamente as resoluções e a fundamentação legal.";
+            document.getElementById('feedback-text').innerText = feedback;
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

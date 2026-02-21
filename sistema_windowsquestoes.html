@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC - Gerenciamento de Arquivos Windows</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1b;
+            --accent-color: #b91c1c; /* Vermelho institucional ETEC */
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --success: #15803d;
+            --error: #b91c1c;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 3px solid var(--accent-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #111;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .quiz-container {
+            margin-top: 2rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .option-item label {
+            display: block;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item input {
+            margin-right: 10px;
+        }
+
+        .option-item label:hover {
+            background-color: #f9fafb;
+            border-color: #999;
+        }
+
+        .option-item input:checked + span {
+            font-weight: bold;
+        }
+
+        .option-item.selected label {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #991b1b;
+        }
+
+        /* Results Area */
+        #results-area {
+            display: none;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px dashed #ccc;
+        }
+
+        .score-box {
+            background-color: #1e293b;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .resolution-card {
+            background: #fff;
+            border-left: 5px solid var(--accent-color);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .resolution-header {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .correct-answer-label {
+            font-weight: bold;
+            color: var(--success);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .explanation {
+            font-size: 0.95rem;
+            color: #334155;
+            text-align: justify;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .status-correct { background: #dcfce7; color: #166534; }
+        .status-wrong { background: #fee2e2; color: #991b1b; }
+
+        @media (max-width: 600px) {
+            .container { padding: 0 1rem; }
+            .question-card { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Gerenciamento de Arquivos e Pastas</h1>
+    <div class="subtitle">Perfil: Professor de Geografia - ETEC (Centro Paula Souza)</div>
+</header>
+
+<div class="container">
+    <div id="quiz-form" class="quiz-container">
+        <!-- As questões serão inseridas aqui via JS -->
+    </div>
+
+    <button id="finish-btn" class="btn-submit">Finalizar Simulado e Ver Resoluções</button>
+
+    <div id="results-area">
+        <div class="score-box">
+            <span>Seu Resultado:</span>
+            <span id="score-text" class="score-number">0 / 10</span>
+            <span id="score-percent">0% de aproveitamento</span>
+        </div>
+
+        <h2 style="margin-bottom: 2rem;">Gabarito Comentado e Resoluções</h2>
+        <div id="resolutions-container">
+            <!-- As resoluções aparecerão aqui -->
+        </div>
+        
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="btn-submit" style="background: #475569; margin-bottom: 50px;">Voltar ao Topo</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "Um docente de Geografia da ETEC, ao preparar uma aula sobre Cartografia Temática, necessita organizar diversos mapas e bases de dados armazenados em subpastas distintas. Para agilizar a navegação entre os diretórios do sistema sem utilizar o menu Iniciar, o professor decide utilizar um atalho de teclado nativo para abrir instantaneamente uma nova instância do gerenciador de arquivos do Windows 10. Assinale a alternativa que apresenta a combinação correta de teclas para essa finalidade:",
+            options: {
+                A: "Tecla do logotipo do Windows + Tecla F",
+                B: "Tecla CTRL + Tecla E",
+                C: "Tecla ALT + Tecla F4",
+                D: "Tecla do logotipo do Windows + Tecla E",
+                E: "Tecla SHIFT + Tecla E"
+            },
+            correct: "D",
+            explanation: "A agilidade operacional é um requisito implícito para o docente que atua em salas de aula equipadas com recursos tecnológicos nas Etecs. O 'Explorador de Arquivos', anteriormente conhecido como Windows Explorer, é a interface primordial para a gestão de diretórios. O atalho Logotipo do Windows + E (onde o 'E' remete a Explorer) é uma das combinações mais fundamentais do sistema operacional. No contexto pedagógico, um professor de Geografia frequentemente precisa transitar entre a pasta de 'Aulas_2024', o repositório de 'Mapas_Brasil' e os arquivos de 'Avaliações'. O uso do atalho minimiza a dependência do mouse e acelera o fluxo de trabalho durante a projeção de materiais didáticos."
+        },
+        {
+            id: 2,
+            text: "No contexto do gerenciamento de informações geoespaciais, um professor precisa enviar por correio eletrônico institucional um conjunto de 15 imagens de satélite de alta resolução e 5 arquivos de texto (.docx) contendo roteiros de análise. Devido ao grande volume total dos dados, que excede o limite permitido para anexos individuais, o docente deve utilizar uma funcionalidade nativa do Windows para reunir todos os itens em um único arquivo compactado. De acordo com as operações de gerenciamento de arquivos no Windows 10, qual é a ação correta e a extensão padrão gerada?",
+            options: {
+                A: "Criptografar os arquivos para gerar um pacote com extensão.PDF.",
+                B: "Fragmentar os arquivos para gerar volumes com extensão.ISO.",
+                C: "Compactar os arquivos (enviar para pasta compactada) para gerar um arquivo com extensão.ZIP.",
+                D: "Criar atalhos de todos os arquivos para gerar um contêiner com extensão.LNK.",
+                E: "Converter os arquivos para o formato binário com extensão.EXE."
+            },
+            correct: "C",
+            explanation: "A gestão de recursos digitais pesados, como ortofotocartas e imagens orbitais, é rotina para o docente de Geografia. O Windows oferece uma ferramenta nativa de compressão baseada no padrão DEFLATE, que agrupa múltiplos arquivos em um contêiner .ZIP. Esta operação é vital para contornar limitações de tamanho de anexos em servidores de e-mail institucionais (comumente limitados a 20MB ou 25MB). Além da redução do tamanho total, a compactação garante que a estrutura de subpastas do docente seja mantida integralmente no destino, facilitando a organização para o aluno que recebe o material."
+        },
+        {
+            id: 3,
+            text: "A arquitetura de armazenamento do Windows utiliza sistemas de arquivos para organizar como os dados são gravados e recuperados nas unidades de disco. Um sistema específico, historicamente associado à Microsoft e frequentemente citado em contextos de compatibilidade de dispositivos removíveis, baseia-se em uma tabela de alocação que mapeia os clusters no disco para permitir a abertura dos arquivos. Assinale a alternativa que identifica corretamente esse sistema de arquivos:",
+            options: {
+                A: "NTFS (New Technology File System)",
+                B: "FAT (File Allocation Table)",
+                C: "GUI (Graphical User Interface)",
+                D: "BIOS (Basic Input/Output System)",
+                E: "RAM (Random Access Memory)"
+            },
+            correct: "B",
+            explanation: "O termo 'FAT' (File Allocation Table) é duplamente relevante neste concurso: representa tanto a sigla da banca examinadora (Fundação de Apoio à Tecnologia) quanto um dos sistemas de arquivos mais longevos da computação. O sistema FAT funciona como um índice central que informa ao sistema operacional em quais clusters (unidades de alocação) os fragmentos de um arquivo estão fisicamente localizados no disco. Embora o sistema NTFS seja o padrão para instalações modernas do Windows devido aos recursos de segurança e suporte a arquivos grandes (superiores a 4GB), o FAT ainda é o padrão para pendrives pela alta compatibilidade."
+        },
+        {
+            id: 4,
+            text: "Durante a limpeza de diretórios antigos no computador do laboratório de Geografia de uma ETEC, um professor decide excluir definitivamente uma pasta contendo rascunhos de provas de anos anteriores. Ele deseja que essa exclusão seja imediata e permanente, sem que os arquivos ocupem espaço temporário na Lixeira do sistema operacional Windows. Para realizar a exclusão de um item selecionado sem enviá-lo para a Lixeira, a combinação de teclas correta é:",
+            options: {
+                A: "CTRL + ALT + DEL",
+                B: "SHIFT + DELETE",
+                C: "ALT + DELETE",
+                D: "WINDOWS + DELETE",
+                E: "CTRL + DELETE"
+            },
+            correct: "B",
+            explanation: "A segurança e o descarte correto de informações são partes da ética docente e da conformidade com a LGPD no ambiente escolar. O comando SHIFT + DELETE instrui o Windows a ignorar o repositório da Lixeira, marcando os setores do disco ocupados pelo arquivo como 'disponíveis' imediatamente no sistema de arquivos. Para um professor da ETEC, este comando é útil ao lidar com dados sensíveis de alunos ou rascunhos de provas que não devem ficar acessíveis a terceiros que utilizem a mesma estação de trabalho."
+        },
+        {
+            id: 5,
+            text: "Ao buscar por arquivos de um projeto específico sobre 'Geopolítica do Petróleo', um docente lembra que salvou diversos mapas cujos nomes começam com a palavra 'Mapa', mas não recorda o restante do nome nem a extensão do arquivo (se.jpg,.png ou.pdf). Ele decide utilizar caracteres curingas na caixa de pesquisa do Explorador de Arquivos para obter todos os resultados que atendam a esse critério inicial. Qual das seguintes sintaxes deve ser utilizada para localizar todos os arquivos que iniciam com a sequência 'Mapa', independentemente do que venha a seguir?",
+            options: {
+                A: "Mapa?",
+                B: "Mapa#",
+                C: "Mapa*",
+                D: "[Mapa]",
+                E: "$Mapa$"
+            },
+            correct: "C",
+            explanation: "A habilidade de recuperação de informação é essencial diante de acervos digitais crescentes. No sistema de busca do Windows, o asterisco (*) é um caractere curinga que representa 'zero ou mais caracteres de qualquer tipo'. Ao digitar Mapa*, o professor obtém resultados como 'Mapa_Mundi.jpg', 'Mapa_Brasil_Clima.pdf' ou simplesmente 'Mapa'. Já o caractere ? (interrogação) substitui exatamente um único caractere."
+        },
+        {
+            id: 6,
+            text: "No Windows 10, ao realizar a manipulação de arquivos entre diferentes janelas do Explorador de Arquivos utilizando o mouse (clicar e arrastar), o comportamento padrão do sistema pode variar dependendo da origem e do destino dos dados. Considere que um professor está arrastando um arquivo da pasta 'Documentos' (localizada na Unidade C:) para um pendrive (identificado como Unidade E:). Nessa situação específica, ao soltar o botão esquerdo do mouse no destino, o Windows executará, por padrão, a seguinte ação:",
+            options: {
+                A: "Mover o arquivo para a Unidade E:, removendo-o da origem.",
+                B: "Criar um atalho do arquivo na Unidade E:.",
+                C: "Copiar o arquivo para a Unidade E:, mantendo o original na Unidade C:.",
+                D: "Excluir o arquivo da origem e enviá-lo para a Lixeira da Unidade E:.",
+                E: "Compactar o arquivo automaticamente no destino."
+            },
+            correct: "C",
+            explanation: "O comportamento do 'arrastar e soltar' no Windows é regido por uma lógica de segurança de dados. Quando a origem e o destino estão na mesma unidade lógica (ex: do C: para o C:), a ação padrão é Mover. No entanto, quando as unidades são distintas (ex: do C: para um Pendrive E:), a ação padrão é Copiar. Isso ocorre porque em dispositivos removíveis o risco de falha é maior; ao copiar, o Windows garante que o arquivo original permaneça íntegro na origem caso a cópia falhe."
+        },
+        {
+            id: 7,
+            text: "O Centro Paula Souza utiliza sistemas de gerenciamento que exigem que determinados arquivos de relatórios pedagógicos sejam mantidos em sua forma original, evitando alterações acidentais. Um professor de Geografia deseja configurar um arquivo de 'Plano de Trabalho Docente' para que outros usuários da máquina possam visualizá-lo, mas não consigam salvar alterações diretamente no arquivo original. Nas propriedades do arquivo no Windows, qual atributo deve ser marcado para garantir essa proteção básica?",
+            options: {
+                A: "Oculto",
+                B: "Somente leitura",
+                C: "Sistema",
+                D: "Arquivo",
+                E: "Indexado"
+            },
+            correct: "B",
+            explanation: "Os atributos de arquivo são metadados que definem o comportamento do arquivo perante o sistema e o usuário. O atributo 'Somente leitura' (Read-only) é a camada mais simples de proteção contra modificações acidentais. Ao ser ativado, o Windows permite que qualquer usuário abra e leia o conteúdo, mas impede que alterações sejam salvas no próprio arquivo original, exigindo que o usuário 'Salve Como' um novo arquivo se desejar manter as modificações."
+        },
+        {
+            id: 8,
+            text: "O Explorador de Arquivos do Windows 10 apresenta uma interface que facilita o acesso rápido a locais frequentemente utilizados. Existe uma seção específica, localizada no topo do painel de navegação à esquerda, onde o sistema fixa automaticamente as pastas mais acessadas e lista os arquivos abertos recentemente pelo usuário. Essa funcionalidade é denominada:",
+            options: {
+                A: "Bibliotecas",
+                B: "Este Computador",
+                C: "Acesso Rápido",
+                D: "Rede",
+                E: "Grupo de Trabalho"
+            },
+            correct: "C",
+            explanation: "A eficiência na interface do Windows 10 é centralizada no 'Acesso Rápido' (Quick Access). Esta seção atua como um repositório dinâmico que 'aprende' com os hábitos do docente, fixando automaticamente as pastas que ele mais utiliza e exibindo os últimos arquivos manipulados. Isso elimina a necessidade de navegar repetidamente por caminhos longos de diretórios."
+        },
+        {
+            id: 9,
+            text: "As extensões de arquivos permitem que o sistema operacional Windows identifique o formato do conteúdo e associe o software correto para sua manipulação. Para um docente de Geografia, a correta identificação desses formatos é essencial para a gestão de materiais didáticos. Assinale a alternativa que apresenta a correlação correta entre a extensão e o tipo de arquivo:",
+            options: {
+                A: ".xlsx – Documento de texto simples.",
+                B: ".pdf – Planilha eletrônica de dados demográficos.",
+                C: ".docx – Processador de texto (Microsoft Word).",
+                D: ".jpg – Banco de dados geográficos estruturado.",
+                E: ".txt – Imagem de satélite comprimida."
+            },
+            correct: "C",
+            explanation: "O conhecimento de extensões é vital para a interoperabilidade de dados. A extensão .docx é o padrão para documentos de texto criados no Microsoft Word a partir da versão 2007, sendo o formato principal para a elaboração de planos de aula e avaliações no Centro Paula Souza. Outras extensões como .xlsx (Excel) e .pdf (Portable Document Format) têm finalidades distintas."
+        },
+        {
+            id: 10,
+            text: "A Lixeira do Windows é um componente crítico para a segurança dos dados, agindo como uma zona de retenção temporária. No entanto, sua capacidade de armazenamento não é infinita e depende das configurações de hardware e das definições do usuário. Sobre a Lixeira no Windows 10, é correto afirmar que:",
+            options: {
+                A: "Ela possui um tamanho fixo de 2GB para todas as unidades de disco, sem possibilidade de alteração.",
+                B: "Arquivos excluídos de unidades de rede ou pendrives são automaticamente movidos para a Lixeira do computador local.",
+                C: "É possível configurar um tamanho máximo personalizado para a Lixeira em cada unidade de disco ou optar pela exclusão direta.",
+                D: "A Lixeira esvazia-se automaticamente todos os dias às 00h00, independentemente do volume de dados.",
+                E: "Não é possível restaurar arquivos individuais da Lixeira, apenas todos os itens de uma única vez."
+            },
+            correct: "C",
+            explanation: "A Lixeira é uma pasta especial do sistema presente em cada partição NTFS. O usuário tem total controle sobre sua configuração, podendo definir quanto espaço em disco deseja dedicar a ela (em megabytes ou porcentagem do disco). Se um arquivo for maior que o limite configurado para a Lixeira, o Windows oferecerá a opção de excluí-lo permanentemente."
+        }
+    ];
+
+    const quizForm = document.getElementById('quiz-form');
+    const resolutionsContainer = document.getElementById('resolutions-container');
+    const finishBtn = document.getElementById('finish-btn');
+    const resultsArea = document.getElementById('results-area');
+
+    // Renderizar questões
+    function renderQuestions() {
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <span class="question-text">${q.id}. ${q.text}</span>
+                <div class="options-list">
+                    ${Object.entries(q.options).map(([key, val]) => `
+                        <div class="option-item" id="q${q.id}-opt${key}">
+                            <label>
+                                <input type="radio" name="q${q.id}" value="${key}">
+                                <span>${key}) ${val}</span>
+                            </label>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            quizForm.appendChild(card);
+        });
+    }
+
+    // Calcular resultado e mostrar resoluções
+    function processResults() {
+        let score = 0;
+        resolutionsContainer.innerHTML = ''; // Limpar anterior
+
+        questions.forEach((q) => {
+            const selectedInput = document.querySelector(`input[name="q${q.id}"]:checked`);
+            const selectedValue = selectedInput ? selectedInput.value : null;
+            const isCorrect = selectedValue === q.correct;
+
+            if (isCorrect) score++;
+
+            // Adicionar à lista de resoluções
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            resCard.innerHTML = `
+                <span class="status-badge ${isCorrect ? 'status-correct' : 'status-wrong'}">
+                    ${isCorrect ? 'Acertou' : 'Errou'}
+                </span>
+                <span class="resolution-header">Questão ${q.id}</span>
+                <span class="correct-answer-label">Gabarito Oficial: Alternativa ${q.correct}</span>
+                <div class="explanation">
+                    <strong>Resolução:</strong> ${q.explanation}
+                </div>
+            `;
+            resolutionsContainer.appendChild(resCard);
+        });
+
+        // Atualizar placar
+        document.getElementById('score-text').innerText = `${score} / 10`;
+        const percent = (score / 10) * 100;
+        document.getElementById('score-percent').innerText = `${percent}% de aproveitamento`;
+
+        // Mostrar área de resultados e rolar para ela
+        resultsArea.style.display = 'block';
+        resultsArea.scrollIntoView({ behavior: 'smooth' });
+        
+        // Desabilitar botão e inputs para evitar mudanças pós-finalização
+        finishBtn.disabled = true;
+        finishBtn.style.opacity = '0.5';
+        finishBtn.innerText = "Simulado Finalizado";
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+    }
+
+    finishBtn.addEventListener('click', processResults);
+
+    // Inicialização
+    window.onload = renderQuestions;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC - Atribuições Docentes (Art. 104)</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #2980b9;
+            --secondary-color: #636e72;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            color: var(--secondary-color);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-bottom: 40px;
+        }
+
+        #submit-btn:hover {
+            background-color: #1c5980;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .score-summary {
+            text-align: center;
+            background: #dfe6e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .score-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .resolution-card {
+            background: #fff;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .res-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .correct-answer { color: var(--correct-color); }
+        .wrong-answer { color: var(--wrong-color); }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            h1 { font-size: 1.4rem; }
+            .question-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Atribuições Docentes (Art. 104)</h1>
+        <p class="intro-text">Concurso Professor de Geografia - ETEC/CEETEPS</p>
+    </header>
+
+    <div id="quiz-container">
+        <!-- As questões serão injetadas aqui via JavaScript -->
+    </div>
+
+    <button id="submit-btn" onclick="calculateScore()">Finalizar Quiz e Ver Resoluções</button>
+
+    <div id="results-section">
+        <div class="score-summary">
+            <div>Seu Resultado:</div>
+            <div class="score-number" id="score-display">0 / 10</div>
+            <p id="score-text"></p>
+        </div>
+
+        <h2 style="color: var(--primary-color);">Gabarito Comentado</h2>
+        <div id="resolutions-list">
+            <!-- As resoluções serão injetadas aqui -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No que tange às atribuições docentes definidas pelo Regimento Comum das Etecs (Deliberação CEETEPS 87/2022), o Artigo 104 estabelece os deveres fundamentais do professor para com a instituição e os educandos. Considere um cenário em que um docente de Geografia observa que parte da turma apresenta dificuldades persistentes na interpretação de projeções cartográficas e fusos horários, impactando diretamente o aproveitamento escolar. Com base no referido artigo, assinale a alternativa que descreve a conduta obrigatória do docente:",
+            options: [
+                "Delegar a responsabilidade da aprendizagem exclusivamente ao aluno, uma vez que o papel do professor de ensino médio técnico limita-se à exposição do conteúdo previsto no Plano de Trabalho Docente (PTD).",
+                "Estabelecer estratégias de recuperação contínua para os alunos de menor rendimento e dar ciência delas aos mesmos ou a seus responsáveis legais, caso sejam menores de idade.",
+                "Aguardar o final do período letivo para reportar as dificuldades ao Conselho de Classe, abstendo-se de intervenções pedagógicas individuais para não comprometer o cronograma das aulas.",
+                "Aplicar penalidades disciplinares aos alunos que não atingirem as menções mínimas, fundamentando a ação na colaboração sobre a conduta discente prevista no inciso III.",
+                "Solicitar à Direção da Etec a transferência compulsória dos alunos com baixo rendimento, visando manter a média de aproveitamento da turma em conformidade com as metas do CEETEPS."
+            ],
+            correct: 1,
+            resolution: "O Artigo 104, inciso IV, da Deliberação CEETEPS 87/2022, estabelece como dever do docente a criação de estratégias de recuperação contínua. Na pedagogia do CEETEPS, a recuperação não é um evento isolado, mas um processo intrínseco à aprendizagem. O professor de Geografia, ao identificar que conceitos fundamentais de cartografia não foram assimilados, deve intervir imediatamente para evitar a retenção."
+        },
+        {
+            id: 2,
+            question: "O Plano de Trabalho Docente (PTD) é o documento que materializa a intenção pedagógica do professor e orienta sua prática em sala de aula. Segundo o Artigo 104, inciso VII, do Regimento Comum das Etecs, o docente tem o dever de elaborar e cumprir o PTD em consonância com:",
+            options: [
+                "As diretrizes sindicais da categoria e os interesses de pesquisa acadêmica do docente, independentemente das normas do CEETEPS.",
+                "O Projeto Político Pedagógico (PPP) da unidade escolar, o Plano de Curso da habilitação profissional e as orientações emanadas pelo Centro Paula Souza.",
+                "Exclusivamente os manuais didáticos selecionados pela coordenação de área, sem necessidade de alinhamento com o Plano Plurianual de Gestão.",
+                "As demandas imediatas do mercado de trabalho local, podendo o docente suprimir conteúdos da base nacional comum para priorizar competências técnicas específicas.",
+                "Os critérios de avaliação definidos pelos próprios alunos em assembleias de classe, visando a autonomia discente absoluta."
+            ],
+            correct: 1,
+            resolution: "O inciso VII do Artigo 104 é claro ao vincular o Plano de Trabalho Docente (PTD) ao Projeto Político Pedagógico (PPP) da Etec, ao Plano de Curso e às orientações do CEETEPS. O PTD garante que a BNCC seja integrada à formação profissional de forma coerente."
+        },
+        {
+            id: 3,
+            question: "A colaboração do docente nos assuntos referentes à conduta dos alunos (Artigo 104, inciso III) é um elemento central para a manutenção de um ambiente de aprendizagem saudável. No ensino de Geografia, ao abordar temas como globalização e fluxos migratórios, o professor pode se deparar com conflitos éticos ou comportamentais. Diante de situações de indisciplina ou desrespeito mútuo em sala de aula, o papel do professor, conforme o Regimento Comum, deve ser:",
+            options: [
+                "Atuar de forma colaborativa na mediação da conduta, reportando infrações às normas disciplinares à coordenação e contribuindo para a formação ética e social do estudante.",
+                "Isentar-se de qualquer intervenção, uma vez que a gestão da conduta e a aplicação de sanções são atribuições exclusivas da Secretaria Acadêmica.",
+                "Suspender imediatamente o aluno da aula de campo ou atividade prática, sem a necessidade de comunicação prévia aos órgãos técnicos ou pedagógicos.",
+                "Utilizar a redução de notas ou menções como mecanismo punitivo para controlar a conduta discente, conforme autonomia prevista no inciso II.",
+                "Ignorar condutas disruptivas desde que o aluno apresente um bom aproveitamento nos conteúdos técnicos de Geografia Geopolítica."
+            ],
+            correct: 0,
+            resolution: "O inciso III do Artigo 104 determina que o docente deve 'colaborar nos assuntos referentes à conduta dos alunos'. O professor é um agente ativo na formação ética. A conduta é vista sob perspectiva educativa, devendo mediar conflitos e reportar casos graves às instâncias superiores."
+        },
+        {
+            id: 4,
+            question: "O inciso I do Artigo 104 do Regimento Comum das Etecs determina que o docente deve 'responder pela aprendizagem dos alunos'. No contexto de um curso técnico integrado ao ensino médio (M-Tec), essa atribuição implica que o professor de Geografia deve:",
+            options: [
+                "Garantir que o aluno memorize todos os dados estatísticos do IBGE apresentados em aula, sendo a retenção de informações o único critério de aprendizagem.",
+                "Empenhar-se no êxito da execução das atividades programadas, utilizando metodologias que assegurem o desenvolvimento das competências e habilidades propostas no plano de curso.",
+                "Limitar sua responsabilidade apenas aos alunos que demonstram interesse espontâneo, desobrigando-se de intervir naqueles que apresentam apatia ou dificuldades socioeconômicas.",
+                "Substituir os conteúdos geográficos por treinamentos operacionais técnicos, caso a turma demonstre maior facilidade de aprendizado em tarefas manuais.",
+                "Considerar a aprendizagem como um processo espontâneo que não requer intervenção ou planejamento por parte do corpo docente."
+            ],
+            correct: 1,
+            resolution: "'Responder pela aprendizagem' (Art. 104, inciso I) significa que o professor é corresponsável pelo sucesso do aluno no desenvolvimento de competências. No ensino de Geografia, isso implica adotar metodologias que transformem informação em conhecimento."
+        },
+        {
+            id: 5,
+            question: "A participação do corpo docente em órgãos colegiados e momentos de planejamento é um dever estabelecido no Artigo 104, inciso VI. Para o professor de Geografia, essa participação é essencial para a integração curricular. Assinale a alternativa que descreve corretamente essa atribuição:",
+            options: [
+                "O docente deve participar dos períodos dedicados ao planejamento, à avaliação e ao desenvolvimento profissional, bem como de reuniões pedagógicas e conselhos de classe.",
+                "A participação em reuniões de planejamento é facultativa, desde que o docente já tenha entregue o seu Plano de Trabalho Docente (PTD) via sistema NSA.",
+                "O professor deve comparecer apenas às solenidades de formatura, sendo as reuniões administrativas de responsabilidade exclusiva dos funcionários técnico-administrativos.",
+                "A presença no Conselho de Classe é restrita aos professores que possuem alunos em situação de retenção, sendo dispensados os demais docentes da base comum curricular.",
+                "O docente deve priorizar cursos de capacitação externa em detrimento das horas de planejamento na unidade escolar, visando sua promoção na carreira."
+            ],
+            correct: 0,
+            resolution: "O inciso VI do Artigo 104 impõe a participação em períodos de planejamento, avaliação e desenvolvimento profissional. As reuniões pedagógicas e os Conselhos de Classe são espaços onde o docente exerce o seu papel de gestor da aprendizagem coletiva."
+        },
+        {
+            id: 6,
+            question: "O aproveitamento dos alunos, mencionado no Artigo 104, inciso II, refere-se ao rendimento acadêmico expresso por meio de menções. No sistema de avaliação das Etecs, quando um professor de Geografia analisa o aproveitamento da turma, ele deve considerar que:",
+            options: [
+                "O aproveitamento é estanque e imutável, devendo o docente apenas registrar as menções sem a necessidade de propor novas abordagens pedagógicas.",
+                "Ele é responsável pelos assuntos referentes ao aproveitamento, o que inclui a análise qualitativa da evolução das habilidades geográficas e a proposição de intervenções.",
+                "A responsabilidade pelo aproveitamento recai exclusivamente sobre o Coordenador Pedagógico, cabendo ao docente apenas o lançamento de faltas no diário eletrônico.",
+                "O aproveitamento deve ser medido apenas por meio de provas dissertativas ao final do semestre, conforme determinação do Regimento Comum para a base comum.",
+                "Menções 'I' (Insuficiente) devem ser evitadas a todo custo por meio de aprovação automática, visando reduzir os índices de evasão escolar da unidade."
+            ],
+            correct: 1,
+            resolution: "O aproveitamento (Art. 104, inciso II) é a tradução pedagógica da aprendizagem. O professor deve analisar se o aluno atingiu as competências e propor intervenções em caso de insuficiência."
+        },
+        {
+            id: 7,
+            question: "Conforme o inciso IX do Artigo 104, o docente tem o dever de colaborar com as atividades de articulação da escola com as famílias e a comunidade. No ensino de Geografia, essa colaboração pode se manifestar por meio de:",
+            options: [
+                "Projetos de extensão que envolvam o diagnóstico socioespacial da comunidade local, integrando o conhecimento técnico à realidade das famílias dos alunos.",
+                "Cobrança de taxas extras dos responsáveis para o financiamento de saídas de estudo e visitas técnicas não previstas no orçamento estadual.",
+                "Divulgação de dados de contato dos responsáveis para empresas de recrutamento sem a prévia autorização da Direção da Etec ou consentimento dos envolvidos.",
+                "Uso do espaço escolar para reuniões de cunho religioso ou político-partidário, visando atrair a comunidade externa para a escola.",
+                "Terceirização da responsabilidade do ensino para os pais, exigindo que estes ministrem conteúdos geográficos complexos no ambiente doméstico."
+            ],
+            correct: 0,
+            resolution: "A articulação escola-comunidade (Art. 104, inciso IX) visa aproximar o conhecimento acadêmico da vida real. Na Geografia, projetos de diagnóstico socioespacial são ferramentas ideais para essa integração."
+        },
+        {
+            id: 8,
+            question: "O cumprimento dos dias letivos e das horas-aula é uma obrigação funcional descrita no Artigo 104, inciso V. No caso de atividades extraclasse ou aulas de campo de Geografia, o docente deve observar que:",
+            options: [
+                "As aulas de campo são opcionais e não contam para o cumprimento da carga horária estabelecida pela legislação e pela escola.",
+                "O cumprimento integral dos dias letivos e das horas-aula é um dever que assegura o direito do aluno ao acesso pleno ao currículo planejado.",
+                "O docente pode reduzir a duração das aulas de acordo com sua conveniência pessoal, desde que o conteúdo de Geografia Física tenha sido lido pelos alunos.",
+                "A ausência injustificada do docente em dias letivos é permitida se houver compensação posterior por meio de trabalhos escritos enviados por e-mail.",
+                "As horas de planejamento (HAPC) podem ser utilizadas para o cumprimento de atividades particulares, visto que não são consideradas horas-aula efetivas."
+            ],
+            correct: 1,
+            resolution: "O cumprimento integral da carga horária (Art. 104, inciso V) é uma garantia de oferta do serviço público de educação. Aulas de campo, se planejadas no PTD, devem ser cumpridas rigorosamente."
+        },
+        {
+            id: 9,
+            question: "Zelar pela conservação do patrimônio da unidade escolar é um dever docente previsto no Artigo 104, inciso X. No contexto de laboratórios de informática usados para aulas de Cartografia Digital e SIG (Sistemas de Informação Geográfica), esse zelo implica:",
+            options: [
+                "Responsabilizar-se financeiramente por qualquer dano causado por alunos, independentemente da supervisão exercida durante a aula.",
+                "Orientar os alunos sobre o uso racional e cuidadoso dos equipamentos e recursos tecnológicos, bem como reportar necessidades de manutenção.",
+                "Impedir o uso de laboratórios por alunos com baixo rendimento em Geografia, visando preservar os equipamentos para as turmas de melhor aproveitamento.",
+                "Proibir o uso de tecnologias digitais no ensino de Geografia para evitar o risco de desgaste do patrimônio escolar.",
+                "Permitir que os alunos instalem softwares não autorizados ou realizem manutenção física nos computadores sem acompanhamento técnico."
+            ],
+            correct: 1,
+            resolution: "O zelo pelo patrimônio (Art. 104, inciso X) envolve a educação para o uso correto de ferramentas. O docente orienta o uso racional, garantindo a preservação tecnológica para o aprendizado."
+        },
+        {
+            id: 10,
+            question: "Considerando as normas e regulamentos vigentes (Artigo 104, inciso VIII), o professor de Geografia deve pautar sua conduta profissional pelo Regimento Comum das Etecs. No que diz respeito ao tratamento com os alunos, o docente deve:",
+            options: [
+                "Manter uma postura de impessoalidade absoluta, evitando qualquer tipo de diálogo que não seja estritamente técnico ou conteudista.",
+                "Respeitar a individualidade do aluno e sua dignidade, agindo com imparcialidade e evitando qualquer forma de discriminação ou assédio.",
+                "Estabelecer preferências por grupos de alunos que demonstram maior facilidade na área de Geopolítica, oferecendo-lhes materiais exclusivos em detrimento dos demais.",
+                "Utilizar a autoridade docente para impor visões de mundo ideológicas, desconsiderando o pluralismo de ideias e de concepções pedagógicas.",
+                "Delegar o cumprimento do regimento interno apenas aos alunos, considerando-se isento de observar as normas de convivência da unidade escolar."
+            ],
+            correct: 1,
+            resolution: "O dever de cumprir normas (Art. 104, inciso VIII) abrange o respeito aos direitos humanos e dignidade. O docente deve ser exemplo de ética e imparcialidade, promovendo ambiente livre de preconceitos."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('quiz-container');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">${index + 1}. ${q.question}</div>
+                <ul class="options" id="q${index}">
+                    ${q.options.map((opt, i) => `
+                        <li class="option-item" onclick="selectOption(${index}, ${i})">
+                            <input type="radio" name="question${index}" value="${i}" id="q${index}o${i}">
+                            <label for="q${index}o${i}">${String.fromCharCode(65 + i)}) ${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    window.selectOption = function(qIndex, oIndex) {
+        const options = document.querySelectorAll(`#q${qIndex} .option-item`);
+        options.forEach(opt => opt.classList.remove('selected'));
+        options[oIndex].classList.add('selected');
+        document.getElementById(`q${qIndex}o${oIndex}`).checked = true;
+    }
+
+    window.calculateScore = function() {
+        let score = 0;
+        const resList = document.getElementById('resolutions-list');
+        resList.innerHTML = '';
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+            const selectedVal = selected ? parseInt(selected.value) : -1;
+            
+            const isCorrect = selectedVal === q.correct;
+            if (isCorrect) score++;
+
+            // Criar card de resolução
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            const statusClass = isCorrect ? 'correct-answer' : 'wrong-answer';
+            const statusText = isCorrect ? 'Você acertou!' : (selectedVal === -1 ? 'Não respondida.' : 'Você errou.');
+            
+            resCard.innerHTML = `
+                <span class="res-header">Questão ${index + 1}</span>
+                <p>Sua escolha: ${selectedVal === -1 ? 'Nenhuma' : String.fromCharCode(65 + selectedVal)} | 
+                   Gabarito: <span class="correct-answer">${String.fromCharCode(65 + q.correct)}</span></p>
+                <p class="${statusClass}"><strong>${statusText}</strong></p>
+                <p style="font-size: 0.95rem; color: #444;">${q.resolution}</p>
+            `;
+            resList.appendChild(resCard);
+        });
+
+        document.getElementById('score-display').innerText = `${score} / ${quizData.length}`;
+        document.getElementById('score-text').innerText = score >= 7 ? "Excelente desempenho!" : "Continue estudando o Regimento Comum.";
+        
+        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
+        
+        // Scroll suave para os resultados
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

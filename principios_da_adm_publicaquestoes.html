@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC: Princípios Administrativos</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #2980b9;
+            --secondary-color: #ecf0f1;
+            --border-color: #dcdde1;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --max-width: 850px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #fff;
+            border-bottom: 2px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #1a1a1a;
+        }
+
+        header p {
+            color: #636e72;
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 2rem auto;
+            padding: 0 1.5rem 5rem 1.5rem;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-header {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .question-number {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin-right: 12px;
+            font-size: 0.9rem;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background-color: #1c5980;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .score-box {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .score-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .resolution-card {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .resolution-title {
+            color: var(--success-color);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-answer {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .correct-bg { background-color: #d4edda; color: #155724; }
+        .incorrect-bg { background-color: #f8d7da; color: #721c24; }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            .container { padding: 0 1rem; }
+            .question-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Princípios da Administração Pública</h1>
+    <p>Concurso Professor de Geografia - ETEC/CEETEPS</p>
+</header>
+
+<div class="container">
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- Questions will be injected here by JS -->
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-btn" onclick="showResults()">Finalizar e Ver Resoluções</button>
+        </div>
+    </form>
+
+    <section id="results-section">
+        <div class="score-box">
+            <span>Seu Desempenho:</span>
+            <span id="score-display" class="score-number">0/10</span>
+            <p id="performance-msg"></p>
+        </div>
+
+        <div id="detailed-resolutions">
+            <!-- Resolutions will be injected here -->
+        </div>
+        
+        <div class="btn-container">
+            <button type="button" onclick="window.location.reload()">Reiniciar Simulado</button>
+        </div>
+    </section>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            text: "Considere uma situação hipotética em que um Professor de Ensino Médio e Técnico da disciplina de Geografia, atuando em uma Unidade de Ensino Técnico Estadual (ETEC) vinculada ao Centro Estadual de Educação Tecnológica Paula Souza (CEETEPS), é designado para coordenar um projeto interdisciplinar de mapeamento socioeconômico regional. Durante a execução deste projeto, o docente recebe uma proposta de uma empresa de consultoria privada para utilizar dados brutos coletados pelos alunos em troca de equipamentos de laboratório para a escola, sem que haja qualquer previsão editalícia ou convênio formalizado pela Administração Central do CEETEPS. O professor, embora vislumbre o benefício material para a unidade, recusa a proposta alegando que a conduta administrativa não deve apenas observar a legalidade estrita, mas também padrões éticos de honestidade, lealdade e boa-fé, fundamentais para a integridade da função pública. À luz do ordenamento constitucional brasileiro e do regime jurídico administrativo aplicado às autarquias de regime especial, a decisão do docente fundamenta-se primordialmente no princípio da:",
+            options: [
+                { id: 'A', text: "Publicidade, visto que a negociação deveria ser amplamente divulgada em canais oficiais antes de qualquer decisão." },
+                { id: 'B', text: "Impessoalidade, pois a recusa visava impedir que a empresa privada obtivesse vantagem indevida em detrimento do interesse coletivo." },
+                { id: 'C', text: "Moralidade, uma vez que a conduta do agente público deve pautar-se por princípios éticos que distinguem o honesto do desonesto, independentemente da mera autorização legal." },
+                { id: 'D', text: "Eficiência, dado que a troca de dados por equipamentos poderia comprometer a qualidade técnica do projeto pedagógico a longo prazo." },
+                { id: 'E', text: "Legalidade, sob o argumento de que a ausência de uma lei específica autorizando a permuta de dados por bens móveis impede a ação do servidor." }
+            ],
+            correct: 'C',
+            resolution: "A moralidade administrativa exige que o administrador decida não apenas entre o legal e o ilegal, mas entre o honesto e o desonesto. Na estrutura do CEETEPS, a aceitação de 'vantagens' por fora dos convênios oficiais feriria a probidade administrativa. A moralidade é o filtro que impede a comercialização de dados públicos sem o devido processo legal."
+        },
+        {
+            id: 2,
+            text: "No âmbito das ETECs, a realização de Processos Seletivos Simplificados (PSS) para a contratação de docentes por tempo determinado é regida por normas específicas. Suponha que, na organização de um certame para a vaga de Professor de Geografia, a banca examinadora estabeleça critérios de avaliação que pontuem de forma desproporcional a experiência prévia em projetos realizados especificamente naquela ETEC, em detrimento de experiências análogas em outras instituições. Tal prática viola frontalmente qual princípio?",
+            options: [
+                { id: 'A', text: "Princípio da Publicidade, pois o edital não especificou detalhadamente a justificativa." },
+                { id: 'B', text: "Princípio da Impessoalidade, que impõe o tratamento igualitário aos administrados e veda o uso do cargo para favorecimentos pessoais." },
+                { id: 'C', text: "Princípio da Moralidade, pois a banca agiu com dolo ao tentar manipular o resultado." },
+                { id: 'D', text: "Princípio da Eficiência, visto que a seleção de professores com experiência local é menos produtiva." },
+                { id: 'E', text: "Princípio da Autotutela, já que a Administração Pública perdeu a capacidade de revisar o edital." }
+            ],
+            correct: 'B',
+            resolution: "A impessoalidade garante que todos os candidatos sejam tratados de forma igualitária (isonomia). Ao privilegiar quem já tem vínculo sem justificativa técnica, a Administração fere esse princípio, transformando o certame em um mecanismo de favorecimento pessoal em vez de meritocrático."
+        },
+        {
+            id: 3,
+            text: "Considere que um Professor de Geografia decida publicar no site institucional o desempenho individual detalhado de todos os alunos, incluindo notas e frequência, sem o consentimento dos responsáveis, alegando transparência. Com base no equilíbrio entre o princípio da publicidade e os direitos individuais, é correto afirmar que:",
+            options: [
+                { id: 'A', text: "A conduta é legítima, pois o princípio da publicidade sobrepõe-se ao direito à intimidade." },
+                { id: 'B', text: "O princípio da publicidade obriga a divulgação de todos os dados gerados pela Administração Pública." },
+                { id: 'C', text: "A publicidade dos atos escolares deve respeitar a proteção da intimidade e da vida privada, sendo o sigilo de dados pessoais sensíveis uma exceção constitucional." },
+                { id: 'D', text: "O docente deveria ter solicitado autorização à Direção da ETEC, que possui discricionariedade absoluta." },
+                { id: 'E', text: "A divulgação seria válida se servisse para estimular a competitividade acadêmica." }
+            ],
+            correct: 'C',
+            resolution: "O Princípio da Publicidade não é absoluto. Ele encontra limite no Artigo 5º, inciso X da CF/88, que garante a intimidade e vida privada. Notas escolares são dados sensíveis do desenvolvimento do estudante e sua exposição nominal pública fere direitos fundamentais."
+        },
+        {
+            id: 4,
+            text: "O Diretor de uma ETEC fixa uma placa na entrada com a inscrição: 'Reforma realizada na gestão do Diretor X, com o apoio do Deputado Y'. Segundo o Artigo 37, § 1º da CF/88, essa conduta afronta qual princípio?",
+            options: [
+                { id: 'A', text: "Princípio da Eficiência; a placa gera custos desnecessários ao erário." },
+                { id: 'B', text: "Princípio da Moralidade; o Diretor agiu com desonestidade intelectual." },
+                { id: 'C', text: "Princípio da Impessoalidade; a norma veda a utilização de nomes ou imagens que caracterizem promoção pessoal em publicidade oficial." },
+                { id: 'D', text: "Princípio da Publicidade; a placa não contém informações técnicas suficientes." },
+                { id: 'E', text: "Princípio da Legalidade; não existe lei estadual que autorize nomes de diretores em placas." }
+            ],
+            correct: 'C',
+            resolution: "A publicidade governamental deve ter fins educativos, informativos ou de orientação social. Usar nomes ou símbolos de autoridades vinculados a obras públicas é promoção pessoal proibida pela vertente da impessoalidade, pois a obra é do Estado e não do gestor."
+        },
+        {
+            id: 5,
+            text: "Sobre o princípio da moralidade no âmbito do processo administrativo regido pela Lei Estadual nº 10.177/1998, selecione a correta:",
+            options: [
+                { id: 'A', text: "A moralidade restringe-se ao cumprimento da legalidade escrita." },
+                { id: 'B', text: "Permite o uso de convicções religiosas pessoais para decidir sanções." },
+                { id: 'C', text: "Exige atuação pautada pela ética institucional, probidade e boa-fé, sendo passível de anulação o ato que se desvie do padrão ético esperado." },
+                { id: 'D', text: "É um princípio secundário aplicado apenas em caso de omissão da lei." },
+                { id: 'E', text: "Impõe sigilo absoluto sobre todos os processos disciplinares." }
+            ],
+            correct: 'C',
+            resolution: "Em São Paulo (Lei 10.177/98), a moralidade é elemento de validade do ato. Um julgamento que ignore a boa-fé objetiva ou a ética institucional é nulo, pois a moralidade administrativa vai além da mera conformidade com o texto legal."
+        },
+        {
+            id: 6,
+            text: "No contexto da Administração Pública contemporânea e da Lei de Acesso à Informação (LAI), a publicidade deve ser compreendida como:",
+            options: [
+                { id: 'A', text: "Um instrumento de propaganda política do Governo Estadual." },
+                { id: 'B', text: "O dever de divulgar apenas atos favoráveis à imagem da instituição." },
+                { id: 'C', text: "O direito fundamental de acesso à informação, viabilizando a fiscalização da gestão e a proteção de direitos individuais e coletivos." },
+                { id: 'D', text: "Uma formalidade burocrática opcional que pode ser dispensada por urgência." },
+                { id: 'E', text: "O direito do Diretor de selecionar quem acessa as contas da unidade." }
+            ],
+            correct: 'C',
+            resolution: "A publicidade evoluiu para o conceito de transparência ativa. É um dever republicano que permite o controle social da gestão. No CEETEPS, isso garante que a comunidade escolar possa fiscalizar orçamentos e decisões pedagógicas."
+        },
+        {
+            id: 7,
+            text: "Um Professor de Geografia utiliza sua posição de coordenador para influenciar a contratação de uma empresa de transporte de seu cônjuge para uma excursão didática, omitindo o vínculo. Essa omissão fere qual princípio?",
+            options: [
+                { id: 'A', text: "Publicidade, pois o contrato não foi afixado no mural." },
+                { id: 'B', text: "Moralidade, visto que a conduta violou o dever de lealdade e transparência, priorizando interesses privados." },
+                { id: 'C', text: "Eficiência, pois a contratação de parentes tende a ser menos produtiva." },
+                { id: 'D', text: "Legalidade, pois o transporte é regido apenas pelo Código de Trânsito." },
+                { id: 'E', text: "Continuidade do Serviço Público, por dificultar substituições." }
+            ],
+            correct: 'B',
+            resolution: "O conflito de interesses é uma violação clássica da moralidade. O servidor tem o dever de lealdade à instituição. Usar o cargo para beneficiar familiares, omitindo o fato, rompe com a ética pública e a boa-fé esperada de um docente do CEETEPS."
+        },
+        {
+            id: 8,
+            text: "Considere um edital para Professor de Geografia que exija que o candidato resida no município da ETEC como condição de inscrição. Essa exigência é:",
+            options: [
+                { id: 'A', text: "Válida, pois atende ao princípio da eficiência ao evitar atrasos." },
+                { id: 'B', text: "Válida, desde que aprovada pelo Conselho de Escola." },
+                { id: 'C', text: "Inválida, por violar a impessoalidade e a isonomia, criando barreira discriminatória sem pertinência lógica com o cargo." },
+                { id: 'D', text: "Inválida apenas se o município for de pequeno porte." },
+                { id: 'E', text: "Válida, para garantir segurança do professor em horários noturnos." }
+            ],
+            correct: 'C',
+            resolution: "Exigências em editais só são legítimas se indispensáveis para a função. Exigir residência local cria uma reserva de mercado arbitrária que fere a impessoalidade e a ampla acessibilidade aos cargos públicos garantida pela Constituição."
+        },
+        {
+            id: 9,
+            text: "Um Diretor remove um Professor de Geografia de um projeto de extensão para tarefas administrativas internas como represália por críticas à gestão. Esse ato é viciado porque:",
+            options: [
+                { id: 'A', text: "Viola a publicidade, por não sair em jornal local." },
+                { id: 'B', text: "Fere a eficiência, pois o professor era mais produtivo no projeto." },
+                { id: 'C', text: "Ofende a impessoalidade e a moralidade, pois o poder administrativo foi usado para perseguição pessoal (desvio de finalidade)." },
+                { id: 'D', text: "Descumpre a legalidade estrita por falta de consulta ao MEC." },
+                { id: 'E', text: "Viola a autonomia pedagógica, pois o projeto pertence ao professor." }
+            ],
+            correct: 'C',
+            resolution: "Trata-se de Desvio de Finalidade. Embora o diretor possa remanejar pessoal, usar essa prerrogativa para punir um subordinado por divergência política é usar a lei para fins privados escusos, violando a moralidade e a impessoalidade."
+        },
+        {
+            id: 10,
+            text: "Um Professor de Geografia se ausenta de aulas para eventos políticos remunerados sem licença, registrando as aulas como dadas no sistema acadêmico. Essa conduta viola conjuntamente:",
+            options: [
+                { id: 'A', text: "Publicidade e Eficiência, pelo sistema ser fechado." },
+                { id: 'B', text: "Moralidade e Impessoalidade, por agir com desonestidade contra o erário e usar o cargo para benefício privado." },
+                { id: 'C', text: "Legalidade e Publicidade, pois o registro deveria ser em papel." },
+                { id: 'D', text: "Eficiência e Hierarquia, demonstrando multitarefa." },
+                { id: 'E', text: "Autonomia e Moralidade, pela liberdade de cátedra." }
+            ],
+            correct: 'B',
+            resolution: "Fraudar registros de presença para receber sem trabalhar é má-fé administrativa (Imoralidade) e sobreposição do interesse privado sobre o público (Violação da Impessoalidade), configurando falta grave no Regimento das ETECs."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('questions-container');
+        questionsData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">${q.id}</span>
+                    <div>${q.text}</div>
+                </div>
+                <div class="options-list">
+                    ${q.options.map(opt => `
+                        <label class="option-item">
+                            <input type="radio" name="q${q.id}" value="${opt.id}" required>
+                            <span><strong>${opt.id})</strong> ${opt.text}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function showResults() {
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+        let score = 0;
+        let unanswered = false;
+
+        // Check if all questions are answered
+        for(let i=1; i<=questionsData.length; i++) {
+            if(!formData.get(`q${i}`)) {
+                unanswered = true;
+                break;
+            }
+        }
+
+        if(unanswered) {
+            alert("Por favor, responda todas as questões antes de finalizar.");
+            return;
+        }
+
+        const resContainer = document.getElementById('detailed-resolutions');
+        resContainer.innerHTML = '<h3>Confira as resoluções:</h3>';
+
+        questionsData.forEach(q => {
+            const userAnswer = formData.get(`q${q.id}`);
+            const isCorrect = userAnswer === q.correct;
+            if(isCorrect) score++;
+
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            resCard.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">${q.id}</span>
+                    <p style="font-size: 0.95rem; margin:0">${q.text.substring(0, 150)}...</p>
+                </div>
+                <div class="user-answer ${isCorrect ? 'correct-bg' : 'incorrect-bg'}">
+                    Sua resposta: <strong>${userAnswer}</strong> | Gabarito: <strong>${q.correct}</strong>
+                    ${isCorrect ? ' - Correto!' : ' - Incorreto.'}
+                </div>
+                <div class="resolution-text">
+                    <span class="resolution-title">Resolução:</span>
+                    <p>${q.resolution}</p>
+                </div>
+            `;
+            resContainer.appendChild(resCard);
+        });
+
+        // Update score UI
+        document.getElementById('score-display').innerText = `${score}/10`;
+        const msg = document.getElementById('performance-msg');
+        if(score >= 8) msg.innerText = "Excelente desempenho! Você demonstra grande domínio dos princípios administrativos.";
+        else if(score >= 5) msg.innerText = "Bom desempenho. Revise as resoluções para sanar dúvidas pontuais.";
+        else msg.innerText = "Recomendamos uma revisão aprofundada da Lei 10.177/98 e do Art. 37 da CF/88.";
+
+        // Hide form, show results
+        document.getElementById('quiz-form').classList.add('hidden');
+        document.getElementById('results-section').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

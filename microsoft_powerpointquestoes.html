@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: PowerPoint e Elaboração Didática - ETEC</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --container-bg: #ffffff;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --border-color: #dfe6e9;
+            --muted-text: #636e72;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header p {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .intro-text {
+            background: #e1f5fe;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .question-card {
+            background: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .question-number {
+            background: var(--primary-color);
+            color: white;
+            min-width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        .option-item label {
+            display: block;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-item label:hover {
+            background-color: #f0f7ff;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .option-item input[type="radio"]:checked + span {
+            font-weight: 600;
+        }
+
+        .option-item.selected label {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+
+        /* Classes para o resultado */
+        .option-item.correct label {
+            background-color: #d4edda;
+            border-color: var(--success-color);
+            color: #155724;
+        }
+
+        .option-item.wrong label {
+            background-color: #f8d7da;
+            border-color: var(--error-color);
+            color: #721c24;
+        }
+
+        .resolution-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px dashed #cbd5e0;
+            display: none; /* Escondido por padrão */
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 5px;
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 3rem;
+        }
+
+        #submit-btn:hover {
+            background-color: #0773c5;
+        }
+
+        #results-summary {
+            display: none;
+            background: var(--container-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 8px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted-text);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 600px) {
+            .question-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Concurso Professor de Geografia - ETEC/CEETEPS</h1>
+    <p>Simulado: Microsoft PowerPoint e Elaboração Didática Visual</p>
+</header>
+
+<main>
+    <div class="intro-text">
+        Selecione as alternativas que julgar corretas. Ao clicar em <strong>"Finalizar Quiz e Ver Resoluções"</strong> no final da página, você verá sua pontuação e a explicação pedagógica de cada questão.
+    </div>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- As questões serão inseridas aqui via JavaScript -->
+        </div>
+
+        <button type="button" id="submit-btn" onclick="showResults()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="results-summary">
+        <h2>Resultado do Simulado</h2>
+        <div class="score-circle" id="score-display">0/10</div>
+        <p id="score-message"></p>
+        <p>As resoluções detalhadas foram desbloqueadas abaixo de cada questão.</p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; Simulado Baseado em Provas CEETEPS - Professor de Geografia</p>
+</footer>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No contexto do Centro Estadual de Educação Tecnológica Paula Souza (CEETEPS), a elaboração de material didático visual para o Ensino Médio exige que o docente de Geografia domine não apenas o conteúdo programático, mas também as ferramentas de Tecnologia da Informação e Comunicação (TIC) para potencializar a aprendizagem. Ao preparar uma apresentação no Microsoft PowerPoint (versão 2016 ou superior em ambiente Windows) sobre as 'Dinâmicas Climáticas Globais', um professor decide organizar os elementos do slide — como mapas de pressão atmosférica, setas indicativas de ventos e massas de ar — de forma a permitir uma explicação gradual. Para gerenciar a visibilidade desses objetos de maneira eficiente, sem a necessidade de deletá-los ou movê-los para fora da área de trabalho durante a aula, o recurso técnico mais adequado e a sua respectiva localização na interface do software são:",
+            options: [
+                "O recurso de 'Transições', localizado na guia homônima, que permite definir como cada objeto entra ou sai da tela por meio de efeitos sonoros sincronizados.",
+                "O 'Painel de Seleção', acessível na guia 'Página Inicial', grupo 'Edição', dentro do menu 'Selecionar', que lista todos os objetos do slide e permite ocultar ou exibir cada um individualmente.",
+                "A ferramenta 'Design de Slides', na guia 'Design', que automatiza a organização dos elementos visuais e impede a sobreposição de imagens para evitar a poluição visual.",
+                "O 'Modo de Exibição de Leitura', na barra de status, que permite editar a hierarquia dos objetos enquanto a apresentação está sendo projetada para os alunos.",
+                "O recurso de 'Animações de Ênfase', na guia 'Animações', configurado para tornar objetos transparentes permanentemente após o primeiro clique do mouse."
+            ],
+            correct: 1,
+            resolution: "A organização de elementos visuais em um slide de Geografia, que frequentemente lida com múltiplas camadas de informação (mapas, vetores, legendas), exige um gerenciamento sofisticado que vá além do simples 'trazer para frente' ou 'enviar para trás'. O **Painel de Seleção** é uma ferramenta de produtividade essencial no Microsoft PowerPoint. Localizado na guia **Página Inicial**, no grupo **Edição**, ao clicar em **Selecionar** e depois em **Painel de Seleção**, abre-se uma barra lateral à direita da tela. Este painel lista todos os objetos presentes no slide atual, permitindo ocultar temporariamente um elemento sem excluí-lo. Isso é particularmente útil em explicações geográficas complexas."
+        },
+        {
+            id: 2,
+            question: "A padronização visual das apresentações didáticas nas ETECs é fundamental para manter a identidade institucional e garantir a acessibilidade dos materiais produzidos. Um professor de Geografia deseja criar um modelo de apresentação que contenha o logotipo do Centro Paula Souza em todos os slides, uma fonte específica para os títulos dos biomas brasileiros e uma cor de fundo que minimize o cansaço visual. De acordo com as boas práticas de utilização do Microsoft PowerPoint, a técnica que permite aplicar essas configurações de uma única vez a todos os slides, garantindo que novos slides inseridos já contenham essa formatação, é:",
+            options: [
+                "A utilização da ferramenta 'Copiar Formatação' em cada novo slide inserido para replicar manualmente o design do slide anterior.",
+                "A configuração do 'Slide Mestre', acessível através da guia 'Exibir', que funciona como uma camada de hierarquia superior onde as definições de layout, fontes e imagens de fundo são replicadas para toda a apresentação.",
+                "O salvamento da apresentação exclusivamente no formato '.pdf', que bloqueia alterações indesejadas e mantém a formatação original em qualquer dispositivo de projeção.",
+                "O uso do recurso 'Pacote para CD', que consolida todos os arquivos vinculados, mas exige que a formatação visual seja feita individualmente em cada slide do projeto.",
+                "A inserção de um 'Hiperlink' em todos os slides direcionando para uma imagem externa hospedada no servidor da unidade escolar, técnica que garante a atualização automática do layout."
+            ],
+            correct: 1,
+            resolution: "O **Slide Mestre** é o pilar da eficiência e da padronização no Microsoft PowerPoint. No contexto das ETECs, o uso do Slide Mestre evita o retrabalho e garante a coerência estética. Acessível pela guia **Exibir**, grupo **Modos de Exibição Mestre**, o Slide Mestre permite que o professor defina elementos (logotipos, fontes, cores) que serão 'herdados' por todos os slides da apresentação automaticamente."
+        },
+        {
+            id: 3,
+            question: "As metodologias ativas de aprendizagem incentivam a criação de roteiros de aula não lineares, onde o aluno ou o professor podem navegar entre os conteúdos conforme a demanda da discussão em sala. Em uma aula de Geografia sobre 'Globalização e Redes de Fluxos', o docente projeta um mapa-múndi interativo no PowerPoint. Ele deseja que, ao clicar em cada continente, a apresentação salte automaticamente para o slide que detalha os fluxos comerciais daquela região específica. Para implementar essa funcionalidade de navegação hipertextual, o professor deve utilizar:",
+            options: [
+                "A transição 'Transformar' (Morph), que identifica palavras-chave no slide e cria caminhos de navegação baseados em inteligência artificial.",
+                "A inserção de 'Links' (Hiperlinks) ou o recurso de 'Zoom de Slide', que vincula um objeto (forma, imagem ou texto) a outro slide, arquivo ou endereço da web.",
+                "A configuração de 'Animações de Trajetória', definindo o caminho que o cursor do mouse deve percorrer até o próximo tópico da aula.",
+                "O 'Modo de Exibição do Apresentador', que permite ao professor digitar o número do slide desejado em uma caixa de busca visível apenas para ele.",
+                "O salvamento do arquivo no formato '.ppsx', que transforma todos os cliques em tela em comandos de avanço sequencial obrigatório."
+            ],
+            correct: 1,
+            resolution: "O uso de **Hiperlinks** e do recurso **Zoom** no PowerPoint permite que a apresentação funcione de forma similar a um site, onde o usuário decide o caminho da informação. Para o cenário de um mapa-múndi interativo, os Hiperlinks (Ctrl + K) podem ser aplicados a áreas específicas, permitindo navegar entre escalas (Local, Regional, Global) de acordo com a interação em sala."
+        },
+        {
+            id: 4,
+            question: "No ensino de Geomorfologia e Geologia, a visualização da evolução temporal de processos, como a deriva continental ou a formação de cadeias montanhosas, é facilitada por recursos de animação fluida. O Microsoft PowerPoint, em suas versões mais recentes, oferece uma transição que analisa a diferença entre dois slides e anima a mudança de posição, escala e cor dos objetos presentes em ambos. Para que essa transição, denominada 'Transformar' (Morph), funcione corretamente entre dois objetos de formas diferentes (por exemplo, um círculo representando uma célula urbana crescendo para um polígono irregular), o professor deve:",
+            options: [
+                "Aplicar obrigatoriamente um efeito de animação de 'Saída' no primeiro objeto e um de 'Entrada' no segundo.",
+                "Renomear ambos os objetos no 'Painel de Seleção' utilizando um prefixo de nomenclatura personalizada composto por dois pontos de exclamação (ex:!!FORMA1).",
+                "Converter ambos os slides em arquivos de vídeo '.mp4' e inseri-los novamente na apresentação como elementos multimídia independentes.",
+                "Utilizar a guia 'Inserir' para adicionar uma 'SmartArt', pois o recurso 'Transformar' não é compatível com formas geométricas simples ou imagens.",
+                "Configurar o tempo de transição para exatamente 0,5 segundos, caso contrário o software não reconhecerá a similaridade entre os objetos geográficos."
+            ],
+            correct: 1,
+            resolution: "A transição **Transformar** (Morph) calcula automaticamente o movimento dos objetos. No entanto, quando as formas são diferentes, é necessário renomear os objetos no **Painel de Seleção** com o mesmo nome começando com dois pontos de exclamação (ex: `!!FORMA1`). Isso sinaliza ao software que o primeiro objeto deve se metamorfosear no segundo."
+        },
+        {
+            id: 5,
+            question: "Ao ministrar uma aula em um laboratório de informática de uma ETEC, o professor utiliza um computador conectado a um projetor multimídia. Ele deseja visualizar suas anotações pedagógicas sobre a 'Geopolítica do Petróleo' e o cronômetro da aula em seu monitor, enquanto os alunos visualizam apenas os slides com mapas e gráficos na tela de projeção. Para ativar essa configuração no Microsoft PowerPoint, é necessário que o Windows esteja configurado no modo de vídeo 'Estender' e que, no PowerPoint, seja habilitado o:",
+            options: [
+                "'Modo de Exibição de Estrutura de Tópicos', que projeta apenas o texto dos slides para a audiência.",
+                "'Modo de Exibição de Apresentador', que fornece uma interface de controle exclusiva para o docente, incluindo visualização do próximo slide e ferramentas de caneta.",
+                "Recurso 'Gravar Apresentação de Slides', que transforma a aula em um podcast automático com slides sincronizados.",
+                "'Modo de Exibição de Classificação de Slides', permitindo que os alunos escolham a ordem dos biomas a serem estudados.",
+                "Sistema de 'Notas de Rodapé Dinâmicas', que projeta as anotações do professor na parte inferior da tela de projeção para consulta dos alunos."
+            ],
+            correct: 1,
+            resolution: "O **Modo de Exibição de Apresentador** é uma ferramenta indispensável. Quando o Windows está em modo 'Estender', o PowerPoint habilita uma interface onde o professor vê as anotações, o cronômetro e a prévia do próximo slide, enquanto os alunos vêem apenas o slide atual projetado."
+        },
+        {
+            id: 6,
+            question: "A inclusão e a acessibilidade são diretrizes fundamentais no regimento das ETECs. Ao elaborar uma apresentação didática visual sobre 'Indicadores Socioeconômicos', o professor de Geografia insere diversos gráficos complexos e mapas temáticos de densidade demográfica. Para garantir que um aluno com deficiência visual, que utiliza softwares leitores de tela, consiga compreender o conteúdo das imagens presentes nos slides, o procedimento tecnicamente correto no PowerPoint é:",
+            options: [
+                "Aumentar o brilho e o contraste de todas as imagens para que o sensor do projetor emita sinais sonoros automáticos.",
+                "Inserir um 'Texto Alternativo' (Alt Text) em cada imagem ou gráfico, descrevendo de forma clara e concisa a informação geográfica transmitida pelo elemento visual.",
+                "Agrupar todas as imagens do slide com um arquivo de áudio no formato '.wav' que contenha a gravação da voz do professor lendo o slide.",
+                "Utilizar apenas fontes com serifa e cores em tons de cinza, seguindo as normas internacionais de tipografia para deficientes visuais.",
+                "Configurar a apresentação para avançar apenas via comando de voz, desativando o uso do teclado e do mouse para fins de acessibilidade."
+            ],
+            correct: 1,
+            resolution: "O recurso de **Texto Alternativo (Alt Text)** é a solução padrão de acessibilidade. Professores devem descrever o que a imagem representa para que softwares leitores de tela possam ler essa descrição para o aluno, permitindo que ele compreenda mapas e gráficos complexos."
+        },
+        {
+            id: 7,
+            question: "Para manter a fidedignidade dos dados estatísticos em uma aula sobre 'Agronegócio Brasileiro', o professor utiliza uma planilha no Microsoft Excel para tabular dados de produção de grãos por estado. Ele deseja que o gráfico presente em seu slide do PowerPoint seja atualizado automaticamente sempre que ele alterar os valores na planilha original do Excel. Para estabelecer essa conexão dinâmica entre os dois softwares do pacote Office, o professor deve:",
+            options: [
+                "Copiar o gráfico no Excel e, no PowerPoint, utilizar a opção 'Colar Especial' selecionando 'Colar Vínculo'.",
+                "Exportar o gráfico do Excel como uma imagem '.jpg' e inseri-la no PowerPoint através da guia 'Design'.",
+                "Utilizar o recurso 'Pacote para CD' para garantir que a planilha e a apresentação fiquem na mesma pasta física no computador.",
+                "Digitar manualmente os valores na ferramenta 'Tabela' do PowerPoint, pois o software não suporta a integração com dados externos do Excel.",
+                "Salvar a planilha do Excel dentro de um hiperlink no slide, exigindo que o professor abra o arquivo externo durante a aula para mostrar os dados."
+            ],
+            correct: 0,
+            resolution: "A opção **'Colar Vínculo'** no menu Colar Especial estabelece uma conexão dinâmica via tecnologia OLE. O PowerPoint passa a apontar para os dados no Excel, atualizando o gráfico automaticamente sempre que a planilha de origem for modificada."
+        },
+        {
+            id: 8,
+            question: "O estudo da Cartografia e da Geologia no Ensino Médio Técnico exige a compreensão de estruturas tridimensionais, como o relevo submarino ou as camadas da Terra. O Microsoft PowerPoint permite a inserção e a manipulação de modelos 3D, facilitando a visualização espacial desses fenômenos. Sobre o uso de elementos 3D em apresentações didáticas, assinale a alternativa correta:",
+            options: [
+                "Os modelos 3D inseridos são estáticos e funcionam como fotografias comuns, não permitindo rotação ou alteração de ângulo durante a aula.",
+                "O PowerPoint possui animações específicas para modelos 3D, como 'Plataforma Giratória' e 'Balanço', que permitem demonstrar diferentes perspectivas de um objeto geográfico.",
+                "A inserção de objetos 3D desativa automaticamente todas as transições entre slides para poupar a memória RAM dos computadores das ETECs.",
+                "Modelos 3D só podem ser visualizados se a apresentação for exportada para o formato de vídeo '.avi' antes de ser projetada.",
+                "O software permite a rotação de modelos 3D apenas se o professor utilizar um óculos de realidade virtual conectado à porta USB do computador."
+            ],
+            correct: 1,
+            resolution: "O PowerPoint oferece suporte nativo a modelos 3D com animações específicas como 'Plataforma Giratória', que faz o objeto girar continuamente. Isso é excelente para visualizar relevos, bacias sedimentares ou fenômenos astronômicos de múltiplos ângulos."
+        },
+        {
+            id: 9,
+            question: "Um professor de Geografia finalizou sua apresentação sobre 'Urbanização e Problemas Ambientais' e deseja disponibilizá-la aos alunos no ambiente virtual de aprendizagem da ETEC. Para garantir que os alunos visualizem a aula exatamente como ela foi planejada, com todas as animações e transições iniciando automaticamente ao abrir o arquivo, sem que caiam acidentalmente no modo de edição do software, o arquivo deve ser salvo ou exportado com a extensão:",
+            options: [
+                ".potx (Modelo do PowerPoint)",
+                ".ppsx (Apresentação de Slides do PowerPoint)",
+                ".thmx (Tema do Office)",
+                ".txt (Arquivo de Texto Rico)",
+                ".xml (Linguagem de Marcação Extensível)"
+            ],
+            correct: 1,
+            resolution: "O formato **.ppsx (PowerPoint Show)** comanda o software para abrir o arquivo diretamente no modo de apresentação (tela cheia), garantindo que a sequência didática e as animações funcionem sem a interferência da interface de edição."
+        },
+        {
+            id: 10,
+            question: "Considerando a integração de tecnologias educacionais nas unidades do Centro Paula Souza, muitos professores utilizam o ecossistema Google Workspace em conjunto com o Microsoft Office. Se um docente de Geografia possui uma apresentação elaborada no Microsoft PowerPoint e deseja adicioná-la a um projeto colaborativo iniciado no 'Apresentações Google' (Google Slides), ele pode utilizar a funcionalidade de importação. De acordo com os recursos de interoperabilidade entre as ferramentas, é correto afirmar:",
+            options: [
+                "O Google Slides não permite a abertura de arquivos com extensão '.pptx', exigindo que o professor digite todo o conteúdo novamente.",
+                "É possível importar slides específicos de um arquivo PowerPoint para uma apresentação do Google através do menu 'Arquivo > Importar slides', mantendo parte da estrutura original.",
+                "A importação de arquivos do PowerPoint para a nuvem do Google apaga automaticamente todos os mapas e imagens devido a restrições de direitos autorais.",
+                "O PowerPoint possui um botão nativo chamado 'Enviar para Google Drive' que converte instantaneamente todos os slides em planilhas do Google Sheets.",
+                "A integração entre as ferramentas é limitada ao texto, sendo que todas as cores e fontes de uma apresentação de Geografia são convertidas para o padrão 'Arial' preto e branco."
+            ],
+            correct: 1,
+            resolution: "A interoperabilidade é alta. Através do menu **Arquivo > Importar slides** no Google Slides, é possível subir um arquivo .pptx e selecionar slides específicos, mantendo imagens, textos e layouts originais na maioria dos casos."
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+
+            let optionsHtml = '';
+            item.options.forEach((opt, optIndex) => {
+                const char = String.fromCharCode(65 + optIndex);
+                optionsHtml += `
+                    <li class="option-item" id="opt-container-${index}-${optIndex}">
+                        <label>
+                            <input type="radio" name="question-${index}" value="${optIndex}" onchange="updateSelection(${index})">
+                            <span>${char}. ${opt}</span>
+                        </label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">${item.id}</span>
+                    <div>${item.question}</div>
+                </div>
+                <ul class="options-list">
+                    ${optionsHtml}
+                </ul>
+                <div class="resolution-box" id="res-${index}">
+                    <h4>Resolução Comentada</h4>
+                    <p>${item.resolution}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function updateSelection(qIndex) {
+        // Remove a classe 'selected' de todas as opções daquela pergunta
+        const containers = document.querySelectorAll(`[id^="opt-container-${qIndex}-"]`);
+        containers.forEach(c => c.classList.remove('selected'));
+        
+        // Adiciona à opção selecionada
+        const selectedInput = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+        if (selectedInput) {
+            document.getElementById(`opt-container-${qIndex}-${selectedInput.value}`).classList.add('selected');
+        }
+    }
+
+    function showResults() {
+        let score = 0;
+        const total = quizData.length;
+
+        quizData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            
+            // Mostrar a resolução
+            resolutionBox.style.display = 'block';
+
+            // Marcar a correta
+            document.getElementById(`opt-container-${index}-${item.correct}`).classList.add('correct');
+
+            if (selected) {
+                const userChoice = parseInt(selected.value);
+                if (userChoice === item.correct) {
+                    score++;
+                } else {
+                    // Marcar a errada que o usuário escolheu
+                    document.getElementById(`opt-container-${index}-${userChoice}`).classList.add('wrong');
+                }
+            }
+            
+            // Desabilitar inputs após finalização
+            const inputs = document.querySelectorAll(`input[name="question-${index}"]`);
+            inputs.forEach(input => input.disabled = true);
+        });
+
+        // Mostrar resumo
+        const summary = document.getElementById('results-summary');
+        summary.style.display = 'block';
+        
+        const scoreDisplay = document.getElementById('score-display');
+        scoreDisplay.innerText = `${score}/${total}`;
+
+        const message = document.getElementById('score-message');
+        if (score === total) {
+            message.innerHTML = "<strong>Excelente!</strong> Você domina os recursos do PowerPoint para fins didáticos.";
+        } else if (score >= 7) {
+            message.innerHTML = "<strong>Muito bem!</strong> Você tem um bom conhecimento, revise os pontos onde houve dúvida.";
+        } else {
+            message.innerHTML = "<strong>Continue estudando.</strong> Revise as resoluções abaixo para entender as funcionalidades técnicas.";
+        }
+
+        // Esconder o botão de finalizar e rolar para o topo do resultado
+        document.getElementById('submit-btn').style.display = 'none';
+        summary.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Inicializar
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

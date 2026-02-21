@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Excel - ETEC Geografia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- MathJax para renderizar fórmulas LaTeX -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+        }
+        .question-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .option-label {
+            display: block;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border: 2px solid #f1f5f9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-label:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+        input[type="radio"]:checked + .option-text {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        input[type="radio"]:checked + .option-label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+        }
+        .resolution-section {
+            display: none;
+            border-top: 4px solid #2563eb;
+        }
+        .correct { color: #059669; font-weight: bold; }
+        .wrong { color: #dc2626; font-weight: bold; }
+        
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="mb-12 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Avaliação Técnica de Competências em Planilhas Eletrônicas
+            </h1>
+            <p class="text-lg text-slate-600 italic">
+                Simulado para o Magistério de Geografia - Centro Paula Souza (ETEC)
+            </p>
+            <div class="mt-6 p-4 bg-blue-50 text-blue-800 rounded-lg text-sm inline-block">
+                Assunto: Criação de planilhas para controle de notas e frequências.
+            </div>
+        </header>
+
+        <!-- Quiz Form -->
+        <form id="quiz-form" class="space-y-8">
+            
+            <!-- Questão 1 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 1</p>
+                <p class="mb-6">Um docente de Geografia da Unidade de Ensino Médio e Técnico (ETEC) está desenvolvendo uma planilha no Microsoft Excel para consolidar o desempenho acadêmico de uma turma do curso de Agrimensura integrado ao Ensino Médio. A avaliação do primeiro bimestre foi dividida em três eixos temáticos: Geopolítica (peso 3), Cartografia Digital (peso 5) e um Relatório de Campo sobre Bacias Hidrográficas (peso 2). As notas de um determinado discente foram inseridas nas células B5, C5 e D5, respectivamente. Considerando as diretrizes de cálculo de médias ponderadas para a progressão escolar e a necessidade de precisão nos registros oficiais do sistema acadêmico, a fórmula que calcula corretamente a média ponderada final na célula E5 é:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="A" class="mr-3"> A) `=(B5+C5+D5)/3`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="B" class="mr-3"> B) `=MÉDIA(B5;C5;D5)`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="C" class="mr-3"> C) `=(B5*3+C5*5+D5*2)/10`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="D" class="mr-3"> D) `=SOMA(B5:D5)/SOMA(3;5;2)`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="E" class="mr-3"> E) `=MÉDIA.PONDERADA(B5:D5;{3;5;2})`
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 2 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 2</p>
+                <p class="mb-6">No contexto da gestão de frequência escolar das ETECs, o regimento interno estabelece que o aluno deve manter uma frequência mínima de 75% para aprovação direta, independentemente do desempenho acadêmico. Um professor de Geografia deseja automatizar o Diário de Classe para que a coluna "H" exiba automaticamente o status de "RETENÇÃO" para alunos com faltas excessivas e "APROVADO" para os demais. Sabendo que a disciplina possui uma carga horária total de 120 aulas no semestre e que o número total de faltas de cada aluno está registrado na coluna "G", a partir da linha 2, a fórmula lógica correta para a célula H2 é:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="A" class="mr-3"> A) `=SE(G2>30;"RETENÇÃO";"APROVADO")`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="B" class="mr-3"> B) `=SE(G2<30;"APROVADO";"RETENÇÃO")`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="C" class="mr-3"> C) `=SE(G2/120>=0,75;"APROVADO";"RETENÇÃO")`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="D" class="mr-3"> D) `=SE(G2>(120*0,25);"RETENÇÃO";"APROVADO")`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="E" class="mr-3"> E) `=CONT.SE(G2:G120;">30")`
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 3 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 3</p>
+                <p class="mb-6">Durante a elaboração de uma planilha de custos para uma viagem de estudos geográficos pela região do Vale do Ribeira, o docente precisa calcular o custo por aluno baseado em um valor fixo de transporte localizado na célula "Z1" da aba "CONFIGURACOES". Ao criar a fórmula na célula "F10" da aba principal e arrastá-la para as demais linhas (F11 a F50), o professor percebe que o Excel altera a referência da célula de transporte para Z2, Z3, e assim por diante, gerando erros de cálculo. Para garantir que a referência à célula Z1 permaneça constante durante o preenchimento automático, o docente deve utilizar o recurso de referência absoluta na forma de:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="A" class="mr-3"> A) `CONFIGURACOES!Z1`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="B" class="mr-3"> B) `CONFIGURACOES!$Z$1`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="C" class="mr-3"> C) `CONFIGURACOES!#Z#1`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="D" class="mr-3"> D) `&CONFIGURACOES&Z1`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="E" class="mr-3"> E) `FIXAR(CONFIGURACOES!Z1)`
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 4 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 4</p>
+                <p class="mb-6">Para facilitar a análise visual do aproveitamento da turma em relação às menções do Centro Paula Souza (MB - Muito Bom; B - Bom; R - Regular; I - Insuficiente), um professor de Geografia deseja aplicar uma regra no Excel que destaque automaticamente em vermelho o preenchimento das células que contenham a menção "I". O recurso do Microsoft Excel que permite formatar células automaticamente com base em seus valores ou em critérios específicos é denominado:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="A" class="mr-3"> A) Estilos de Célula.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="B" class="mr-3"> B) Filtro Dinâmico.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="C" class="mr-3"> C) Formatação Condicional.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="D" class="mr-3"> D) Validação de Dados.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="E" class="mr-3"> E) Proteção de Planilha.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 5 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 5</p>
+                <p class="mb-6">Um docente está analisando dados demográficos do estado de São Paulo para uma aula de Geografia Humana. Ele possui uma tabela com o nome de 645 municípios na coluna "A" e suas respectivas populações na coluna "B". Ele deseja contar quantos municípios possuem uma população superior a 100.000 habitantes para demonstrar o processo de macrocefalia urbana e urbanização regional. A função estatística do Excel que permite contar o número de células em um intervalo que atendem a uma condição específica é:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="A" class="mr-3"> A) `=SOMA.SE(B2:B646;">100000")`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="B" class="mr-3"> B) `=CONT.VALORES(B2:B646)`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="C" class="mr-3"> C) `=CONT.SE(B2:B646;">100000")`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="D" class="mr-3"> D) `=CONTAR.SE(B2:B646;>100000)`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="E" class="mr-3"> E) `=MÉDIA.SE(B2:B646;">100000")`
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 6 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 6</p>
+                <p class="mb-6">Ao organizar as notas finais para exportação para o sistema NSA (Novo Sistema Acadêmico) utilizado pelas ETECs, o professor de Geografia precisa garantir que as notas numéricas sejam arredondadas para uma casa decimal. Se a média calculada de um aluno na célula "J15" for 8,746, qual função deve ser empregada para que o Excel retorne exatamente o valor 8,7?</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="A" class="mr-3"> A) `=ARREDONDAR(J15;1)`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="B" class="mr-3"> B) `=ARRED(J15;1)`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="C" class="mr-3"> C) `=INT(J15)`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="D" class="mr-3"> D) `=TRUNCAR(J15;1)`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q6" value="E" class="mr-3"> E) `=ARREDONDAR.PARA.BAIXO(J15;1)`
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 7 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 7</p>
+                <p class="mb-6">No Microsoft Excel, a integridade dos dados é fundamental para o controle de notas. Para evitar que valores inválidos (como notas maiores que 10 ou menores que 0) sejam inseridos por erro de digitação na coluna de avaliações, o docente deve utilizar uma ferramenta que restringe o tipo de dados ou os valores que os usuários podem inserir em uma célula. Essa ferramenta é:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="A" class="mr-3"> A) Consolidação de Dados.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="B" class="mr-3"> B) Verificação de Erros.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="C" class="mr-3"> C) Validação de Dados.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="D" class="mr-3"> D) Filtro de Entrada.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q7" value="E" class="mr-3"> E) Auditoria de Fórmulas.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 8 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 8</p>
+                <p class="mb-6">Um professor de Geografia deseja criar um resumo estatístico em uma nova planilha, buscando automaticamente a nota de recuperação de um aluno específico a partir de seu número de matrícula. A base de dados principal contém a matrícula na coluna "A" e a nota na coluna "D". A função de pesquisa e referência que permite localizar um valor na primeira coluna de uma tabela e retornar um valor na mesma linha de uma coluna especificada é:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="A" class="mr-3"> A) `=PROCH()`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="B" class="mr-3"> B) `=PROCV()`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="C" class="mr-3"> C) `=LOCALIZAR()`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="D" class="mr-3"> D) `=ÍNDICE()`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q8" value="E" class="mr-3"> E) `=CORRESP()`
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 9 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 9</p>
+                <p class="mb-6">Considere uma planilha de controle de frequência onde as células de "D4" a "AH4" representam os dias letivos do mês. O professor utiliza "P" para presente e "F" para falta. Para calcular a porcentagem de faltas de um aluno em relação ao total de 31 dias registrados, a fórmula correta é:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="A" class="mr-3"> A) `=CONT.SE(D4:AH4;"F")/31`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="B" class="mr-3"> B) `=SOMA(D4:AH4;"F")/31`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="C" class="mr-3"> C) `=CONT.VALORES(D4:AH4)/31`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="D" class="mr-3"> D) `=CONT.SE(D4:AH4;"F")*31`
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q9" value="E" class="mr-3"> E) `=MÉDIA(D4:AH4)/31`
+                    </label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="question-card p-6 shadow-sm">
+                <p class="font-bold mb-4">Questão 10</p>
+                <p class="mb-6">Ao trabalhar com séries temporais sobre o desmatamento na Amazônia Legal, um docente de Geografia importou dados de um portal oficial onde os anos estão dispostos em colunas e os estados em linhas. No entanto, para a criação de um gráfico específico, ele precisa que os anos fiquem nas linhas e os estados nas colunas. O comando do Excel que permite realizar essa inversão da orientação de um intervalo de dados é:</p>
+                
+                <div class="space-y-2">
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="A" class="mr-3"> A) Mesclar e Centralizar.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="B" class="mr-3"> B) Quebra de Texto Automática.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="C" class="mr-3"> C) Transpor.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="D" class="mr-3"> D) Formatar como Tabela.
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q10" value="E" class="mr-3"> E) Congelar Painéis.
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex justify-center py-10 no-print">
+                <button type="button" onclick="calculateResults()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-12 rounded-full shadow-lg transition transform hover:scale-105">
+                    Finalizar Simulado e Ver Resoluções
+                </button>
+            </div>
+        </form>
+
+        <!-- Results Section -->
+        <section id="results" class="resolution-section mt-12 mb-20 bg-white p-6 md:p-10 rounded-xl shadow-xl">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-2">Resultado da Avaliação</h2>
+                <div id="score-display" class="text-5xl font-extrabold text-blue-600 my-4">0 / 10</div>
+                <p id="performance-msg" class="text-slate-500 font-medium"></p>
+            </div>
+
+            <hr class="my-8">
+
+            <h3 class="text-2xl font-bold mb-8 text-slate-800 border-b-2 border-slate-100 pb-2">Gabarito Comentado e Análise Técnica</h3>
+            
+            <div class="space-y-12 text-slate-700">
+                <!-- Resolução 1 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 1: Média Ponderada e Precisão Numérica</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: C</strong></p>
+                    <p>A estruturação de planilhas para o controle de notas exige um domínio rigoroso das operações aritméticas. A alternativa C está correta pois aplica a fórmula matemática clássica da média ponderada:</p>
+                    <div class="bg-slate-50 p-4 rounded my-2 text-center">
+                        $$M_p = \frac{\sum (V_i \cdot P_i)}{\sum P_i}$$
+                    </div>
+                    <p>Na fórmula `=(B5*3+C5*5+D5*2)/10`, os valores das células são multiplicados por seus respectivos pesos (3, 5 e 2) e a soma resultante é dividida por 10 (a soma total dos pesos).</p>
+                </div>
+
+                <!-- Resolução 2 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 2: Automação da Frequência e Regimento</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: D</strong></p>
+                    <p>O Regimento Comum das Etecs estabelece critérios claros para a retenção por faltas. Análise técnica:</p>
+                    <ul class="list-disc ml-6 space-y-1">
+                        <li>Carga horária total: 120 aulas.</li>
+                        <li>Frequência mínima: 75% de 120 = 90 aulas.</li>
+                        <li>Limite máximo de faltas: 120 - 90 = 30 faltas (ou 25% de 120).</li>
+                    </ul>
+                    <p class="mt-2">A expressão `G2>(120*0,25)` testa se as faltas são superiores a 25% da carga horária. Se verdadeiro, ativa "RETENÇÃO".</p>
+                </div>
+
+                <!-- Resolução 3 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 3: Referências Absolutas</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: B</strong></p>
+                    <p>Para "travar" o endereço de uma célula específica durante o preenchimento automático, deve-se utilizar o símbolo de cifrão `$`. A alternativa B (`CONFIGURACOES!$Z$1`) é a correta. O cifrão antes da coluna (`$Z`) e da linha (`$1`) garante que a referência permaneça fixa.</p>
+                </div>
+
+                <!-- Resolução 4 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 4: Análise Visual e Formatação Condicional</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: C</strong></p>
+                    <p>O recurso de Formatação Condicional permite que a aparência de uma célula (cor, preenchimento) mude automaticamente com base em uma regra lógica. É ideal para destacar menções críticas como "I" (Insuficiente).</p>
+                </div>
+
+                <!-- Resolução 5 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 5: Funções Estatísticas e Dados Demográficos</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: C</strong></p>
+                    <p>A função `CONT.SE` (Sintaxe: `=CONT.SE(intervalo; critérios)`) é a ferramenta adequada para contar quantas células atendem a um critério específico, como uma população superior a 100.000 habitantes.</p>
+                </div>
+
+                <!-- Resolução 6 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 6: Arredondamento para Sistemas Acadêmicos</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: B</strong></p>
+                    <p>A função `ARRED` permite especificar exatamente quantas casas decimais devem ser mantidas. Diferente de `TRUNCAR`, ela segue as regras matemáticas de arredondamento.</p>
+                </div>
+
+                <!-- Resolução 7 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 7: Governança de Dados e Validação</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: C</strong></p>
+                    <p>A Validação de Dados permite ao professor configurar "travas" nas células, impedindo a digitação de valores inválidos (como notas > 10) e garantindo a fidedignidade dos registros escolares.</p>
+                </div>
+
+                <!-- Resolução 8 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 8: Pesquisa e Referência</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: B</strong></p>
+                    <p>A função `PROCV` (Procura Vertical) localiza um valor na primeira coluna de uma matriz e retorna um dado na mesma linha de uma coluna especificada, sendo essencial para buscar notas em grandes bases de dados.</p>
+                </div>
+
+                <!-- Resolução 9 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 9: Lógica de Frequência e Porcentagem</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: A</strong></p>
+                    <p>A fórmula `=CONT.SE(D4:AH4;"F")/31` conta as faltas ("F") e divide pelo total de dias registrados, resultando na taxa de absenteísmo que pode ser formatada como porcentagem.</p>
+                </div>
+
+                <!-- Resolução 10 -->
+                <div>
+                    <h4 class="font-bold text-lg mb-2 text-blue-900">Questão 10: Estruturação de Dados e Transposição</h4>
+                    <p class="mb-4"><strong>Alternativa Correta: C</strong></p>
+                    <p>O comando "Transpor" (no Colar Especial) inverte os eixos: o que era linha vira coluna e vice-versa, sendo fundamental para reorganizar séries históricas geográficas para gráficos.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 p-6 bg-slate-100 rounded-lg no-print text-center">
+                <button onclick="window.print()" class="text-slate-600 hover:text-slate-900 font-bold underline">
+                    Salvar Resultados em PDF
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const answers = {
+            q1: "C", q2: "D", q3: "B", q4: "C", q5: "C",
+            q6: "B", q7: "C", q8: "B", q9: "A", q10: "C"
+        };
+
+        function calculateResults() {
+            const form = document.getElementById('quiz-form');
+            const formData = new FormData(form);
+            let score = 0;
+            let total = 10;
+
+            // Limpa marcações anteriores
+            document.querySelectorAll('.option-label').forEach(el => {
+                el.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500');
+            });
+
+            for (let i = 1; i <= total; i++) {
+                const qName = 'q' + i;
+                const userAnswer = formData.get(qName);
+                const correctAnswer = answers[qName];
+
+                // Marcação visual imediata nas questões
+                const options = document.getElementsByName(qName);
+                options.forEach(opt => {
+                    const label = opt.parentElement;
+                    if (opt.value === correctAnswer) {
+                        label.classList.add('border-green-500', 'bg-green-50');
+                        label.innerHTML += ' <span class="correct no-print">✓</span>';
+                    } else if (opt.checked && opt.value !== correctAnswer) {
+                        label.classList.add('border-red-500', 'bg-red-50');
+                        label.innerHTML += ' <span class="wrong no-print">✗</span>';
+                    }
+                });
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                }
+            }
+
+            // Exibir seção de resultados
+            const resultsSection = document.getElementById('results');
+            resultsSection.style.display = 'block';
+            
+            // Atualizar Score
+            const scoreDisplay = document.getElementById('score-display');
+            scoreDisplay.innerText = `${score} / ${total}`;
+
+            // Mensagem de desempenho
+            const msg = document.getElementById('performance-msg');
+            if (score === 10) msg.innerText = "Excelente! Domínio total das ferramentas de Excel para ETEC.";
+            else if (score >= 7) msg.innerText = "Muito bom! Você possui conhecimento sólido sobre gestão de notas.";
+            else if (score >= 5) msg.innerText = "Desempenho regular. Revise as funções de pesquisa e lógica.";
+            else msg.innerText = "Precisa de revisão. O domínio do Excel é vital para a carreira docente no CPS.";
+
+            // Scroll suave para os resultados
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Desativa rádio buttons para evitar alterações pós-gabarito
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.disabled = true;
+            });
+        }
+    </script>
+</body>
+</html>

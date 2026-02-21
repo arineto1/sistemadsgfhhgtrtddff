@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Definitivo Excel - Concurso ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+        .highlight {
+            background-color: #fef08a;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        .section-title {
+            border-left: 4px solid #1e3a8a;
+            padding-left: 1rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #1e3a8a;
+        }
+        .formula-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 1rem 0;
+        }
+        .geo-box {
+            background-color: #f0fdf4;
+            border: 1px solid #dcfce7;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+        }
+        /* Mobile adjustment for tables */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-900">
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        
+        <!-- Cabeçalho -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+                Excel: Gestão de Notas e Frequências
+            </h1>
+            <p class="text-xl text-slate-500 font-medium">
+                Tutor Especialista - Concurso Docente Geografia CEETEPS
+            </p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <div class="sticky top-4 z-50 bg-white/90 backdrop-blur shadow-md border border-slate-200 p-4 rounded-xl mb-12">
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+                <span class="text-sm font-bold text-slate-700 uppercase tracking-tighter">Audioaula:</span>
+                <audio controls class="w-full h-10">
+                    <source src="microsoft_excel.mp3" type="audio/mpeg">
+                    Seu navegador não suporta áudio.
+                </audio>
+            </div>
+        </div>
+
+        <!-- Conteúdo Teórico -->
+        <article class="prose prose-slate max-w-none">
+            
+            <section>
+                <h2 class="section-title text-2xl font-bold">1. Definições e Características Essenciais</h2>
+                <p>O Microsoft Excel é um software de <span class="highlight">planilha eletrônica</span> (spreadsheet) e não um banco de dados relacional, embora possa gerenciar grandes volumes de dados. No contexto da ETEC, ele é a ferramenta primária para o "Diário de Classe" digital.</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><span class="highlight">Arquivo (.xlsx):</span> Chamado de "Pasta de Trabalho", que contém várias "Planilhas".</li>
+                    <li><span class="highlight">Célula:</span> Unidade básica resultante do cruzamento de uma coluna (Letra) e uma linha (Número).</li>
+                    <li><span class="highlight">Formatação Condicional:</span> Recurso vital para professores. Permite que a célula mude de cor (ex: <span class="text-red-600 font-bold">I</span> em vermelho) automaticamente baseada no valor.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="section-title text-2xl font-bold">2. Fórmulas de Cálculo e Lógica Pedagógica</h2>
+                <p>Para o CEETEPS, a avaliação é baseada em <span class="highlight">Menções (MB, B, R, I)</span>. O Excel transforma números em menções usando funções lógicas.</p>
+                
+                <h3 class="font-bold mt-4">Funções Imprescindíveis para a Prova:</h3>
+                <div class="space-y-4">
+                    <div class="formula-card">
+                        =SOMA(B2:E2) / =MÉDIA(B2:E2)
+                        <p class="text-xs text-slate-500 mt-2">// Cálculo básico para média aritmética de notas bimestrais.</p>
+                    </div>
+                    
+                    <div class="formula-card">
+                        =SE(F2>=5; "Aprovado"; "Retido")
+                        <p class="text-xs text-slate-500 mt-2">// Função Lógica: (Teste_Lógico; Valor_se_Verdadeiro; Valor_se_Falso).</p>
+                    </div>
+
+                    <div class="formula-card">
+                        =CONT.SE(C2:Z2; "F")
+                        <p class="text-xs text-slate-500 mt-2">// Conta quantas vezes a letra "F" (falta) aparece no intervalo de chamadas.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title text-2xl font-bold">3. Referências de Célula (O $ da Questão)</h2>
+                <p>A banca FAT adora cobrar o comportamento do símbolo <span class="highlight">$ (Cifrão)</span> ao arrastar fórmulas:</p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Exemplo</th>
+                                <th>Comportamento ao Copiar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Relativa</td>
+                                <td class="font-mono">A1</td>
+                                <td>Altera linha e coluna conforme o movimento.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Absoluta</td>
+                                <td class="font-mono">$A$1</td>
+                                <td><span class="highlight">Congela</span> totalmente a célula (não muda nunca).</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Mista</td>
+                                <td class="font-mono">A$1</td>
+                                <td>Trava apenas a linha 1; a coluna A pode mudar para B, C...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="geo-box">
+                <h2 class="text-xl font-bold text-green-900 mb-2">🎯 Conexão com Geografia (Específica)</h2>
+                <p>O examinador pode contextualizar o Excel com dados demográficos ou físicos:</p>
+                <ul class="list-disc pl-5 mt-3 space-y-2">
+                    <li><strong>Análise de População:</strong> Cálculo de densidade demográfica (=Habitantes/Área).</li>
+                    <li><strong>Gráficos de Dispersão:</strong> Usados para correlacionar IDH e PIB.</li>
+                    <li><strong>Importação de Dados:</strong> O Excel abre arquivos <span class="highlight">.CSV</span> (Comma Separated Values), formato padrão de exportação do SIDRA/IBGE.</li>
+                    <li><strong>Tipos de Dados "Geografia":</strong> Recurso que converte nomes de países/estados em entidades ricas com dados de área, fuso e população online.</li>
+                </ul>
+            </div>
+
+            <section>
+                <h2 class="section-title text-2xl font-bold">4. Erros e Diagnóstico (Ponto de Acerto)</h2>
+                <p>Identificar o erro visualmente é uma questão recorrente:</p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Significado</th>
+                                <th>Exemplo no Diário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-mono font-bold text-red-600">#DIV/0!</td>
+                                <td>Divisão por zero</td>
+                                <td>Tentar calcular média sem ter digitado nenhuma nota.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-mono font-bold text-red-600">#REF!</td>
+                                <td>Referência Inválida</td>
+                                <td>Você deletou a coluna onde estava a nota do aluno.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-mono font-bold text-red-600">#VALOR!</td>
+                                <td>Tipo de dado errado</td>
+                                <td>Tentar somar o nome do aluno com a nota dele.</td>
+                            </tr>
+                            <tr>
+                                <td class="font-mono font-bold text-red-600">######</td>
+                                <td>Largura Insuficiente</td>
+                                <td>A coluna é estreita demais para mostrar o número (não é um erro de cálculo).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title text-2xl font-bold">5. O Regimento Comum das ETECs</h2>
+                <p>Lembre-se das regras administrativas que regem a planilha de notas:</p>
+                <ul class="list-disc pl-5 space-y-3">
+                    <li><strong>Frequência:</strong> O aluno deve ter no mínimo <span class="highlight">75% de presença</span> para ser aprovado (Cuidado: questões podem sugerir 70% ou 80% para confundir).</li>
+                    <li><strong>Avaliação Somativa:</strong> O Excel deve refletir a síntese do período. A nota (menção) não é uma média matemática fria, mas prevalece o <span class="highlight">critério qualitativo</span> sobre o quantitativo conforme o regimento.</li>
+                    <li><strong>Recuperação:</strong> Deve ser contínua e paralela, refletida na alteração das menções na planilha ao final do processo.</li>
+                </ul>
+            </section>
+
+            <!-- Resumo de Ouro -->
+            <div class="mt-12 p-8 bg-slate-900 text-white rounded-2xl">
+                <h2 class="text-2xl font-bold mb-4">🚨 Check-list para o Dia da Prova</h2>
+                <ol class="list-decimal pl-5 space-y-3 text-slate-300">
+                    <li>Sempre verifique se a fórmula começa com <span class="text-yellow-400 font-bold">=</span>.</li>
+                    <li>No Brasil, o separador de argumentos é <span class="text-yellow-400 font-bold">; (ponto e vírgula)</span>.</li>
+                    <li>O sinal de <span class="text-yellow-400 font-bold">: (dois pontos)</span> significa "ATÉ".</li>
+                    <li>O sinal de <span class="text-yellow-400 font-bold">! (exclamação)</span> separa o nome da planilha da célula (Ex: Plan1!A1).</li>
+                    <li>Ordem: () > Potência > * ou / > + ou -.</li>
+                </ol>
+            </div>
+
+            <!-- Botão de Questões -->
+            <div class="flex justify-center mt-16 mb-8">
+                <a href="microsoft_excelquestoes.html" class="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white transition-all duration-200 bg-blue-900 font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-blue-800 shadow-xl">
+                    <span class="mr-2">Praticar com Questões</span>
+                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="Arrow-right 17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+
+        </article>
+
+        <footer class="mt-20 pt-8 border-t border-slate-100 text-center text-slate-400 text-sm">
+            <p>© 2024 Guia de Estudos para Docentes - Geografia CEETEPS</p>
+            <p class="mt-1 italic">Este material é para fins educacionais e focado em técnicas de concurso.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

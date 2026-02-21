@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Estratégico - Concurso ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+        }
+        .highlight {
+            background-color: #fef08a; /* Amarelo claro para grifos */
+            padding: 1px 3px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+        .important-box {
+            border-left: 4px solid #2563eb;
+            background-color: #f8fafc;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            table-layout: auto;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+        }
+        kbd {
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            padding: 2px 5px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.85em;
+            font-weight: 700;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+        }
+        .audio-player-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="max-w-4xl mx-auto px-4 py-8 md:px-8 md:py-12">
+
+    <!-- Reprodutor de Áudio -->
+    <div class="audio-player-card">
+        <h3 class="text-sm font-bold text-blue-600 uppercase tracking-wider mb-2">Escutar aula (Podcast de Memorização)</h3>
+        <audio controls class="w-full">
+            <!-- Espaço para o nome do arquivo mp3 -->
+            <source src="sistema_windows.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
+    <header class="border-b-2 border-gray-100 pb-8 mb-12">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Gerenciamento de Pastas e Arquivos</h1>
+        <p class="text-lg text-gray-600">Tutor Especialista: Foco em Professor de Geografia - ETEC/CEETEPS</p>
+    </header>
+
+    <main class="space-y-12">
+        
+        <!-- 1. Conceitos e Estrutura -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">1. Definição e Estrutura de Hierarquia</h2>
+            <p>No Windows, a organização é <span class="highlight">hierárquica e em árvore</span>. Tudo começa na <strong>Unidade Raiz</strong> (ex: <kbd>C:\</kbd>).</p>
+            <ul class="list-disc ml-6 mt-4 space-y-2">
+                <li><strong>Arquivos:</strong> Unidades lógicas de dados (documentos, imagens, executáveis).</li>
+                <li><strong>Pastas (Diretórios):</strong> Containers usados para organizar arquivos e outras subpastas.</li>
+                <li><strong>Caminho (Path):</strong> A "folha de rosto" da localização. Ex: <span class="highlight">C:\Projetos\Mapas\Brasil.shp</span>.</li>
+            </ul>
+            <div class="important-box">
+                <strong>Peguinha de Prova:</strong> O Windows <span class="highlight">não é Case-Sensitive</span> para nomes de arquivos. Ou seja, "MAPA.jpg" e "mapa.jpg" são lidos como o mesmo arquivo na mesma pasta.
+            </div>
+        </section>
+
+        <!-- 2. Regras de Nomenclatura -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">2. Regras de Nomenclatura (Mnemônico SABIDA)</h2>
+            <p>O Windows impede o uso de <span class="highlight">9 caracteres específicos</span>. Memorize o mnemônico para não errar questões de "qual nome é válido":</p>
+            <div class="bg-gray-50 p-6 rounded-lg my-4">
+                <p class="font-mono text-xl text-center tracking-widest">
+                    <strong>\ / | : * ? " &lt; &gt;</strong>
+                </p>
+            </div>
+            <ul class="list-none grid grid-cols-2 md:grid-cols-3 gap-2">
+                <li><kbd>\ / |</kbd> (Barras/Pipe)</li>
+                <li><kbd>:</kbd> (Dois pontos)</li>
+                <li><kbd>*</kbd> (Asterisco)</li>
+                <li><kbd>?</kbd> (Interrogação)</li>
+                <li><kbd>"</kbd> (Aspas duplas)</li>
+                <li><kbd>&lt; &gt;</kbd> (Setas/Maior-Menor)</li>
+            </ul>
+        </section>
+
+        <!-- 3. Extensões e Tipos (Geografia) -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">3. Extensões: Foco Técnico Geografia</h2>
+            <p>O Windows usa a extensão para associar o arquivo a um programa padrão. No contexto de Geografia na ETEC, atenção especial a:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Extensão</th>
+                        <th>Tipo de Arquivo / Uso</th>
+                        <th>Importância para Geografia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>.SHP / .DBF</strong></td>
+                        <td>Shapefile (Vetorial)</td>
+                        <td><span class="highlight">Obrigatório em SIG (QGIS/ArcGIS)</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>.KML / .KMZ</strong></td>
+                        <td>Google Earth</td>
+                        <td>Intercâmbio de dados geográficos leves.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>.TIF / .TIFF</strong></td>
+                        <td>Imagem (Raster)</td>
+                        <td><span class="highlight">Imagens de Satélite</span> e ortofotos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>.EXE / .MSI</strong></td>
+                        <td>Executáveis</td>
+                        <td>Instaladores de softwares.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>.PDF</strong></td>
+                        <td>Documento Portátil</td>
+                        <td>Relatórios técnicos finais.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 4. Lógica de Arrastar e Teclas de Atalho -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">4. Manipulação: O Segredo de Arrastar</h2>
+            <p>Este é o tema que mais gera "peguinhas" em provas da FAT/CEETEPS:</p>
+            <div class="space-y-4 mt-4">
+                <div class="p-4 border border-blue-200 rounded">
+                    <p><strong>Mesma Unidade (ex: de C: para C:):</strong> O padrão é <span class="highlight">MOVER</span>.</p>
+                </div>
+                <div class="p-4 border border-green-200 rounded">
+                    <p><strong>Unidades Diferentes (ex: de C: para Pendrive E:):</strong> O padrão é <span class="highlight">COPIAR</span>.</p>
+                </div>
+            </div>
+            <p class="mt-4 font-semibold text-red-700">Modificadores Forçados:</p>
+            <ul class="list-disc ml-6">
+                <li>Segurar <kbd>CTRL</kbd> ao arrastar: <span class="highlight">Sempre COPIA</span>.</li>
+                <li>Segurar <kbd>SHIFT</kbd> ao arrastar: <span class="highlight">Sempre MOVE</span>.</li>
+                <li>Segurar <kbd>ALT</kbd> ao arrastar: <span class="highlight">Cria ATALHO</span>.</li>
+            </ul>
+        </section>
+
+        <!-- 5. Sistema de Arquivos e Lixeira -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">5. Sistema de Arquivos e Lixeira</h2>
+            <p>O <strong>NTFS</strong> é o sistema padrão atual. O <strong>FAT32</strong> é limitado (arquivos de no máx 4GB).</p>
+            <div class="important-box">
+                <h4 class="font-bold mb-2 text-red-800">CUIDADO COM A LIXEIRA (TOP PROVA):</h4>
+                <ul class="list-disc ml-4">
+                    <li>Arquivos de <span class="highlight">PENDRIVES</span> e Cartões SD <strong>não vão para a lixeira</strong> (são excluídos direto).</li>
+                    <li>Arquivos de <span class="highlight">Unidades de Rede</span> também são excluídos direto.</li>
+                    <li>Atalho <kbd>SHIFT + DELETE</kbd> pula a lixeira em qualquer lugar.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 6. Busca com Caracteres Coringas -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">6. Busca Inteligente (Wildcards)</h2>
+            <p>Para localizar arquivos quando não sabemos o nome completo:</p>
+            <ul class="space-y-3 mt-4">
+                <li><strong>Asterisco <kbd>*</kbd>:</strong> Substitui <span class="highlight">qualquer quantidade de caracteres</span>. <br><small>Ex: <code>*.shp</code> busca todos os arquivos shapefiles.</small></li>
+                <li><strong>Interrogação <kbd>?</kbd>:</strong> Substitui <span class="highlight">apenas um único caractere</span>. <br><small>Ex: <code>Mapa?.jpg</code> encontraria "Mapa1.jpg", mas não "Mapa10.jpg".</small></li>
+            </ul>
+        </section>
+
+        <!-- 7. Atributos e Bibliotecas -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">7. Atributos e Bibliotecas</h2>
+            <p>Arquivos possuem "etiquetas" que definem seu comportamento:</p>
+            <ul class="list-disc ml-6 space-y-2">
+                <li><strong>Somente Leitura:</strong> Impede salvar alterações no arquivo.</li>
+                <li><strong>Oculto:</strong> Não aparece na busca comum do usuário leigo.</li>
+                <li><strong>Bibliotecas:</strong> Recurso que agrupa pastas em uma única visão (ex: Imagens), mesmo que elas estejam em discos diferentes. <span class="highlight">Excluir uma biblioteca não apaga os arquivos</span>, apenas o agrupamento.</li>
+            </ul>
+        </section>
+
+        <!-- Seção de Atalhos Rápidos -->
+        <section class="bg-gray-50 p-8 rounded-xl border border-gray-200">
+            <h2 class="text-xl font-bold mb-4">Checklist de Atalhos para Memorizar</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p><kbd>Win + E</kbd> : Abre o Explorador de Arquivos.</p>
+                <p><kbd>F2</kbd> : Renomeia o item selecionado.</p>
+                <p><kbd>Alt + Enter</kbd> : Abre Propriedades (ver tamanho e atributos).</p>
+                <p><kbd>Ctrl + Shift + N</kbd> : Cria nova pasta.</p>
+                <p><kbd>Win + D</kbd> : Minimiza tudo e mostra a Área de Trabalho.</p>
+                <p><kbd>Ctrl + F</kbd> : Inicia pesquisa na pasta aberta.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-16 pt-8 border-t border-gray-100 text-center pb-20">
+        <a href="sistema_windowsquestoes.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full transition-transform hover:scale-105 shadow-lg">
+            Acessar Banco de Questões (ETEC)
+        </a>
+        <p class="mt-8 text-gray-400 text-sm">Documento de Apoio Didático - Uso Interno - CEETEPS Geografia</p>
+    </footer>
+
+</body>
+</html>

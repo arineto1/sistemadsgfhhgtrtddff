@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado ETEC - Segurança da Informação</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --correct-color: #27ae60;
+            --incorrect-color: #d63031;
+            --card-bg: #fdfdfd;
+            --border-color: #dfe6e9;
+            --header-bg: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            border-bottom: 2px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: #2d3436;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            color: #636e72;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 1.5rem 5rem 1.5rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+        }
+
+        label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        label:hover {
+            background-color: #f1f2f6;
+        }
+
+        input[type="radio"] {
+            margin-top: 0.3rem;
+            margin-right: 1rem;
+            transform: scale(1.2);
+        }
+
+        /* Classes para feedback */
+        .selected-correct {
+            background-color: #e6ffed !important;
+            border-color: var(--correct-color) !important;
+            font-weight: bold;
+        }
+
+        .selected-incorrect {
+            background-color: #fff5f5 !important;
+            border-color: var(--incorrect-color) !important;
+        }
+
+        .correct-answer-highlight {
+            border: 2px solid var(--correct-color) !important;
+            position: relative;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background-color: #f0f7ff;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+
+        .resolution-box h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        #submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+
+        #submit-btn:hover {
+            background-color: #0771c1;
+            transform: translateY(-2px);
+        }
+
+        #results-summary {
+            display: none;
+            background: #2d3436;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        #results-summary h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-box {
+            font-size: 1.5rem;
+            color: #fab1a0;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 0 1rem; }
+            header h1 { font-size: 1.4rem; }
+            .question-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Segurança da Informação e LGPD</h1>
+    <p>Concurso Docente - ETEC / CEETEPS (Estilo Geográfico/Institucional)</p>
+</header>
+
+<div class="container">
+    <div id="results-summary">
+        <h2>Resultado Final</h2>
+        <div class="score-box" id="score-text"></div>
+        <p style="margin-top: 10px;">Confira as resoluções detalhadas abaixo em cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-card" id="q1-card">
+            <div class="question-text">Questão 01: No exercício das atividades docentes em uma Escola Técnica Estadual (ETEC), o professor de Geografia frequentemente manipula listas de presença, registros de notas e relatórios socioeconômicos que contêm informações como nomes completos, números de RG/CPF, endereços residenciais e fotos dos discentes. De acordo com a Lei Geral de Proteção de Dados Pessoais (LGPD – Lei nº 13.709/2018), esses registros são tecnicamente classificados como:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q1" value="A"> A) Dados anonimizados, uma vez que o professor possui dever ético de sigilo profissional perante a instituição.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="B"> B) Dados pessoais sensíveis, pois a geolocalização residencial e a imagem do aluno revelam obrigatoriamente sua origem racial e convicção religiosa.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="C"> C) Dados pessoais, por consistirem em informações relacionadas a uma pessoa natural identificada ou identificável através de meios razoáveis.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="D"> D) Dados públicos de livre acesso, visto que o Centro Paula Souza é uma autarquia estadual e deve obedecer ao princípio da publicidade absoluta.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="E"> E) Dados institucionais despersonalizados, pertencentes exclusivamente ao patrimônio intelectual da unidade de ensino, sem proteção legal individual.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q1">
+                <h4>Resolução Técnica:</h4>
+                O conceito de Dado Pessoal (Art. 5º, inciso I da LGPD) inclui qualquer dado que permita a identificação de uma pessoa natural. Listas de classe com nomes, fotos e endereços são exemplos primários de dados pessoais. A anonimização é um processo irreversível, o que não ocorre aqui. Fotos e endereços não são automaticamente "sensíveis" pela definição taxativa da lei (que foca em convicção política, religiosa, saúde, etc.).
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q2-card">
+            <div class="question-text">Questão 02: Para acessar o Sistema Acadêmico (NSA) ou o Portal Institucional do Centro Paula Souza (CEETEPS), o docente deve utilizar o protocolo de comunicação segura que garante a integridade e a confidencialidade do tráfego de informações. Ao observar o prefixo "https://" e o ícone de um cadeado, o professor identifica a presença de:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q2" value="A"> A) Um sistema de detecção de intrusão (IDS) que bloqueia automaticamente tentativas de login por força bruta.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="B"> B) Uma rede privada virtual (VPN) que mascara obrigatoriamente o endereço IP do docente.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="C"> C) Um certificado digital que utiliza protocolos de criptografia (como SSL ou TLS) para cifrar os dados transmitidos.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="D"> D) Um firewall de hardware instalado no computador local que impede a execução de scripts de terceiros.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="E"> E) Um algoritmo de compressão de dados que visa apenas aumentar a velocidade de carregamento.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q2">
+                <h4>Resolução Técnica:</h4>
+                O protocolo HTTPS (HTTP + SSL/TLS) estabelece um canal cifrado. Garante que, mesmo se os dados forem interceptados, serão ilegíveis sem a chave de decriptação. IDS, VPN e Firewall são outras ferramentas de segurança, mas não são o que o "cadeado" do navegador representa diretamente.
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q3-card">
+            <div class="question-text">Questão 03: Se um professor armazena uma avaliação em uma pasta compartilhada sem permissões e um aluno a acessa e compartilha com a turma antes da prova, houve uma violação direta do pilar da:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q3" value="A"> A) Integridade, pois o conteúdo pedagógico foi lido sem autorização prévia da coordenação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="B"> B) Disponibilidade, visto que o arquivo ficou inacessível para o professor.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="C"> C) Autenticidade, uma vez que o autor do compartilhamento não utilizou sua assinatura digital.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="D"> D) Confidencialidade, que consiste na garantia de que a informação só será acessada por pessoas explicitamente autorizadas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="E"> E) Não-repúdio, pois o aluno poderá negar a autoria do vazamento por falta de registros.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q3">
+                <h4>Resolução Técnica:</h4>
+                A Confidencialidade é o pilar que garante o sigilo. Se alguém não autorizado visualiza a informação, a confidencialidade foi quebrada. A integridade refere-se à alteração (não autorizada) da informação, e a disponibilidade ao acesso constante ao serviço/dado.
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q4-card">
+            <div class="question-text">Questão 04: Sobre a criação e o uso de senhas para o e-mail institucional "@etec.sp.gov.br", assinale a alternativa que apresenta uma prática de segurança tecnicamente recomendada:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q4" value="A"> A) Utilizar senhas curtas (até 6 caracteres) compostas apenas por números para facilitar o acesso.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="B"> B) Adotar a mesma senha utilizada em redes sociais pessoais para evitar o esquecimento.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="C"> C) Implementar a Autenticação de Dois Fatores (2FA), adicionando uma camada extra de segurança que exige um código temporário.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="D"> D) Compartilhar a senha de acesso com o representante de sala para projeção de materiais.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="E"> E) Salvar as credenciais de acesso no navegador de computadores públicos dos laboratórios.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q4">
+                <h4>Resolução Técnica:</h4>
+                O 2FA (ou MFA) é o padrão ouro atual. Combina algo que você sabe (senha) com algo que você tem (celular/token). Senhas curtas são vulneráveis a ataques de força bruta, e a reutilização de senhas facilita o comprometimento de múltiplas contas (Credential Stuffing).
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q5-card">
+            <div class="question-text">Questão 05: Se um computador de uma ETEC for infectado por um ransomware, o impacto imediato sobre os arquivos de planejamento e bases de dados geográficos será:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q5" value="A"> A) A exclusão permanente de todos os arquivos sem possibilidade de recuperação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="B"> B) A criptografia dos dados, seguida de uma exigência de pagamento (resgate) para a liberação da chave.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="C"> C) A monitoração silenciosa das teclas digitadas (keylogging) para captura de senhas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="D"> D) O envio em massa de e-mails com propaganda política utilizando o endereço institucional.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="E"> E) A alteração aleatória de coordenadas geográficas em mapas digitais para induzir erros.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q5">
+                <h4>Resolução Técnica:</h4>
+                Ransomware (Ransom = Resgate) sequestra dados via criptografia. O objetivo é a extorsão financeira. O Keylogging é feito por Spywares. O envio de spam por Botnets.
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q6-card">
+            <div class="question-text">Questão 06: Um professor recebe um e-mail informando sobre uma "alteração urgente na escala" e solicita um clique em um link "bit.ly/atualiza-cadastro". Esta tentativa de fraude por manipulação psicológica é denominada:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q6" value="A"> A) Brute Force.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="B"> B) SQL Injection.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="C"> C) Phishing.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="D"> D) Denial of Service (DoS).</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="E"> E) Defacement.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q6">
+                <h4>Resolução Técnica:</h4>
+                Phishing é a engenharia social via comunicações eletrônicas. O Brute Force foca em adivinhar senhas. SQL Injection em atacar bancos de dados através de campos de texto. DoS derruba serviços. Defacement é pichação de sites.
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q7-card">
+            <div class="question-text">Questão 07: O princípio da "Minimização de Dados" previsto na LGPD orienta que:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q7" value="A"> A) O tratamento de dados deve ser realizado apenas em dispositivos com baixo poder de processamento.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="B"> B) A coleta de informações deve se limitar ao mínimo necessário para a realização das finalidades pretendidas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="C"> C) Os dados dos alunos devem ser reduzidos a códigos binários simples para facilitar a transmissão.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="D"> D) A instituição deve apagar todos os registros de notas imediatamente após o conselho de classe.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="E"> E) O professor deve reduzir o tamanho das fotos dos discentes para economizar espaço.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q7">
+                <h4>Resolução Técnica:</h4>
+                Previsto no Art. 6º da LGPD, o princípio da necessidade (minimização) diz que o tratamento deve ser proporcional e limitado ao que é realmente útil para a finalidade, evitando acumular dados desnecessários dos alunos.
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q8-card">
+            <div class="question-text">Questão 08: Para garantir a segurança dos dados e das senhas durante o uso de uma rede Wi-Fi pública em um trabalho de campo, a medida técnica mais adequada é:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q8" value="A"> A) Desativar o antivírus do dispositivo para evitar lentidão.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="B"> B) Utilizar uma VPN (Virtual Private Network) para criar um túnel criptografado sobre a rede pública insegura.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="C"> C) Configurar o navegador para o modo de "navegação anônima".</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="D"> D) Alterar o nome do dispositivo para "Servidor ETEC" para intimidar invasores.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="E"> E) Manter o Bluetooth e o compartilhamento de arquivos ativos.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q8">
+                <h4>Resolução Técnica:</h4>
+                Redes públicas permitem interceptação de tráfego. A VPN cria um túnel seguro de ponta a ponta. A navegação anônima apenas oculta o histórico local, não protege os dados em trânsito pela rede.
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q9-card">
+            <div class="question-text">Questão 09: No ambiente operacional Windows, o recurso nativo que atua monitorando e filtrando o tráfego de rede, bloqueando acessos não autorizados, é o:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q9" value="A"> A) Windows Defender Antivírus.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="B"> B) Windows Update.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="C"> C) Windows Firewall.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="D"> D) Gerenciador de Tarefas.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="E"> E) Desfragmentador de Disco.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q9">
+                <h4>Resolução Técnica:</h4>
+                O Firewall é a barreira de perímetro de rede. O Defender Antivírus foca em arquivos e execução de malwares. O Update cuida das correções (patches) de segurança.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10-card">
+            <div class="question-text">Questão 10: A estratégia "3-2-1" para backups consiste em manter:</div>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q10" value="A"> A) 3 cópias dos dados, em 2 mídias diferentes, sendo 1 delas fora do local físico original (offsite).</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="B"> B) 3 backups diários, realizados por 2 professores diferentes, durante 1 semestre.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="C"> C) 3 senhas para cada backup, em 2 servidores da ETEC, acessados por 1 coordenador.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="D"> D) 3 gigabytes de dados, em 2 pastas compactadas, para 1 disciplina específica.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="E"> E) 3 tentativas de recuperação, em 2 dispositivos USB, em 1 hora de suporte.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q10">
+                <h4>Resolução Técnica:</h4>
+                Esta é a regra de ouro do backup: 3 cópias (original + 2 backups), 2 tipos de mídia (ex: HD e Nuvem) e 1 cópia fora da empresa (para proteção contra incêndios ou ataques que se espalham pela rede local).
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-btn" onclick="checkQuiz()">Finalizar e Ver Resoluções</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'C',
+        q2: 'C',
+        q3: 'D',
+        q4: 'C',
+        q5: 'B',
+        q6: 'C',
+        q7: 'B',
+        q8: 'B',
+        q9: 'C',
+        q10: 'A'
+    };
+
+    function checkQuiz() {
+        let score = 0;
+        const total = 10;
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+
+        // Resetar estilos anteriores se houver
+        document.querySelectorAll('label').forEach(l => {
+            l.classList.remove('selected-correct', 'selected-incorrect', 'correct-answer-highlight');
+        });
+
+        for (let i = 1; i <= total; i++) {
+            const questionName = 'q' + i;
+            const userAnswer = formData.get(questionName);
+            const correctAnswer = correctAnswers[questionName];
+
+            // Mostrar a resolução
+            document.getElementById('res-q' + i).style.display = 'block';
+
+            // Selecionar todos os labels desta questão
+            const labels = document.querySelectorAll(`input[name="${questionName}"]`);
+            
+            labels.forEach(radio => {
+                const label = radio.parentElement;
+                
+                // Destacar a resposta correta sempre
+                if (radio.value === correctAnswer) {
+                    label.classList.add('correct-answer-highlight');
+                }
+
+                // Verificar escolha do usuário
+                if (radio.checked) {
+                    if (radio.value === correctAnswer) {
+                        score++;
+                        label.classList.add('selected-correct');
+                    } else {
+                        label.classList.add('selected-incorrect');
+                    }
+                }
+            });
+        }
+
+        // Mostrar resumo
+        const summary = document.getElementById('results-summary');
+        const scoreText = document.getElementById('score-text');
+        scoreText.innerText = `Você acertou ${score} de ${total} questões. (${(score/total*100).toFixed(0)}%)`;
+        summary.style.display = 'block';
+
+        // Scroll para o topo para ver o resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Desabilitar botões após envio
+        document.getElementById('submit-btn').disabled = true;
+        document.getElementById('submit-btn').style.opacity = '0.5';
+        document.getElementById('submit-btn').innerText = 'Simulado Concluído';
+    }
+</script>
+
+</body>
+</html>

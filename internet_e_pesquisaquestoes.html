@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Internet e Pesquisa no Ensino de Geografia (ETEC)</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --secondary-color: #636e72;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-color);
+        }
+
+        header p {
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+        }
+
+        main {
+            max-width: 850px;
+            width: 90%;
+            margin-bottom: 4rem;
+        }
+
+        .question-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .option-label {
+            display: block;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f1f2f6;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Resultados e Resoluções */
+        #results-section {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .score-card {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-card h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .resolution-item {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .resolution-item h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .correct-answer-text {
+            font-weight: bold;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Feedback visual nas questões */
+        .correct-option {
+            background-color: #dff9fb !important;
+            border-color: var(--success-color) !important;
+        }
+
+        .wrong-option {
+            background-color: #fab1a0 !important;
+            border-color: var(--error-color) !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .question-container { padding: 1rem; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Internet, Pesquisa e Ética na Geografia</h1>
+    <p>Estilo Concurso Professor ETEC / CEETEPS</p>
+</header>
+
+<main id="quiz-main">
+    <form id="quiz-form">
+        <!-- Questões serão injetadas via JS -->
+        <div id="questions-list"></div>
+        <button type="submit" class="submit-btn" id="finish-btn">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <section id="results-section">
+        <div class="score-card">
+            <h2 id="score-display">Você acertou 0 de 10</h2>
+            <p>Confira abaixo o gabarito detalhado e as resoluções.</p>
+        </div>
+        
+        <div id="resolutions-list">
+            <!-- Resoluções serão injetadas via JS -->
+        </div>
+    </section>
+</main>
+
+<footer>
+    Material desenvolvido para fins de estudo - Concurso Geografia ETEC
+</footer>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No planejamento de atividades de pesquisa para o Ensino Médio Integrado (ETIM/MTec) das Escolas Técnicas Estaduais (Etecs), o docente de Geografia frequentemente utiliza motores de busca para selecionar materiais didáticos e fontes estatísticas confiáveis. Para otimizar a recuperação de documentos técnicos em formato de intercâmbio de dados ou publicações acadêmicas consolidadas sobre o tema 'Geopolítica do Petróleo no Pré-Sal', o professor deve utilizar um operador de busca avançada que restrinja os resultados exclusivamente a arquivos no formato Portable Document Format (PDF). Qual comando, integrado à expressão de busca no Google, atende a essa necessidade técnica?",
+            options: { A: "site:pdf", B: "related:pdf", C: "filetype:pdf", D: "inurl:pdf", E: "intitle:pdf" },
+            correct: "C",
+            resolution: "O operador `filetype:` é a ferramenta correta para restringir resultados a extensões de arquivos específicas. No contexto acadêmico e técnico, o PDF é o padrão para documentos consolidados. `site:` restringe a domínios, `related:` busca sites similares e `intitle:` busca termos no título da página."
+        },
+        {
+            id: 2,
+            question: "A prática da pesquisa escolar em Geografia exige o domínio da lógica booleana para o refinamento de resultados e a exclusão de ambiguidades terminológicas. Considere que um docente deseja que seus alunos pesquisem sobre a 'Expansão da Fronteira Agrícola' especificamente na região da 'Amazônia', mas deseja descartar sumariamente resultados que foquem no bioma 'Cerrado', a fim de delimitar o objeto de estudo. Utilizando a sintaxe padrão de grandes buscadores, a expressão de pesquisa que melhor representa essa necessidade é:",
+            options: { 
+                A: "\"fronteira agrícola\" OR Amazônia NOT Cerrado", 
+                B: "\"fronteira agrícola\" AND Amazônia -Cerrado", 
+                C: "\"fronteira agrícola\" XOR Amazônia +Cerrado", 
+                D: "\"fronteira agrícola\" NOT Amazônia AND Cerrado", 
+                E: "\"fronteira agrícola\" AND Amazônia OR Cerrado" 
+            },
+            correct: "B",
+            resolution: "A sintaxe padrão do Google utiliza o sinal de subtração `-` para excluir termos (equivalente ao NOT). O operador AND (muitas vezes implícito pelo espaço) garante que ambos os termos principais estejam presentes. A opção B é a mais precisa para o cenário descrito."
+        },
+        {
+            id: 3,
+            question: "A Competência Geral nº 5 da Base Nacional Comum Curricular (BNCC), adotada pelo Currículo Paulista e pelas diretrizes do Centro Paula Souza (CEETEPS), trata da 'Cultura Digital'. No contexto do ensino de Geografia, essa competência orienta que o estudante deve ser capaz de utilizar e criar tecnologias digitais de informação e comunicação de forma crítica, significativa, reflexiva e ética. Segundo a BNCC, um dos objetivos centrais desta competência para o desenvolvimento do protagonismo juvenil é:",
+            options: { 
+                A: "Estimular o uso de redes sociais estritamente para o entretenimento, visando reduzir a carga cognitiva acadêmica durante o período letivo.", 
+                B: "Promover a reprodução mecânica de dados coletados na rede, priorizando a quantidade de informações em detrimento da análise espacial qualitativa.", 
+                C: "Exercer protagonismo e autoria na vida pessoal e coletiva, produzindo conhecimentos e resolvendo problemas por meio das tecnologias digitais.", 
+                D: "Substituir o trabalho de campo e a observação direta do espaço geográfico por simulações virtuais imersivas, eliminando a necessidade de contato com a realidade empírica.", 
+                E: "Restringir o acesso a ferramentas de busca avançada, priorizando o uso de enciclopédias físicas como única fonte de autoridade acadêmica legítima." 
+            },
+            correct: "C",
+            resolution: "A Competência 5 foca no uso ético, crítico e criativo das tecnologias. O objetivo é transformar o estudante em autor e protagonista, capaz de resolver problemas reais usando ferramentas digitais, e não apenas um consumidor passivo de informação."
+        },
+        {
+            id: 4,
+            question: "Ao produzir um Plano de Trabalho Docente (PTD) e materiais de apoio para os cursos da ETEC, o professor de Geografia deve respeitar os direitos autorais e incentivar o uso de Recursos Educacionais Abertos (REA). Uma ferramenta jurídica essencial para esse fim são as licenças Creative Commons. Se um docente deseja utilizar um mapa temático encontrado na internet que ostenta a licença 'CC BY-NC-SA', ele deve estar ciente de que:",
+            options: { 
+                A: "Pode utilizar o mapa livremente, inclusive para fins comerciais, desde que cite o autor original.", 
+                B: "Pode utilizar e modificar o mapa, mas é proibido de usá-lo para fins comerciais e deve licenciar a nova obra sob os mesmos termos da original.", 
+                C: "Não pode realizar qualquer modificação no mapa original, devendo utilizá-lo apenas em sua forma integral e sem fins lucrativos.", 
+                D: "A licença permite o uso comercial irrestrito, desde que o mapa seja acompanhado de uma declaração de autoria registrada em cartório.", 
+                E: "O mapa está em domínio público e não exige qualquer tipo de atribuição ou restrição de uso." 
+            },
+            correct: "B",
+            resolution: "BY exige Atribuição (crédito), NC significa Non-Commercial (sem fins comerciais) e SA significa Share-Alike (Compartilhar Igual), exigindo que obras derivadas mantenham a mesma licença."
+        },
+        {
+            id: 5,
+            question: "A disseminação de 'Fake News' e teorias da conspiração sobre temas geográficos (como o aquecimento global ou a forma da Terra) impõe ao docente o dever ético de promover o letramento mediático e informacional. No processo de verificação da credibilidade de uma fonte digital sobre dados climáticos, o procedimento mais adequado, conforme as boas práticas de pesquisa científica, é:",
+            options: { 
+                A: "Aceitar a informação como verídica se ela tiver sido amplamente compartilhada em grupos de aplicativos de mensagens instantâneas.", 
+                B: "Validar o dado exclusivamente pela estética do site, considerando que portais visualmente modernos são inerentemente mais confiáveis.", 
+                C: "Cruzar a informação com fontes institucionais de autoridade na área, como o INPE (Instituto Nacional de Pesquisas Espaciais) ou a OMM (Organização Meteorológica Mundial).", 
+                D: "Priorizar informações que confirmem crenças pessoais e ideológicas prévias, exercitando o viés de confirmação como método de análise.", 
+                E: "Descartar qualquer dado que utilize linguagem técnica ou científica complexa, buscando apenas fontes de senso comum simplificadas." 
+            },
+            correct: "C",
+            resolution: "O cruzamento de dados com instituições de referência (triangulação de fontes) é a base do método científico e da pesquisa ética para evitar a desinformação geográfica."
+        },
+        {
+            id: 6,
+            question: "O Código de Ética do Centro Paula Souza (CEETEPS), publicado em 2023, estabelece padrões de conduta para agentes públicos, estagiários e prestadores de serviço. No que tange ao uso de ferramentas de busca, e-mail institucional e recursos de informática da unidade escolar, o profissional deve pautar-se pelo princípio da integridade. De acordo com os valores institucionais do CPS, é vedado ao agente público:",
+            options: { 
+                A: "Utilizar os recursos tecnológicos da instituição para o desenvolvimento de pesquisas acadêmicas ligadas ao seu Plano de Trabalho Docente.", 
+                B: "Compartilhar conhecimentos técnicos e pedagógicos com seus pares utilizando as plataformas digitais oficiais da instituição.", 
+                C: "Utilizar o acesso à rede e aos equipamentos da ETEC para atividades de interesse particular, comercial ou que atentem contra a moral e os bons costumes.", 
+                D: "Zelar pela segurança dos dados e pela confidencialidade das informações armazenadas nos sistemas administrativos como o SIGA.", 
+                E: "Participar de capacitações online oferecidas pelo CEETEPS para aprimorar o uso de metodologias ativas mediadas por tecnologias." 
+            },
+            correct: "C",
+            resolution: "O Código de Ética e a legislação do servidor público proíbem o uso de bens e recursos públicos para fins privados ou comerciais, zelando pela finalidade estritamente educacional dos equipamentos das Etecs."
+        },
+        {
+            id: 7,
+            question: "A extração de dados brutos para a construção de gráficos e tabelas no ensino de Geografia é facilitada por plataformas como o Sistema IBGE de Recuperação Automática (SIDRA). Ao orientar os alunos na utilização ética desta ferramenta, o docente deve enfatizar que:",
+            options: { 
+                A: "Os dados do IBGE, por serem públicos, não necessitam de citação de fonte em trabalhos escolares ou acadêmicos.", 
+                B: "A integridade dos dados deve ser mantida, e a citação da fonte (IBGE/SIDRA) é obrigatória, indicando também o período de referência da pesquisa (ex: Censo 2022).", 
+                C: "O aluno tem o direito de alterar os valores estatísticos da tabela original para que os resultados se adequem à conclusão desejada pelo grupo.", 
+                D: "O uso de dados oficiais deve ser evitado, pois o IBGE não possui autonomia técnica para retratar a realidade socioeconômica brasileira.", 
+                E: "A plataforma SIDRA é de acesso restrito e pago, não podendo ser utilizada em instituições de ensino público estadual." 
+            },
+            correct: "B",
+            resolution: "O uso ético de bases de dados estatísticos exige a manutenção da fidelidade aos números originais e a citação correta da fonte e do período, garantindo a reprodutibilidade e seriedade da pesquisa."
+        },
+        {
+            id: 8,
+            question: "O Regimento Comum das Etecs (Deliberação CEETEPS 85/2022) estabelece normas disciplinares e éticas para o corpo docente. Sobre a conduta do professor no uso de materiais, equipamentos e tecnologias de informação durante as aulas, o Regimento prevê que:",
+            options: { 
+                A: "O docente possui autonomia total para utilizar as aulas em pesquisas de interesse puramente pessoal, independentemente do currículo do curso.", 
+                B: "É dever do docente utilizar os equipamentos e materiais exclusivamente para o processo de ensino-aprendizagem, zelando pela conservação do patrimônio público.", 
+                C: "O professor pode retirar equipamentos de informática da escola para uso doméstico sem necessidade de protocolo ou autorização da direção.", 
+                D: "A utilização de redes sociais particulares durante o horário de regência de classe é permitida como forma de descontração pedagógica.", 
+                E: "O uso de qualquer tecnologia digital em sala de aula é proibido, devendo-se priorizar o uso de giz e lousa conforme a tradição pedagógica da instituição." 
+            },
+            correct: "B",
+            resolution: "O Regimento determina que o tempo e os recursos de aula devem ser dedicados ao processo pedagógico. O desvio dessa finalidade configura infração aos deveres docentes previstos na Deliberação CEETEPS 85/2022."
+        },
+        {
+            id: 9,
+            question: "No âmbito da pesquisa escolar, o plágio acadêmico é considerado uma falha ética grave que compromete a formação do estudante e a integridade da instituição. Nas Etecs, o combate ao plágio é parte da orientação para o Trabalho de Conclusão de Curso (TCC). Configura-se plágio na modalidade 'mosaico' ou 'patchwork' quando:",
+            options: { 
+                A: "O aluno utiliza diversas fontes citando corretamente todos os autores e obras consultadas conforme as normas da ABNT.", 
+                B: "O aluno cria um texto original baseando-se em conceitos discutidos em sala de aula, sem copiar trechos de livros.", 
+                C: "O aluno mescla trechos copiados integralmente de diversos sites da internet, sem aspas e sem citar as fontes, criando a aparência de um texto coeso e original.", 
+                D: "O aluno traduz um artigo estrangeiro e atribui a autoria ao tradutor original e ao autor, indicando a fonte da publicação primária.", 
+                E: "O aluno utiliza dados estatísticos do governo federal para elaborar um mapa original, citando o órgão provedor dos dados." 
+            },
+            correct: "C",
+            resolution: "O plágio em mosaico ocorre quando se 'costura' fragmentos de terceiros sem atribuição, tentando camuflar a cópia como se fosse uma redação autoral e fluida."
+        },
+        {
+            id: 10,
+            question: "Ferramentas de busca acadêmica, como o Google Acadêmico (Google Scholar), oferecem recursos específicos para a pesquisa docente. Para localizar artigos de um autor específico que tratam de 'Geografia Urbana' e que foram publicados entre os anos de 2018 e 2024, o docente deve utilizar a 'Pesquisa Avançada'. Qual funcionalidade desta ferramenta garante que o resultado traga apenas obras onde o termo pesquisado aparece no título do artigo?",
+            options: { 
+                A: "Pesquisar em qualquer lugar do artigo.", 
+                B: "Pesquisar no título do artigo.", 
+                C: "Pesquisar por data de modificação da URL.", 
+                D: "Pesquisar apenas em sites com extensão.com.br.", 
+                E: "Pesquisar apenas resultados que contenham imagens em alta definição." 
+            },
+            correct: "B",
+            resolution: "A opção 'no título do artigo' é o filtro de busca avançada que garante maior precisão temática, assegurando que o termo pesquisado seja o assunto central da publicação e não apenas uma menção periférica."
+        }
+    ];
+
+    const questionsList = document.getElementById('questions-list');
+    const resolutionsList = document.getElementById('resolutions-list');
+    const quizForm = document.getElementById('quiz-form');
+    const resultsSection = document.getElementById('results-section');
+    const scoreDisplay = document.getElementById('score-display');
+
+    // Inicializar Questões
+    function initQuiz() {
+        quizData.forEach((item, index) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-container';
+            qDiv.id = `q-block-${item.id}`;
+
+            let optionsHtml = '';
+            for (const [key, value] of Object.entries(item.options)) {
+                optionsHtml += `
+                    <li class="option-item">
+                        <label class="option-label" id="label-${item.id}-${key}">
+                            <input type="radio" name="q${item.id}" value="${key}" required>
+                            <span>${key}. ${value}</span>
+                        </label>
+                    </li>
+                `;
+            }
+
+            qDiv.innerHTML = `
+                <div class="question-text">${item.id}. ${item.question}</div>
+                <ul class="options">${optionsHtml}</ul>
+            `;
+            questionsList.appendChild(qDiv);
+        });
+    }
+
+    // Processar formulário
+    quizForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        let score = 0;
+        const formData = new FormData(quizForm);
+
+        // Limpar resoluções anteriores
+        resolutionsList.innerHTML = '';
+
+        quizData.forEach(item => {
+            const userAnswer = formData.get(`q${item.id}`);
+            const isCorrect = userAnswer === item.correct;
+            
+            if (isCorrect) score++;
+
+            // Feedback visual nas opções
+            const correctLabel = document.getElementById(`label-${item.id}-${item.correct}`);
+            correctLabel.classList.add('correct-option');
+
+            if (!isCorrect) {
+                const userLabel = document.getElementById(`label-${item.id}-${userAnswer}`);
+                if (userLabel) userLabel.classList.add('wrong-option');
+            }
+
+            // Criar item de resolução
+            const resItem = document.createElement('div');
+            resItem.className = 'resolution-item';
+            resItem.innerHTML = `
+                <h3>Questão ${item.id} - ${isCorrect ? '✅ Acertou' : '❌ Errou'}</h3>
+                <span class="correct-answer-text">Gabarito Oficial: Alternativa ${item.correct}</span>
+                <p><strong>Resolução:</strong> ${item.resolution}</p>
+            `;
+            resolutionsList.appendChild(resItem);
+        });
+
+        // Mostrar resultados
+        scoreDisplay.innerText = `Você acertou ${score} de ${quizData.length}`;
+        resultsSection.style.display = 'block';
+        document.getElementById('finish-btn').style.display = 'none';
+
+        // Scroll suave para o resultado
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+        
+        // Desabilitar inputs após envio
+        const inputs = quizForm.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = true);
+    });
+
+    // Iniciar
+    initQuiz();
+</script>
+
+</body>
+</html>

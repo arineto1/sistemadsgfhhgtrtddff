@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: MS Word para Docentes de Geografia - Etecs</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1a;
+            --accent-color: #2c3e50;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f0f4f8;
+        }
+
+        .option-label input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #fff;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .score-box {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.95rem;
+            color: #444;
+            text-align: left;
+        }
+
+        .feedback {
+            font-weight: bold;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .correct-answer {
+            background-color: #e8f8f0 !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .incorrect-answer {
+            background-color: #fdf2f2 !important;
+            border-color: var(--incorrect-color) !important;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .badge-correct { background: var(--correct-color); color: white; }
+        .badge-incorrect { background: var(--incorrect-color); color: white; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Microsoft Word para Docentes das Etecs</h1>
+        <p class="intro">Foco em formatação de planos de aula e avaliações - Geografia (CEETEPS)</p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="quiz-container">
+            <!-- As questões serão inseridas aqui via JavaScript -->
+        </div>
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-box" id="score-text"></div>
+        <p id="performance-message"></p>
+        <button type="button" class="btn-submit" style="background-color: #7f8c8d;" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Revisar Questões Abaixo</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No processo de elaboração do Plano de Trabalho Docente (PTD), documento fundamental para o planejamento e a organização do ensino nas Unidades de Ensino do Centro Paula Souza, o professor de Geografia deve assegurar a integridade dos dados inseridos, alinhando-os às competências, habilidades e bases tecnológicas previstas no Plano de Curso da instituição. Ao utilizar o Microsoft Word 2016 ou superior em sua configuração padrão e idioma Português (Brasil), o docente necessita salvar periodicamente as alterações realizadas para evitar a perda de informações decorrentes de falhas técnicas. Assinale a alternativa que apresenta, correta e respectivamente, a Guia na Faixa de Opções onde se localiza a opção primária para gravação do arquivo e o atalho de teclado correspondente para a execução rápida deste comando.",
+            options: [
+                "Guia Página Inicial; CTRL + S.",
+                "Guia Arquivo; CTRL + B.",
+                "Guia Inserir; CTRL + G.",
+                "Guia Design; CTRL + SHIFT + S.",
+                "Guia Layout; ALT + B."
+            ],
+            answer: 1,
+            resolution: "**Resolução:** A Guia Arquivo representa o acesso ao chamado 'Backstage' do Office, onde se gerencia o arquivo (Salvar, Imprimir, Abrir). No Word em Português (Brasil), o atalho para salvar é CTRL + B, diferentemente da versão em Inglês (CTRL + S)."
+        },
+        {
+            id: 2,
+            text: "Durante a formatação de uma avaliação trimestral de Geografia, um docente das Etecs opta por utilizar o recurso de Estilos para organizar a estrutura hierárquica do documento, facilitando a posterior geração de um sumário ou índice de questões. Sobre o funcionamento dos Estilos no MS-Word, assinale a afirmação correta.",
+            options: [
+                "A aplicação de um Estilo de Título altera automaticamente a orientação de uma página específica de retrato para paisagem.",
+                "Os estilos definem apenas o tamanho das margens externas do documento, não influenciando a fonte ou o espaçamento entre parágrafos.",
+                "Ao modificar as propriedades de um estilo já aplicado ao texto, todas as ocorrências desse estilo no documento são atualizadas simultaneamente.",
+                "Os estilos são recursos restritos ao Microsoft Word 365, não estando disponíveis em versões perpétuas como o Word 2016 ou 2019.",
+                "Um estilo de texto, uma vez aplicado, impede que o docente utilize negrito ou itálico de forma manual no mesmo trecho."
+            ],
+            answer: 2,
+            resolution: "**Resolução:** A grande vantagem dos Estilos é o gerenciamento centralizado da formatação. Alterar um Estilo reflete automaticamente em todos os parágrafos que o utilizam."
+        },
+        {
+            id: 3,
+            text: "Para inserir uma tabela e, posteriormente, ajustar o alinhamento do texto em suas células para que o conteúdo fique centralizado tanto vertical quanto horizontalmente, o docente deve utilizar, respectivamente:",
+            options: [
+                "Guia Inserir (Grupo Tabelas) e Guia Layout da Tabela (Grupo Alinhamento).",
+                "Guia Página Inicial (Grupo Parágrafo) e Guia Referências (Grupo Legendas).",
+                "Guia Design (Grupo Temas) e Guia Layout (Grupo Configurar Página).",
+                "Guia Exibir (Grupo Janela) e Guia Desenvolvedor (Grupo Controles).",
+                "Guia Correspondências (Grupo Criar) e Guia Revisão (Grupo Comentários)."
+            ],
+            answer: 0,
+            resolution: "**Resolução:** A inserção ocorre na Guia Inserir. Quando uma tabela é selecionada, surge a guia contextual 'Layout' da tabela, que possui o grupo 'Alinhamento' para controle preciso (horizontal e vertical) do conteúdo das células."
+        },
+        {
+            id: 4,
+            text: "No MS-Word, o comando que permite inserir uma legenda automática e gerenciar a numeração sequencial de figuras localiza-se na:",
+            options: [
+                "Guia Revisão.",
+                "Guia Design.",
+                "Guia Referências.",
+                "Guia Inserir.",
+                "Guia Página Inicial."
+            ],
+            answer: 2,
+            resolution: "**Resolução:** A Guia Referências é voltada para elementos acadêmicos e técnicos, como Sumários, Notas de Rodapé e Legendas de ilustrações/figuras."
+        },
+        {
+            id: 5,
+            text: "Um professor de Geografia precisa que apenas a página contendo um mapa-múndi esteja na orientação 'Paisagem', enquanto o restante do documento permaneça na orientação 'Retrato'. Para alcançar esse resultado sem desformatar o arquivo, o procedimento técnico correto envolve a utilização de:",
+            options: [
+                "Quebras de Página simples entre as questões.",
+                "Quebras de Seção do tipo 'Próxima Página'.",
+                "Ajuste manual de margens através da régua do documento.",
+                "Inserção do mapa como uma Marca d'água de fundo.",
+                "Alteração da escala de impressão nas propriedades da impressora."
+            ],
+            answer: 1,
+            resolution: "**Resolução:** Diferentes orientações de página no mesmo arquivo só são possíveis através de Quebras de Seção, que permitem configurações de layout independentes para cada parte do documento."
+        },
+        {
+            id: 6,
+            text: "Para que o professor possa visualizar as sugestões de alteração feitas pelo coordenador diretamente no texto (inserções, exclusões e formatação), o MS-Word oferece o recurso:",
+            options: [
+                "Comparação Lado a Lado.",
+                "Inspecionar Documento.",
+                "Controlar Alterações.",
+                "Bloqueio de Autoria.",
+                "Painel de Navegação."
+            ],
+            answer: 2,
+            resolution: "**Resolução:** O recurso 'Controlar Alterações' (Guia Revisão) marca tudo o que é editado no documento, facilitando a revisão colaborativa entre professor e coordenador."
+        },
+        {
+            id: 7,
+            text: "Para garantir que o logotipo institucional e informações da Unidade de Ensino apareçam automaticamente em cada nova folha no topo da página, o docente deve editar a área de:",
+            options: [
+                "Nota de Rodapé.",
+                "Margem de Medianiz.",
+                "Cabeçalho.",
+                "Recuo de Parágrafo.",
+                "Área de Transferência."
+            ],
+            answer: 2,
+            resolution: "**Resolução:** O Cabeçalho é o espaço reservado no topo de todas as páginas (ou seções) para informações repetitivas, como títulos, logos ou numeração."
+        },
+        {
+            id: 8,
+            text: "Ao redigir um roteiro de estudos, o professor de Geografia precisa inserir uma citação bibliográfica que contenha uma explicação detalhada no final da mesma página onde o termo foi mencionado. O comando correto é:",
+            options: [
+                "Inserir Nota de Rodapé, na Guia Referências.",
+                "Inserir Comentário, na Guia Revisão.",
+                "Inserir Texto de Autoajuda, na Guia Ajuda.",
+                "Inserir Nota de Fim, na Guia Layout.",
+                "Inserir Marcador, na Guia Inserir."
+            ],
+            answer: 0,
+            resolution: "**Resolução:** A Nota de Rodapé insere uma referência numerada na base da página atual. Localiza-se na Guia Referências."
+        },
+        {
+            id: 9,
+            text: "Desejando criar uma avaliação personalizada onde o cabeçalho contenha automaticamente o nome de cada aluno a partir de uma base de dados externa em Excel, o docente deve utilizar:",
+            options: [
+                "Macros de automação VBA.",
+                "Mala Direta.",
+                "Vinculação Dinâmica de Dados (DDE).",
+                "Sumário Automático.",
+                "Formulários de Proteção."
+            ],
+            answer: 1,
+            resolution: "**Resolução:** A Mala Direta permite mesclar um documento do Word com uma fonte de dados (Excel, por exemplo) para gerar múltiplos arquivos personalizados."
+        },
+        {
+            id: 10,
+            text: "Segundo as normas de atalhos de teclado do Microsoft Word para Windows, em português, a combinação de teclas que leva o usuário diretamente para a tela de 'Imprimir' é:",
+            options: [
+                "CTRL + I.",
+                "CTRL + P.",
+                "ALT + F4.",
+                "CTRL + F1.",
+                "Tecla Windows + P."
+            ],
+            answer: 1,
+            resolution: "**Resolução:** O atalho universal para impressão no Windows/Office é CTRL + P (de Print)."
+        }
+    ];
+
+    function loadQuiz() {
+        const container = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <label class="option-label" id="label-${index}-${optIndex}">
+                        <input type="radio" name="question-${index}" value="${optIndex}">
+                        ${opt}
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="badge-container" id="badge-${index}"></div>
+                <div class="question-text">${index + 1}. ${q.text}</div>
+                <div class="options">
+                    ${optionsHtml}
+                </div>
+                <div class="feedback" id="feedback-${index}"></div>
+                <div class="resolution-box" id="res-${index}">
+                    <strong>Resolução:</strong> ${q.resolution}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        const total = questions.length;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${index}`);
+            const resolutionEl = document.getElementById(`res-${index}`);
+            const badgeEl = document.getElementById(`badge-${index}`);
+            
+            // Mostrar resolução
+            resolutionEl.style.display = 'block';
+            feedbackEl.style.display = 'block';
+
+            if (selected) {
+                const userAnswer = parseInt(selected.value);
+                if (userAnswer === q.answer) {
+                    score++;
+                    document.getElementById(`label-${index}-${userAnswer}`).classList.add('correct-answer');
+                    badgeEl.innerHTML = '<span class="badge badge-correct">Correta</span>';
+                } else {
+                    document.getElementById(`label-${index}-${userAnswer}`).classList.add('incorrect-answer');
+                    document.getElementById(`label-${index}-${q.answer}`).classList.add('correct-answer');
+                    badgeEl.innerHTML = '<span class="badge badge-incorrect">Incorreta</span>';
+                }
+            } else {
+                document.getElementById(`label-${index}-${q.answer}`).classList.add('correct-answer');
+                badgeEl.innerHTML = '<span class="badge badge-incorrect">Não Respondida</span>';
+            }
+        });
+
+        // Mostrar Resultados
+        const resultsSection = document.getElementById('results-section');
+        const scoreText = document.getElementById('score-text');
+        const performanceMessage = document.getElementById('performance-message');
+        
+        resultsSection.style.display = 'block';
+        scoreText.innerText = `Você acertou ${score} de ${total}`;
+        
+        if (score === total) performanceMessage.innerText = "Excelente! Você domina as ferramentas de edição do Word para o CEETEPS.";
+        else if (score >= 7) performanceMessage.innerText = "Muito bom! Você tem um ótimo conhecimento técnico.";
+        else performanceMessage.innerText = "Continue revisando as guias e atalhos específicos do Word em português.";
+
+        // Desativar inputs
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(i => i.disabled = true);
+
+        // Scroll para o resultado
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Definitivo: PowerPoint para ETEC - Geografia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #2d3748;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .etec-trap {
+            border-left: 4px solid #ef4444;
+            background-color: #fef2f2;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .geo-tip {
+            border-left: 4px solid #3b82f6;
+            background-color: #eff6ff;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .audio-player-container {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: white;
+            border-bottom: 2px solid #edf2f7;
+            padding: 1rem 0;
+        }
+
+        /* Estilo para evitar scroll horizontal em tabelas no mobile */
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        h2 {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            color: #1a202c;
+        }
+    </style>
+</head>
+<body class="max-w-5xl mx-auto px-6 pb-20">
+
+    <!-- Player de Áudio Fixo -->
+    <div class="audio-player-container">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h1 class="text-xl font-bold text-slate-800">Aula 01: Microsoft PowerPoint p/ ETEC</h1>
+                <p class="text-xs text-slate-500">Tutor Especialista em Geografia (CEETEPS)</p>
+            </div>
+            <div class="w-full md:w-1/2">
+                <audio controls class="w-full h-10">
+                    <source src="microsoft_powerpoint.mp3" type="audio/mpeg">
+                    Seu navegador não suporta áudio.
+                </audio>
+            </div>
+        </div>
+    </div>
+
+    <main class="mt-8">
+        <!-- 1. Introdução e Definição -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4">1. Definição do Tema e Características Essenciais</h2>
+            <p>O Microsoft PowerPoint é um software de <span class="highlight">edição de apresentações gráficas</span> baseado em slides. Para o Centro Paula Souza, o foco não é apenas o domínio da ferramenta, mas sua aplicação como <span class="highlight">recurso didático visual</span> que facilite a transposição didática de conceitos geográficos complexos.</p>
+            
+            <div class="grid md:grid-cols-2 gap-4 mt-4">
+                <div class="p-4 border rounded-lg bg-gray-50">
+                    <h4 class="font-bold mb-2">Características Didáticas:</h4>
+                    <ul class="list-disc ml-5 text-sm">
+                        <li><strong>Hierarquia Visual:</strong> Uso de tamanhos de fonte para distinguir títulos de conteúdos.</li>
+                        <li><strong>Regra do Menos é Mais:</strong> Evitar "slides-testamento". Priorizar tópicos.</li>
+                        <li><strong>Contraste:</strong> Elementos claros em fundos escuros ou vice-versa para legibilidade em projetores.</li>
+                    </ul>
+                </div>
+                <div class="p-4 border rounded-lg bg-gray-50">
+                    <h4 class="font-bold mb-2">Características Técnicas:</h4>
+                    <ul class="list-disc ml-5 text-sm">
+                        <li><strong>Integração:</strong> Capacidade de importar tabelas do Excel e textos do Word.</li>
+                        <li><strong>Multimídia:</strong> Suporte a vídeos, áudios e modelos 3D.</li>
+                        <li><strong>Portabilidade:</strong> Exportação para <span class="highlight">PDF, MP4 e formatos de imagem (PNG/JPG)</span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Definições Básicas para a Prova -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4">2. Principais Definições Básicas (Memorização)</h2>
+            <p class="mb-4">A banca costuma cobrar a nomenclatura oficial da interface do Office.</p>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Termo</th>
+                            <th>O que você precisa saber</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Faixa de Opções</strong></td>
+                            <td>A área superior que contém as <span class="highlight">Guias</span> (Página Inicial, Inserir, etc).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Slide Mestre</strong></td>
+                            <td>Guia <span class="highlight">Exibir</span>. Define o padrão visual (logo da ETEC, fontes) para toda a apresentação.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anotações do Orador</strong></td>
+                            <td>Espaço abaixo do slide visível apenas para o professor (útil para dados geográficos extras).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modo de Exibição de Apresentador</strong></td>
+                            <td>Permite ver o próximo slide e as anotações enquanto o aluno vê apenas o slide atual.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SmartArt</strong></td>
+                            <td>Representação visual de informações (organogramas, <span class="highlight">ciclos geográficos</span>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-lg font-bold mt-6 mb-2">Guias Críticas e suas Funções:</h3>
+            <ul class="space-y-2">
+                <li>📍 <strong>Página Inicial:</strong> Formatação de texto, novos slides e <span class="highlight">Layout do Slide</span>.</li>
+                <li>📍 <strong>Inserir:</strong> Tabelas, Imagens, <span class="highlight">Gráficos</span>, Formas, Mídia e <span class="highlight">Equações</span>.</li>
+                <li>📍 <strong>Design:</strong> Temas, Variantes e <span class="highlight">Tamanho do Slide</span> (4:3 ou 16:9).</li>
+                <li>📍 <strong>Transições:</strong> Efeitos entre um slide e outro.</li>
+                <li>📍 <strong>Animações:</strong> Efeitos em objetos dentro do slide (<span class="highlight">Painel de Animação</span> é recorrente em provas).</li>
+                <li>📍 <strong>Apresentação de Slides:</strong> Configuração da exibição, gravar apresentação, usar <span class="highlight">apresentação personalizada</span>.</li>
+                <li>📍 <strong>Revisão:</strong> Ortografia e <span class="highlight">Acessibilidade</span>.</li>
+            </ul>
+        </section>
+
+        <!-- 3. Análise de Tendências e Peguinhas -->
+        <section>
+            <h2 class="text-2xl font-bold mb-4">3. Tendências e "Peguinhas" CEETEPS</h2>
+            
+            <div class="etec-trap">
+                <h4 class="font-bold text-red-700">🚩 O Peguinha das Extensões</h4>
+                <p>A banca adora confundir o <strong>.pptx</strong> (edição) com o <strong>.ppsx</strong> (execução). Lembre-se: O .ppsx abre o show diretamente, mas <strong>não impede</strong> a edição se você abrir o programa primeiro. Outro vilão é o <strong>.potx</strong> (Modelo).</p>
+            </div>
+
+            <div class="etec-trap">
+                <h4 class="font-bold text-red-700">🚩 Localização do Slide Mestre</h4>
+                <p>Muitos candidatos marcam que o Slide Mestre está na guia <em>Design</em> (porque ele trata do visual). <strong>ERRO!</strong> Ele está na guia <span class="highlight">EXIBIR</span>. Esta é a questão clássica da ETEC.</p>
+            </div>
+
+            <div class="geo-tip">
+                <h4 class="font-bold text-blue-700">🌎 Aplicação na Geografia (O Diferencial)</h4>
+                <ul class="list-disc ml-5 text-sm">
+                    <li><strong>Sobreposição de Camadas:</strong> Usar animações de "Entrada" para simular camadas de um mapa (Relevo -> Hidrografia -> Clima).</li>
+                    <li><strong>Hiperlinks em Mapas:</strong> Criar um mapa-múndi onde clicar em um continente leva a um slide específico (Interatividade).</li>
+                    <li><strong>Acessibilidade Cartográfica:</strong> O uso do <span class="highlight">Texto Alternativo</span> em gráficos e mapas é tendência para provas que focam em educação inclusiva.</li>
+                </ul>
+            </div>
+
+            <h3 class="text-lg font-bold mt-6">Atalhos "Top 5" para Memorizar:</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Comando</th>
+                            <th>Atalho</th>
+                            <th>Foco da Banca</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Novo Slide</td>
+                            <td><span class="highlight">Ctrl + M</span></td>
+                            <td>Confundem com Ctrl + N (Novo Arquivo).</td>
+                        </tr>
+                        <tr>
+                            <td>Duplicar Objeto/Slide</td>
+                            <td><strong>Ctrl + D</strong></td>
+                            <td>Mais rápido que Ctrl+C/Ctrl+V.</td>
+                        </tr>
+                        <tr>
+                            <td>Iniciar do Início</td>
+                            <td><strong>F5</strong></td>
+                            <td>Básico, mas cai.</td>
+                        </tr>
+                        <tr>
+                            <td>Iniciar do Atual</td>
+                            <td><strong>Shift + F5</strong></td>
+                            <td>Essencial para o professor testar o slide que está editando.</td>
+                        </tr>
+                        <tr>
+                            <td>Agrupar Objetos</td>
+                            <td><strong>Ctrl + G</strong></td>
+                            <td>Para mover mapas e legendas juntos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. Resumo de Memorização para o Dia da Prova -->
+        <section class="bg-gray-50 p-6 rounded-lg border-2 border-dashed border-gray-300 mt-10">
+            <h2 class="text-xl font-bold mb-4 mt-0">💡 Flash-Cards de Resumo (O que não esquecer)</h2>
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+                <div class="bg-white p-3 shadow-sm rounded"><strong>Animação:</strong> No objeto. <strong>Transição:</strong> No slide.</div>
+                <div class="bg-white p-3 shadow-sm rounded"><strong>Layout:</strong> Define onde ficam as caixas de texto e imagens.</div>
+                <div class="bg-white p-3 shadow-sm rounded"><strong>Compressão de Imagens:</strong> Reduz o tamanho do arquivo .pptx (Guia Formato).</div>
+                <div class="bg-white p-3 shadow-sm rounded"><strong>Apresentação Personalizada:</strong> Mostrar apenas alguns slides sem apagar os outros.</div>
+                <div class="bg-white p-3 shadow-sm rounded"><strong>WordArt:</strong> Texto decorativo, diferente de Caixa de Texto.</div>
+                <div class="bg-white p-3 shadow-sm rounded"><strong>Zoom de Resumo:</strong> Cria um índice interativo da apresentação.</div>
+            </div>
+        </section>
+
+        <!-- Botão de Questões -->
+        <div class="mt-12 text-center">
+            <a href="microsoft_powerpointquestoes.html" class="inline-block bg-slate-800 hover:bg-black text-white font-bold py-4 px-10 rounded-lg transition-all transform hover:scale-105 shadow-xl">
+                📝 PRATICAR COM QUESTÕES DE PROVA
+            </a>
+            <p class="text-gray-400 text-xs mt-4 italic">Boa sorte no concurso do Centro Paula Souza!</p>
+        </div>
+    </main>
+
+</body>
+</html>

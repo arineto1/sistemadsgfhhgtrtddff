@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor ETEC: Word e Gestão Docente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            color: #1a202c;
+            font-weight: 600;
+            padding: 1px 3px;
+            border-bottom: 2px solid #fbc02d;
+        }
+
+        .section-title {
+            color: #1e3a8a;
+            border-left: 5px solid #1e3a8a;
+            padding-left: 12px;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .important-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #ef4444;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 14px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .btn-footer {
+            display: inline-block;
+            background-color: #1e293b;
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-footer:hover {
+            background-color: #334155;
+            transform: translateY(-2px);
+        }
+
+        .audio-player {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-4">Mestre ETEC: Geografia e Gestão</h1>
+            <p class="text-lg text-slate-600">Formatação de PTD, Avaliações e Domínio de Word 365 para Concursos</p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <div class="audio-player shadow-inner">
+            <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">🔊 Ouvir Resumo da Aula</p>
+            <audio controls class="w-full">
+                <!-- Espaço para o nome do arquivo mp3 -->
+                <source src="microsoft_word.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+        </div>
+
+        <!-- Conteúdo 1 -->
+        <h2 class="section-title">1. O PTD (Plano de Trabalho Docente) no CEETEPS</h2>
+        <p>O PTD não é apenas um cronograma; é o contrato pedagógico do professor. No concurso, as questões focam na estrutura baseada em <span class="highlight">Competências e Habilidades</span>.</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Eixo</th>
+                        <th>Definição para a Prova</th>
+                        <th>No Word/NSA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Competências</strong></td>
+                        <td>A capacidade de mobilizar conhecimentos para resolver problemas.</td>
+                        <td>Importadas do Plano de Curso.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Habilidades</strong></td>
+                        <td>O "saber fazer" prático (ex: Ler um mapa de curvas de nível).</td>
+                        <td>Devem estar vinculadas às bases tecnológicas.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bases Tecnológicas</strong></td>
+                        <td>O conteúdo teórico puro (Geopolítica, Cartografia, etc).</td>
+                        <td>Listadas por quinzena no cronograma.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="important-box">
+            <h3 class="font-bold text-red-700 mb-2">Ponto de Atenção (Recuperação Contínua)</h3>
+            <p>O CEETEPS exige que o PTD preveja <span class="highlight">estratégias de recuperação paralela/contínua</span>. Na prova, se houver alternativa dizendo que a recuperação é apenas ao final do semestre, ela está <strong>errada</strong>.</p>
+        </div>
+
+        <!-- Conteúdo 2 -->
+        <h2 class="section-title">2. Microsoft Word: Ferramentas Técnicas para Geografia</h2>
+        <p>A prova objetiva cobra o uso prático do Word para criar avaliações que incluam elementos gráficos complexos.</p>
+        
+        <ul class="space-y-4 list-none">
+            <li class="flex items-start">
+                <span class="mr-3 mt-1">📍</span>
+                <div>
+                    <strong>Quebras de Seção (Guia Layout):</strong> Essencial para que em uma prova de Geografia, a página 1 seja vertical (texto) e a página 2 seja <span class="highlight">Horizontal/Paisagem</span> para comportar um mapa-múndi detalhado, sem desconfigurar o cabeçalho.
+                </div>
+            </li>
+            <li class="flex items-start">
+                <span class="mr-3 mt-1">📍</span>
+                <div>
+                    <strong>Legendas e Índices (Guia Referências):</strong> Ao inserir figuras (mapas de biomas, gráficos de pirâmide etária), deve-se usar "Inserir Legenda". Isso permite criar um <span class="highlight">Índice de Figuras</span> automático.
+                </div>
+            </li>
+            <li class="flex items-start">
+                <span class="mr-3 mt-1">📍</span>
+                <div>
+                    <strong>Símbolos e Equações (Guia Inserir):</strong> Crucial para coordenadas geográficas (°) e fórmulas de escala ($E = d/D$).
+                </div>
+            </li>
+        </ul>
+
+        <!-- Tabela de Atalhos revisada -->
+        <h3 class="font-bold text-slate-700 mt-8 mb-4">Atalhos "Pega-Ratão" (Versão PT-BR)</h3>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Função</th>
+                        <th>Atalho Correto</th>
+                        <th>Dica de Memorização</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Salvar</strong></td>
+                        <td><span class="highlight">Ctrl + B</span></td>
+                        <td>"B" de Backup (No Word US é Ctrl+S).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Localizar</strong></td>
+                        <td><span class="highlight">Ctrl + L</span></td>
+                        <td>"L" de Localizar.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Substituir</strong></td>
+                        <td><span class="highlight">Ctrl + U</span></td>
+                        <td>"U" de "Um pelo outro".</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Novo Documento</strong></td>
+                        <td><span class="highlight">Ctrl + O</span></td>
+                        <td>"O" de Outro.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Imprimir</strong></td>
+                        <td><span class="highlight">Ctrl + P</span></td>
+                        <td>Padrão internacional (Print).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Conteúdo 3 -->
+        <h2 class="section-title">3. Elaboração de Avaliações e Acessibilidade</h2>
+        <p>A prova da ETEC valoriza o professor que domina a <span class="highlight">inclusão digital</span> e a clareza técnica.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            <div class="p-5 border border-slate-200 rounded-lg bg-slate-50">
+                <h4 class="font-bold mb-2">Acessibilidade no Word</h4>
+                <p class="text-sm">Sempre use <strong>Texto Alternativo</strong> em mapas. Se o mapa não carregar ou o aluno for deficiente visual, o leitor de tela dirá: "Mapa de densidade demográfica do Brasil - 2022".</p>
+            </div>
+            <div class="p-5 border border-slate-200 rounded-lg bg-slate-50">
+                <h4 class="font-bold mb-2">Estilos (Guia Página Inicial)</h4>
+                <p class="text-sm">Não formate títulos mudando a fonte manualmente. Use <span class="highlight">Título 1, Título 2</span>. Isso garante estrutura hierárquica e permite gerar o Sumário automático do PTD.</p>
+            </div>
+        </div>
+
+        <!-- Conteúdo 4 -->
+        <h2 class="section-title">4. Tendências de Cobrança (Banca FAT)</h2>
+        <ol class="list-decimal pl-6 space-y-4">
+            <li><strong>Importação de Dados:</strong> Questões sobre como levar tabelas do Excel para o PTD no Word mantendo o vínculo (Link de dados).</li>
+            <li><strong>Revisão de Texto:</strong> O comando <span class="highlight">Controlar Alterações</span> (Guia Revisão) é muito citado em contextos onde o coordenador pedagógico revisa o plano do professor.</li>
+            <li><strong>Configuração de Página:</strong> Diferença entre Margem Espelho (para impressões frente e verso de apostilas) e Margem Normal.</li>
+        </ol>
+
+        <div class="important-box">
+            <p><strong>Geografia no Word:</strong> Fique atento à resolução de imagens. Inserir imagens em alta resolução pode travar o PTD. O Word oferece a função <span class="highlight">Comprimir Imagens</span> (Guia Formato da Imagem) para reduzir o peso do arquivo final sem perder qualidade de impressão.</p>
+        </div>
+
+        <!-- Rodapé / Botão -->
+        <footer class="mt-16 mb-24 text-center">
+            <a href="microsoft_wordquestoes.html" class="btn-footer uppercase tracking-widest">
+                📝 Testar Conhecimentos Agora
+            </a>
+            <p class="mt-6 text-sm text-slate-400">Preparatório Especializado CEETEPS - Área de Geografia</p>
+        </footer>
+    </div>
+
+</body>
+</html>

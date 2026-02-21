@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass ETEC: Segurança da Informação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: #1a202c;
+            background-color: #ffffff;
+        }
+        .highlight {
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .section-title {
+            border-left: 4px solid #4a5568;
+            padding-left: 1rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2d3748;
+        }
+        .table-wrapper {
+            width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background-color: #f8fafc;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .pro-tip {
+            background-color: #f1f5f9;
+            border-right: 4px solid #64748b;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        .audio-box {
+            background: #ffffff;
+            border: 2px solid #edf2f7;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12 max-w-5xl mx-auto">
+
+    <!-- PLAYER DE ÁUDIO -->
+    <div class="audio-box">
+        <h3 class="text-lg font-bold mb-3 text-gray-700 flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd"></path></svg>
+            Podcast de Revisão Técnica
+        </h3>
+        <audio controls class="w-full">
+            <source src="seguranca_da_informacao.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <p class="text-xs text-gray-500 mt-2 italic">* Insira o arquivo "aula_seguranca_etec.mp3" no mesmo diretório para habilitar.</p>
+    </div>
+
+    <header class="mb-12">
+        <h1 class="text-4xl font-black text-gray-900 leading-tight">Segurança da Informação: <br><span class="text-blue-700">Proteção de Dados e Senhas</span></h1>
+        <p class="text-xl text-gray-600 mt-4 font-medium">Foco: Concurso Docente ETEC/CEETEPS - Área de Geografia</p>
+    </header>
+
+    <main>
+        <!-- 1. DEFINIÇÃO E CARACTERÍSTICAS -->
+        <h2 class="section-title">1. Definição do Tema e Características Essenciais</h2>
+        <p>A Segurança da Informação (SI) não se limita a computadores; trata-se da proteção de <span class="highlight">ativos de informação</span> contra ameaças diversas. Para a ETEC, a SI é vista como um conjunto de práticas que garantem a continuidade do ensino e a proteção da comunidade acadêmica.</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pilar (Atributo)</th>
+                        <th>Definição Técnica</th>
+                        <th>Ameaça Comum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Confidencialidade</strong></td>
+                        <td>Garante que a informação só seja acessível por pessoas autorizadas.</td>
+                        <td>Ataques de interceptação (Sniffing).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Integridade</strong></td>
+                        <td>Assegura que a informação não foi modificada sem autorização.</td>
+                        <td>Alteração de notas em sistemas acadêmicos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Disponibilidade</strong></td>
+                        <td>Garante que o sistema esteja ativo quando o usuário precisar.</td>
+                        <td>Ataques DoS (Negação de Serviço).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Autenticidade</strong></td>
+                        <td>Identificação inequívoca do autor da informação.</td>
+                        <td>Falsificação de e-mails (Spoofing).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Não-Repúdio</strong></td>
+                        <td>Impossibilidade de negar a autoria de uma transação digital.</td>
+                        <td>Questionamento de assinaturas eletrônicas.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 2. DEFINIÇÕES BÁSICAS PARA A PROVA -->
+        <h2 class="section-title">2. Definições Básicas para Lembrar (Dicionário de Acertos)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="border p-4 rounded-lg bg-white">
+                <h3 class="font-bold text-blue-800">Criptografia Simétrica</h3>
+                <p class="text-sm">Usa a <span class="highlight">mesma chave</span> para cifrar e decifrar. É mais rápida, mas difícil de distribuir a chave com segurança.</p>
+            </div>
+            <div class="border p-4 rounded-lg bg-white">
+                <h3 class="font-bold text-blue-800">Criptografia Assimétrica</h3>
+                <p class="text-sm">Usa um <span class="highlight">par de chaves</span> (Pública e Privada). Essencial para assinaturas digitais e internet segura (HTTPS).</p>
+            </div>
+            <div class="border p-4 rounded-lg bg-white">
+                <h3 class="font-bold text-blue-800">Certificado Digital</h3>
+                <p class="text-sm">É o "RG" do mundo digital, emitido por uma Autoridade Certificadora (AC). Garante a <span class="highlight">Autenticidade</span>.</p>
+            </div>
+            <div class="border p-4 rounded-lg bg-white">
+                <h3 class="font-bold text-blue-800">Assinatura Digital</h3>
+                <p class="text-sm">Processo matemático que une um documento à chave privada do autor. Garante <span class="highlight">Integridade e Não-Repúdio</span>.</p>
+            </div>
+        </div>
+
+        <!-- 3. MALWARES E AMEAÇAS -->
+        <h2 class="section-title">3. Malwares: O que a ETEC cobra</h2>
+        <p class="mb-4">As questões costumam focar no <strong>método de infecção</strong> e na <strong>finalidade</strong> do programa malicioso.</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ameaça</th>
+                        <th>Característica Chave</th>
+                        <th>Dica de Memorização</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Vírus</strong></td>
+                        <td>Precisa de um arquivo hospedeiro e execução humana.</td>
+                        <td>"Dependente de Hospedeiro".</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Worm (Verme)</strong></td>
+                        <td>Propaga-se <span class="highlight">automaticamente</span> pela rede.</td>
+                        <td>"Independente e foca na Rede".</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Spyware</strong></td>
+                        <td>Monitora atividades (Keyloggers/Screenloggers).</td>
+                        <td>"O Espião".</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ransomware</strong></td>
+                        <td>Criptografa dados e cobra resgate (Bitcoin).</td>
+                        <td>"O Sequestrador".</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phishing</strong></td>
+                        <td>Engenharia social via e-mail/sites falsos.</td>
+                        <td>"Pescaria de otários/dados".</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 4. GEOGRAFIA DA INFORMAÇÃO -->
+        <h2 class="section-title">4. Geopolítica e Geografia da Informação (Diferencial)</h2>
+        <p class="mb-4">Para um professor de Geografia, a SI não é apenas técnica, é <span class="highlight">espacial e política</span>:</p>
+        <ul class="list-disc pl-6 space-y-3">
+            <li><strong>Ciberespaço como Território:</strong> O controle dos fluxos de dados define a nova hierarquia das nações.</li>
+            <li><strong>Data Centers e Localização:</strong> A segurança física de servidores em países com estabilidade política e clima frio (ex: Islândia).</li>
+            <li><strong>Soberania de Dados:</strong> O debate sobre onde os dados dos brasileiros (e alunos da ETEC) devem ser armazenados (Cloud nacional vs. estrangeira).</li>
+            <li><strong>Exclusão Digital:</strong> A segurança da informação como barreira de acesso para populações periféricas.</li>
+        </ul>
+
+        <!-- 5. TENDÊNCIAS E PEGUINHAS (ANÁLISE CEETEPS) -->
+        <h2 class="section-title">5. Tendências de Cobrança e "Peguinhas" Recorrentes</h2>
+        <div class="pro-tip">
+            <h4 class="font-bold mb-2">⚠️ Peguinha 1: Backup Diferencial vs. Incremental</h4>
+            <p>A banca afirma que o backup incremental é mais rápido para <strong>restaurar</strong>. <span class="highlight">ERRADO</span>. O incremental é mais rápido para <strong>fazer</strong>, mas o diferencial é mais rápido para <strong>restaurar</strong> (pois precisa apenas do último completo + o último diferencial).</p>
+        </div>
+        <div class="pro-tip">
+            <h4 class="font-bold mb-2">⚠️ Peguinha 2: Firewall vs. Antivírus</h4>
+            <p>O Firewall é uma barreira de rede (filtra tráfego), não remove vírus que já estão no computador. A banca adora dizer que "o firewall removeu o cavalo de troia do pendrive". <span class="highlight">ERRADO</span>.</p>
+        </div>
+        <div class="pro-tip">
+            <h4 class="font-bold mb-2">⚠️ Peguinha 3: LGPD e Consentimento</h4>
+            <p>A banca sugere que para tudo na escola precisa de consentimento. <span class="highlight">FALSO</span>. Dados para histórico escolar ou cumprimento legal independem de consentimento do aluno/responsável.</p>
+        </div>
+
+        <!-- 6. LGPD NA EDUCAÇÃO -->
+        <h2 class="section-title">6. LGPD no Contexto Escolar (Resumo Crítico)</h2>
+        <p class="mb-4">Como professor, você lida com dados sensíveis diariamente. Guarde estes pontos:</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-center">
+            <div class="bg-blue-50 p-4 rounded">
+                <p class="font-bold text-xl">Dado Pessoal</p>
+                <p class="text-xs">Identifica a pessoa (Nome, CPF).</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded">
+                <p class="font-bold text-xl text-red-700">Dado Sensível</p>
+                <p class="text-xs">Origem racial, saúde, biometria.</p>
+            </div>
+            <div class="bg-green-50 p-4 rounded">
+                <p class="font-bold text-xl text-green-700">Anonimização</p>
+                <p class="text-xs">Dado que perde o vínculo com o indivíduo.</p>
+            </div>
+        </div>
+
+        <!-- FINALIZAÇÃO -->
+        <div class="mt-16 text-center">
+            <p class="text-gray-500 mb-6 italic">Fim do conteúdo de resumo técnico para o concurso ETEC/CEETEPS.</p>
+            <a href="seguranca_da_informacaoquestoes.html" class="inline-block bg-gray-900 text-white px-10 py-4 rounded-full font-bold hover:bg-black transition-all shadow-lg">
+                ACESSAR BANCO DE QUESTÕES →
+            </a>
+        </div>
+    </main>
+
+    <footer class="mt-20 border-t pt-8 pb-12 text-center text-gray-400 text-sm">
+        <p>&copy; 2024 Preparação Especialista ETEC - Professor de Geografia</p>
+    </footer>
+
+</body>
+</html>
