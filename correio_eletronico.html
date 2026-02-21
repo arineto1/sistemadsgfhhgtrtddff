@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-mail Oficial e Envio de Documentos - ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef9c3;
+            color: #1f2937;
+            padding: 0 4px;
+            font-weight: 600;
+            border-bottom: 2px solid #fde047;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: hidden; /* Evita scroll horizontal */
+            margin: 1.5rem 0;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f9fafb;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .audio-player-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            color: #111827;
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .pro-tip {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        .btn-questoes {
+            display: block;
+            width: fit-content;
+            margin: 3rem auto;
+            background-color: #111827;
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-questoes:hover {
+            background-color: #374151;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- Cabeçalho e Audio -->
+    <header>
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Correio Eletrônico e Documentação</h1>
+        <p class="text-xl text-gray-500 mb-8">Guia Técnico e Pedagógico para o Concurso Docente CEETEPS</p>
+
+        <div class="audio-player-box">
+            <p class="text-sm font-semibold text-blue-600 mb-3 uppercase tracking-widest">🎧 Player de Resumo em Áudio</p>
+            <!-- Espaço para o nome do arquivo conforme solicitado -->
+            <audio controls class="w-full">
+                <source src="correio_eletronico.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-2">Arquivo sugerido: <strong>aula_email_geografia.mp3</strong></p>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        
+        <!-- Definição -->
+        <h2 class="section-title text-2xl">1. Definição e Essência do E-mail Oficial</h2>
+        <p>O correio eletrônico, no âmbito do CEETEPS, deixou de ser uma ferramenta informal para tornar-se o <span class="highlight">meio principal de comunicação administrativa e pedagógica</span>. Para o Professor de Geografia, ele é o canal de envio de PTDs, relatórios de aulas de campo e troca de dados cartográficos.</p>
+        
+        <div class="pro-tip">
+            <strong>Foco no Concurso:</strong> A banca costuma cobrar o e-mail sob a ótica do <em>Manual de Redação da Presidência da República</em>. Ele tem o mesmo valor documental de um Ofício, mas com celeridade.
+        </div>
+
+        <!-- Definições Básicas -->
+        <h2 class="section-title text-2xl">2. Definições Técnicas para a Prova</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Conceito</th>
+                        <th>O que você deve saber</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Protocolo SMTP</strong></td>
+                        <td>Protocolo de <span class="highlight">saída/envio</span>. Transfere a mensagem do cliente para o servidor.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Protocolo IMAP</strong></td>
+                        <td>Protocolo de recebimento que <span class="highlight">sincroniza</span> as mensagens (ficam no servidor).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Protocolo POP3</strong></td>
+                        <td>Protocolo de recebimento que <span class="highlight">baixa</span> as mensagens (remove do servidor).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cco (Bcc)</strong></td>
+                        <td>Cópia Oculta. <span class="highlight">Essencial para privacidade</span> em listas de alunos (LGPD).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Redação Oficial -->
+        <h2 class="section-title text-2xl">3. Padrões de Redação Oficial (E-mail)</h2>
+        <p>A escrita deve seguir os princípios de <span class="highlight">impessoalidade, clareza, concisão e formalidade</span>. Evite abreviações "internetês".</p>
+        
+        <h3 class="font-bold mt-4 mb-2">Estrutura Obrigatória:</h3>
+        <ul class="list-disc ml-6 space-y-2">
+            <li><strong>Assunto:</strong> Deve ser preciso (Ex: <em>PTD - Geografia - 1º Semestre 2024</em>).</li>
+            <li><strong>Saudação (Vocativo):</strong> Use "Senhor(a) [Cargo]" ou apenas "Prezado(a) Senhor(a)".</li>
+            <li><strong>Corpo do Texto:</strong> Mensagem direta, sem rodeios.</li>
+            <li><strong>Fecho:</strong> <span class="highlight">"Atenciosamente"</span> (para autoridades de mesma hierarquia ou inferior) ou <span class="highlight">"Respeitosamente"</span> (para autoridades superiores).</li>
+            <li><strong>Assinatura:</strong> Nome, Cargo e Unidade Escolar.</li>
+        </ul>
+
+        <!-- Envio de Documentos -->
+        <h2 class="section-title text-2xl">4. Envio de Documentos e Anexos</h2>
+        <p>Na área de Geografia, o envio de documentos envolve especificidades técnicas importantes para a gestão escolar:</p>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Documento</th>
+                        <th>Recomendação Técnica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>PTD / Planos</strong></td>
+                        <td>Sempre em <span class="highlight">formato PDF</span> para evitar desconfiguração e alterações acidentais.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dados Geográficos</strong></td>
+                        <td>Arquivos como .KML ou .SHP devem ser <span class="highlight">compactados (.zip)</span> antes do envio para evitar corrupção de dados.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nato-digital</strong></td>
+                        <td>Documento que nasceu eletrônico. Tem maior validade se assinado digitalmente.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Digitalizado</strong></td>
+                        <td>Cópia de um papel. Requer conferência com o original para ter fé pública.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tendências CEETEPS -->
+        <h2 class="section-title text-2xl">5. Tendências de Cobrança e "Peguinhas"</h2>
+        <p>A Fundação FAT (que organiza muitas provas do Centro Paula Souza) foca em situações do cotidiano docente:</p>
+        
+        <div class="space-y-4 mt-4">
+            <div class="p-4 border border-red-100 bg-red-50 rounded-lg">
+                <p><strong>Peguinha 01: "Responder a Todos"</strong></p>
+                <p class="text-sm">A prova pode questionar se quem está em <strong>Cco</strong> recebe a resposta quando alguém clica em "Responder a Todos". <strong>Resposta: Não recebe.</strong></p>
+            </div>
+            
+            <div class="p-4 border border-orange-100 bg-orange-50 rounded-lg">
+                <p><strong>Peguinha 02: Uso de "Doutor"</strong></p>
+                <p class="text-sm">O Manual de Redação recomenda o uso de <strong>Senhor</strong>. O título "Doutor" deve ser usado apenas para quem possui o grau acadêmico ou em comunicações jurídicas específicas.</p>
+            </div>
+
+            <div class="p-4 border border-blue-100 bg-blue-50 rounded-lg">
+                <p><strong>Peguinha 03: Documentos Geográficos</strong></p>
+                <p class="text-sm">Questões podem associar o e-mail ao <strong>GSA (Google Salla de Aula)</strong>. Lembre-se: o e-mail é para comunicação formal e externa; o GSA é para interação pedagógica interna.</p>
+            </div>
+        </div>
+
+        <!-- Gestão Docente -->
+        <h2 class="section-title text-2xl">6. Rotina ETEC: E-mail @etec.sp.gov.br</h2>
+        <p>O e-mail institucional é obrigatório para:</p>
+        <ul class="list-decimal ml-6 space-y-2">
+            <li>Comunicação com a <span class="highlight">Coordenadoria de Ensino Médio e Técnico (CETEC)</span>.</li>
+            <li>Acesso ao sistema de notas e faltas (NSA).</li>
+            <li>Recebimento de convocações para Conselhos de Classe e atribuição de aulas.</li>
+        </ul>
+
+    </main>
+
+    <!-- Rodapé e Ação -->
+    <footer class="mt-16 text-center border-t pt-8">
+        <p class="text-gray-500 text-sm mb-6">Fim do resumo técnico. Prepare-se agora com a bateria de exercícios.</p>
+        <a href="correio_eletronicoquestoes.html" class="btn-questoes">
+            📝 RESOLVER QUESTÕES DE PROVA
+        </a>
+        <div class="mt-8 text-xs text-gray-400">
+            Tutor Especialista - Concurso Geografia CEETEPS <br>
+            Material atualizado conforme Manual da Presidência da República (3ª Ed.)
+        </div>
+    </footer>
+
+</body>
+</html>

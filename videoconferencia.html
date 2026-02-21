@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterClass ETEC: Videoconferência para Geografia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            color: #2d3748;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .section-box {
+            border: 1px solid #edf2f7;
+            border-left: 5px solid #2d3748;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            background: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+            border-bottom: 2px solid #f7fafc;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto; /* Fallback, mas tentaremos evitar */
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 600px; /* Garante legibilidade em telas pequenas sem espremer */
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #475569;
+            text-align: left;
+            padding: 14px;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .audio-container {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .exam-tip {
+            background-color: #f0fff4;
+            border-left: 4px solid #38a169;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .btn-link {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 3rem auto;
+            background-color: #1a202c;
+            color: #ffffff;
+            text-align: center;
+            padding: 1.25rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-link:hover {
+            background-color: #2d3748;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .section-box { padding: 1.5rem; }
+            .table-wrapper { overflow-x: scroll; } /* Permitido em mobile para não quebrar layout */
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12 max-w-5xl mx-auto">
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 mb-2">Videoconferência no Ensino de Geografia</h1>
+        <p class="text-xl text-gray-500">Manual de Revisão Técnica e Pedagógica - Concurso CEETEPS</p>
+    </header>
+
+    <div class="audio-container">
+        <div class="flex items-center mb-4">
+            <span class="mr-2 text-2xl">🔊</span>
+            <span class="font-bold text-gray-700">PODCAST DE REVISÃO RÁPIDA (15 MIN)</span>
+        </div>
+        <audio controls class="w-full">
+            <source src="videoconferencia.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+        <p class="mt-2 text-xs text-gray-400 italic">Arquivo alvo: geografia_etec_audio.mp3</p>
+    </div>
+
+    <!-- BLOCO 1: DEFINIÇÕES TÉCNICAS -->
+    <section class="section-box">
+        <h2>1. Conceitos Fundamentais e Arquitetura</h2>
+        <p>A videoconferência é um sistema <span class="highlight">síncrono</span> de comunicação bidirecional que integra áudio e vídeo em tempo real através da tecnologia <span class="highlight">VoIP (Voice over IP)</span>.</p>
+        
+        <h3>Terminologias de "Core" (Essenciais para a Prova):</h3>
+        <ul class="space-y-3 list-none">
+            <li>🔹 <span class="highlight">Codec:</span> Protocolos de Compressão/Descompressão. Os mais comuns para vídeo são <b>H.264</b> e <b>H.265</b>. Sem eles, a banda seria insuficiente.</li>
+            <li>🔹 <span class="highlight">MCU (Multipoint Control Unit):</span> "Ponte" que conecta múltiplos usuários, gerenciando quem vê quem.</li>
+            <li>🔹 <span class="highlight">Latência:</span> O atraso (delay). Acima de 150ms a conversa torna-se difícil.</li>
+            <li>🔹 <span class="highlight">Jitter:</span> Variação estatística da latência. Causa "roboticidade" no áudio.</li>
+        </ul>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th>Função na Aula de Geografia</th>
+                        <th>Impacto Pedagógico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Screen Sharing</b></td>
+                        <td>Exibição de Softwares de SIG (QGIS, TerraView).</td>
+                        <td>Visualização de camadas espaciais em tempo real.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Breakout Rooms</b></td>
+                        <td>Divisão da turma em grupos para análise de casos.</td>
+                        <td>Aprendizagem colaborativa e debate de problemas locais.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Chat / Polls</b></td>
+                        <td>Coleta de dados rápida (ex: percepção ambiental).</td>
+                        <td>Engajamento e avaliação diagnóstica imediata.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- BLOCO 2: MICROSOFT TEAMS E CEETEPS -->
+    <section class="section-box">
+        <h2>2. O Ecossistema Microsoft 365 no CPS</h2>
+        <p>A prova do CEETEPS costuma focar no <span class="highlight">Microsoft Teams</span> devido à parceria institucional. Entenda a hierarquia:</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="p-4 bg-gray-50 rounded">
+                <p class="font-bold">Estrutura das Equipes:</p>
+                <ul class="text-sm list-disc pl-4">
+                    <li><b>SDS (School Data Sync):</b> Importa listas de alunos do sistema acadêmico automaticamente.</li>
+                    <li><b>Canais:</b> Segmentação por tópicos (ex: Canal de Hidrografia).</li>
+                    <li><b>Guias:</b> Onde se anexam o Google Earth ou mapas do IBGE.</li>
+                </ul>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <p class="font-bold">Controles de Moderação:</p>
+                <ul class="text-sm list-disc pl-4">
+                    <li><b>Lobby (Saguão):</b> Controle de entrada de convidados externos.</li>
+                    <li><b>Silenciar Tudo:</b> Gestão de ruído em turmas grandes.</li>
+                    <li><b>Lista de Presença:</b> Gerada em formato .csv durante a reunião.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="exam-tip">
+            <strong>🎯 DICA DE PROVA:</strong> O Teams permite a integração do <b>Whiteboard</b> (Quadro Branco). Na geografia, isso é vital para o esboço de <span class="highlight">croquis geográficos</span> e representações mentais do espaço.
+        </div>
+    </section>
+
+    <!-- BLOCO 3: APLICAÇÃO NA GEOGRAFIA (BNCC) -->
+    <section class="section-box">
+        <h2>3. Geografia, Tecnologia e BNCC</h2>
+        <p>A tecnologia não é o fim, mas o meio para desenvolver o <span class="highlight">Raciocínio Geográfico</span>.</p>
+        
+        <ul class="space-y-4">
+            <li>
+                <strong>Análise Paisagística Virtual:</strong> O uso do <b>Google Earth Pro</b> compartilhado permite o zoom escalar — do local ao global — demonstrando a <span class="highlight">multiscalaridade</span> dos fenômenos.
+            </li>
+            <li>
+                <strong>Trabalho de Campo Virtual (TCV):</strong> Uso do Street View e fotos 360° para simular a saída de campo quando o deslocamento físico é impossível.
+            </li>
+            <li>
+                <strong>Curadoria Digital:</strong> O professor atua como curador, utilizando o <b>Microsoft Stream</b> para organizar vídeos sobre Geopolítica ou Climatologia, criando um repositório assíncrono.
+            </li>
+        </ul>
+    </section>
+
+    <!-- BLOCO 4: PEGUINHAS E TENDÊNCIAS -->
+    <section class="section-box">
+        <h2>4. "Peguinhas" e Tendências de Cobrança</h2>
+        <p>A banca <b>FAT (Fundação de Apoio à Tecnologia)</b>, recorrente nos concursos do Centro Paula Souza, gosta de misturar conceitos de hardware com software.</p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Afirmação Falsa (O Erro)</th>
+                        <th>Fato Verdadeiro (O Correto)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"A videoconferência consome menos banda que o streaming de vídeo comum."</td>
+                        <td>Falso. A videoconferência exige <span class="highlight">baixa latência e upload alto</span> para manter a bidirecionalidade.</td>
+                    </tr>
+                    <tr>
+                        <td>"Para gravar uma aula no Teams, o aluno deve ter permissão de convidado."</td>
+                        <td>Falso. Geralmente, apenas <span class="highlight">Organizadores ou Apresentadores</span> internos podem iniciar a gravação.</td>
+                    </tr>
+                    <tr>
+                        <td>"O navegador Internet Explorer é o recomendado para o Teams."</td>
+                        <td>Falso. O Teams exige navegadores modernos (Edge, Chrome) ou o <span class="highlight">aplicativo Desktop</span> para funcionalidades totais.</td>
+                    </tr>
+                    <tr>
+                        <td>"O uso de videoconferência substitui o planejamento da aula presencial."</td>
+                        <td>Falso. Exige <span class="highlight">Design Pedagógico específico</span> e adaptação de tempos e métodos.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- BLOCO 5: ASPECTOS LEGAIS -->
+    <section class="section-box">
+        <h2>5. Legislação e Ética Digital</h2>
+        <ul class="list-disc pl-6 space-y-3">
+            <li><b>LGPD:</b> O registro de imagem e voz dos alunos em videoconferências é dado sensível. Deve haver finalidade educacional e armazenamento seguro.</li>
+            <li><b>Deliberação CEE 177/2020:</b> Em São Paulo, regulamenta o uso de atividades não presenciais, exigindo o registro de frequência e evidências de aprendizagem (como as tarefas do Teams).</li>
+            <li><b>Direito Autoral:</b> Compartilhar livros digitalizados em tela durante a videoconferência sem autorização pode infringir a lei de direitos autorais, prefira <span class="highlight">Recursos Educacionais Abertos (REA)</span>.</li>
+        </ul>
+    </section>
+
+    <!-- FOOTER E BOTÃO -->
+    <footer class="mb-20">
+        <a href="videoconferenciaquestoes.html" class="btn-link">
+            TESTAR CONHECIMENTOS →
+        </a>
+        <p class="text-center text-gray-400 text-sm">
+            © 2024 - Preparatório Especializado Geografia CEETEPS. <br>
+            Foco em Aprovação: Técnica + Teoria + Estratégia.
+        </p>
+    </footer>
+
+</body>
+</html>

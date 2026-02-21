@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Videoconferência no Ensino de Geografia (ETEC)</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-secondary: #636e72;
+            --accent-color: #0984e3;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .quiz-info {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: block;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f1f2f6;
+            border-color: var(--accent-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option-label.selected {
+            border-color: var(--accent-color);
+            background-color: #e1f5fe;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        /* Seção de Resultados */
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .score-box {
+            background: var(--accent-color);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .resolution-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--border-color);
+        }
+
+        .resolution-card.correct { border-left-color: var(--success-color); }
+        .resolution-card.wrong { border-left-color: var(--error-color); }
+
+        .res-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .status-correct { background: #dff9fb; color: var(--success-color); }
+        .status-wrong { background: #fab1a0; color: var(--error-color); }
+
+        .explanation {
+            background: #f1f2f6;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            color: #2d3436;
+        }
+
+        .explanation strong {
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado de Videoconferência</h1>
+        <div class="quiz-info">Estilo Concurso ETEC / CEETEPS - Professor de Geografia</div>
+    </header>
+
+    <div id="quiz-form">
+        <div id="questions-container"></div>
+        <button class="btn-submit" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+    </div>
+
+    <div id="results-section">
+        <div class="score-box">
+            <span>Seu Desempenho</span>
+            <span class="score-number" id="final-score">0/10</span>
+            <p id="score-text"></p>
+        </div>
+        <h2 style="margin-bottom: 20px;">Revisão e Resoluções Detalhadas</h2>
+        <div id="resolutions-container"></div>
+        <button class="btn-submit" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); location.reload();" style="background: var(--text-secondary);">Refazer Simulado</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No âmbito das diretrizes estabelecidas pelo Centro Estadual de Educação Tecnológica Paula Souza (CEETEPS) para a operacionalização de aulas remotas e reuniões pedagógicas nas Escolas Técnicas Estaduais (ETECs), a escolha de uma plataforma unificada de colaboração foi estratégica para garantir a integração de dados e a segurança cibernética. Com base nas orientações institucionais e na infraestrutura tecnológica disponível para docentes e discentes, assinale a alternativa que descreve corretamente a ferramenta oficial e sua lógica de acesso.",
+            options: {
+                A: "A plataforma padrão é o Google Meet, cujo acesso é realizado exclusivamente via convite enviado ao e-mail pessoal do docente, permitindo a gravação ilimitada em contas gratuitas de nível básico.",
+                B: "O Microsoft Teams constitui a plataforma oficial para o ensino remoto, exigindo a autenticação por meio do e-mail institucional, sendo estruturado em Equipes que segmentam as disciplinas e Canais que organizam a transmissão de aulas e o repositório de arquivos.",
+                C: "O Zoom Meetings é a ferramenta recomendada pelo Grupo de Estudo de Educação a Distância (GEEAD) por permitir o acesso anônimo de participantes, facilitando a entrada de alunos que não possuem cadastro no sistema acadêmico.",
+                D: "As videoconferências são realizadas por meio de um sistema proprietário desenvolvido pelo próprio Centro Paula Souza, operando exclusivamente em ambiente Linux para evitar custos com licenciamento de software.",
+                E: "O Microsoft Teams é utilizado apenas para reuniões administrativas de coordenadores, enquanto as aulas teóricas de Geografia devem ser ministradas via transmissões ao vivo no YouTube, sem possibilidade de interação síncrona por voz."
+            },
+            correct: "B",
+            resolution: "O Centro Paula Souza padronizou o uso do Microsoft Teams como o hub central. Ele integra-se ao Active Directory da instituição (e-mail @etec.sp.gov.br). A estrutura é baseada em 'Equipes' (turmas/disciplinas) e 'Canais' (unidades temáticas), garantindo segurança e organização do repositório de arquivos."
+        },
+        {
+            id: 2,
+            question: "A segurança das salas virtuais é uma preocupação central para o magistério nas ETECs, visando prevenir interrupções e garantir a privacidade dos envolvidos. No Microsoft Teams, o organizador de uma reunião (professor) possui controles específicos para gerenciar o ingresso de participantes. Qual funcionalidade técnica deve ser configurada para assegurar que apenas usuários devidamente identificados pela instituição entrem na sala sem intervenção manual imediata?",
+            options: {
+                A: "Ocultação de Endereço IP, que mascara a localização geográfica dos alunos para impedir ataques de negação de serviço (DDoS).",
+                B: "Sala de Espera (Lobby), que permite definir nas Opções de Reunião que apenas 'Pessoas em minha organização' podem ignorar a espera e ingressar diretamente.",
+                C: "Firewall Biométrico, que exige a validação da imagem da webcam contra a foto do Registro Acadêmico antes de liberar o áudio do aluno.",
+                D: "Criptografia Assimétrica de Ponta a Ponta, que gera uma chave pública enviada por SMS para o telefone do responsável legal do aluno no início de cada aula.",
+                E: "Bloqueio de Mac Address, que impede que o aluno acesse a aula de qualquer dispositivo que não seja o computador cadastrado na secretaria da escola."
+            },
+            correct: "B",
+            resolution: "O 'Lobby' ou Sala de Espera permite que o professor controle quem acessa a sala. Ao configurar para 'Pessoas em minha organização', o sistema autentica automaticamente quem usa o e-mail institucional, bloqueando convidados externos até que sejam admitidos."
+        },
+        {
+            id: 3,
+            question: "Durante uma aula síncrona de Geografia sobre 'Geopolítica e Conflitos Contemporâneos', o professor planeja uma atividade de debate em que a turma de 40 alunos deve ser dividida em cinco grupos menores para discutir estudos de caso específicos. Após 20 minutos, todos devem retornar à sala principal para compartilhar as sínteses. Qual recurso das ferramentas de videoconferência contemporâneas é especificamente desenhado para essa finalidade pedagógica?",
+            options: {
+                A: "Transmissão em Multicast, que duplica o sinal de vídeo do professor para cinco janelas diferentes.",
+                B: "Salas Simultâneas (Breakout Rooms), que possibilitam a criação de sessões separadas dentro da reunião principal, com atribuição automática ou manual de participantes.",
+                C: "Chat de Grupo Persistente, recurso que desativa as câmeras e microfones para que os alunos discutam apenas via texto.",
+                D: "Integração via Microsoft Excel, utilizando fórmulas de matriz para segmentar os fluxos de áudio em células específicas de uma planilha.",
+                E: "Sincronização de Calendário com o Microsoft Planner, que envia convites de reuniões distintas para cada aluno."
+            },
+            correct: "B",
+            resolution: "As Salas Simultâneas (Breakout Rooms) permitem dividir a chamada principal em subgrupos temporários. O professor pode circular entre as salas e encerrá-las a qualquer momento, trazendo todos de volta para a sala comum."
+        },
+        {
+            id: 4,
+            question: "Ao realizar o compartilhamento de tela para demonstrar funcionalidades do Google Earth Pro em tempo real, qual configuração técnica o professor de Geografia deve priorizar para garantir que os alunos visualizem as transições de zoom e o relevo 3D sem perda significativa de fluidez?",
+            options: {
+                A: "Configuração de taxa de quadros (FPS) reduzida para economizar energia do processador.",
+                B: "Otimização para Vídeo no compartilhamento de tela, que ajusta a largura de banda para manter a fluidez do movimento, mesmo que haja uma leve redução na resolução estática.",
+                C: "Uso de legendas automáticas em inglês, que forçam o sistema a priorizar a renderização de texto.",
+                D: "Desativação completa do firewall do Windows para permitir que o tráfego de vídeo ocorra sem inspeção de pacotes.",
+                E: "Compartilhamento exclusivo de áudio do sistema, instruindo os alunos a imaginarem as transformações."
+            },
+            correct: "B",
+            resolution: "O modo de otimização para vídeo altera o codec de transmissão para priorizar a taxa de quadros (movimento) em detrimento da nitidez estática absoluta. Isso é essencial para softwares dinâmicos como o Google Earth."
+        },
+        {
+            id: 5,
+            question: "Sobre a Lei Geral de Proteção de Dados (LGPD) e a gravação de aulas no Microsoft Teams para Educação, qual afirmação reflete corretamente o procedimento institucional?",
+            options: {
+                A: "A gravação é iniciada obrigatoriamente pelo sistema no momento do login e enviada ao YouTube público.",
+                B: "Um aviso visual é exibido para todos quando a gravação é iniciada, e o arquivo é armazenado no OneDrive ou SharePoint com acesso restrito aos membros da equipe.",
+                C: "Somente alunos com média superior a 7.0 (MB) podem ter acesso às gravações.",
+                D: "As gravações são deletadas permanentemente pelo sistema 24 horas após o término da reunião.",
+                E: "O professor deve enviar um CD-ROM com a gravação para a sede do Centro Paula Souza."
+            },
+            correct: "B",
+            resolution: "A transparência é garantida pelo aviso automático de gravação. A governança de dados ocorre via armazenamento no OneDrive/SharePoint institucional, limitando o acesso a quem tem permissão na equipe, respeitando a LGPD."
+        },
+        {
+            id: 6,
+            question: "Qual é a unidade básica no Microsoft Teams onde o professor organiza o conteúdo, as tarefas e as comunicações de uma turma específica?",
+            options: {
+                A: "OneDrive for Business individual.",
+                B: "Equipe (Team), que funciona como o hub principal da turma.",
+                C: "Grupo de Chat do WhatsApp Web integrado.",
+                D: "Microsoft Word compartilhado em tempo real.",
+                E: "Bloco de Notas de Classe (OneNote) de uso exclusivamente pessoal."
+            },
+            correct: "B",
+            resolution: "A 'Equipe' é o contêiner digital de uma turma. Nela concentram-se o chat, as aulas por vídeo, os arquivos e as atribuições (Assignments)."
+        },
+        {
+            id: 7,
+            question: "No contexto de acessibilidade para alunos com deficiência auditiva, qual recurso nativo das plataformas atua como tecnologia assistiva imediata?",
+            options: {
+                A: "Desfoque de fundo (Background Blur).",
+                B: "Legendas ao vivo (Live Captions), que transcrevem em tempo real a fala do professor.",
+                C: "Modo Juntos (Together Mode).",
+                D: "Filtro de Ruído Ativo que remove a voz do professor.",
+                E: "Tradução automática para código Morse luminoso."
+            },
+            correct: "B",
+            resolution: "As legendas ao vivo utilizam IA para converter fala em texto instantaneamente, permitindo que alunos surdos ou com dificuldade de audição acompanhem a explicação em tempo real."
+        },
+        {
+            id: 8,
+            question: "Qual ferramenta integrada permite ao professor de Geografia lançar enquetes rápidas durante a videoconferência?",
+            options: {
+                A: "Microsoft Forms (através do aplicativo Polls/Enquetes).",
+                B: "Microsoft Access.",
+                C: "Editor de Registro do Windows (Regedit).",
+                D: "Prompt de Comando (CMD).",
+                E: "Microsoft Publisher."
+            },
+            correct: "A",
+            resolution: "O Microsoft Forms integra-se ao Teams permitindo a criação de enquetes rápidas. Isso promove a avaliação formativa e aumenta o engajamento dos alunos durante a aula."
+        },
+        {
+            id: 9,
+            question: "Se um aluno vê os slides mas não ouve o professor, qual a orientação inicial correta?",
+            options: {
+                A: "Instruir o aluno a comprar um novo computador imediatamente.",
+                B: "Orientar a verificar as Configurações de Dispositivo (Device Settings) e a Saída de Áudio correta.",
+                C: "Pedir para o aluno instalar uma versão legada do MS-DOS.",
+                D: "Sugerir que o aluno apenas leia os slides, pois o áudio é opcional.",
+                E: "Solicitar que o aluno ligue para o suporte em Seattle."
+            },
+            correct: "B",
+            resolution: "A maioria dos problemas de áudio decorre de má seleção de periféricos no software. Verificar o 'Device Settings' é o passo padrão de suporte nível 1."
+        },
+        {
+            id: 10,
+            question: "Conforme a BNCC, o uso de videoconferência pelo professor de Geografia deve ser visto como:",
+            options: {
+                A: "Um substituto total da observação direta do espaço.",
+                B: "Um recurso meramente administrativo de controle de frequência.",
+                C: "Uma oportunidade de desenvolver a Cultura Digital e promover o pensamento crítico espacial.",
+                D: "Uma ferramenta temporária que deve ser abandonada para não atrofiar a leitura de mapas físicos.",
+                E: "Um mecanismo para replicar integralmente o modelo de aula expositiva tradicional."
+            },
+            correct: "C",
+            resolution: "A Cultura Digital é uma competência da BNCC. A videoconferência é um meio para interatividade, análise de dados globais e construção de conhecimento geográfico em múltiplas escalas."
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">${index + 1}. ${q.question}</div>
+                <div class="options-container">
+                    ${Object.entries(q.options).map(([key, text]) => `
+                        <label class="option-label" id="label-q${q.id}-${key}">
+                            <input type="radio" name="q${q.id}" value="${key}" onclick="highlightSelection(${q.id}, '${key}')">
+                            <strong>${key})</strong> ${text}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function highlightSelection(qId, key) {
+        // Remove selection from all labels in this question
+        const labels = document.querySelectorAll(`[id^="label-q${qId}-"]`);
+        labels.forEach(l => l.classList.remove('selected'));
+        // Add to current
+        document.getElementById(`label-q${qId}-${key}`).classList.add('selected');
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        const resContainer = document.getElementById('resolutions-container');
+        resContainer.innerHTML = '';
+
+        quizData.forEach((q) => {
+            const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+            const userAnswer = selected ? selected.value : "Não respondida";
+            const isCorrect = userAnswer === q.correct;
+            
+            if(isCorrect) score++;
+
+            const resCard = document.createElement('div');
+            resCard.className = `resolution-card ${isCorrect ? 'correct' : 'wrong'}`;
+            resCard.innerHTML = `
+                <div class="res-header">
+                    <span>Questão ${q.id}</span>
+                    <span class="status-tag ${isCorrect ? 'status-correct' : 'status-wrong'}">
+                        ${isCorrect ? 'Acertou' : 'Errou'}
+                    </span>
+                </div>
+                <p><strong>Sua resposta:</strong> ${userAnswer}) ${userAnswer !== "Não respondida" ? q.options[userAnswer] : ""}</p>
+                <p><strong>Gabarito:</strong> ${q.correct}) ${q.options[q.correct]}</p>
+                <div class="explanation">
+                    <strong>Resolução Detalhada:</strong>
+                    ${q.resolution}
+                </div>
+            `;
+            resContainer.appendChild(resCard);
+        });
+
+        // Show results
+        document.getElementById('quiz-form').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('final-score').innerText = `${score}/10`;
+        
+        const feedbackText = score >= 7 ? "Excelente desempenho! Você demonstra domínio técnico e pedagógico." : "Bom esforço. Revise os pontos técnicos destacados nas resoluções.";
+        document.getElementById('score-text').innerText = feedbackText;
+        
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Inicializar
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Excel e Geografia - Concurso ETEC</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --incorrect-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            color: #636e72;
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f1f2f6;
+        }
+
+        input[type="radio"] {
+            margin-top: 5px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        button#submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button#submit-btn:hover {
+            background-color: #0873c4;
+            transform: translateY(-2px);
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .score-banner {
+            text-align: center;
+            padding: 30px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            display: block;
+            font-weight: bold;
+        }
+
+        .resolution-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .correct-answer-ui {
+            border-color: var(--correct-color) !important;
+            background-color: #e8f5e9 !important;
+        }
+
+        .wrong-answer-ui {
+            border-color: var(--incorrect-color) !important;
+            background-color: #ffebee !important;
+        }
+
+        .feedback-icon {
+            font-weight: bold;
+            margin-left: auto;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            h1 { font-size: 1.4rem; }
+            .question-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Quiz: Edição de Tabelas e Gráficos Geográficos no Excel</h1>
+        <p class="intro-text">Simulado Estilo Concurso Professor ETEC / CEETEPS</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questions will be injected here by JavaScript -->
+        <div id="questions-list"></div>
+        
+        <button type="button" id="submit-btn" onclick="calculateResults()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-banner">
+            <span>Seu desempenho:</span>
+            <span class="score-value" id="score-display">0/10</span>
+            <p id="score-comment"></p>
+        </div>
+        
+        <div id="detailed-feedback">
+            <!-- Resolutions will appear here inside the respective question cards after submit -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            q: "No âmbito do currículo de Geografia das Escolas Técnicas Estaduais (ETECs), a proficiência no uso de planilhas eletrônicas para a representação espacial de fenômenos socioeconômicos é uma competência essencial. Ao preparar uma atividade sobre a distribuição da população urbana nos estados brasileiros utilizando o Microsoft Excel, um professor instrui os alunos a selecionarem uma tabela contendo os nomes das Unidades da Federação e seus respectivos valores populacionais. Ao clicar em 'Inserir > Gráficos > Mapas > Mapa Coroplético', o software gera uma visualização, mas alguns estados não são preenchidos, permanecendo em cinza ou exibindo um ícone de erro. Analisando a arquitetura técnica da ferramenta, assinale a alternativa que descreve corretamente o procedimento de diagnóstico e a solução:",
+            options: [
+                "O erro indica que o limite de 15 polígonos geográficos foi excedido para uma única série de dados; a solução consiste em utilizar a ferramenta 'Gráfico de Dispersão'.",
+                "A falha decorre da impossibilidade de o motor de geocodificação do Bing Maps reconhecer nomes abreviados ou grafias inconsistentes ou da ausência de conexão ativa com a internet.",
+                "O Excel exige obrigatoriamente que as coordenadas de latitude e longitude em formato decimal (EPSG:4326) estejam presentes em colunas adjacentes.",
+                "A renderização de mapas coropléticos é uma função exclusiva do suplemento 'Power Pivot', exigindo carga no Modelo de Dados.",
+                "O problema é causado pela falta de formatação das células como 'Moeda', visto que o motor gráfico interpreta dados populacionais como valores financeiros."
+            ],
+            correct: 1,
+            resolution: "Resolução: O Microsoft Excel utiliza o serviço de geocodificação do Bing Maps via internet. Para que a renderização ocorra, os nomes geográficos devem ser reconhecidos pelo servidor (evitando abreviações não padrão) e o computador deve estar conectado à rede para baixar os polígonos cartográficos."
+        },
+        {
+            id: 2,
+            q: "Para construir uma Pirâmide Etária no Microsoft Excel, o docente deve aplicar técnicas de formatação de gráficos que permitam a inversão de eixos para um dos gêneros. Considerando o procedimento técnico para criar o efeito visual de um 'Gráfico de Tornado', selecione a alternativa correta:",
+            options: [
+                "Deve-se utilizar o gráfico de 'Radar', aplicando uma rotação de 180 graus no eixo radial.",
+                "É necessário converter os valores de um dos gêneros em números negativos na tabela de origem e, nas opções de formatação, utilizar o código de formato personalizado 0;0;0 para omitir o sinal de menos.",
+                "O Excel possui um comando nativo chamado 'Inserir Pirâmide de População' na guia 'Dados', que automatiza o cálculo.",
+                "A construção exige o uso de uma Macro em VBA para espelhar as barras de dados.",
+                "Deve-se utilizar um gráfico de 'Pizza' explodido, onde cada fatia representa uma faixa etária."
+            ],
+            correct: 1,
+            resolution: "Resolução: Como não há um gráfico nativo de 'pirâmide', utiliza-se o gráfico de barras empilhadas. Tornar um dos lados negativo faz com que ele cresça para a esquerda. O formato '0;0;0' mascara o sinal negativo para que a escala pareça positiva em ambos os lados."
+        },
+        {
+            id: 3,
+            q: "No Microsoft Excel, o recurso 'Tipos de Dados: Geografia' (guia Dados) representa um avanço na integração de informações externas. Sobre essa funcionalidade, assinale a afirmação correta:",
+            options: [
+                "Este recurso é puramente estético, adicionando um ícone de mapa ao lado do texto da célula.",
+                "Ao converter um texto em dado geográfico, o Excel permite extrair diretamente para as células adjacentes informações atualizadas como PIB, área e emissões de CO2 via serviço Wolfram.",
+                "A função 'Geografia' substitui integralmente a necessidade de softwares de SIG, permitindo a edição vetorial de malhas municipais.",
+                "Trata-se de uma ferramenta offline que utiliza uma base de dados estática instalada com o pacote Office 2010.",
+                "O recurso limita-se à tradução de nomes de cidades para diferentes idiomas."
+            ],
+            correct: 1,
+            resolution: "Resolução: Os Tipos de Dados Geográficos conectam a célula a uma base de dados online (Wolfram/Bing), permitindo 'extrair' propriedades como população, área e líderes políticos sem precisar digitar esses dados manualmente."
+        },
+        {
+            id: 4,
+            q: "Ao utilizar o 'Gráfico de Mapa' para visualizar a densidade demográfica, o professor deseja uma transição suave entre o amarelo (áreas menos densas) e o azul escuro (áreas mais densas). Como essa configuração deve ser realizada?",
+            options: [
+                "Aplicando uma Formatação Condicional de 'Conjunto de Ícones' sobre o gráfico.",
+                "Nas 'Opções de Série', selecionando a 'Cor da Série' como 'Sequencial (2 cores)' e definindo as cores mínima e máxima.",
+                "Utilizando a função COR.HEX() em uma coluna auxiliar para mapear cada valor.",
+                "Alterando o 'Estilo de Gráfico' na guia Design para 'Modo Geográfico Noturno'.",
+                "Inserindo uma legenda de imagem externa e sobrepondo-a ao gráfico."
+            ],
+            correct: 1,
+            resolution: "Resolução: A personalização de cores em mapas coropléticos do Excel é feita no painel 'Formatar Série de Dados', onde se pode escolher escalas sequenciais ou divergentes para representar a intensidade do fenômeno."
+        },
+        {
+            id: 5,
+            q: "No caso de cidades com nomes idênticos (ex: 'Sertãozinho' em SP e PB), qual a prática de preparação de dados recomendada no Excel para evitar erros de posicionamento no mapa?",
+            options: [
+                "Criar uma coluna de contexto que concatene o nome da cidade com o estado ou país (ex: 'Sertãozinho, SP').",
+                "Substituir o nome das cidades pelo seu respectivo número de habitantes.",
+                "Utilizar apenas a primeira letra de cada nome de cidade.",
+                "Deletar as ocorrências duplicadas, mantendo apenas a maior cidade.",
+                "Aplicar o filtro 'Limpar Formatos' em toda a coluna de nomes."
+            ],
+            correct: 0,
+            resolution: "Resolução: A concatenação ajuda o motor de geocodificação (Bing) a entender a hierarquia espacial, garantindo que o ponto seja plotado na unidade federativa correta."
+        },
+        {
+            id: 6,
+            q: "Se um docente deseja calcular a taxa de crescimento médio de uma população entre duas décadas e identificar qual estado apresentou o maior crescimento absoluto, quais funções seriam as mais indicadas?",
+            options: [
+                "Funções =TAXA() para o crescimento relativo e =MÁXIMO() para o crescimento absoluto.",
+                "Ferramenta 'AutoSoma' para ambos os casos, selecionando a opção 'Contar Números'.",
+                "Funções =MÉDIA() e =MÍNIMO(), respectivamente.",
+                "Uso exclusivo de 'Tabelas Dinâmicas' configuradas para exibir apenas o 'Desvio Padrão'.",
+                "Funções =PROCV() e =CONT.SE()."
+            ],
+            correct: 0,
+            resolution: "Resolução: A função =TAXA() calcula o crescimento percentual (geométrico ou simples dependendo da aplicação) e =MÁXIMO() identifica o maior valor numérico em um intervalo."
+        },
+        {
+            id: 7,
+            q: "Qual ferramenta interna do Excel é a mais robusta para realizar a extração, transformação e limpeza de dados (ETL) provenientes do sistema SIDRA (IBGE)?",
+            options: [
+                "WordArt, para a formatação estética.",
+                "Power Query (Obter e Transformar Dados), que permite filtrar linhas e converter tipos de dados de forma automatizada.",
+                "Assistente de Gráfico de Pizza 3D.",
+                "Validação de Dados, configurada para aceitar apenas 'Nomes Geográficos'.",
+                "Macros de gravação de teclado."
+            ],
+            correct: 1,
+            resolution: "Resolução: O Power Query é o motor de ETL do Excel. Ele permite tratar tabelas 'sujas' do IBGE, removendo cabeçalhos inúteis e formatando colunas para que fiquem prontas para análise geográfica."
+        },
+        {
+            id: 8,
+            q: "Ao formatar um 'Gráfico de Mapa', o usuário pode escolher diferentes projeções cartográficas. Quais são as projeções tipicamente oferecidas pelo software?",
+            options: [
+                "Apenas a Projeção de Peters.",
+                "Mercator, Miller e Albers.",
+                "Cônica de Lambert e Azimutal Equidistante, exclusivamente.",
+                "Projeção de Mollweide e Robinson.",
+                "O Excel não permite alterar a projeção, utilizando fixamente a Projeção de Cassini."
+            ],
+            correct: 1,
+            resolution: "Resolução: O Excel disponibiliza as projeções Mercator (comum em web), Miller (equilíbrio visual) e Albers (preservação de áreas, ideal para mapas regionais)."
+        },
+        {
+            id: 9,
+            q: "Para que um Gráfico de Mapa responda instantaneamente à seleção de um determinado bioma ou região, qual recurso de interatividade deve ser associado?",
+            options: [
+                "Hiperlinks para páginas externas.",
+                "Segmentação de Dados (Slicers) vinculada a uma Tabela Dinâmica ou Tabela de Dados.",
+                "Botões de comando de 'Impressão de Tela'.",
+                "Uso de 'Comentários' em células específicas.",
+                "Filtros de cor manuais aplicados célula a célula."
+            ],
+            correct: 1,
+            resolution: "Resolução: Segmentadores de dados (Slicers) são filtros visuais amigáveis que permitem filtrar os dados que alimentam o gráfico de forma dinâmica."
+        },
+        {
+            id: 10,
+            q: "Sobre as capacidades de visualização dos Mapas 3D (Power Map) em comparação aos Mapas Coropléticos simples, é correto afirmar que:",
+            options: [
+                "Os Mapas 3D permitem a representação de dados em colunas, bolhas e mapas de calor, além de suportar uma linha do tempo para animar as mudanças.",
+                "Mapas 3D são limitados a mapas de ruas e não permitem dados estatísticos.",
+                "O recurso de Mapas 3D funciona apenas com desenhos feitos à mão.",
+                "O uso de Mapas 3D exige que o computador tenha um receptor GPS integrado.",
+                "Mapas 3D são uma versão simplificada dos Mapas Coropléticos."
+            ],
+            correct: 0,
+            resolution: "Resolução: Mapas 3D permitem visualizações volumétricas e temporais (animações ao longo do tempo), sendo muito superiores para demonstrar a evolução de fenômenos geográficos."
+        }
+    ];
+
+    function loadQuestions() {
+        const list = document.getElementById('questions-list');
+        questionsData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `card-${index}`;
+            
+            let optionsHtml = '';
+            item.options.forEach((opt, optIndex) => {
+                const char = String.fromCharCode(65 + optIndex);
+                optionsHtml += `
+                    <label class="option-label" id="label-${index}-${optIndex}">
+                        <input type="radio" name="q${index}" value="${optIndex}">
+                        <span>${char}) ${opt}</span>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-text">Questão ${item.id}</span>
+                <p>${item.q}</p>
+                <div class="options-container">
+                    ${optionsHtml}
+                </div>
+                <div class="resolution-box" id="res-${index}">
+                    ${item.resolution}
+                </div>
+            `;
+            list.appendChild(card);
+        });
+    }
+
+    function calculateResults() {
+        let score = 0;
+        const total = questionsData.length;
+
+        questionsData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            resolutionBox.style.display = 'block';
+
+            // Mark correct answer anyway
+            document.getElementById(`label-${index}-${item.correct}`).classList.add('correct-answer-ui');
+            document.getElementById(`label-${index}-${item.correct}`).innerHTML += ' <span class="feedback-icon">✓</span>';
+
+            if (selected) {
+                const answerValue = parseInt(selected.value);
+                if (answerValue === item.correct) {
+                    score++;
+                } else {
+                    // Mark user's wrong answer
+                    const wrongLabel = document.getElementById(`label-${index}-${answerValue}`);
+                    wrongLabel.classList.add('wrong-answer-ui');
+                    wrongLabel.innerHTML += ' <span class="feedback-icon">✗</span>';
+                }
+            }
+        });
+
+        // Show score
+        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('score-display').innerText = `${score} / ${total}`;
+        
+        const comment = document.getElementById('score-comment');
+        if (score === total) comment.innerText = "Excelente! Você domina as ferramentas de Excel para Geografia.";
+        else if (score >= 7) comment.innerText = "Muito bom! Você tem uma base sólida no tema.";
+        else if (score >= 5) comment.innerText = "Bom desempenho, mas revise as funcionalidades de ETL e Projeções.";
+        else comment.innerText = "Recomendamos revisar o conteúdo técnico e realizar novos simulados.";
+
+        // Scroll to results
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        
+        // Disable inputs to prevent changes after submit
+        const allRadios = document.querySelectorAll('input[type="radio"]');
+        allRadios.forEach(r => r.disabled = true);
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+
+    // Initialize
+    window.onload = loadQuestions;
+</script>
+
+</body>
+</html>

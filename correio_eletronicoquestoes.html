@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Comunicação Oficial e E-mail - ETEC/CEETEPS</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #c0392b; /* Tom institucional */
+            --accent-color: #2980b9;
+            --border-color: #e0e0e0;
+            --correct-bg: #d4edda;
+            --correct-text: #155724;
+            --wrong-bg: #f8d7da;
+            --wrong-text: #721c24;
+            --resolution-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .option-item.selected {
+            border-color: var(--accent-color);
+            background-color: #ebf5fb;
+        }
+
+        /* Classes para o Resultado */
+        .option-item.correct {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-text) !important;
+            color: var(--correct-text);
+        }
+
+        .option-item.wrong {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-text) !important;
+            color: var(--wrong-text);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--resolution-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        #btn-submit:hover {
+            background-color: #a93226;
+            transform: translateY(-2px);
+        }
+
+        #btn-submit:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        #results-summary {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .score-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .score-message {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th { background-color: #f2f2f2; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Avaliação Técnica: Correio Eletrônico e Comunicação Oficial</h1>
+        <div class="subtitle">Concurso Docente - Geografia - ETEC/CEETEPS</div>
+    </header>
+
+    <div id="results-summary">
+        <div class="score-message">Você completou o quiz!</div>
+        <div class="score-text" id="final-score">0 / 10</div>
+        <p>Confira abaixo as resoluções detalhadas de cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" data-id="1">
+            <span class="question-text">Questão 01: No âmbito da infraestrutura tecnológica do Centro Paula Souza, o docente necessita compartilhar relatórios e dados geoestatísticos. Analise as proposições sobre o funcionamento técnico do e-mail:</span>
+            <p>I. O protocolo SMTP atua como a espinha dorsal para o envio de mensagens.<br>
+            II. Para o recebimento, pode-se optar pelo protocolo POP3 (descarrega) ou IMAP (sincronização).<br>
+            III. O protocolo HTML é utilizado obrigatoriamente como mecanismo de transporte para documentos .pdf ou .docx.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A) I, apenas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B) II, apenas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C) I e II, apenas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D) II e III, apenas.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                O SMTP é para envio (Correto). O POP3 e IMAP são para recebimento (Correto). HTML é uma linguagem de formatação, não um protocolo de transporte de arquivos; documentos são transportados via extensões MIME do SMTP.
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" data-id="2">
+            <span class="question-text">Questão 02: Um Professor precisa comunicar a alteração de um cronograma para alunos, enviando cópia informativa para Coordenação e Direção sem que os alunos vejam os endereços dos diretores. O docente deve:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A) Inserir os alunos no campo "Para", a Coordenação em "Cc" e a Direção em "Cco", permitindo que apenas os alunos visualizem quem recebeu a cópia oculta.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B) Colocar os endereços dos alunos no campo "Para", enquanto a Coordenação e a Direção devem ser inseridas no campo "Cco" (Cópia Carbono Oculta).</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C) Utilizar exclusivamente o campo "Cc" para todos os envolvidos, por princípio de publicidade.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D) Inserir a Direção no campo "Para" e os alunos no campo "Cc".</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E) Deixar o campo "Para" em branco e inserir todos no campo "Cco".</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                O campo "Cco" (Blind Carbon Copy) oculta os endereços dos destinatários ali inseridos dos demais participantes. É a ferramenta correta para preservar a privacidade institucional.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" data-id="3">
+            <span class="question-text">Questão 03: Sobre os atributos da redação oficial no Estado de São Paulo aplicados ao e-mail, identifique a correlação correta:</span>
+            <table>
+                <tr><th>Princípio</th><th>Aplicação</th></tr>
+                <tr><td>I. Impessoalidade</td><td>Linguagem neutra, foco no interesse público.</td></tr>
+                <tr><td>II. Concisão</td><td>Máximo de informações com o mínimo de palavras.</td></tr>
+                <tr><td>III. Informalidade</td><td>Uso de abreviações e gírias para agilizar.</td></tr>
+            </table>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A) I e III, apenas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B) II e III, apenas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C) I e II, apenas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D) I, apenas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                Impessoalidade e Concisão são pilares da redação oficial. A "Informalidade" é incorreta; mesmo sendo um meio ágil, o e-mail oficial deve seguir a norma culta e evitar gírias.
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" data-id="4">
+            <span class="question-text">Questão 04: De acordo com o Manual de Redação Oficial do Estado de São Paulo, o campo "Assunto" no e-mail deve:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A) Ser preenchido com termos genéricos como "Documento" ou "Urgente".</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B) Conter um resumo fiel do teor da mensagem, formatado para facilitar a organização e localização.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C) Ser utilizado para descrever detalhadamente o currículo do docente.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D) Ser deixado vazio, priorizando a leitura do corpo do texto.</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E) Utilizar obrigatoriamente letras maiúsculas em toda a sua extensão.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                O assunto funciona como indexação. Deve ser claro e específico para permitir que o destinatário identifique o conteúdo antes mesmo de abrir a mensagem.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" data-id="5">
+            <span class="question-text">Questão 05: Ao redigir uma mensagem para uma autoridade superior da Secretaria de Desenvolvimento Econômico, o docente deve utilizar corretamente o tratamento:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A) O uso do tratamento "Digníssimo (DD)" é obrigatório.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B) Deve-se empregar "Vossa Senhoria" para a maioria das autoridades, com vocativo "Senhor" seguido do cargo.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C) O e-mail dispensa o uso de vocativos e fechos formais.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D) "Vossa Excelência" é exclusivo do Diretor da ETEC.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E) A forma de tratamento deve ser definida pelo nível de amizade.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                "Vossa Senhoria" é o padrão para autoridades e servidores. Termos como "Digníssimo" e "Ilustríssimo" foram abolidos da redação oficial paulista por serem considerados redundantes.
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" data-id="6">
+            <span class="question-text">Questão 06: Sobre as recomendações para o envio de documentos anexos em correios eletrônicos oficiais, assinale a alternativa correta:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A) A mensagem que encaminha arquivos deve trazer informações mínimas sobre o conteúdo do anexo.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B) Documentos oficiais devem ser enviados preferencialmente em formatos compactados com senha pessoal.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C) É proibido o envio de mais de um anexo por e-mail.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D) O nome do arquivo anexo deve ser irrelevante.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E) Recomenda-se o uso de extensões executáveis (.exe).</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                Nunca se envia anexo sem explicação no corpo do texto. Isso garante clareza e segurança (evita que o e-mail pareça spam ou vírus).
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" data-id="7">
+            <span class="question-text">Questão 07: De acordo com o Manual de Identidade Visual e Integração Docente, a assinatura de e-mail do professor da ETEC:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A) Deve ser personalizada com fotos e frases motivacionais.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B) Deve seguir um padrão institucional, utilizando os logotipos do CPS e da ETEC conforme as normas.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C) É de uso opcional para evitar mensagens indesejadas.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D) Pode conter logotipos de empresas parceiras ou sindicatos.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E) Deve ser escrita exclusivamente em língua inglesa.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                A padronização reforça o caráter oficial da comunicação. Frases pessoais ou fotos de lazer ferem o princípio da impessoalidade.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" data-id="8">
+            <span class="question-text">Questão 08: Segundo o Guia do Professor da ETEC, o e-mail oficial é indispensável para:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A) Realização de vendas de materiais didáticos autônomos.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B) Redefinição de senhas de sistemas acadêmicos e recebimento de convocações para Conselhos de Classe.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C) Uso exclusivo em redes sociais pessoais.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D) Substituir o registro diário de chamadas no NSA.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E) Armazenar arquivos pessoais de mídia e entretenimento.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                O e-mail institucional é a identidade funcional do docente. É por ele que se recuperam senhas do sistema NSA/Teams e se recebem convocações com validade jurídica.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" data-id="9">
+            <span class="question-text">Questão 09: Uma mensagem solicitando "urgência na atualização de dados bancários" através de um link suspeito, simulando a página oficial do CEETEPS, caracteriza um ataque de:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A) Backup diferencial.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B) Phishing.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C) Spam pedagógico.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D) Criptografia simétrica.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E) Firewall de borda.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                Phishing é a técnica de "pescar" dados sensíveis fingindo ser uma entidade confiável. É um ataque de engenharia social.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" data-id="10">
+            <span class="question-text">Questão 10: Sobre o valor documental das comunicações por correio eletrônico no serviço público paulista, é correto afirmar:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A) O e-mail oficial não possui valor documental.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B) Pode ser aceito como documento original, desde que contenha identificação inequívoca do remetente.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C) A validade de um e-mail oficial expira em 24 horas.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D) Um e-mail só é oficial se for redigido em papel timbrado digitalizado.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E) As comunicações via e-mail entre professor e coordenação são de foro íntimo.</label>
+            </div>
+            <div class="resolution-box">
+                <span class="resolution-title">Resolução:</span>
+                O e-mail é um documento administrativo válido. Ele registra atos da administração e sua autenticidade é garantida pelo login institucional do servidor.
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="button" id="btn-submit">Finalizar e Ver Resoluções</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'C', q2: 'B', q3: 'C', q4: 'B', q5: 'B',
+        q6: 'A', q7: 'B', q8: 'B', q9: 'B', q10: 'B'
+    };
+
+    const form = document.getElementById('quiz-form');
+    const submitBtn = document.getElementById('btn-submit');
+    const resultsSummary = document.getElementById('results-summary');
+    const finalScoreDisplay = document.getElementById('final-score');
+
+    // Estilização dinâmica ao selecionar
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const radio = this.querySelector('input');
+            if (!radio.disabled) {
+                radio.checked = true;
+                // Limpar seleções anteriores do mesmo grupo
+                const name = radio.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.parentElement.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            }
+        });
+    });
+
+    submitBtn.addEventListener('click', () => {
+        let score = 0;
+        const total = Object.keys(correctAnswers).length;
+
+        // Validar se todas foram respondidas (opcional, mas recomendado)
+        const formData = new FormData(form);
+        const answeredCount = Array.from(formData.keys()).length;
+
+        if (answeredCount < total) {
+            const confirmAction = confirm("Você não respondeu todas as questões. Deseja finalizar assim mesmo?");
+            if (!confirmAction) return;
+        }
+
+        // Processar resultados
+        for (let i = 1; i <= total; i++) {
+            const qName = `q${i}`;
+            const selectedValue = formData.get(qName);
+            const correctAnswer = correctAnswers[qName];
+            const questionCard = document.querySelector(`.question-card[data-id="${i}"]`);
+            
+            // Mostrar resoluções
+            questionCard.querySelector('.resolution-box').style.display = 'block';
+
+            // Marcar opções
+            const options = questionCard.querySelectorAll('input');
+            options.forEach(opt => {
+                opt.disabled = true; // Desabilita após envio
+                const parent = opt.parentElement;
+                
+                if (opt.value === correctAnswer) {
+                    parent.classList.add('correct');
+                }
+                if (selectedValue === opt.value && selectedValue !== correctAnswer) {
+                    parent.classList.add('wrong');
+                }
+            });
+
+            if (selectedValue === correctAnswer) {
+                score++;
+            }
+        }
+
+        // Exibir Resumo
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        resultsSummary.style.display = 'block';
+        finalScoreDisplay.textContent = `${score} / ${total}`;
+        submitBtn.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>

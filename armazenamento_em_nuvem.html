@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo ETEC: Nuvem e Geografia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+
+        .grifado {
+            background-color: #fef08a; /* Amarelo claro para destaque */
+            padding: 0 2px;
+            font-weight: 600;
+        }
+
+        .card-container {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+        }
+
+        /* Garante que a tabela não quebre o layout e apareça inteira */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .audio-section {
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="max-w-4xl mx-auto p-6 md:p-12">
+
+    <!-- Seção do Reprodutor de Áudio -->
+    <div class="audio-section">
+        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2">Revisão em Áudio</h3>
+        <p class="text-xs text-slate-400 mb-3 italic">Aperte o play para ouvir o resumo técnico enquanto lê.</p>
+        <audio controls>
+            <!-- ESPAÇO PARA O NOME DO ARQUIVO MP3 -->
+            <source src="armazenamento_em_nuvem.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+    </div>
+
+    <header class="mb-12 border-b pb-8">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
+            Guia de Memorização: Armazenamento em Nuvem e Geotecnologias
+        </h1>
+        <p class="text-lg text-slate-600">Foco: Concurso Professor de Geografia ETEC / CEETEPS</p>
+    </header>
+
+    <main>
+        <!-- Seção 1 -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">1. Fundamentos da Computação em Nuvem (Cloud Computing)</h2>
+            <p class="mb-4">
+                A nuvem é a <span class="grifado">desterritorialização da informação</span>: dados acessados via internet em servidores remotos, em vez de hardware local.
+            </p>
+            <h3 class="font-bold text-slate-700 mb-2">Características essenciais para prova:</h3>
+            <ul class="list-disc pl-6 space-y-2 mb-6">
+                <li><strong>Ubiquidade:</strong> Acesso de qualquer lugar e dispositivo com conectividade.</li>
+                <li><strong>Escalabilidade/Elasticidade:</strong> Capacidade de <span class="grifado">aumentar ou diminuir recursos</span> de armazenamento conforme a demanda.</li>
+                <li><strong>Autoatendimento sob demanda:</strong> O usuário configura o serviço sem precisar de intervenção humana do provedor.</li>
+            </ul>
+
+            <h3 class="font-bold text-slate-700 mb-2">Modelos de Serviço (O "ABC" da Nuvem)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sigla</th>
+                            <th>Nome</th>
+                            <th>O que lembrar?</th>
+                            <th>Exemplo Escolar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">SaaS</td>
+                            <td>Software as a Service</td>
+                            <td>O software é o <span class="grifado">serviço pronto para uso</span>.</td>
+                            <td>Google Drive, OneDrive, Classroom.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">PaaS</td>
+                            <td>Platform as a Service</td>
+                            <td>Ambiente para <span class="grifado">criar/desenvolver apps</span>.</td>
+                            <td>Google App Engine.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">IaaS</td>
+                            <td>Infrastructure as a Service</td>
+                            <td>Aluguel de <span class="grifado">hardware virtual</span> (servidores/redes).</td>
+                            <td>Servidores para WebGIS pesados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 2 -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">2. Diferença Crucial: Sincronização vs. Backup</h2>
+            <p class="mb-4 text-slate-700">Este é o "peguinha" mais comum em provas de informática básica.</p>
+            <div class="space-y-4">
+                <p>
+                    <span class="font-bold">Sincronização:</span> Processo <span class="grifado">bidirecional</span>. Mantém arquivos iguais em vários dispositivos. 
+                    <strong>Risco:</strong> Se você apagar no celular, ele apaga no Drive automaticamente.
+                </p>
+                <p>
+                    <span class="font-bold">Backup (Cópia de Segurança):</span> Processo de proteção. Cria <span class="grifado">cópias estáticas</span> para recuperação em caso de perda ou vírus. 
+                    <strong>Vantagem:</strong> O arquivo original permanece seguro mesmo se a cópia local for deletada.
+                </p>
+            </div>
+            <div class="mt-4 p-4 bg-slate-50 border-l-4 border-slate-400 italic">
+                <strong>Dica de Prova:</strong> O armazenamento em nuvem permite <span class="grifado">acesso offline</span>; você edita o arquivo sem internet e ele sincroniza quando você reconectar.
+            </div>
+        </section>
+
+        <!-- Seção 3 -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">3. Gestão de Compartilhamento e Permissões</h2>
+            <p class="mb-4 text-slate-700">No Google Workspace e Microsoft 365 (padrões do CEETEPS), o controle de acesso é hierárquico.</p>
+            <ol class="list-decimal pl-6 space-y-3">
+                <li><span class="font-bold">Leitor (Viewer):</span> Pode ver e baixar, mas <span class="grifado">não altera</span> o conteúdo.</li>
+                <li><span class="font-bold">Comentarista (Commenter):</span> Pode sugerir e comentar <span class="grifado">sem mudar o texto original</span>.</li>
+                <li><span class="font-bold">Editor:</span> Tem <span class="grifado">controle total</span> sobre o conteúdo (pode apagar e reformatar).</li>
+            </ol>
+            <p class="mt-6 font-bold text-red-700">Drive Compartilhado: Os arquivos pertencem à instituição (ETEC), não ao indivíduo.</p>
+        </section>
+
+        <!-- Seção 4 -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">4. Nuvem Aplicada à Geografia (WebGIS e Formatos)</h2>
+            <p class="mb-4 text-slate-700">A nuvem democratiza o uso de geotecnologias.</p>
+            <ul class="list-disc pl-6 space-y-3">
+                <li><strong>Google Earth Web:</strong> Projetos são salvos diretamente no Google Drive.</li>
+                <li><strong>KML (Keyhole Markup Language):</strong> Formato padrão para <span class="grifado">dados geográficos (vetores e pontos)</span>.</li>
+                <li><strong>KMZ (KML Zipped):</strong> Versão <span class="grifado">compactada do KML</span>. É mais leve e suporta fotos/ícones embutidos.</li>
+                <li><strong>Word Clouds (Nuvens de Palavras):</strong> Ferramenta didática para sintetizar conceitos geográficos.</li>
+            </ul>
+        </section>
+
+        <!-- Seção 5 -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">5. Segurança, Ética e LGPD</h2>
+            <p class="mb-4 text-slate-700">O tratamento de dados de alunos nas ETECs deve seguir a <span class="grifado">Lei Geral de Proteção de Dados (Lei nº 13.709/2018)</span>.</p>
+            <ul class="space-y-4">
+                <li><strong>Finalidade:</strong> O compartilhamento de e-mails ou materiais deve ter fim <span class="grifado">estritamente educativo</span>.</li>
+                <li><strong>Necessidade:</strong> Coletar apenas o <span class="grifado">mínimo de dados necessários</span> para a aula.</li>
+                <li><strong>Responsabilidade Compartilhada:</strong> O provedor cuida da infraestrutura; o professor cuida da gestão de senhas e permissões.</li>
+            </ul>
+        </section>
+
+        <!-- Seção 6 -->
+        <section class="mb-20">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">6. Mnemônicos e "Peguinhas" Recorrentes da Banca</h2>
+            <div class="bg-slate-50 p-6 rounded-lg mb-6">
+                <h4 class="font-bold text-slate-900 mb-2">Mnemônico: Caracteres proibidos no Windows</h4>
+                <p class="text-slate-600 mb-4">Para arquivos que serão baixados em PCs Windows. Memorize com a <strong>"Máscara do Darth Vader"</strong>:</p>
+                <p class="text-3xl font-mono tracking-widest text-center py-4 bg-white border rounded">
+                    <span class="grifado">? : | \ / * < > "</span>
+                </p>
+            </div>
+
+            <h3 class="font-bold text-slate-700 mb-3">Conceitos Rápidos para Acerto Direto:</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="p-3 border rounded"><strong>CPU:</strong> É o <span class="grifado">processador (chip)</span>, não o gabinete.</div>
+                <div class="p-3 border rounded"><strong>Firewall:</strong> Bloqueia conexões de rede suspeitas.</div>
+                <div class="p-3 border rounded"><strong>Antivírus:</strong> Identifica e remove malwares/vírus já instalados.</div>
+                <div class="p-3 border rounded"><strong>Espaço Institucional:</strong> Contas <span class="grifado">@etec.sp.gov.br</span> chegam a 1TB (OneDrive).</div>
+                <div class="p-3 border rounded"><strong>Phishing:</strong> Técnica de <span class="grifado">roubo de dados via links falsos</span>.</div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-12 mb-24 flex justify-center">
+        <a href="armazenamento_em_nuvemquestoes.html" class="inline-block bg-slate-900 text-white font-bold py-4 px-12 rounded-full hover:bg-slate-800 transition duration-300 shadow-xl">
+            Praticar com Questões
+        </a>
+    </footer>
+
+</body>
+</html>

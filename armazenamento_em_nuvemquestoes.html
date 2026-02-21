@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz ETEC - Geografia e Armazenamento em Nuvem</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3748;
+            --primary-color: #3182ce;
+            --secondary-color: #edf2f7;
+            --correct-color: #38a169;
+            --wrong-color: #e53e3e;
+            --border-color: #e2e8f0;
+            --max-width: 850px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1a202c;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .option-item input {
+            margin-top: 5px;
+            margin-right: 15px;
+        }
+
+        .option-item.selected {
+            border-color: var(--primary-color);
+            background-color: #ebf8ff;
+        }
+
+        #btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.3s;
+        }
+
+        #btn-submit:hover {
+            background-color: #2b6cb0;
+        }
+
+        /* Results Section */
+        #results-area {
+            display: none;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .score-box {
+            text-align: center;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .resolution-card {
+            background: #fdfdfd;
+            border-left: 5px solid var(--primary-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .correct-answer-indicator {
+            font-weight: bold;
+            color: var(--correct-color);
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            background: #f0fff4;
+            display: inline-block;
+            border-radius: 4px;
+        }
+
+        .wrong-answer-indicator {
+            font-weight: bold;
+            color: var(--wrong-color);
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            background: #fff5f5;
+            display: inline-block;
+            border-radius: 4px;
+        }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Geografia e Tecnologias de Nuvem</h1>
+        <p class="subtitle">Concurso para Professor de Ensino Médio - ETEC / CEETEPS</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- Questões serão inseridas via JavaScript -->
+    </div>
+
+    <button id="btn-submit">Finalizar e Ver Resoluções</button>
+
+    <div id="results-area">
+        <div class="score-box">
+            <h2>Seu Resultado</h2>
+            <div id="score-display" class="score-number">0 / 10</div>
+            <p id="score-text">Parabéns pelo esforço!</p>
+        </div>
+
+        <h2 style="margin-bottom: 25px;">Resoluções e Análises Pedagógicas</h2>
+        <div id="resolutions-list">
+            <!-- Resoluções serão inseridas via JavaScript -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No contexto da gestão pedagógica das Escolas Técnicas Estaduais (Etecs) do Centro Paula Souza, o Plano de Trabalho Docente (PTD) configura-se como o instrumento primordial para a operacionalização do currículo e a organização das atividades de ensino-aprendizagem. Este documento deve estar em estrita consonância com o Plano de Curso da unidade e com as diretrizes emanadas da Unidade de Ensino Médio e Técnico (Cetec), garantindo que as competências e habilidades sejam desenvolvidas de forma estruturada. Com o advento da transformação digital e a consolidação do uso de Ambientes Virtuais de Aprendizagem (AVA) e ferramentas de produtividade em nuvem, a integração tecnológica passou a ser um componente intrínseco ao planejamento docente. Considere um cenário em que um professor de Geografia, ao elaborar seu PTD para o componente curricular de Geografia Geral e do Brasil, planeja a utilização de repositórios em nuvem para o compartilhamento de bases de dados cartográficos e materiais didáticos autorais. Com base nas normas institucionais, especificamente no que tange à integração entre o planejamento e o ecossistema Microsoft Teams/OneDrive adotado pelo CEETEPS, analise a situação e assinale a alternativa que descreve a conduta técnico-pedagógica correta:",
+            options: [
+                "O docente deve priorizar a utilização de drives virtuais pessoais, independentes do e-mail institucional @etec.sp.gov.br, para garantir a posse dos materiais em caso de cessação do vínculo empregatício, uma vez que o PTD é um documento de autoria exclusiva do professor e não possui caráter administrativo compartilhado.",
+                "A estruturação do compartilhamento de materiais deve ser realizada preferencialmente via canal \"Geral\" da equipe no Microsoft Teams, utilizando a aba \"Arquivos\", que por sua vez é integrada ao SharePoint e ao OneDrive institucional, permitindo que o PTD reflita a organização lógica dos conteúdos e assegure a acessibilidade e a segurança dos dados conforme as diretrizes de teletrabalho do CPS.",
+                "O armazenamento em nuvem deve ser restrito a materiais de leitura suplementar, sendo vedado o seu uso para a entrega de avaliações ou atividades que exijam feedback processual, visto que o Regimento Comum das Etecs exige que toda a documentação avaliativa seja mantida exclusivamente em suporte físico na Secretaria Acadêmica.",
+                "De acordo com a Deliberação CEETEPS nº 85/2022, a autonomia docente permite que o compartilhamento de materiais seja feito via redes sociais e aplicativos de mensagens instantâneas, substituindo o uso do Microsoft Teams sempre que a infraestrutura tecnológica da unidade de ensino apresentar instabilidades.",
+                "O professor de Geografia deve evitar o compartilhamento de arquivos volumosos, como imagens de satélite e mapas vetoriais, na nuvem institucional, devendo limitar o uso do OneDrive ao armazenamento de textos curtos em formato .txt para evitar a sobrecarga dos servidores do Centro Paula Souza."
+            ],
+            answer: 1, // B
+            resolution: "A aba 'Arquivos' dentro de uma equipe no Teams é, tecnicamente, uma biblioteca de documentos do SharePoint Online. Ao carregar materiais nessa área, o docente garante que todos os alunos matriculados na equipe tenham acesso imediato, sob a governança de segurança do CPS. Isso facilita o teletrabalho e o ensino híbrido, permitindo que o PTD seja operacionalizado de forma transparente e organizada."
+        },
+        {
+            id: 2,
+            question: "A arquitetura de armazenamento em nuvem é definida como um modelo que permite a gestão de dados pela internet em servidores remotos, proporcionando vantagens competitivas como escalabilidade, flexibilidade e alta disponibilidade. No ensino de Geografia, essas características são fundamentais para o manuseio de Geotecnologias, que frequentemente envolvem grandes volumes de dados espaciais. No ecossistema Microsoft 365 utilizado pelas Etecs, a gestão de permissões é um elemento crítico para assegurar que o compartilhamento de materiais com os alunos ocorra de forma ética e segura. Considere a necessidade de um professor de Geografia de disponibilizar uma planilha colaborativa para que os alunos alimentem dados coletados em uma atividade de campo sobre a verticalização urbana. Com base nas funcionalidades de compartilhamento do Microsoft OneDrive e Teams, assinale a alternativa que apresenta a configuração de acesso tecnicamente adequada para este objetivo pedagógico:",
+            options: [
+                "O professor deve gerar um link de acesso público com permissão de \"Qualquer pessoa com o link pode editar\", dispensando a necessidade de login institucional para agilizar o processo de coleta de dados em campo.",
+                "O docente deve configurar o compartilhamento apenas para \"Pessoas em Centro Paula Souza com o link\", definindo a permissão como \"Pode editar\", o que garante que apenas usuários autenticados com o e-mail @etec.sp.gov.br possam alterar o documento, mantendo a rastreabilidade das edições via histórico de versões.",
+                "A configuração correta exige a desativação da sincronização do OneDrive, forçando os alunos a fazerem o download do arquivo, editarem localmente em seus dispositivos e reenviarem o documento via chat privado para o professor, a fim de evitar conflitos de salvamento.",
+                "Para garantir a segurança dos dados, o professor deve definir o arquivo como \"Somente Visualização\" para todos os alunos e utilizar a função de \"Bloqueio de Download\", permitindo que os alunos apenas observem a planilha sem a possibilidade de inserir novos dados.",
+                "O compartilhamento deve ser feito exclusivamente via anexo de e-mail institucional, uma vez que o armazenamento em nuvem no OneDrive não suporta a edição simultânea de documentos por múltiplos usuários em tempo real."
+            ],
+            answer: 1, // B
+            resolution: "No ambiente educacional do CPS, a opção 'Pessoas em Centro Paula Souza com o link' garante que apenas quem possui o e-mail institucional acesse o arquivo. O benefício adicional é o 'Histórico de Versões', que permite ao professor identificar quem inseriu cada dado, servindo como ferramenta de avaliação individual em trabalhos de grupo."
+        },
+        {
+            id: 3,
+            question: "Analise as afirmativas abaixo sobre como o armazenamento em nuvem e o compartilhamento de materiais podem potencializar metodologias ativas no contexto de uma Etec:\n\nI. O armazenamento em nuvem permite que o professor organize roteiros de estudos e materiais de apoio em pastas compartilhadas, possibilitando que o aluno acesse o conteúdo antecipadamente.\nII. A ferramenta de edição colaborativa elimina a necessidade de mediação docente, pois o sistema de IA já realiza a correção automática dos conceitos geográficos.\nIII. O uso de nuvens institucionais facilita a implementação de projetos interdisciplinares, permitindo que professores de diferentes componentes compartilhem um mesmo repositório de dados.\n\nEstá correto o que se afirma em:",
+            options: [
+                "I apenas.",
+                "I e II apenas.",
+                "I e III apenas.",
+                "II e III apenas.",
+                "I, II e III."
+            ],
+            answer: 2, // C
+            resolution: "A proposição I é correta pois a Sala de Aula Invertida depende de um repositório confiável para a curadoria digital. A proposição II é incorreta pois a tecnologia não substitui a mediação docente na análise crítica de conceitos espaciais. A proposição III é correta pois a interdisciplinaridade é facilitada por pastas compartilhadas entre docentes de diferentes áreas."
+        },
+        {
+            id: 4,
+            question: "Imagine que um professor de Geografia perceba que alguns alunos estão excluindo acidentalmente arquivos de aula na aba \"Arquivos\" ou interrompendo a gravação da aula antes do término. Segundo as orientações oficiais do CEETEPS, qual medida deve ser adotada pelo professor para solucionar esses problemas de forma técnica?",
+            options: [
+                "O professor deve encerrar a equipe atual e criar uma nova a cada aula, enviando um link de acesso temporário aos alunos.",
+                "O docente deve configurar as \"Opções da Reunião\" para que apenas ele seja o \"Apresentador\" e garantir que os alunos estejam na equipe com o perfil de \"Membro\", o que restringe o poder de excluir arquivos e gerenciar gravações.",
+                "A solução institucional recomendada é a migração imediata para serviços de nuvem gratuitos, como o MediaFire.",
+                "O professor deve solicitar à Diretoria de Serviços da Etec que bloqueie o acesso de todos os alunos à aba \"Arquivos\".",
+                "Converter todos os documentos para o formato de imagem (.jpg ou .png) para impossibilitar qualquer interação digital."
+            ],
+            answer: 1, // B
+            resolution: "No Microsoft Teams, as 'Opções da Reunião' permitem definir papéis. O papel de 'Apresentador' possui controle total, enquanto o de 'Participante' (aluno) tem restrições. A gestão de permissões na aba Arquivos permite configurar pastas como 'Somente Leitura' para alunos."
+        },
+        {
+            id: 5,
+            question: "Considerando a prática docente no CEETEPS, qual das alternativas descreve o uso pedagógico mais avançado do armazenamento em nuvem para o ensino de cartografia temática?",
+            options: [
+                "Utilizar a nuvem para armazenar apenas as notas das provas.",
+                "Disponibilizar via OneDrive pastas contendo arquivos em formatos abertos (como .CSV, .KML ou .GeoJSON), orientando os alunos a importarem esses dados em softwares de geoprocessamento.",
+                "Substituir o uso de mapas por descrições textuais armazenadas na nuvem.",
+                "Limitar o acesso aos materiais na nuvem apenas aos alunos que obtiverem menção MB (Muito Bom).",
+                "Usar a nuvem exclusivamente para a reprodução de aulas em vídeo gravadas por outros professores."
+            ],
+            answer: 1, // B
+            resolution: "A computação em nuvem permite compartilhar dados brutos (.KML, .CSV), permitindo que o aluno pratique o geoprocessamento em ferramentas como Google Earth ou QGIS. Isso está alinhado ao 'Saber-Fazer' tecnológico e à Competência 5 da BNCC."
+        },
+        {
+            id: 6,
+            question: "Ao compartilhar materiais didáticos de terceiros em pastas da nuvem institucional, o professor de Geografia deve observar os preceitos legais e pedagógicos. Assinale a alternativa que apresenta a conduta correta:",
+            options: [
+                "É permitido ao docente compartilhar qualquer livro digital pirata na nuvem institucional, desde que o acesso seja restrito aos alunos da Etec.",
+                "O professor deve organizar os materiais na nuvem garantindo a devida citação das fontes e, sempre que possível, utilizar links de acesso a sites oficiais de instituições como IBGE e INPE.",
+                "O armazenamento de dados pessoais sensíveis dos alunos em pastas com acesso compartilhado para toda a turma é uma prática recomendada.",
+                "O docente deve remover todos os metadados dos arquivos compartilhados para evitar que os alunos descubram a origem das informações.",
+                "O Regimento Comum das Etecs veda terminantemente o compartilhamento de links externos na nuvem institucional."
+            ],
+            answer: 1, // B
+            resolution: "O docente deve servir de modelo de conduta ética. Compartilhar links de fontes oficiais garante acesso a dados atualizados e promove o letramento informacional, respeitando a propriedade intelectual."
+        },
+        {
+            id: 7,
+            question: "Sobre a utilização de ferramentas de nuvem para fins avaliativos nas Etecs, assinale a alternativa correta:",
+            options: [
+                "A nuvem dificulta a avaliação formativa, pois impede que o professor acompanhe o processo de escrita.",
+                "Ferramentas como o Microsoft OneNote ou pastas compartilhadas no OneDrive permitem que o professor visualize o histórico de edições, possibilitando feedbacks em tempo real.",
+                "O uso da nuvem para avaliação é desaconselhado pelo Plano Plurianual de Gestão (PPG) das Etecs.",
+                "A avaliação via nuvem deve ser estritamente somativa, utilizando apenas formulários automáticos que não permitam a revisão.",
+                "O professor deve utilizar a nuvem apenas para divulgar o gabarito das provas físicas."
+            ],
+            answer: 1, // B
+            resolution: "Diferente do trabalho físico, o documento na nuvem permite acompanhar a construção do conhecimento. O histórico de edições e a coautoria permitem intervenções pedagógicas e feedbacks durante o processo de aprendizagem."
+        },
+        {
+            id: 8,
+            question: "Qual estratégia é tecnicamente recomendada para promover a equidade no acesso aos materiais de Geografia para alunos com diferentes níveis de acesso à internet?",
+            options: [
+                "O professor deve disponibilizar os materiais e orientar os alunos sobre a funcionalidade de \"Sincronização\" e \"Acesso Offline\", permitindo baixar o conteúdo nos laboratórios da Etec.",
+                "A Etec deve fornecer um modem individual com internet ilimitada para cada aluno.",
+                "O docente deve optar por não utilizar a nuvem, mantendo o uso exclusivo de apostilas impressas.",
+                "O compartilhamento deve ocorrer apenas durante o horário das aulas síncronas, sendo os arquivos deletados imediatamente após.",
+                "O professor deve exigir que os alunos comprem pacotes de dados extras."
+            ],
+            answer: 0, // A
+            resolution: "A funcionalidade de sincronização offline permite que o aluno baixe os arquivos em um local com conexão (como a escola) e os acesse posteriormente em casa sem internet, garantindo equidade de acesso."
+        },
+        {
+            id: 9,
+            question: "Sobre a organização administrativa do material didático na nuvem, analise a relação entre a eficiência na gestão das turmas e o uso do Microsoft Teams:",
+            options: [
+                "A criação de uma única equipe no Teams para todas as turmas de Geografia da escola é a forma mais eficiente.",
+                "A estruturação de canais específicos para cada tema do PTD (ex: Geopolítica, Meio Ambiente) e o uso de \"Abas\" para fixar materiais de referência otimizam o tempo do aluno.",
+                "O professor deve evitar a organização de pastas para que o aluno utilize ferramentas de busca.",
+                "O docente deve apagar todos os arquivos da nuvem a cada bimestre para liberar espaço.",
+                "A organização do material na nuvem é uma tarefa exclusiva do Auxiliar Docente."
+            ],
+            answer: 1, // B
+            resolution: "A organização por canais temáticos e o uso de abas para fixar o PTD ou cronogramas são práticas que facilitam a localização de conteúdos e o fluxo pedagógico, conforme sugerido pelo Guia do Docente do CPS."
+        },
+        {
+            id: 10,
+            question: "Como o armazenamento em nuvem auxilia o professor de Geografia na manutenção de dados cartográficos atualizados?",
+            options: [
+                "A nuvem permite armazenar cópias estáticas de mapas de 1970 para não confundir o aluno.",
+                "O armazenamento possibilita a integração com bases de dados dinâmicas e o compartilhamento imediato de atualizações cartográficas e dados de sensores remotos.",
+                "A utilização da nuvem substitui a necessidade de o professor estudar Geografia Física.",
+                "A nuvem institucional proíbe o armazenamento de imagens de satélite devido ao custo de licenciamento.",
+                "O uso da nuvem para dados geográficos é uma tendência passageira sem impacto na empregabilidade."
+            ],
+            answer: 1, // B
+            resolution: "A Geografia é dinâmica. A nuvem permite trabalhar com informações em tempo quase real sobre fenômenos espaciais, garantindo que o técnico formado tenha uma visão competitiva e atualizada do mercado."
+        }
+    ];
+
+    const quizForm = document.getElementById('quiz-form');
+    const resolutionsList = document.getElementById('resolutions-list');
+    const btnSubmit = document.getElementById('btn-submit');
+    const resultsArea = document.getElementById('results-area');
+    const scoreDisplay = document.getElementById('score-display');
+
+    // Renderizar questões
+    function renderQuiz() {
+        quizData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <span class="question-header">Questão ${index + 1}</span>
+                <p style="margin-bottom: 20px;">${item.question}</p>
+                <div class="options-list">
+                    ${item.options.map((opt, i) => `
+                        <label class="option-item" id="label-q${index}-o${i}">
+                            <input type="radio" name="q${index}" value="${i}">
+                            <span>${String.fromCharCode(65 + i)}) ${opt}</span>
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            quizForm.appendChild(card);
+        });
+
+        // Adicionar eventos de clique para estilização
+        document.querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const name = this.querySelector('input').name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                    input.parentElement.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+    }
+
+    function checkResults() {
+        let score = 0;
+        resolutionsList.innerHTML = '';
+
+        quizData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const selectedValue = selected ? parseInt(selected.value) : -1;
+            const isCorrect = selectedValue === item.answer;
+
+            if (isCorrect) score++;
+
+            // Criar card de resolução
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            
+            const statusClass = isCorrect ? 'correct-answer-indicator' : 'wrong-answer-indicator';
+            const statusText = isCorrect ? 'Você acertou!' : 'Você errou ou não respondeu.';
+            const userChoice = selectedValue >= 0 ? String.fromCharCode(65 + selectedValue) : "Nenhuma";
+
+            resCard.innerHTML = `
+                <span class="resolution-title">Resolução da Questão ${index + 1}</span>
+                <div class="${statusClass}">${statusText} (Sua escolha: ${userChoice} | Gabarito: ${String.fromCharCode(65 + item.answer)})</div>
+                <p><strong>Análise:</strong> ${item.resolution}</p>
+            `;
+            resolutionsList.appendChild(resCard);
+        });
+
+        scoreDisplay.innerText = `${score} / 10`;
+        resultsArea.style.display = 'block';
+        btnSubmit.style.display = 'none';
+        
+        // Scroll suave para os resultados
+        resultsArea.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    btnSubmit.addEventListener('click', checkResults);
+
+    // Iniciar
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

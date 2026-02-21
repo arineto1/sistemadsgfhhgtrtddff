@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass Excel - Concurso Docente ETEC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fde68a;
+            color: #000;
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.2rem;
+            font-weight: 600;
+        }
+
+        .section-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            background-color: #fff;
+        }
+
+        .responsive-table-container {
+            width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Força a tabela a respeitar a largura do container */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f3f4f6;
+            text-align: left;
+            word-wrap: break-word; /* Garante que o texto quebre dentro da célula */
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #f9fafb;
+            color: #374151;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .audio-wrapper {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .exam-tip {
+            border-left: 4px solid #ef4444;
+            background-color: #fef2f2;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 3rem auto;
+            background-color: #111827;
+            color: #ffffff;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            background-color: #000;
+        }
+
+        h2 { border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; margin-top: 1.5rem; }
+    </style>
+</head>
+<body class="p-6 md:p-12 max-w-5xl mx-auto">
+
+    <!-- REPRODUTOR DE ÁUDIO -->
+    <div class="audio-wrapper">
+        <h3 class="text-sm font-bold uppercase text-gray-500 mb-3 tracking-widest">🎧 Resumo em Áudio</h3>
+        <!-- Nome do arquivo para preencher: aula_resumo_final.mp3 -->
+        <audio controls class="w-full">
+            <source src="edicao_de_tabelas.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
+    <header class="text-center mb-16">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Edição de Tabelas e Gráficos para Geografia</h1>
+        <p class="text-xl text-gray-600">Foco Total: Concurso Docente CEETEPS / ETEC</p>
+    </header>
+
+    <!-- INTRODUÇÃO E DEFINIÇÕES -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold text-blue-900 mb-6 uppercase">1. Fundamentos e Características</h2>
+        <p class="mb-4">O Excel no contexto geográfico não é apenas uma planilha, mas uma ferramenta de <span class="highlight">Geografia Quantitativa</span>. Ele permite a transição do dado bruto (coletado em campo ou no IBGE) para a informação espacial visível.</p>
+        
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h4 class="font-bold mb-2">Estrutura Hierárquica:</h4>
+                <ul class="list-disc ml-5">
+                    <li><strong>Pasta de Trabalho:</strong> O arquivo .xlsx completo.</li>
+                    <li><strong>Planilha:</strong> As abas individuais (Sheet1, Sheet2).</li>
+                    <li><strong>Célula:</strong> Interseção de coluna (letra) e linha (número).</li>
+                </ul>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h4 class="font-bold mb-2">Tipos de Dados:</h4>
+                <ul class="list-disc ml-5">
+                    <li><strong>Nominais:</strong> Nomes de municípios, biomas.</li>
+                    <li><strong>Ordinais:</strong> Hierarquia urbana, níveis de poluição.</li>
+                    <li><strong>Quantitativos:</strong> População, PIB, Pluviosidade.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FÓRMULAS E OPERADORES -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold text-blue-900 mb-6 uppercase">2. Memória Curta: Fórmulas e Operadores</h2>
+        <p class="mb-4">A banca costuma cobrar a diferença sutil entre os símbolos. <span class="highlight">Fique atento ao ponto e vírgula versus dois pontos!</span></p>
+        
+        <div class="responsive-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Operador/Função</th>
+                        <th style="width: 45%;">Significado / Ação</th>
+                        <th style="width: 30%;">Exemplo Geográfico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Dois pontos ( : )</strong></td>
+                        <td>Indica um <span class="highlight">intervalo contínuo</span> (Até).</td>
+                        <td><code>=SOMA(A1:A10)</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ponto e Vírgula ( ; )</strong></td>
+                        <td>Separa elementos <span class="highlight">individuais</span> (E).</td>
+                        <td><code>=SOMA(A1;A10)</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>$ (Cifrão)</strong></td>
+                        <td><span class="highlight">Fixa/Trava</span> a célula (Referência Absoluta).</td>
+                        <td><code>=$B$2 * C5</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>CONT.VALORES</strong></td>
+                        <td>Conta células que não estão vazias.</td>
+                        <td>Listar cidades em uma base.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SE</strong></td>
+                        <td>Lógica condicional (Teste; Se V; Se F).</td>
+                        <td>Classificar IDH Baixo/Alto.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="exam-tip">
+            <strong>Peguinha da ETEC:</strong> A banca pergunta o que acontece se você arrastar uma fórmula com <code>$</code>. A resposta é sempre: a célula com o cifrão <span class="highlight">não se altera</span>.
+        </div>
+    </section>
+
+    <!-- GRÁFICOS E ANÁLISE GEOGRÁFICA -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold text-blue-900 mb-6 uppercase">3. Gráficos: Do Visual à Interpretação</h2>
+        <p class="mb-6">Para a prova de Geografia, o Excel é usado para construir representações clássicas:</p>
+
+        <div class="space-y-6">
+            <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-bold text-lg">A. Climograma (O favorito das bancas)</h4>
+                <p>Combina <strong>Colunas</strong> (Precipitação) e <strong>Linha</strong> (Temperatura). No Excel, isso é feito através do gráfico de <span class="highlight">Combinação</span>, ativando o Eixo Secundário.</p>
+                <p class="text-sm mt-2"><strong>Cálculo Crítico:</strong> Regra de Gaussen para meses secos: $$P \le 2T$$</p>
+            </div>
+
+            <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-bold text-lg">B. Pirâmide Etária (Tornado)</h4>
+                <p>O Excel não tem um botão "Pirâmide Etária". O técnico deve usar um <span class="highlight">Gráfico de Barras Empilhadas</span> e transformar os valores de um dos sexos em <span class="highlight">números negativos</span> para que as barras cresçam para lados opostos.</p>
+            </div>
+
+            <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-bold text-lg">C. Dispersão (XY)</h4>
+                <p>Crucial para provar correlações (ex: Relação entre Urbanização e Redução da Fecundidade). Mostra a tendência através da <span class="highlight">Linha de Regressão</span>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TENDÊNCIAS E TRAPS CEETEPS -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold text-blue-900 mb-6 uppercase">4. Tendências e "Peguinhas" da Banca</h2>
+        
+        <div class="space-y-4">
+            <div class="flex items-start gap-3">
+                <span class="text-red-600 font-bold">●</span>
+                <p><strong>Caminho de Menus:</strong> A ETEC costuma perguntar em qual guia está tal função. Lembre-se: <span class="highlight">Inserir</span> (Tabelas/Gráficos), <span class="highlight">Dados</span> (Filtro/Classificar) e <span class="highlight">Exibir</span> (Congelar Painéis).</p>
+            </div>
+            <div class="flex items-start gap-3">
+                <span class="text-red-600 font-bold">●</span>
+                <p><strong>Mensagens de Erro:</strong> 
+                    <code>#VALOR!</code> (tipo de dado errado), 
+                    <code>#DIV/0!</code> (divisão por zero), 
+                    <code>#####</code> (coluna estreita demais para o número).
+                </p>
+            </div>
+            <div class="flex items-start gap-3">
+                <span class="text-red-600 font-bold">●</span>
+                <p><strong>Gestão Escolar (PTD):</strong> O CEETEPS valoriza o uso do Excel para o Plano de Trabalho Docente. Saber calcular médias para converter em menções: <span class="highlight">I (Insuficiente), R (Regular), B (Bom) e MB (Muito Bom)</span>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESUMO DE MEMORIZAÇÃO -->
+    <section class="section-box bg-slate-50 border-none">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">CHECKLIST DE VÉSPERA</h2>
+        <ul class="grid md:grid-cols-2 gap-4 text-sm">
+            <li class="bg-white p-3 rounded shadow-sm">✅ <strong>F4:</strong> Atalho para inserir o <code>$</code> na fórmula.</li>
+            <li class="bg-white p-3 rounded shadow-sm">✅ <strong>Alt + = :</strong> Atalho para a AutoSoma.</li>
+            <li class="bg-white p-3 rounded shadow-sm">✅ <strong>Preenchimento Relâmpago:</strong> Identifica padrões e preenche dados.</li>
+            <li class="bg-white p-3 rounded shadow-sm">✅ <strong>Tabela Dinâmica:</strong> Serve para "Resumir" e "Cruzar" dados (não cria dados novos).</li>
+            <li class="bg-white p-3 rounded shadow-sm">✅ <strong>CSV:</strong> Arquivo leve, separado por vírgulas, padrão para dados geográficos.</li>
+            <li class="bg-white p-3 rounded shadow-sm">✅ <strong>Filtro vs Classificar:</strong> Filtro esconde dados; Classificar muda a ordem.</li>
+        </ul>
+    </section>
+
+    <!-- BOTÃO FINAL -->
+    <footer>
+        <a href="edicao_de_tabelasquestoes.html" class="btn-action">
+            TREINAR COM QUESTÕES →
+        </a>
+        <p class="text-center text-gray-400 text-xs mt-4">Conteúdo revisado conforme Editais Docentes CEETEPS 2024/2025.</p>
+    </footer>
+
+</body>
+</html>
